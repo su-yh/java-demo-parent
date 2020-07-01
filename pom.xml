@@ -16,6 +16,7 @@
         <module>demo-02-springboot-06-mybatis-01</module>
         <module>demo-02-springboot-06-mybatis-02-common</module>
         <module>demo-02-springboot-07-kafka-01</module>
+        <module>demo-02-springboot-08-jwt-01</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -155,6 +156,12 @@
                 <version>2.0.1</version>
             </dependency>
             <!--引入Kafka 结束-->
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.9.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
