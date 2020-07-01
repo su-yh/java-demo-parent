@@ -23,6 +23,7 @@
         <module>demo-02-springboot-10-shiro-02</module>
         <module>demo-02-springboot-11-init-01</module>
         <module>demo-02-springboot-12-swagger-01</module>
+        <module>demo-02-springboot-13-autowired-resource-01</module>
     </modules>
 
     <packaging>pom</packaging>
