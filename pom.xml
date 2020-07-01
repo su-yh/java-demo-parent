@@ -26,6 +26,7 @@
         <module>demo-02-springboot-13-autowired-resource-01</module>
         <module>demo-02-springboot-15-pagehelper-01</module>
         <module>demo-02-springboot-16-guava-01</module>
+        <module>demo-02-springboot-17-jackson-01</module>
     </modules>
 
     <packaging>pom</packaging>
