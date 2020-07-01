@@ -18,6 +18,7 @@
         <module>demo-02-springboot-07-kafka-01</module>
         <module>demo-02-springboot-08-jwt-01</module>
         <module>demo-02-springboot-09-shiro-01</module>
+        <module>demo-02-springboot-09-shiro-03</module>
     </modules>
 
     <packaging>pom</packaging>
