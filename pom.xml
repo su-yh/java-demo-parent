@@ -24,6 +24,7 @@
         <module>demo-02-springboot-11-init-01</module>
         <module>demo-02-springboot-12-swagger-01</module>
         <module>demo-02-springboot-13-autowired-resource-01</module>
+        <module>demo-02-springboot-15-pagehelper-01</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -179,6 +180,13 @@
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>1.4.0</version>
+            </dependency>
+
+            <!-- pageHelper 分页查询jar -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.12</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
