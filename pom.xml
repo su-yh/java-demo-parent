@@ -10,6 +10,7 @@
     <modules>
         <module>demo-02-springboot-01-test-01</module>
         <module>demo-02-springboot-02-properties-01</module>
+        <module>demo-02-springboot-03-jedis-01</module>
     </modules>
 
     <packaging>pom</packaging>
