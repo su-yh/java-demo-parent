@@ -17,6 +17,7 @@
         <module>demo-02-springboot-06-mybatis-02-common</module>
         <module>demo-02-springboot-07-kafka-01</module>
         <module>demo-02-springboot-08-jwt-01</module>
+        <module>demo-02-springboot-09-shiro-01</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -161,6 +162,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>0.9.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>1.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
