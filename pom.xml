@@ -8,27 +8,27 @@
     <artifactId>java-demo-springboot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>demo-02-springboot-01-test-01</module>
-        <module>demo-02-springboot-02-properties-01</module>
-        <module>demo-02-springboot-03-jedis-01</module>
-        <module>demo-02-springboot-04-scheduler-01</module>
-        <module>demo-02-springboot-05-spring-context-util-01</module>
-        <module>demo-02-springboot-06-mybatis-01</module>
-        <module>demo-02-springboot-06-mybatis-02-common</module>
-        <module>demo-02-springboot-07-kafka-01</module>
-        <module>demo-02-springboot-08-jwt-01</module>
-        <module>demo-02-springboot-09-shiro-01</module>
-        <module>demo-02-springboot-09-shiro-03</module>
-        <module>demo-02-springboot-09-shiro-04-ssm</module>
-        <module>demo-02-springboot-10-shiro-02</module>
-        <module>demo-02-springboot-11-init-01</module>
-        <module>demo-02-springboot-12-swagger-01</module>
-        <module>demo-02-springboot-13-autowired-resource-01</module>
-        <module>demo-02-springboot-15-pagehelper-01</module>
-        <module>demo-02-springboot-16-guava-01</module>
-        <module>demo-02-springboot-17-jackson-01</module>
-        <module>demo-02-springboot-18-resttemplate-01</module>
-        <module>demo-02-springboot-19-servletRequest-01</module>
+        <module>demo-01-test-01</module>
+        <module>demo-02-properties-01</module>
+        <module>demo-03-jedis-01</module>
+        <module>demo-04-scheduler-01</module>
+        <module>demo-05-spring-context-util-01</module>
+        <module>demo-06-mybatis-01</module>
+        <module>demo-06-mybatis-02-common</module>
+        <module>demo-07-kafka-01</module>
+        <module>demo-08-jwt-01</module>
+        <module>demo-09-shiro-01</module>
+        <module>demo-09-shiro-03</module>
+        <module>demo-09-shiro-04-ssm</module>
+        <module>demo-10-shiro-02</module>
+        <module>demo-11-init-01</module>
+        <module>demo-12-swagger-01</module>
+        <module>demo-13-autowired-resource-01</module>
+        <module>demo-15-pagehelper-01</module>
+        <module>demo-16-guava-01</module>
+        <module>demo-17-jackson-01</module>
+        <module>demo-18-resttemplate-01</module>
+        <module>demo-19-servletRequest-01</module>
     </modules>
 
     <packaging>pom</packaging>
