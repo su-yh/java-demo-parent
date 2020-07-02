@@ -58,8 +58,8 @@ public class ControllerImpl {
         return makeNotice();
     }
 
-    @GetMapping("/get/info/entity")
-    public Notice getInfoEntity(@RequestBody DataBean reqData) {
+    @GetMapping("/get/info/data")
+    public Notice getInfoData(@RequestParam DataBean reqData) {
         log.info("ControllerImpl getInfoEntity, request param: {}", reqData);
 
         Notice resp = makeNotice();
