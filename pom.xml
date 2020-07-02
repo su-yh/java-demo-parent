@@ -28,6 +28,7 @@
         <module>demo-02-springboot-16-guava-01</module>
         <module>demo-02-springboot-17-jackson-01</module>
         <module>demo-02-springboot-18-resttemplate-01</module>
+        <module>demo-02-springboot-19-servletRequest-01</module>
     </modules>
 
     <packaging>pom</packaging>
