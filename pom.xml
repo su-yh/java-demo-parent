@@ -174,7 +174,7 @@
                 <version>1.4.0</version>
             </dependency>
 
-            <!-- com.suyh.shedlock 分布式定时任务锁 - 使用 jdbc -->
+            <!-- shedlock 分布式定时任务锁 - 使用 jdbc -->
             <dependency>
                 <groupId>net.javacrumbs.shedlock</groupId>
                 <artifactId>shedlock-spring</artifactId>
@@ -186,7 +186,7 @@
                 <version>2.3.0</version>
             </dependency>
 
-            <!-- com.suyh.shedlock - 使用 redis -->
+            <!-- shedlock - 使用 redis -->
             <dependency>
                 <groupId>net.javacrumbs.shedlock</groupId>
                 <artifactId>shedlock-provider-jedis</artifactId>

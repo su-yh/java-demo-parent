@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  *
  * 分布式定时任务锁机制
  * 要使用 mysql 做分布式定时任务，需要创建一张表供其使用
- * CREATE TABLE com.suyh.shedlock(
+ * CREATE TABLE shedlock(
  * name VARCHAR(64),
  * lock_until TIMESTAMP(3) NULL,
  * locked_at TIMESTAMP(3) NULL,
