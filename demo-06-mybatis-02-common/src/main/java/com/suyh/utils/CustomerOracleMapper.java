@@ -7,6 +7,12 @@ import tk.mybatis.mapper.annotation.RegisterMapper;
 
 import java.util.List;
 
+/**
+ * 自定义过滤查询，但仅支持Oracle。
+ *
+ * @param <Model>
+ * @param <Filter>
+ */
 @RegisterMapper
 public interface CustomerOracleMapper<Model, Filter> {
     /**

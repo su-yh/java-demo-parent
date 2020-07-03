@@ -8,6 +8,7 @@
     <artifactId>java-demo-springboot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>demo-00-core-01</module>
         <module>demo-01-test-01</module>
         <module>demo-02-properties-01</module>
         <module>demo-03-jedis-01</module>

@@ -13,6 +13,12 @@
 
     <dependencies>
         <dependency>
+            <artifactId>demo-00-core-01</artifactId>
+            <groupId>com.suyh</groupId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

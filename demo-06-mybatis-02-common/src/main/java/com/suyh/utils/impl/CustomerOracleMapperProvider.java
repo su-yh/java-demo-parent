@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 自定义接口的Mapper 实现，仅支持Oracle。Mysql的需要另外实现
+ */
 public class CustomerOracleMapperProvider extends MapperTemplate {
 
     public CustomerOracleMapperProvider(Class<?> mapperClass, MapperHelper mapperHelper) {
