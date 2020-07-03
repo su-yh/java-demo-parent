@@ -1,13 +1,14 @@
 package com.suyh.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 返回实体类
  * @param <T>
  */
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class ResultMode<T> extends ResultEntity {
     private static final long serialVersionUID = 344142L;

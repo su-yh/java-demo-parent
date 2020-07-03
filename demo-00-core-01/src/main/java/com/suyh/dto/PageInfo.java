@@ -3,6 +3,7 @@ package com.suyh.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * 创建时间 2019/4/3 11:09:54
  */
 @Data
+@ToString
 @NoArgsConstructor
 public class PageInfo<T> implements Serializable {
     /**

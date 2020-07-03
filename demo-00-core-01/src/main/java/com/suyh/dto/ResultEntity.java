@@ -2,6 +2,7 @@ package com.suyh.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -9,8 +10,9 @@ import java.io.Serializable;
  * 返回实体基类
  */
 @Data
+@ToString
 @NoArgsConstructor
-public abstract class ResultEntity  implements Serializable {
+public class ResultEntity  implements Serializable {
     private static final long serialVersionUID = 344142L;
 
     /**

@@ -1,7 +1,6 @@
 package com.suyh.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -10,7 +9,9 @@ import java.util.List;
  *
  * @param <T>
  */
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 public class ResultPage<T> extends ResultEntity {
 

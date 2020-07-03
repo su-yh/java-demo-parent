@@ -3,11 +3,13 @@ package com.suyh.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@ToString
 @NoArgsConstructor
 public class DemoEntityUser implements Serializable {
     private static final long serialVersionUID = 42L;
