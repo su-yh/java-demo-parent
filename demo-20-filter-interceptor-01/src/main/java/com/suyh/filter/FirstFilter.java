@@ -2,6 +2,7 @@ package com.suyh.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -17,7 +18,7 @@ import java.io.IOException;
  * 2. 需要添加 @Component 注解
  *
  * 另外，Filter 与 interceptor 的区别
- *      触发时间不同，Filter 是在 interceptor 以及 RequestServlet 之后触发的
+ *      触发时间不同，Filter 先于 interceptor 触发
  */
 @Component
 @Slf4j
@@ -31,8 +32,20 @@ public class FirstFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("uri: {}", request.getRequestURI());
-        log.info("HttpHeaders.AUTHORIZATION: {}", request.getHeader(HttpHeaders.AUTHORIZATION));
+        log.info("HttpHeaders.AUTHORIZATION: {}", token);
+
+        if (token == null || token.length() == 0) {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.addHeader(HttpHeaders.AUTHORIZATION, "token-value");
+            response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
+
+            response.getWriter().print("{\"code\": -100, \"message\": \"no token\"}");
+
+            // 如果想要过滤器结束，并返回则不要调用 doFilter() 方法
+            return;
+        }
 
         // 继续下一个过滤器
         filterChain.doFilter(servletRequest, servletResponse);

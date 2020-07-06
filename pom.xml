@@ -31,6 +31,7 @@
         <module>demo-18-resttemplate-01</module>
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>
+        <module>demo-21-controller-advice-01</module>
     </modules>
 
     <packaging>pom</packaging>

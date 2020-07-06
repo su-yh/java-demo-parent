@@ -20,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 public class HelloControllerTest {
     /**
      * 这种方式，在这里是没有问题的。但是我在其他地方使用的时候似乎有问题。
+     * 使用这种方式，需要指定 webEnvironment 的值，如上
      */
     @Autowired
     private TestRestTemplate restTemplate;
