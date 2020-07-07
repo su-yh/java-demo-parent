@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:process id="second_approve" name="二级审批流程">
+    <bpmn2:startEvent id="startEvent" name="开始">
+      <bpmn2:outgoing>SequenceFlow_0ci4nie</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:userTask id="submitForm" name="填写审批信息">
+      <bpmn2:incoming>SequenceFlow_0ci4nie</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_0ewl947</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_19i9dmm</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0adttjr</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0ci4nie" sourceRef="startEvent" targetRef="submitForm" />
+    <bpmn2:exclusiveGateway id="decideSubmit" name="提交OR取消">
+      <bpmn2:incoming>SequenceFlow_0adttjr</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_17a1b4f</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_0a13r93</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_0adttjr" sourceRef="submitForm" targetRef="decideSubmit" />
+    <bpmn2:userTask id="tl_approve" name="主管审批">
+      <bpmn2:incoming>SequenceFlow_17a1b4f</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_11boce0</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_17a1b4f" sourceRef="decideSubmit" targetRef="tl_approve" />
+    <bpmn2:exclusiveGateway id="decideTLApprove" name="主管审批校验">
+      <bpmn2:incoming>SequenceFlow_11boce0</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0um0xnx</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_19i9dmm</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_11boce0" sourceRef="tl_approve" targetRef="decideTLApprove" />
+    <bpmn2:userTask id="hr_approve" name="人事审批">
+      <bpmn2:incoming>SequenceFlow_0um0xnx</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1c6lzid</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_0um0xnx" sourceRef="decideTLApprove" targetRef="hr_approve" />
+    <bpmn2:exclusiveGateway id="decideHRApprove" name="人事审批校验">
+      <bpmn2:incoming>SequenceFlow_1c6lzid</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0fbfcpg</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_0ewl947</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:sequenceFlow id="SequenceFlow_1c6lzid" sourceRef="hr_approve" targetRef="decideHRApprove" />
+    <bpmn2:endEvent id="endEvent" name="结束">
+      <bpmn2:incoming>SequenceFlow_0fbfcpg</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0fbfcpg" sourceRef="decideHRApprove" targetRef="endEvent" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0ewl947" sourceRef="decideHRApprove" targetRef="submitForm" />
+    <bpmn2:endEvent id="endEvent2" name="表单取消">
+      <bpmn2:incoming>SequenceFlow_0a13r93</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_0a13r93" sourceRef="decideSubmit" targetRef="endEvent2" />
+    <bpmn2:sequenceFlow id="SequenceFlow_19i9dmm" sourceRef="decideTLApprove" targetRef="submitForm" />
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="second_approve">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="startEvent">
+        <dc:Bounds x="-84" y="257" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0k06zq1_di" bpmnElement="submitForm">
+        <dc:Bounds x="2" y="235" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ci4nie_di" bpmnElement="SequenceFlow_0ci4nie">
+        <di:waypoint x="-48" y="275" />
+        <di:waypoint x="2" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_04qugf4_di" bpmnElement="decideSubmit" isMarkerVisible="true">
+        <dc:Bounds x="152" y="250" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0adttjr_di" bpmnElement="SequenceFlow_0adttjr">
+        <di:waypoint x="102" y="275" />
+        <di:waypoint x="152" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_03mykpf_di" bpmnElement="tl_approve">
+        <dc:Bounds x="252" y="235" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_17a1b4f_di" bpmnElement="SequenceFlow_17a1b4f">
+        <di:waypoint x="202" y="275" />
+        <di:waypoint x="252" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_14ik9gr_di" bpmnElement="decideTLApprove" isMarkerVisible="true">
+        <dc:Bounds x="402" y="250" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_11boce0_di" bpmnElement="SequenceFlow_11boce0">
+        <di:waypoint x="352" y="275" />
+        <di:waypoint x="402" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1cij4hz_di" bpmnElement="hr_approve">
+        <dc:Bounds x="502" y="235" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0um0xnx_di" bpmnElement="SequenceFlow_0um0xnx">
+        <di:waypoint x="452" y="275" />
+        <di:waypoint x="502" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_144lq2d_di" bpmnElement="decideHRApprove" isMarkerVisible="true">
+        <dc:Bounds x="652" y="250" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1c6lzid_di" bpmnElement="SequenceFlow_1c6lzid">
+        <di:waypoint x="602" y="275" />
+        <di:waypoint x="652" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_04ajudh_di" bpmnElement="endEvent">
+        <dc:Bounds x="752" y="257" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fbfcpg_di" bpmnElement="SequenceFlow_0fbfcpg">
+        <di:waypoint x="702" y="275" />
+        <di:waypoint x="752" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ewl947_di" bpmnElement="SequenceFlow_0ewl947">
+        <di:waypoint x="677" y="250" />
+        <di:waypoint x="677" y="155" />
+        <di:waypoint x="52" y="155" />
+        <di:waypoint x="52" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0c0wwm2_di" bpmnElement="endEvent2">
+        <dc:Bounds x="284" y="376" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a13r93_di" bpmnElement="SequenceFlow_0a13r93">
+        <di:waypoint x="177" y="300" />
+        <di:waypoint x="177" y="394" />
+        <di:waypoint x="284" y="394" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_19i9dmm_di" bpmnElement="SequenceFlow_19i9dmm">
+        <di:waypoint x="427" y="300" />
+        <di:waypoint x="427" y="453" />
+        <di:waypoint x="52" y="453" />
+        <di:waypoint x="52" y="315" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
