@@ -10,9 +10,12 @@
         <property name="jdbcUsername" value="sa" />
         <property name="jdbcPassword" value="" />
 
-        <!-- false: 不会对数据库进行修改；
-        create-drop: 引擎启动的时候创建，结束的时候销毁，一般用于测试；
-        true: 根据版本做一定的更新 -->
+        <!--
+数据库更新策略
+false: 启动时检查数据库版本，发生不匹配抛异常。一般线上用此配置
+create-drop: 引擎启动的时候创建表，结束的时候销毁，一般用于测试；
+true: 启动时自动检并更新数据库表，不存在会创建。一般在开发的时候我们使用此配置 -->
+        <property name="databaseSchemaUpdate" value="true"/>
     </bean>
 
 </beans>
