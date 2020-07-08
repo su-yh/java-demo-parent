@@ -54,7 +54,8 @@ public class DemoMain {
         scanner.close();
     }
 
-    private static Map<String, Object> getVariables(ProcessEngine processEngine, Scanner scanner, Task task) throws ParseException {
+    private static Map<String, Object> getVariables(
+            ProcessEngine processEngine, Scanner scanner, Task task) throws ParseException {
         FormService formService = processEngine.getFormService();
         TaskFormData taskFormData = formService.getTaskFormData(task.getId());
         List<FormProperty> formProperties = taskFormData.getFormProperties();
