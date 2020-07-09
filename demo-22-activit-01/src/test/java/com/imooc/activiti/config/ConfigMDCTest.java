@@ -18,6 +18,7 @@ public class ConfigMDCTest {
     @Test
     @Deployment(resources = {"my-process-mdc.bpmn20.xml"})
     public void test() {
+        // 开户mdc 日志
         LogMDC.setMDCEnabled(true);
 
         ProcessInstance processInstance = activitiRule.getRuntimeService()
