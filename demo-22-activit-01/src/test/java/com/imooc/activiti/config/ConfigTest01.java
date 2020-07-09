@@ -5,7 +5,7 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.junit.Test;
 
 @Slf4j
-public class ConfigTest {
+public class ConfigTest01 {
 
     @Test
     public void testConfig01() {

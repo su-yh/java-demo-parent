@@ -5,37 +5,24 @@
     <bean id="processEngineConfiguration"
           class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
 
-        <property name="jdbcUrl" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000" />
-        <property name="jdbcDriver" value="org.h2.Driver" />
-        <property name="jdbcUsername" value="sa" />
-        <property name="jdbcPassword" value="" />
+        <property name="dataSource" ref="dataSourceDruid" />
 
-        <!-- jdbc 使用mybatis 提供的连接池 -->
-        <!-- 配置DataSource，可自选第三方实现连接池 -->
-        <!-- jdbcMaxActiveConnections 最大活跃连接数 -->
-        <!-- jdbcMaxIdleConnections  最大允许空闲连接数，多余的将会回收。现在一般与最大活跃数一致。 -->
-        <!-- jdbcMaxCheckoutTime  -->
-        <!-- jdbcMaxWaitTime 当数据库压力较大时，长时间没有回应数据时自动断开连接 -->
-        <!--  -->
-        <!--  -->
-        <!--  -->
-        <!--  -->
-
-
-        <property name="dataSource" ref="dataSource" />
-
+        <!-- 数据库更新策略 -->
         <property name="databaseSchemaUpdate" value="true" />
     </bean>
 
     <!-- druid 数据库连接池配置 -->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-        init-method="init" destroy-method="close">
+    <bean id="dataSourceDruid" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/activiti6test" />
+        <property name="url" value="jdbc:mysql://docker:3306/activiti6test" />
         <property name="username" value="root" />
         <property name="password" value="root" />
+        <!-- 初始化连接数 -->
         <property name="initialSize" value="1" />
+        <!-- 最大连接数 -->
         <property name="maxActive" value="20" />
+        <!-- 监控 -->
         <property name="filters" value="stat,slf4j" />
 
     </bean>
