@@ -5,11 +5,14 @@ import com.suyh.Kafka03Application;
 import com.suyh.constant.KafkaConstant;
 import com.suyh.entity.WmsCkOmsShipmentMO;
 import com.suyh.entity.MQEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -25,6 +28,7 @@ import static com.suyh.constant.KafkaConstant.TOPIC_PREFIX;
  */
 @RunWith(value = SpringRunner.class)
 @SpringBootTest(classes = Kafka03Application.class)
+@Slf4j
 public class KafkaTest {
 
     private static final String topicWmsOrder = TOPIC_PREFIX + KafkaConstant.TOPIC_WMS_ORDER;
@@ -41,9 +45,21 @@ public class KafkaTest {
         WmsCkOmsShipmentMO data = makeKafkaDataByWmsOut();
         MQEvent<WmsCkOmsShipmentMO> mqEvent = new MQEvent<>(
                 UUID.randomUUID().toString(), EVENT_WMS_SHIPMENT_OUT, data);
-        kafkaTemplate.send(topicWmsOrder, JSON.toJSONString(mqEvent));
+        ListenableFuture<SendResult<String, String>> future
+                = kafkaTemplate.send(topicWmsOrder, JSON.toJSONString(mqEvent));
         System.out.println("kafkaTemplate send data to topic: " + topicWmsOrder
                 + ", event id: " + mqEvent.getEventId());
+        future.addCallback(sendResult -> {
+            if (sendResult == null) {
+                log.info("sendResult is null");
+                return;
+            }
+
+            SendResult<String, String> res = sendResult;
+            log.info("sendResult: {}", res);
+        }, exception -> {
+            log.error("kafka send message failed.", exception);
+        });
 
         mqEvent.setEventId(UUID.randomUUID().toString());
         kafkaTemplate.send(topicOms, JSON.toJSONString(mqEvent));
@@ -53,7 +69,7 @@ public class KafkaTest {
 
     @Test
     public void testKafkaTemplateMqEvent() {
-        // TODO: 未能成功。这个暂时不能用
+        // TODO: 未能成功。这个暂时不能用。可能是配置的问题，需要序列化什么的。
         WmsCkOmsShipmentMO data = makeKafkaDataByWmsOut();
         MQEvent<WmsCkOmsShipmentMO> mqEvent = new MQEvent<>(
                 UUID.randomUUID().toString(), EVENT_WMS_SHIPMENT_OUT, data);
