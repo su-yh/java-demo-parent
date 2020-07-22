@@ -39,6 +39,7 @@
         <module>demo-20-filter-interceptor-01</module>
         <module>demo-21-controller-advice-01</module>
         <module>demo-22-activit-01</module>
+        <module>demo-23-validation-01</module>
     </modules>
 
     <packaging>pom</packaging>

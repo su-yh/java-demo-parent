@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// 配置属性 @Profile 匹配active 参数
+// 参考博客：https://www.cnblogs.com/qiuting/p/9828515.html
+// https://blog.csdn.net/SwordSnapLiu/article/details/78540902
 @Slf4j
 @SpringBootApplication
 public class Application {
