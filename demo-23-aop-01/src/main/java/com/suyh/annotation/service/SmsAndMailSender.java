@@ -1,4 +1,4 @@
-package com.suyh.annotation.annotation;
+package com.suyh.annotation.service;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

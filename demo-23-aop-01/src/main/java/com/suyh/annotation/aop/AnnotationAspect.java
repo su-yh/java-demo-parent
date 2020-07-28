@@ -1,6 +1,6 @@
 package com.suyh.annotation.aop;
 
-import com.suyh.annotation.annotation.SmsAndMailSender;
+import com.suyh.annotation.service.SmsAndMailSender;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -21,7 +21,7 @@ public class AnnotationAspect {
      * @param joinPoint
      * @param result
      */
-    @AfterReturning(value = "@annotation(com.suyh.annotation.annotation.SmsAndMailSender)",
+    @AfterReturning(value = "@annotation(com.suyh.annotation.service.SmsAndMailSender)",
             returning = "result")//有注解标记的方法，执行该后置返回
     public void afterReturning(JoinPoint joinPoint, Object result/* 注解标注的方法返回值 */) {
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
@@ -33,6 +33,9 @@ public class AnnotationAspect {
         String smsContent = method.getAnnotation(SmsAndMailSender.class).smsContent();
         String mailContent = method.getAnnotation(SmsAndMailSender.class).mailContent();
         String subject = method.getAnnotation(SmsAndMailSender.class).subject();
+
+        log.info("[AnnotationAspect.afterReturning] smsContent = {}, mailContent = {}, subject = {}",
+                smsContent, mailContent, subject);
     }
 
 
@@ -42,10 +45,12 @@ public class AnnotationAspect {
      * @param joinPoint
      * @param ex
      */
-    @AfterThrowing(value = "@annotation(com.suyh.annotation.annotation.SmsAndMailSender)", throwing = "ex")
+    @AfterThrowing(value = "@annotation(com.suyh.annotation.service.SmsAndMailSender)", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Throwable ex /* 注解标注的方法抛出的异常 */) {
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
         Method method = ms.getMethod();
         String subject = method.getAnnotation(SmsAndMailSender.class).subject();
+
+        log.info("[AnnotationAspect.afterThrowing] subject = {}", subject);
     }
 }
