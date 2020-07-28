@@ -1,8 +1,9 @@
-package com.suyh.normal.aop;
+package com.suyh.pointcut.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -14,14 +15,14 @@ import java.util.concurrent.TimeUnit;
  * `@Around`：环绕增强，相当于MethodInterceptor
  *
  * `@Before`：标识一个前置增强方法，相当于BeforeAdvice的功能，相似功能的还有
- * `@AfterThrowing`：异常抛出增强，相当于ThrowsAdvice
+ *
  *
  *
  */
 @Component
 @Slf4j
 @Aspect
-public class NormalAspect {
+public class PointcutAspect {
 
     /**
      * 对切面各注解调用时机的形象表现
@@ -45,7 +46,7 @@ public class NormalAspect {
      *      因此我们可以通过方法签名的方式为此表达式命名。
      *      因此Pointcut中的方法只需要方法签名，而不需要在方法体内编写实际代码。
      */
-    @Pointcut("within(com.suyh.normal.service.NormalService)")
+    @Pointcut("within(com.suyh.pointcut.service.PointcutService)")
     public void pointCut() {
         // do nothing
     }
@@ -67,5 +68,11 @@ public class NormalAspect {
     @AfterReturning(pointcut = "pointCut()")
     public void afterReturn() {
         log.info("NormalAspect.afterReturn");
+    }
+
+    // `@AfterThrowing`：异常抛出增强，相当于ThrowsAdvice
+    @AfterThrowing(pointcut = "pointCut()")
+    public void afterThrowing() {
+        log.info("NormalAspect.afterThrowing");
     }
 }

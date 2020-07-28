@@ -1,6 +1,6 @@
 package com.suyh;
 
-import com.suyh.normal.service.NormalService;
+import com.suyh.pointcut.service.PointcutService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,12 +10,18 @@ import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AopApplication.class)
-public class TestNormalAspect {
+public class TestPointcutAspect {
     @Resource
-    private NormalService normalService;
+    private PointcutService pointcutService;
 
     @Test
     public void test01() {
-        normalService.sayHello();
+        pointcutService.sayHello();
+    }
+
+    // 对异常的切面处理
+    @Test(expected = RuntimeException.class)
+    public void test02() {
+        pointcutService.execException();
     }
 }
