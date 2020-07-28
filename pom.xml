@@ -25,9 +25,9 @@
         <module>demo-07-kafka-01</module>
         <module>demo-08-jwt-01</module>
         <module>demo-09-shiro-01</module>
+        <module>demo-09-shiro-02</module>
         <module>demo-09-shiro-03</module>
         <module>demo-09-shiro-04-ssm</module>
-        <module>demo-10-shiro-02</module>
         <module>demo-11-init-01</module>
         <module>demo-12-swagger-01</module>
         <module>demo-13-autowired-resource-01</module>
