@@ -26,8 +26,12 @@ public class NormalAspect {
         log.info("@Before：被织入的目标对象为：" + point.getTarget());
     }
 
-    @AfterReturning(pointcut="execution(* com.suyh.normal.service.*.*(..))",
-            returning="returnValue")
+    /**
+     * @param point       被切入的点
+     * @param returnValue 在注解上指定的可以接收的形参(returning="returnValue")，该值为切入方法的返回值
+     */
+    @AfterReturning(pointcut = "execution(* com.suyh.normal.service.*.*(..))",
+            returning = "returnValue")
     public void log(JoinPoint point, Object returnValue) {
         log.info("@AfterReturning：模拟日志记录功能...");
         log.info("@AfterReturning：目标方法为：" +
