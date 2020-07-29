@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class AnnotationService {
-
     @SmsAndMailSender(smsContent = "content value",
             mailContent = "nothing", subject = "subject")
     public void sayHello() {

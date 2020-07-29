@@ -1,5 +1,6 @@
 package com.suyh;
 
+import com.suyh.annotation.entity.AnnotationEntity;
 import com.suyh.annotation.service.AnnotationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +15,15 @@ public class TestAnnotationAspect {
     @Resource
     private AnnotationService annotationService;
 
+    private AnnotationEntity entity = new AnnotationEntity();
+
     @Test
     public void testSayHello() {
         annotationService.sayHello();
+    }
+
+    @Test
+    public void testSayHelloEntity() {
+        entity.sayHelloEntity();
     }
 }
