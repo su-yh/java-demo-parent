@@ -1,6 +1,8 @@
 package com.suyh.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -20,6 +22,8 @@ public class JsonUtil {
     static {
         // 设置默认日期的格式化
         MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        // ignored non null field
+        MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     /**
@@ -42,9 +46,9 @@ public class JsonUtil {
     /**
      * 反序列化对象
      *
-     * @param json json 字符串
+     * @param json  json 字符串
      * @param clazz 解析的对象类型
-     * @param <T> 对象类型
+     * @param <T>   对象类型
      * @return 返回对象实体
      */
     public static <T> T deserialize(String json, Class<T> clazz) {
@@ -63,7 +67,7 @@ public class JsonUtil {
      *
      * @param json  json 格式字符串
      * @param clazz 泛型类型
-     * @param <T>  泛型
+     * @param <T>   泛型
      * @return 返回List 对象
      */
     public static <T> List<T> deserializeToList(String json, Class<T> clazz) {
@@ -77,14 +81,27 @@ public class JsonUtil {
         return null;
     }
 
+    public static <T> List<T> deserializeToList02(String json, Class<T> clazz) {
+        try {
+            JavaType javaType = MAPPER.getTypeFactory()
+                    .constructParametricType(List.class, clazz);
+            List<T> list = MAPPER.readValue(json, javaType);
+            return list;
+        } catch (JsonProcessingException e) {
+
+        }
+
+        return null;
+    }
+
     /**
      * 反序列化 Map
      *
-     * @param json json 格式字符串
+     * @param json   json 格式字符串
      * @param kClazz map-key
      * @param vClass map-value
-     * @param <K> map-key class
-     * @param <V> map-value class
+     * @param <K>    map-key class
+     * @param <V>    map-value class
      * @return 返回map
      */
     public static <K, V> Map<K, V> deserializeToMap(String json, Class<K> kClazz, Class<V> vClass) {
@@ -101,6 +118,7 @@ public class JsonUtil {
     public static ObjectNode createObjectNode() {
         return MAPPER.createObjectNode();
     }
+
     public static ArrayNode createArrayNode() {
         return MAPPER.createArrayNode();
     }
@@ -124,8 +142,9 @@ public class JsonUtil {
 
     /**
      * 将一个json 数组字符串转换成一个ArrayNode 对象
-     *
+     * <p>
      * JsonNode 可以是数组，如果确定是数组则可以直接强制类型转换
+     *
      * @param json 语法正确的Json 数组字符串
      * @return 返回一个ArrayNode 对象
      */
