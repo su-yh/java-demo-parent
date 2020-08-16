@@ -47,6 +47,7 @@
 
     <properties>
         <spring-boot-version>2.2.2.RELEASE</spring-boot-version>
+        <version.java>1.8</version.java>
     </properties>
 
     <dependencyManagement>
@@ -201,4 +202,70 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 按不同环境设置相关的配置 -->
+    <!-- 可以在mvn 的时候使用 -P dev(${id}}) 来指定要激活哪一个配置并进行打包 -->
+    <!-- 示例： mvn clean package -P dev -->
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <!-- 在这里可以添加一些该配置的一些变量使得可以在后面使用，当各个配置不同的得到不同的结果 -->
+                <spring_profiles_active>local</spring_profiles_active>
+            </properties>
+            <activation>
+                <!-- 默认激活该配置，按理来说我们只应该有一个环境的配置的该值为true -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <!-- 可以在这里指定打包后生成的文件名 -->
+                <!-- demo-01-test-01-1.0-SNAPSHOT -->
+                <finalName>${project.artifactId}-${project.version}</finalName>
+            </build>
+        </profile>
+
+        <!-- dev环境的配置 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring_profiles_active>dev</spring_profiles_active>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+    <build>
+        <!-- 我们也可以在这里来指定目标文件名，这里可以取到各个不同配置下面定义的变量值 -->
+<!--        <finalName>${spring_profiles_active}-${project.version}-last</finalName>-->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <!-- version.java = 1.8 -->
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.6.RELEASE</version>
+                <configuration>
+                    <mainClass>com.suyh.MainApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- 指定跑测试用例时需要的资源文件所在路径，如果不加那么将获取不到相关的资源配置 -->
+        <testResources>
+            <testResource>
+                <directory>src/main/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+    </build>
 </project>
