@@ -1,3 +1,3 @@
 spring:
   profiles:
-    include: devDb, devRedis
+    include: dev-db, dev-redis
