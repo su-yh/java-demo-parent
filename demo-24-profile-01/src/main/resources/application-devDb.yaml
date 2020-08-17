@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/suyh_db_dev?useSSL=false
+    username: root
+    password: root
+
