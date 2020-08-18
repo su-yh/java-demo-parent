@@ -23,4 +23,9 @@ public class TestSayHelloAroundService {
     public void test02() {
         service.sayHelloString("test02");
     }
+
+    @Test
+    public void test03() {
+        service.sayHelloOther();
+    }
 }

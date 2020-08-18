@@ -36,4 +36,17 @@ public class SayHelloAroundService {
         } catch (InterruptedException ignored) {
         }
     }
+
+    // 这个方法也添加了统计耗时的注解，但是没有使用 AopContext.currentProxy();
+    // 所以这里不会统计到sayHelloVoid(); 方法的耗时
+    // 只会统计到此方法的耗时
+    @MethodDuration
+    public void sayHelloOther() {
+        sayHelloVoid();
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(300 + new Random().nextInt(100));
+        } catch (InterruptedException ignored) {
+        }
+    }
 }
