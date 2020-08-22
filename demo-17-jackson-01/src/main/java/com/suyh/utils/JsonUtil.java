@@ -93,8 +93,7 @@ public class JsonUtil {
                     .constructParametricType(List.class, clazz);
             List<T> list = MAPPER.readValue(json, javaType);
             return list;
-        } catch (JsonProcessingException e) {
-
+        } catch (JsonProcessingException ignored) {
         }
 
         return null;
