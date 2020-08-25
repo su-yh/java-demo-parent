@@ -11,6 +11,12 @@
 
     <artifactId>demo-02-properties-01</artifactId>
 
+    <packaging>jar</packaging>
+
+    <properties>
+        <my.filter.value>hello</my.filter.value>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,4 +40,22 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src\test\resources</directory>
+            </testResource>
+        </testResources>
+    </build>
 </project>
