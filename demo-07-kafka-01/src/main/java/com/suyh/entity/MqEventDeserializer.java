@@ -1,8 +1,9 @@
 package com.suyh.entity;
 
-import com.alibaba.fastjson.JSON;
+import com.suyh.utils.JsonUtil;
 import org.apache.kafka.common.serialization.Deserializer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -18,7 +19,8 @@ public class MqEventDeserializer implements Deserializer<MQEvent> {
 
     @Override
     public MQEvent deserialize(String topic, byte[] data) {
-        return JSON.parseObject(data, MQEvent.class);
+        String jsonData = new String(data, StandardCharsets.UTF_8);
+        return JsonUtil.deserialize(jsonData, MQEvent.class);
     }
 
     @Override
