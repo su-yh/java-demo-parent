@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-02-properties-01</artifactId>
+    <name>demo-02-properties-01</name>
 
     <packaging>jar</packaging>
 
@@ -41,21 +42,5 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>src\main\resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src\main\resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-            <testResource>
-                <directory>src\test\resources</directory>
-            </testResource>
-        </testResources>
-    </build>
+
 </project>

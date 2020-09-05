@@ -200,21 +200,36 @@
     </dependencyManagement>
 
     <!-- 指定拉取阿里云仓库 -->
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <name>阿里云仓库</name>-->
-<!--            <id>spring</id>-->
-<!--            <url>https://maven.aliyun.com/repository/spring</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <name>阿里云仓库</name>-->
+    <!--            <id>spring</id>-->
+    <!--            <url>https://maven.aliyun.com/repository/spring</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 
     <build>
+        <resources>
+            <resource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src\test\resources</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <!--
                 这个插件必须要生成一个jar 包对象，并且会去找一个MainClass 如果没找到就会报错
