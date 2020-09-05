@@ -26,6 +26,7 @@ public class TestTemp {
     public void test02() {
         Person person01 = new Person("id", "name", "sex");
         List<Person> list = new ArrayList<>();
+        person01.setCreatedDate(new Date());
         list.add(person01);
         Person person02 = new Person("id02", "name02", "sex02");
         person02.setUpdateDate(new Date());

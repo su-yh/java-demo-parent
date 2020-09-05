@@ -6,18 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ToString
 @Data
 @NoArgsConstructor
-public class Person {
+public class Person  implements Serializable {
+    private static final long serialVersionUID = 8843L;
+
     private String id;
     private String name;
-
-    // 说是属性值为null 时不进行序列化
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String sex;
 
     /**
@@ -27,7 +27,7 @@ public class Person {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createdDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    // 使用默认格式化
     private Date updateDate;
 
     public Person(String id, String name, String sex) {
