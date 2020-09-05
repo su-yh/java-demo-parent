@@ -96,7 +96,7 @@ public class JsonUtil {
             List<T> list = MAPPER.readValue(json, javaType);
             return list;
         } catch (JsonProcessingException e) {
-
+            log.error("deserializeToList02 failed. json string: {}", json, e);
         }
 
         return null;
