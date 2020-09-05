@@ -23,19 +23,17 @@
         <module>demo-02-properties-01</module>
         <module>demo-03-jedis-01</module>
         <module>demo-04-scheduler-01</module>
-        <module>demo-05-spring-context-util-01</module>
         <module>demo-06-mybatis-01</module>
         <module>demo-06-mybatis-02-common</module>
+        <module>demo-06-mybatis-03-multi-db-01</module>
         <module>demo-07-kafka-01</module>
         <module>demo-08-jwt-01</module>
         <module>demo-09-shiro-01</module>
         <module>demo-09-shiro-02</module>
         <module>demo-09-shiro-03</module>
         <module>demo-09-shiro-04-ssm</module>
-        <module>demo-11-init-01</module>
         <module>demo-12-swagger-01</module>
         <module>demo-13-autowired-resource-01</module>
-        <module>demo-15-pagehelper-01</module>
         <module>demo-16-guava-01</module>
         <module>demo-18-resttemplate-01</module>
         <module>demo-19-servletRequest-01</module>
@@ -44,7 +42,6 @@
         <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
-        <module>demo-06-mybatis-03-multi-db-01</module>
     </modules>
 
     <dependencyManagement>
