@@ -37,7 +37,6 @@
         <module>demo-13-autowired-resource-01</module>
         <module>demo-15-pagehelper-01</module>
         <module>demo-16-guava-01</module>
-        <module>demo-17-jackson-01</module>
         <module>demo-18-resttemplate-01</module>
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>

@@ -15,14 +15,16 @@ import lombok.extern.slf4j.Slf4j;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 @Slf4j
 public class JsonUtil {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-        // 设置默认日期的格式化
-        MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        // 设置默认日期的格式化，优先级低于 @JsonFormat
+        MAPPER.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
         // ignored non null field
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时

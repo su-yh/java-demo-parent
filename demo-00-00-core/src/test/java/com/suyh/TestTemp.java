@@ -6,6 +6,7 @@ import com.suyh.utils.JsonUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TestTemp {
@@ -23,14 +24,16 @@ public class TestTemp {
 
     @Test
     public void test02() {
-        Person person = new Person("id", "name", "sex");
+        Person person01 = new Person("id", "name", "sex");
         List<Person> list = new ArrayList<>();
-        list.add(person);
-        list.add(person);
+        list.add(person01);
+        Person person02 = new Person("id02", "name02", "sex02");
+        person02.setUpdateDate(new Date());
+        list.add(person02);
         String serializable = JsonUtil.serializable(list);
         System.out.println("serializable: " + serializable);
         ArrayNode jsonNodes = JsonUtil.deserializeToArrayNode(serializable);
-        System.out.println("desc: " + jsonNodes);
+        System.out.println("deserialize: " + jsonNodes);
     }
 
     @Test
