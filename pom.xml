@@ -44,6 +44,7 @@
         <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
+        <module>demo-06-mybatis-03-multi-db-01</module>
     </modules>
 
     <dependencyManagement>
