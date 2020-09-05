@@ -1,6 +1,8 @@
 package com.suyh.init;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -8,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,9 +23,10 @@ import javax.annotation.Resource;
  * 需要实现 ApplicationRunner 接口
  */
 @Component
-@PropertySource(value = "git.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:git.properties", ignoreResourceNotFound = true)
+@Order(100)
 @Slf4j
-public class ApplicationCommon implements ApplicationRunner {
+public class CommonInit implements ApplicationRunner {
 
     // 上下文
     private static ApplicationContext CONTEXT = null;
@@ -76,15 +80,14 @@ public class ApplicationCommon implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         CONTEXT = ctx;
 
-        log.info("application args: {}", args);
+        String[] sourceArgs = args.getSourceArgs();
+        log.info("application source args length: {}", sourceArgs.length);
+        for (String arg : sourceArgs) {
+            log.info("arg: {}", arg);
+        }
+        log.info("application source args: {}", ToStringBuilder.reflectionToString(
+                args, ToStringStyle.JSON_STYLE));
 
-        init();
-    }
-
-    /**
-     * 初始化工作
-     */
-    protected void init() {
         log.info("ApplicationRunnerInit ctx: " + ctx);
         log.info("git information, tags: {}, branch: {}, id: {}, build version: {}, build time: {}, commit time: {}",
                 gitTags, gitBranch, gitCommitId, gitBuildVersion, gitBuildTime, gitCommitTime);
