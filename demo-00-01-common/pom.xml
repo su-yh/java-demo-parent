@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-00-01-common</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -17,6 +18,35 @@
             <artifactId>demo-00-00-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <!--
+                    参考博客：https://www.cnblogs.com/yytxdy/p/13220087.html
+                    项目打包时会在classes目录下生成 git.properties 文件
+                -->
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <!-- <version>3.0.0</version> -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <injectAllReactorProjects>true</injectAllReactorProjects>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
