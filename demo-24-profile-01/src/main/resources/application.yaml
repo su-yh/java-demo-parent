@@ -8,3 +8,5 @@ spring:
 application:
   groupId: "@project.groupId@"
   artifactId: "@project.artifactId@"
+logging:
+  config: classpath:logback-suyh.xml
