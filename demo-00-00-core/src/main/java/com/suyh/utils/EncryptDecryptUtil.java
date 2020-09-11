@@ -1,19 +1,29 @@
 package com.suyh.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.math.BigInteger;
-import java.security.*;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.security.Signature;
 import java.util.Base64;
 
 /**
  * 文件描述 加密解密工具类
  **/
-public class EnDecoderUtil {
+@Slf4j
+public class EncryptDecryptUtil {
 
     private static final String ALGORITHM_MD5 = "md5";
     private static final String ALGORITHM_DES = "des";
@@ -22,19 +32,22 @@ public class EnDecoderUtil {
     private static final String ALGORITHM_SHA = "sha";
     private static final String ALGORITHM_MAC = "HmacMD5";
 
-    private static SecureRandom secureRandom;
+    private static final SecureRandom SECURE_RANDOM;
+    private static MessageDigest MD5_UTIL;
     private static KeyPair keyPair;
 
     static {
-        secureRandom = new SecureRandom();
+        SECURE_RANDOM = new SecureRandom();
         try {
+            MD5_UTIL = MessageDigest.getInstance(ALGORITHM_MD5);
+
             //创建密钥对KeyPair
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM_RSA);
             //密钥长度推荐为1024位
             keyPairGenerator.initialize(1024);
             keyPair = keyPairGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error("EncryptDecryptUtil init failed.", e);
         }
     }
 
@@ -45,19 +58,18 @@ public class EnDecoderUtil {
      * @return String
      */
     public static String md5Encrypt(final String content) {
+        byte[] bytes = md5Encrypt(content.getBytes());
+        return RadixConvertUtils.bytes2Hex(bytes);
+    }
 
-        MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance(ALGORITHM_MD5);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-//        md5.update(text.getBytes());
-        //digest()最后返回md5 hash值，返回值为8位字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
-        //BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
-        BigInteger digest = new BigInteger(md5.digest(content.getBytes()));
-        //32位
-        return digest.toString(16);
+    /**
+     * MD5简单加密
+     *
+     * @param data 待加密数据
+     * @return 返回加密结果
+     */
+    public static byte[] md5Encrypt(final byte[] data) {
+        return MD5_UTIL.digest(data);
     }
 
     /**
@@ -135,7 +147,7 @@ public class EnDecoderUtil {
         try {
             Cipher cipher = Cipher.getInstance(algorithm);
             //初始化
-            cipher.init(opsMode, key, secureRandom);
+            cipher.init(opsMode, key, SECURE_RANDOM);
             return cipher.doFinal(processData);
         } catch (Exception e) {
             e.printStackTrace();
