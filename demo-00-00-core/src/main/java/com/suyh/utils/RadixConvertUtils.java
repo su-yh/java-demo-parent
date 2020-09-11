@@ -2,15 +2,18 @@ package com.suyh.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 进制转换工具类
+ */
 @Slf4j
-public class HexUtils {
+public class RadixConvertUtils {
     /**
      * hex转byte数组 无前缀
      *
      * @param hex 十六进制字符串
      * @return
      */
-    public static byte[] hexToByte(String hex) {
+    public static byte[] hex2Bytes(String hex) {
         if (hex.length() % 2 != 0) {
             log.error("hexToByte failed, length: {}", hex.length());
             return null;
@@ -29,10 +32,10 @@ public class HexUtils {
     /**
      * byte数组转hex
      *
-     * @param bytes
+     * @param bytes 字节数据
      * @return
      */
-    public static String byteToHex(byte[] bytes) {
+    public static String bytes2Hex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte aByte : bytes) {
             String strHex = Integer.toHexString(aByte & 0xFF);
