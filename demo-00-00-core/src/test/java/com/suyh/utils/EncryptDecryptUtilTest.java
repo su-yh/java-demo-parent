@@ -55,22 +55,24 @@ public class EncryptDecryptUtilTest {
 
     @Test
     public void testRsa() {
-        //RSA
-        //数据使用私钥加密
-        byte[] en_byte = EncryptDecryptUtil.RSAEncrypt("Hi, RSA");
-        System.out.println(Base64.getEncoder().encodeToString(en_byte));
+        // RSA
+        // 数据使用私钥加密
+        byte[] bytesSecret = EncryptDecryptUtil.RSAEncrypt("Hi, RSA");
+        String strSecretData = Base64.getEncoder().encodeToString(bytesSecret);
+        log.info("私钥加密密文: {}", strSecretData);
 
-        //用户使用公钥解密
-        byte[] de_byte = EncryptDecryptUtil.RSADecrypt(en_byte);
-        System.out.println(new String(de_byte));
+        // 用户使用公钥解密
+        byte[] bytesDecrypt = EncryptDecryptUtil.RSADecrypt(bytesSecret);
+        String strData = new String(bytesDecrypt);
+        log.info("使用公钥解密: {}", strData);
 
-        //服务器根据私钥和加密数据生成数字签名
-        byte[] sign_byte = EncryptDecryptUtil.getSignature(en_byte);
-        System.out.println(Base64.getEncoder().encodeToString(sign_byte));
+        // 服务器根据私钥和加密数据生成数字签名
+        byte[] bytesSign = EncryptDecryptUtil.getSignature(bytesSecret);
+        String strSign = Base64.getEncoder().encodeToString(bytesSign);
+        log.info("数字签名: {}", strSign);
 
-        //用户根据公钥、加密数据验证数据是否被修改过
-        boolean verify_result = EncryptDecryptUtil.verifySignature(en_byte, sign_byte);
-        System.out.println(verify_result);
-
+        // 用户根据公钥、加密数据验证数据是否被修改过
+        boolean verify_result = EncryptDecryptUtil.verifySignature(bytesSecret, bytesSign);
+        log.info("数据校验，是否原始数据性: {}", verify_result);
     }
 }

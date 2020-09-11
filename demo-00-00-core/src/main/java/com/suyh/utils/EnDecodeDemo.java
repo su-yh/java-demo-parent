@@ -25,10 +25,10 @@ public class EnDecodeDemo {
         //要求key至少长度为8个字符
         String key = "123456789";
         //加密
-        byte[] encode_bytes = EncryptDecryptUtil.DESEncrypt(key, "Hello, DES");
+        byte[] encode_bytes = EncryptDecryptUtil.DesEncrypt(key, "Hello, DES");
         System.out.println(Base64.getEncoder().encodeToString(encode_bytes));
         //解密
-        byte[] decode_bytes = EncryptDecryptUtil.DESDecrypt(key, encode_bytes);
+        byte[] decode_bytes = EncryptDecryptUtil.DesDecrypt(key, encode_bytes);
         System.out.println(new String(decode_bytes));
 
         //RSA

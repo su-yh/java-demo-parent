@@ -21,6 +21,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.SignatureException;
 import java.util.Base64;
 
 /**
@@ -38,16 +39,16 @@ public class EncryptDecryptUtil {
 
     private static final SecureRandom SECURE_RANDOM;
     private static MessageDigest MD5_UTIL;
-    private static KeyPair keyPair;
+    private static KeyPair keyPair; // 密钥对
 
     static {
         SECURE_RANDOM = new SecureRandom();
         try {
             MD5_UTIL = MessageDigest.getInstance(ALGORITHM_MD5);
 
-            //创建密钥对KeyPair
+            // 创建密钥对KeyPair
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM_RSA);
-            //密钥长度推荐为1024位
+            // 密钥长度推荐为1024位
             keyPairGenerator.initialize(1024);
             keyPair = keyPairGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
@@ -208,15 +209,21 @@ public class EncryptDecryptUtil {
      * @return byte[]
      */
     public static boolean verifySignature(final byte[] encoderContent, final byte[] signContent) {
+
         try {
             Signature signature = Signature.getInstance(ALGORITHM_MD5_RSA);
             signature.initVerify(keyPair.getPublic());
             signature.update(encoderContent);
             return signature.verify(signContent);
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } catch (SignatureException e) {
+            log.error("SignatureException, verifySignature failed.", e);
+        } catch (InvalidKeyException e) {
+            log.error("InvalidKeyException, verifySignature failed.", e);
         }
-        return Boolean.FALSE;
+
+        return false;
     }
 
     /**
