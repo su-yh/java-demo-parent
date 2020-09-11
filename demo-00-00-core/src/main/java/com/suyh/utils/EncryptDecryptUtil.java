@@ -23,6 +23,7 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
@@ -219,7 +220,7 @@ public class EncryptDecryptUtil {
             signature.update(encoderContent);
             return signature.verify(signContent);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error("NoSuchAlgorithmException, verifySignature failed.", e);
         } catch (SignatureException e) {
             log.error("SignatureException, verifySignature failed.", e);
         } catch (InvalidKeyException e) {
@@ -325,9 +326,10 @@ public class EncryptDecryptUtil {
                 X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteKey);
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 return keyFactory.generatePublic(x509EncodedKeySpec);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                log.error("NoSuchAlgorithmException, getPublicKeySuyh failed", e);
+            } catch (InvalidKeySpecException e) {
+                log.error("InvalidKeySpecException, getPublicKeySuyh failed", e);
             }
             return null;
         }
@@ -345,9 +347,10 @@ public class EncryptDecryptUtil {
                 PKCS8EncodedKeySpec x509EncodedKeySpec = new PKCS8EncodedKeySpec(byteKey);
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
                 return keyFactory.generatePrivate(x509EncodedKeySpec);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                log.error("NoSuchAlgorithmException, getPrivateKeySuyh failed.", e);
+            } catch (InvalidKeySpecException e) {
+                log.error("InvalidKeySpecException, getPrivateKeySuyh failed.", e);
             }
             return null;
         }
