@@ -2,12 +2,16 @@ package com.suyh.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -102,8 +106,7 @@ public class EncryptDecryptUtil {
         try {
             DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
             SecretKeyFactory instance = SecretKeyFactory.getInstance(ALGORITHM_DES);
-            SecretKey secretKey = instance.generateSecret(desKeySpec);
-            return secretKey;
+            return instance.generateSecret(desKeySpec);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +121,7 @@ public class EncryptDecryptUtil {
      * @param content 待加密内容
      * @return byte[]
      */
-    public static byte[] DESEncrypt(final String key, final String content) {
+    public static byte[] DesEncrypt(final String key, final String content) {
         return processCipher(content.getBytes(), getSecretKey(key), Cipher.ENCRYPT_MODE, ALGORITHM_DES);
     }
 
@@ -129,7 +132,7 @@ public class EncryptDecryptUtil {
      * @param encoderContent 已加密内容
      * @return byte[]
      */
-    public static byte[] DESDecrypt(final String key, final byte[] encoderContent) {
+    public static byte[] DesDecrypt(final String key, final byte[] encoderContent) {
         return processCipher(encoderContent, getSecretKey(key), Cipher.DECRYPT_MODE, ALGORITHM_DES);
     }
 
@@ -142,16 +145,25 @@ public class EncryptDecryptUtil {
      * @param algorithm   使用的算法
      * @return byte[]
      */
-    private static byte[] processCipher(final byte[] processData, final Key key,
-                                        final int opsMode, final String algorithm) {
+    private static byte[] processCipher(
+            final byte[] processData, final Key key,
+            final int opsMode, final String algorithm) {
         try {
             Cipher cipher = Cipher.getInstance(algorithm);
-            //初始化
             cipher.init(opsMode, key, SECURE_RANDOM);
             return cipher.doFinal(processData);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("NoSuchAlgorithmException, processCipher", e);
+        } catch (NoSuchPaddingException e) {
+            log.error("NoSuchPaddingException, processCipher", e);
+        } catch (InvalidKeyException e) {
+            log.error("InvalidKeyException, processCipher", e);
+        } catch (BadPaddingException e) {
+            log.error("BadPaddingException, processCipher", e);
+        } catch (IllegalBlockSizeException e) {
+            log.error("IllegalBlockSizeException, processCipher", e);
         }
+
         return null;
     }
 
