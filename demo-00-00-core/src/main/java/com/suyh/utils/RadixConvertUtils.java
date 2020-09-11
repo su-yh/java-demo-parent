@@ -20,10 +20,10 @@ public class RadixConvertUtils {
         }
         int byteSize = hex.length() / 2;
         byte[] ret = new byte[byteSize];
-        for (int i = 0, j = 0; i < byteSize; i++) {
+        for (int i = 0; i < byteSize; i++) {
             int beginIndex = i * 2;
             String hexStr = hex.substring(beginIndex, beginIndex + 2);
-            ret[j] = (byte) Integer.parseInt(hexStr, 16);
+            ret[i] = (byte) Integer.parseInt(hexStr, 16);
         }
 
         return ret;
