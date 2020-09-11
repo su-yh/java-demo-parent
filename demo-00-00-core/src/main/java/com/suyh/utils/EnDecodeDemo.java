@@ -33,11 +33,11 @@ public class EnDecodeDemo {
 
         //RSA
         //数据使用私钥加密
-        byte[] en_byte = EncryptDecryptUtil.RSAEncrypt("Hi, RSA");
+        byte[] en_byte = EncryptDecryptUtil.RsaEncrypt("Hi, RSA");
         System.out.println(Base64.getEncoder().encodeToString(en_byte));
 
         //用户使用公钥解密
-        byte[] de_byte = EncryptDecryptUtil.RSADecrypt(en_byte);
+        byte[] de_byte = EncryptDecryptUtil.RsaDecrypt(en_byte);
         System.out.println(new String(de_byte));
 
         //服务器根据私钥和加密数据生成数字签名
@@ -49,7 +49,7 @@ public class EnDecodeDemo {
         System.out.println(verify_result);
 
         //SHA
-        String sha = EncryptDecryptUtil.SHAEncrypt("Hi, RSA");
+        String sha = EncryptDecryptUtil.ShaEncrypt("Hi, RSA");
         System.out.println(sha);
 
         //HMAC

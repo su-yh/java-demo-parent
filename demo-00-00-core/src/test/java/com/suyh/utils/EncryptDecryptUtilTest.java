@@ -57,12 +57,12 @@ public class EncryptDecryptUtilTest {
     public void testRsa() {
         // RSA
         // 数据使用私钥加密
-        byte[] bytesSecret = EncryptDecryptUtil.RSAEncrypt("Hi, RSA");
+        byte[] bytesSecret = EncryptDecryptUtil.RsaEncrypt("Hi, RSA");
         String strSecretData = Base64.getEncoder().encodeToString(bytesSecret);
         log.info("私钥加密密文: {}", strSecretData);
 
         // 用户使用公钥解密
-        byte[] bytesDecrypt = EncryptDecryptUtil.RSADecrypt(bytesSecret);
+        byte[] bytesDecrypt = EncryptDecryptUtil.RsaDecrypt(bytesSecret);
         String strData = new String(bytesDecrypt);
         log.info("使用公钥解密: {}", strData);
 
@@ -74,5 +74,12 @@ public class EncryptDecryptUtilTest {
         // 用户根据公钥、加密数据验证数据是否被修改过
         boolean verify_result = EncryptDecryptUtil.verifySignature(bytesSecret, bytesSign);
         log.info("数据校验，是否原始数据性: {}", verify_result);
+    }
+
+    @Test
+    public void testShaEncrypt() {
+        //SHA
+        String sha = EncryptDecryptUtil.ShaEncrypt("Hi, RSA");
+        System.out.println(sha);
     }
 }
