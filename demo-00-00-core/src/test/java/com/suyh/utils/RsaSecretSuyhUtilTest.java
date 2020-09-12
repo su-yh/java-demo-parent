@@ -13,7 +13,7 @@ public class RsaSecretSuyhUtilTest {
     @Test
 
     public void test01() {
-        KeyPair keyPair = EncryptDecryptUtil.RsaSecretSuyhUtil.makeRsaSecretKeySuyh();
+        KeyPair keyPair = RsaSecretSuyhUtil.makeRsaSecretKeySuyh();
         PrivateKey privateKey = keyPair.getPrivate();
         byte[] encoded = privateKey.getEncoded();
         String strEncoded = RadixConvertUtils.bytes2Hex(encoded);
@@ -36,9 +36,9 @@ public class RsaSecretSuyhUtilTest {
     // 私钥加密，公钥解密
     @Test
     public void testRsaEncryptByPrivateKey() {
-        byte[] secretData = EncryptDecryptUtil.RsaSecretSuyhUtil.RsaEncryptByPrivateKeySuyh("suyh-value", strPrivateKey);
+        byte[] secretData = RsaSecretSuyhUtil.RsaEncryptByPrivateKeySuyh("suyh-value", strPrivateKey);
 
-        byte[] bytesData = EncryptDecryptUtil.RsaSecretSuyhUtil.RsaDecryptByPublicKeySuyh(secretData, strPublicKey);
+        byte[] bytesData = RsaSecretSuyhUtil.RsaDecryptByPublicKeySuyh(secretData, strPublicKey);
         String strData = new String(bytesData);
         log.info("strDataResult: {}", strData);
     }
@@ -46,9 +46,9 @@ public class RsaSecretSuyhUtilTest {
     // 公钥加密私钥解密
     @Test
     public void test02() {
-        byte[] secretData = EncryptDecryptUtil.RsaSecretSuyhUtil.RsaEncryptByPublicKeySuyh("suyh-value", strPublicKey);
+        byte[] secretData = RsaSecretSuyhUtil.RsaEncryptByPublicKeySuyh("suyh-value", strPublicKey);
 
-        byte[] bytesData = EncryptDecryptUtil.RsaSecretSuyhUtil.RsaDecryptByPrivateKeySuyh(secretData, strPrivateKey);
+        byte[] bytesData = RsaSecretSuyhUtil.RsaDecryptByPrivateKeySuyh(secretData, strPrivateKey);
         String strData = new String(bytesData);
         log.info("strDataResult: {}", strData);
     }
