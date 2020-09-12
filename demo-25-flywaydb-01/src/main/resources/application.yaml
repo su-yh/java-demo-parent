@@ -30,7 +30,12 @@ spring:
     url: jdbc:mysql://192.168.127.143:3306/suyh_db?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    # 使用ENC() 的属性会调用解密方法
+    password: ENC(c6f7ece6cd29b057)
 
+# 指定自定义加解密bean
+jasypt:
+  encryptor:
+    bean: propertiesEncrypt
 
 
