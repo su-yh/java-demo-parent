@@ -20,8 +20,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 @Slf4j
-public class RsaSecretSuyhUtil {
-    private RsaSecretSuyhUtil() {
+public class RsaSecretUtil {
+    private RsaSecretUtil() {
     }
 
     private static final String ALGORITHM_MD5 = "md5";
@@ -51,7 +51,7 @@ public class RsaSecretSuyhUtil {
     }
 
 
-    public static KeyPair makeRsaSecretKeySuyh() {
+    public static KeyPair makeRsaSecretKey() {
 
         try {
             // 创建密钥对KeyPair
@@ -73,7 +73,7 @@ public class RsaSecretSuyhUtil {
      * @param key
      * @return
      */
-    public static PublicKey getPublicKeySuyh(String key) {
+    public static PublicKey getPublicKey(String key) {
         try {
             byte[] byteKey = RadixConvertUtils.hex2Bytes(key);
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteKey);
@@ -93,7 +93,7 @@ public class RsaSecretSuyhUtil {
      * @param key
      * @return
      */
-    public static PrivateKey getPrivateKeySuyh(String key) {
+    public static PrivateKey getPrivateKey(String key) {
         try {
             // byte[] byteKey = Base64.getDecoder().decode(key);
             byte[] byteKey = RadixConvertUtils.hex2Bytes(key);
@@ -109,8 +109,9 @@ public class RsaSecretSuyhUtil {
     }
 
     // 使用私钥加密
-    public static byte[] RsaEncryptByPrivateKeySuyh(final String content, final String strPrivateKey) {
-        PrivateKey privateKey = getPrivateKeySuyh(strPrivateKey);
+    public static byte[] RsaEncryptByPrivateKey(
+            final String content, final String strPrivateKey) {
+        PrivateKey privateKey = getPrivateKey(strPrivateKey);
 
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_RSA);
@@ -132,9 +133,9 @@ public class RsaSecretSuyhUtil {
     }
 
     // 使用公钥解密
-    public static byte[] RsaDecryptByPublicKeySuyh(
+    public static byte[] RsaDecryptByPublicKey(
             final byte[] encoderContent, final String strPublicKey) {
-        PublicKey publicKey = getPublicKeySuyh(strPublicKey);
+        PublicKey publicKey = getPublicKey(strPublicKey);
 
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_RSA);
@@ -156,8 +157,9 @@ public class RsaSecretSuyhUtil {
     }
 
     // 使用私钥加密
-    public static byte[] RsaEncryptByPublicKeySuyh(final String content, final String strPublicKey) {
-        PublicKey publicKeySuyh = getPublicKeySuyh(strPublicKey);
+    public static byte[] RsaEncryptByPublicKey(
+            final String content, final String strPublicKey) {
+        PublicKey publicKeySuyh = getPublicKey(strPublicKey);
 
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_RSA);
@@ -179,8 +181,9 @@ public class RsaSecretSuyhUtil {
     }
 
     // 使用公钥解密
-    public static byte[] RsaDecryptByPrivateKeySuyh(final byte[] encoderContent, final String strPrivateKey) {
-        PrivateKey privateKey = getPrivateKeySuyh(strPrivateKey);
+    public static byte[] RsaDecryptByPrivateKey(
+            final byte[] encoderContent, final String strPrivateKey) {
+        PrivateKey privateKey = getPrivateKey(strPrivateKey);
 
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_RSA);

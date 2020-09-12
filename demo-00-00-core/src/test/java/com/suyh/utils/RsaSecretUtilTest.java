@@ -8,12 +8,12 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 @Slf4j
-public class RsaSecretSuyhUtilTest {
+public class RsaSecretUtilTest {
 
     @Test
 
     public void test01() {
-        KeyPair keyPair = RsaSecretSuyhUtil.makeRsaSecretKeySuyh();
+        KeyPair keyPair = RsaSecretUtil.makeRsaSecretKey();
         PrivateKey privateKey = keyPair.getPrivate();
         byte[] encoded = privateKey.getEncoded();
         String strEncoded = RadixConvertUtils.bytes2Hex(encoded);
@@ -36,9 +36,9 @@ public class RsaSecretSuyhUtilTest {
     // 私钥加密，公钥解密
     @Test
     public void testRsaEncryptByPrivateKey() {
-        byte[] secretData = RsaSecretSuyhUtil.RsaEncryptByPrivateKeySuyh("suyh-value", strPrivateKey);
+        byte[] secretData = RsaSecretUtil.RsaEncryptByPrivateKey("suyh-value", strPrivateKey);
 
-        byte[] bytesData = RsaSecretSuyhUtil.RsaDecryptByPublicKeySuyh(secretData, strPublicKey);
+        byte[] bytesData = RsaSecretUtil.RsaDecryptByPublicKey(secretData, strPublicKey);
         String strData = new String(bytesData);
         log.info("strDataResult: {}", strData);
     }
@@ -46,9 +46,9 @@ public class RsaSecretSuyhUtilTest {
     // 公钥加密私钥解密
     @Test
     public void test02() {
-        byte[] secretData = RsaSecretSuyhUtil.RsaEncryptByPublicKeySuyh("suyh-value", strPublicKey);
+        byte[] secretData = RsaSecretUtil.RsaEncryptByPublicKey("suyh-value", strPublicKey);
 
-        byte[] bytesData = RsaSecretSuyhUtil.RsaDecryptByPrivateKeySuyh(secretData, strPrivateKey);
+        byte[] bytesData = RsaSecretUtil.RsaDecryptByPrivateKey(secretData, strPrivateKey);
         String strData = new String(bytesData);
         log.info("strDataResult: {}", strData);
     }
