@@ -256,10 +256,13 @@
             </plugin>
             <plugin>
                 <!-- 版本控制打包插件 -->
+                <!-- 更新项目当前版本 mvn versions:set -DnewVersion=1.0 -->
+                <!-- 回滚项目版本，必须有备份文件才有效 mvn versions:revert -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
+                    <!-- 是否生成备份文件，如果不生成不能回滚 -->
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
