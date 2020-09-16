@@ -47,6 +47,11 @@
         <level value="DEBUG"/>
     </logger>
 
+    <!-- 打印的DEBUG 日志太多了，提高日志等级。 -->
+    <logger name="org.springframework.boot.autoconfigure.logging">
+        <level value="INFO"/>
+    </logger>
+
     <root level="DEBUG">
         <!-- 标准输出日志 -->
         <appender-ref ref="STDOUT"/>
