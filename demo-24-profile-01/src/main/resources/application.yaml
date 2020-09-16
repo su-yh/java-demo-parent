@@ -9,4 +9,11 @@ application:
   groupId: "@project.groupId@"
   artifactId: "@project.artifactId@"
 logging:
-  config: classpath:logback-suyh.xml
+  # common组件中添加的日志配置文件
+  config: classpath:logback-spring.xml
+# common 组件的logback-spring.xml 中定义的变量，这里填充变量值
+logback:
+  file:
+    dir: @project.basedir@/logs
+    prefix: profile
+
