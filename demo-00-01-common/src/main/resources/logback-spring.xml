@@ -46,9 +46,11 @@
     <logger name="com.imooc.activiti.helloworld">
         <level value="DEBUG"/>
     </logger>
-    <logger name="root">
-        <level value="ERROR"/>
-    </logger>
+
+    <root level="DEBUG">
+        <!-- 标准输出日志 -->
+        <appender-ref ref="STDOUT"/>
+    </root>
 
     <!-- 该 <springProfile> 标签允许我们更加灵活配置文件，可选地包含或排除配置部分。
         元素中的任何位置均支持轮廓部分。使用该name属性指定哪个配置文件接受配置。
@@ -59,8 +61,6 @@
     <springProfile name="dev">
         <!-- 开发环境日志级别为DEBUG -->
         <root level="DEBUG">
-            <!-- 标准输出日志 -->
-            <appender-ref ref="STDOUT"/>
             <!-- 文件输出日志 -->
             <appender-ref ref="FILE"/>
         </root>
@@ -78,7 +78,6 @@
     <springProfile name="test">
         <root level="INFO">
             <appender-ref ref="FILE"/>
-            <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
 </configuration>
