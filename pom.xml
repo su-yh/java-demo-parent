@@ -18,6 +18,7 @@
     <modules>
         <module>demo-00-00-core</module>
         <module>demo-00-01-common</module>
+        <module>demo-01-log4j2</module>
         <module>demo-01-test-01</module>
         <module>demo-01-test-02-mock</module>
         <module>demo-02-properties-01</module>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- status：Log4j内部事件记录的等级，只对Log4j本身的事件有效。  -->
+<!-- monitorInterval：Log4j 2 定期检查和应用配置文件的时间间隔（单位：秒，如果更改配置文件，不用重启系统）。  -->
+<Configuration status="info" monitorInteval="60">
+    <!-- 这里相当于设置一组 key-value  name 对应key, 文本对应value -->
+    <!-- spName = sp  |  spFileName = spFile -->
+    <Properties>
+        <Property name="spName">sp</Property>
+        <Property name="spFileName">spFile</Property>
+        <!-- 这里也可以读取到 ${sys:log4j2.dir:-demo-log} 的配置数据值 -->
+        <Property name="fileDir">logs/${sys:log4j2.dir:-demo-log}</Property>
+        <Property name="rollingFileName">${sys:rollingFile:-DemoRolling}</Property>
+    </Properties>
+    <!--
+        Appender: 简单说Appender就是一个管道，定义了日志内容的去向(保存位置)。
+        配置一个或者多个Filter，Filter的过滤机制和Servlet的Filter有些差别，下文会进行说明。
+        配置Layout来控制日志信息的输出格式。
+        配置Policies以控制日志何时(When)进行滚动。
+        配置Strategy以控制日志如何(How)进行滚动。
+
+        Appender的常用的实现类有：
+            ConsoleAppender(Console)
+            FileAppender(File)、RandomAccessFileAppender(RandomAccessFile)
+            RollingFileAppender(RollingFile)、RollingRandomAccessFileAppender(RollingRandomAccessFile)
+    -->
+    <Appenders>
+        <!--
+            <Appender>
+                <Filters>
+                    <LevelRangeFilter minLevel="..." maxLevel="..." onMatch="..." onMismatch="..."/>
+                </Filters>
+                <Policies>
+                    <CronTriggeringPolicy schedule="..."/>
+                    <SizeBasedTriggeringPolicy size="..."/>
+                    <TimeBasedTriggeringPolicy />
+                </Policies>
+            </Appender>
+        -->
+        <!--
+            ConsoleAppender(Console)
+                该实现类会把日志输出到控制台中。
+                它有两种输出方式：
+                    SYSTEM_OUT(System.out)
+                    SYSTEM_ERR(System.err)
+                如果不配置，默认使用SYSTEM_OUT进行输出。括号中是调用的方法。
+
+            其它属性可以参见官方文档: http://logging.apache.org/log4j/2.x/manual/appenders.html#ConsoleAppender
+        -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--
+                设置 onMismatch="NEUTRAL" 可以让日志经过后续的过滤器
+                最后一个过滤器建议设置 onMismatch="DENY", 不然日志就输出了。
+            -->
+            <Filters>
+                <!-- 从大到小：error, warn, info, debug, trace -->
+                <!-- <LevelRangeFilter minLevel="trace" maxLevel="error" onMatch="ACCEPT" onMismatch="NEUTRAL"/>-->
+                <!-- 只允许在每天的 8点~8点半 之间输出日志 -->
+                <!-- <TimeFilter start="08:00:00" end="08:30:00" onMatch="ACCEPT" onMismatch="DENY" />-->
+            </Filters>
+
+            <!-- 格式化日志 -->
+            <!-- 关于pattern的格式点击http://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout -->
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} %highlight{%-5p} [%pid:%t] %c{20}:%L --- %msg%n%ex"
+                    charset="UTF-8"/>
+        </Console>
+
+        <!--
+            FileAppender(File)、RandomAccessFileAppender(RandomAccessFile)
+                相同点：写入日志信息到文件
+                不同点：使用的I/O实现类不同，前者使用FileOutputStream，后者使用RandomAccessFile。
+                官方文档说是在bufferedIO=true(默认是true)的情况下后者比前者性能提升20% ~ 200%，不明觉厉，就用后者吧。
+            fileName: 指定文件位置
+            immediateFlush: 是否立即刷新到文件，默认是true
+            其它属性可以参见官方文档: http://logging.apache.org/log4j/2.x/manual/appenders.html#RandomAccessFileAppender
+        -->
+        <RandomAccessFile name="RandomFile"
+                          fileName="${fileDir}/DemoRandom.log"
+                          immediateFlush="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+                           charset="UTF-8"/>
+        </RandomAccessFile>
+
+        <!--
+            RollingFileAppender(RollingFile)、RollingRandomAccessFileAppender(RollingRandomAccessFile)
+                这一对之间的区别与上一对之间的区别是一样的。
+                上一对的实现类不能进行日志滚动，所谓日志滚动就是当达到设定的条件后，日志文件进行切分。
+                比如：工程师想让系统中的日志按日进行切分，并且按月归档。
+                这时候这一对的作用就体现出来了。
+
+            注意: 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
+
+            filePattern：指定了日志滚动之后的文件命名格式，至于其中的$${date:hh-mm}表达式下文介绍。
+                还可以在文件名上添加时间 filePattern="%d{HH-mm-ss}.DemoRolling.%i.log"
+            DefaultRolloverStrategy: 指定了如何(How)进行翻滚，并且指定了最大翻滚次数(影响%i参数值)，
+                超过次数之后会按照相应的规则删除旧日志。
+            Policies: 这里就是规定了何时进行滚动(When)，可以有多个Policy。
+                CronTriggeringPolicy: 设置了每 5s 进行一次翻滚
+                SizeBasedTriggeringPolicy: 设置了的话，如果当前文件超过了10MB，
+                    但是文件的名字还没有进行翻滚(建立新文件)，那么就会用"%i" 的方式进行翻滚。
+
+            Policy常用的实现类:
+                SizeBasedTriggeringPolicy
+                    根据日志文件的大小进行滚动。单位有：KB，MB，GB
+                    <SizeBasedTriggeringPolicy size="10MB"/>
+                CronTriggeringPolicy
+                    使用Cron表达式进行日志滚动，很灵活。
+                    <CronTriggeringPolicy schedule="0/5 * * * * ?" />
+                TimeBasedTriggeringPolicy
+                    这个滚动策略依赖于filePattern中配置的最具体的时间单位，根据最具体的时间单位进行滚动。
+                    这种方式比较简洁。CronTriggeringPolicy策略更强大。
+        -->
+        <!-- ${sys:log4j2.dir:-demo-log}  <==>  System.setProperty("log4j2.dir", "demo-01"); -->
+        <RollingRandomAccessFile name="RollingFile"
+                                 fileName="${fileDir}/${rollingFileName}.log"
+                                 filePattern="${fileDir}/$${date:yyyy-MM-dd}/${rollingFileName}.%d{HH-mm}.%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-5p %logger{36} [%pid:%t] %c{20}:%L --- %msg%n%ex"
+                    charset="UTF-8"/>
+
+            <Policies>
+                <!--
+                    这是什么情况，为什么会有这个报错?
+                    ERROR Policies contains an invalid element or attribute "CronTriggeringPolicy"
+                -->
+                <!-- 每 5s 翻滚一次 -->
+                <!-- <CronTriggeringPolicy schedule="0/5 * * * * ?"/> -->
+
+                <!--
+                    filePattern中最具体的时间单位是秒。
+                    这里用 TimeBasedTriggeringPolicy 替换 CronTriggeringPolicy
+                        interval="1" 这个是按 filePattern 中的"%d{HH-mm}" 中的最小单位来处理的。这里就是每分钟滚动一个新文件
+                    注意：modulate属性是指从启动时间开始算5秒，还是从0秒开始算5秒，运行一下就明白了。
+                        modulate: true(默认值) // 会从启动时间开始算 5秒
+                        modulate: false // 从 0秒开始算
+                            // 我试了一下，true 时如果日志文件存在，则将其转成一个备份日志文件
+                            // false 时如果日志文件存在，则往这个日志文件中追加日志
+                -->
+                <!-- <TimeBasedTriggeringPolicy interval="5" modulate="true"/> -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+
+            <!--
+                Strategy常用的实现类
+                    DefaultRolloverStrategy
+                    DirectWriteRolloverStrategy
+                这两个Strategy都是控制如何进行日志滚动的，至于他们的区别我还是不太明白，大佬解释一下吧。
+                平时大部分用DefaultRolloverStrategy就可以了。
+            -->
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+
+        <!-- 与上面的 RollingFile 一样的配置，删除所有注释需要看的话往前找 -->
+        <RollingRandomAccessFile name="${spName}"
+                                 fileName="${fileDir}/${spFileName}.log"
+                                 filePattern="${fileDir}/$${date:yyyy-MM-dd}/${spFileName}.%d{HH-mm}.%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-5p %logger{36} [%pid:%t] %c{20}:%L --- %msg%n%ex"
+                    charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RandomFile"/>
+            <AppenderRef ref="RollingFile"/>
+
+            <!-- Logger 中也可以添加过滤器 -->
+            <Filters>
+                <!-- <LevelRangeFilter minLevel="trace" maxLevel="error" onMatch="ACCEPT" onMismatch="DENY" />-->
+            </Filters>
+        </Root>
+
+        <!--
+            name 特殊指明某个自定义logger对象  可以为字符串，也可以为指定类的全路径
+            additivity =false则不往root路径下的日志里边打印    level为info级别
+            下边的appender-ref 指定哪一个appender
+         -->
+        <!-- 这里的日志配置，我只写到sp 对应的文件中。其他的日志文件以及控制台都不会有。 -->
+        <!-- 对应的使用是 LoggerFactory.getLogger("spLogger"); -->
+        <logger name="spLogger" additivity="false" level="info" includeLocation="true">
+            <AppenderRef ref="${spName}"/>
+        </logger>
+
+    </Loggers>
+</Configuration>
+
