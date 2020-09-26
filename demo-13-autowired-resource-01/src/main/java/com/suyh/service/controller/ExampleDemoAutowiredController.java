@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 
+/**
+ * 使用@Autowired 注解，注入相同类型不同ID 的Bean 对象时需要配置 @Qualifier
+ */
 @RestController
 public class ExampleDemoAutowiredController {
     @Autowired

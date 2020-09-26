@@ -1,10 +1,10 @@
 package test.com.suyh;
 
-import com.alibaba.fastjson.JSON;
 import com.suyh.Kafka03Application;
 import com.suyh.constant.KafkaConstant;
 import com.suyh.entity.WmsCkOmsShipmentMO;
 import com.suyh.entity.MQEvent;
+import com.suyh.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +46,7 @@ public class KafkaTest {
         MQEvent<WmsCkOmsShipmentMO> mqEvent = new MQEvent<>(
                 UUID.randomUUID().toString(), EVENT_WMS_SHIPMENT_OUT, data);
         ListenableFuture<SendResult<String, String>> future
-                = kafkaTemplate.send(topicWmsOrder, JSON.toJSONString(mqEvent));
+                = kafkaTemplate.send(topicWmsOrder, JsonUtil.serializable(mqEvent));
         System.out.println("kafkaTemplate send data to topic: " + topicWmsOrder
                 + ", event id: " + mqEvent.getEventId());
         future.addCallback(sendResult -> {
@@ -55,14 +55,14 @@ public class KafkaTest {
                 return;
             }
 
-            SendResult<String, String> res = sendResult;
-            log.info("sendResult: {}", res);
+            // SendResult<String, String> res = sendResult;
+            log.info("sendResult: {}", sendResult);
         }, exception -> {
             log.error("kafka send message failed.", exception);
         });
 
         mqEvent.setEventId(UUID.randomUUID().toString());
-        kafkaTemplate.send(topicOms, JSON.toJSONString(mqEvent));
+        kafkaTemplate.send(topicOms, JsonUtil.serializable(mqEvent));
         System.out.println("kafkaTemplate send data to topic: " + topicOms
                 + ", event id: " + mqEvent.getEventId());
     }

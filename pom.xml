@@ -10,31 +10,32 @@
         <version>2.2.2.RELEASE</version>
     </parent>
 
+    <packaging>pom</packaging>
+
     <groupId>com.suyh</groupId>
     <artifactId>java-demo-springboot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>demo-00-core-01</module>
+        <module>demo-00-00-core</module>
+        <module>demo-00-01-common</module>
+        <module>demo-01-log4j2</module>
         <module>demo-01-test-01</module>
         <module>demo-01-test-02-mock</module>
         <module>demo-02-properties-01</module>
         <module>demo-03-jedis-01</module>
         <module>demo-04-scheduler-01</module>
-        <module>demo-05-spring-context-util-01</module>
         <module>demo-06-mybatis-01</module>
         <module>demo-06-mybatis-02-common</module>
+        <module>demo-06-mybatis-03-multi-db-01</module>
         <module>demo-07-kafka-01</module>
         <module>demo-08-jwt-01</module>
         <module>demo-09-shiro-01</module>
         <module>demo-09-shiro-02</module>
         <module>demo-09-shiro-03</module>
         <module>demo-09-shiro-04-ssm</module>
-        <module>demo-11-init-01</module>
         <module>demo-12-swagger-01</module>
         <module>demo-13-autowired-resource-01</module>
-        <module>demo-15-pagehelper-01</module>
         <module>demo-16-guava-01</module>
-        <module>demo-17-jackson-01</module>
         <module>demo-18-resttemplate-01</module>
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>
@@ -42,9 +43,8 @@
         <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
+        <module>demo-25-flywaydb-01</module>
     </modules>
-
-    <packaging>pom</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -61,11 +61,6 @@
                 <version>19.3.0.0</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.36</version>
-            </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
@@ -197,4 +192,80 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <!-- 指定拉取阿里云仓库 -->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <name>阿里云仓库</name>-->
+    <!--            <id>spring</id>-->
+    <!--            <url>https://maven.aliyun.com/repository/spring</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src\main\resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src\test\resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+            <!--
+                这个插件必须要生成一个jar 包对象，并且会去找一个MainClass 如果没找到就会报错
+                所以这个插件不应该放在parent 中
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            -->
+            <plugin>
+                <!--
+                    http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters
+                    注意
+                        如果遇到${project.version}无法生效，是因为
+                        由于 **${}** 方式会被maven处理。
+                        如果你pom继承了spring-boot-starter-parent，Spring
+                        Boot已经将maven-resources-plugins默认的${}方式改为了@@方式，如@name@
+                        如果还想继续使用${}占位符方式，只需要在pom文件中加上下面配置即可：
+                -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <!-- 使用默认的字符读取maven pom.xml 中的变量值 -->
+                    <!-- <useDefaultDelimiters>true</useDefaultDelimiters> -->
+                    <delimiters>
+                        <delimiter>${*}</delimiter>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- 版本控制打包插件 -->
+                <!-- 更新项目当前版本 mvn versions:set -DnewVersion=1.0 -->
+                <!-- 回滚项目版本，必须有备份文件才有效 mvn versions:revert -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 是否生成备份文件，如果不生成不能回滚 -->
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

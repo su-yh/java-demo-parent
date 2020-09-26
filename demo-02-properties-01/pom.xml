@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-02-properties-01</artifactId>
+    <name>demo-02-properties-01</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <my.filter.value>hello</my.filter.value>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -17,6 +24,12 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- spring boot configuration Annotation processor not configured -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -34,4 +47,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+
 </project>

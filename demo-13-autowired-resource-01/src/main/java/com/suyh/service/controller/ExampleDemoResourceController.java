@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 
+/**
+ * 使用@Resource 注入Bean 对象，通过name 属性来指定相同类型不同ID 的bean
+ */
 @RestController
 public class ExampleDemoResourceController {
 
