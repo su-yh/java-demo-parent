@@ -47,6 +47,7 @@
         <module>demo-26-resource-01</module>
         <module>demo-27-activiti-01</module>
         <module>demo-28-devtools-01</module>
+        <module>demo-27-activiti-02</module>
     </modules>
 
     <dependencyManagement>
