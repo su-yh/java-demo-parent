@@ -46,6 +46,7 @@
         <module>demo-25-flywaydb-01</module>
         <module>demo-26-resource-01</module>
         <module>demo-27-activiti-01</module>
+        <module>demo-28-devtools-01</module>
     </modules>
 
     <dependencyManagement>

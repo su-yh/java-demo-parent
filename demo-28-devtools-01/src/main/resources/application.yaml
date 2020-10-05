@@ -1,0 +1,15 @@
+
+#  当我们修改了Java类后，IDEA默认是不自动编译的，而spring-boot-devtools又是监测classpath下的文件发生变化才会重启应用，所以需要设置IDEA的自动编译：
+#    （1）File --> Settings --> Build,Execution,Deployment --> Compiler
+#         勾选 "Build project automatically"
+#    （2）快捷键："ctrl + shift + alt + /"  -->  Registry
+#         勾选 "compiler.automake.allow.when.app.running""
+spring:
+  devtools:
+    restart:
+      # additional-paths: src/main/java  # 重启目录
+      enabled: true # 开启热部署
+  freemarker:
+    cache: false # 页面不加载缓存，修改即时生效
+server:
+  port: 8001
