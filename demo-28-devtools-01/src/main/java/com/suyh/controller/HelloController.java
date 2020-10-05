@@ -10,8 +10,10 @@ public class HelloController {
     @Value("${server.port}")
     private int port;
 
+    // 这里修改之后总是报404 ，不知道是不是controller 不能改
+    // 还有就是非debug 模式是没有问题的。
     @RequestMapping("/name")
     public String name() {
-        return "current port: " + port;
+        return "current modify  -  port: " + port;
     }
 }
