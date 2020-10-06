@@ -11,11 +11,4 @@ public class BooleanFormProperty extends AbstractFormProperty {
     public BooleanFormProperty() {
         super(PROPERTY_TYPE);
     }
-
-    private boolean value = false;
-
-    @Override
-    public Object getValue() {
-        return value;
-    }
 }

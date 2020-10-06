@@ -11,11 +11,4 @@ public class AttachmentFormProperty extends AbstractFormProperty {
     public AttachmentFormProperty() {
         super(PROPERTY_TYPE);
     }
-
-    protected String filePath;
-
-    @Override
-    public Object getValue() {
-        return getFilePath();
-    }
 }

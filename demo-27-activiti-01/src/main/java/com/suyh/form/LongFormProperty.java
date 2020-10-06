@@ -14,11 +14,4 @@ public class LongFormProperty extends AbstractFormProperty {
     public LongFormProperty() {
         super(PROPERTY_TYPE);
     }
-
-    private Long value;
-
-    @Override
-    public Object getValue() {
-        return value;
-    }
 }

@@ -14,11 +14,4 @@ public class StringFormProperty extends AbstractFormProperty {
     public StringFormProperty() {
         super(PROPERTY_TYPE);
     }
-
-    private String value;
-
-    @Override
-    public Object getValue() {
-        return value;
-    }
 }

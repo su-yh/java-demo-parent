@@ -34,6 +34,7 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
+        <!-- 属性加解密包 -->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>

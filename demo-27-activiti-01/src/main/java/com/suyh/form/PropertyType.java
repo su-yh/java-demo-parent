@@ -4,6 +4,7 @@ package com.suyh.form;
  * 表单类型
  */
 public enum PropertyType {
+    UNKNOWN(),
     LONG(),
     STRING(),
     BOOLEAN(),
@@ -11,5 +12,6 @@ public enum PropertyType {
     RADIO(),
     CHECKBOX(),
     ATTACHMENT(),
+    DOUBLE(),
     ;
 }

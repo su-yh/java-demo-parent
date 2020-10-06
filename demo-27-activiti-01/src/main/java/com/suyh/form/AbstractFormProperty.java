@@ -21,4 +21,9 @@ public abstract class AbstractFormProperty implements FormProperty, Serializable
      */
     protected String key;
     protected String description;
+
+    @Override
+    public Object getValue() {
+        return null;
+    }
 }

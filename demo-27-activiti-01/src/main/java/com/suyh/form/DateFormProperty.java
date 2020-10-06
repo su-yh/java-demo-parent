@@ -3,9 +3,6 @@ package com.suyh.form;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Setter
 @Getter
 public class DateFormProperty extends AbstractFormProperty {
@@ -13,14 +10,12 @@ public class DateFormProperty extends AbstractFormProperty {
 
     public DateFormProperty() {
         super(PROPERTY_TYPE);
-        sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    private SimpleDateFormat sdf;
-    private Date value;
+    private String pattern = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public Object getValue() {
-        return value;
+        return pattern;
     }
 }
