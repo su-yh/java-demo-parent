@@ -10,12 +10,15 @@ import java.io.Serializable;
 public abstract class AbstractFormProperty implements FormProperty, Serializable {
     public static final Long serialVersionUID = 42L;
 
-    public AbstractFormProperty(FormType formType) {
-        this.formType = formType;
+    public AbstractFormProperty(PropertyType propertyType) {
+        this.propertyType = propertyType;
     }
 
-    protected FormType formType;
+    protected PropertyType propertyType;
     protected boolean required = false;
+    /**
+     * 变量名
+     */
     protected String key;
     protected String description;
 }

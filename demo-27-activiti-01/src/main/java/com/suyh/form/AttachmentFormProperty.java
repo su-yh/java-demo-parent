@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AttachmentFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.ATTACHMENT;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.ATTACHMENT;
 
     public AttachmentFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
     }
 
     protected String filePath;

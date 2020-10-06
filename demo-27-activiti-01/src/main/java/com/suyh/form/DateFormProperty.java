@@ -5,15 +5,14 @@ import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
 public class DateFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.DATE;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.DATE;
 
     public DateFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 

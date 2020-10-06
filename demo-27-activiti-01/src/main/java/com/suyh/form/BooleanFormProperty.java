@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BooleanFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.BOOLEAN;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.BOOLEAN;
 
     public BooleanFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
     }
 
     private boolean value = false;

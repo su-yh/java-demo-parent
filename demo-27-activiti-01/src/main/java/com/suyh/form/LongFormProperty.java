@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LongFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.LONG;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.LONG;
 
     public LongFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
     }
 
     private Long value;

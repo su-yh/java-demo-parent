@@ -4,7 +4,7 @@ package com.suyh.form;
  * 单个控件对应一个表单属性
  */
 public interface FormProperty {
-    FormType getFormType();
+    PropertyType getPropertyType();
 
     /**
      * 是否必须
@@ -13,16 +13,20 @@ public interface FormProperty {
     boolean isRequired();
 
     /**
-     * key 值
+     * key 值: 变量名
      * @return key
      */
     String getKey();
 
+    /**
+     * 变量值
+     * @return value
+     */
     Object getValue();
 
     /**
      * 描述信息
-     * @return
+     * @return desc
      */
     String getDescription();
 }

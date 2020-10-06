@@ -8,10 +8,10 @@ import java.util.List;
 @Getter
 @Setter
 public class RadioFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.RADIO;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.RADIO;
 
     public RadioFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
     }
 
     // 可选值

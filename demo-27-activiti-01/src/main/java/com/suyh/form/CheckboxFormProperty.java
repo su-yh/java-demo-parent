@@ -8,10 +8,10 @@ import java.util.List;
 @Setter
 @Getter
 public class CheckboxFormProperty extends AbstractFormProperty {
-    public final static FormType FORM_TYPE = FormType.CHECKBOX;
+    public final static PropertyType PROPERTY_TYPE = PropertyType.CHECKBOX;
 
     public CheckboxFormProperty() {
-        super(FORM_TYPE);
+        super(PROPERTY_TYPE);
     }
 
     // 可选值

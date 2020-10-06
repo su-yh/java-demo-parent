@@ -3,7 +3,7 @@ package com.suyh.form;
 /**
  * 表单类型
  */
-public enum FormType {
+public enum PropertyType {
     LONG(),
     STRING(),
     BOOLEAN(),
