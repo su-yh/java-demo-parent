@@ -4,7 +4,7 @@ CREATE TABLE form_property_template (
 	id INT(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
 	business_key VARCHAR(64) NOT NULL COMMENT '业务KEY',
 	property_type VARCHAR(64) NOT NULL COMMENT '属性类型',
-	required VARCHAR(10) NOT NULL COMMENT '是否为必须',
+	required CHAR(1) NOT NULL COMMENT '是否为必须',
 	var_key VARCHAR(64) NOT NULL COMMENT '变量名',
 	description VARCHAR(512) NULL COMMENT '描述信息',
 	pattern VARCHAR(255) NULL COMMENT '日期类型的格式化',

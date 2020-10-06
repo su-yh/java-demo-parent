@@ -1,36 +1,53 @@
 package com.suyh.form.entity;
 
-import com.suyh.form.AbstractFormProperty;
-import com.suyh.form.PropertyType;
-import lombok.Getter;
-import lombok.Setter;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.JdbcType;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * 表单属性模板实体
  */
-@Getter
-@Setter
-public class FormPropertyTemplateEntity extends AbstractFormProperty {
-    public FormPropertyTemplateEntity() {
-        super(PropertyType.UNKNOWN);
-    }
+@Data
+@NoArgsConstructor
+@TableName("form_property_template")
+public class FormPropertyTemplateEntity implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     // 主键
+    @TableId(type = IdType.AUTO)
     private Long id;
     // 业务key
+    @TableField(value = "business_key", jdbcType = JdbcType.VARCHAR)
     private String businessKey;
 
-    // 日期解析格式
-    private String pattern;
-    // 日期类型数据值
-    private String valueRadio;
-    private String valueCheckbox;
+    @TableField(value = "property_type", jdbcType = JdbcType.VARCHAR)
+    private String propertyType;
 
-    @Override
-    public Object getValue() {
-        return null;
-    }
+    /**
+     * 'Y' OR 'N'
+     */
+    @TableField(value = "required", jdbcType = JdbcType.CHAR)
+    private String required;
+
+    @TableField(value = "var_key", jdbcType = JdbcType.VARCHAR)
+    private String varKey;
+
+    @TableField(value = "description", jdbcType = JdbcType.VARCHAR)
+    private String description;
+
+    // 日期解析格式
+    @TableField(value = "pattern", jdbcType = JdbcType.VARCHAR)
+    private String pattern;
+
+    @TableField(value = "value_custom", jdbcType = JdbcType.VARCHAR)
+    private String valueCustom;
+
+    @TableField(value = "value_custom_text", jdbcType = JdbcType.LONGVARCHAR)
+    private String valueCustomText;
 }

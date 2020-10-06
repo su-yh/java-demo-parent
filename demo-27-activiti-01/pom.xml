@@ -34,7 +34,6 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- flywaydb -->
         <!-- flywaydb 还不能缺少这个包呢，或者是这里面的某一个包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -43,6 +42,11 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
         <dependency>
