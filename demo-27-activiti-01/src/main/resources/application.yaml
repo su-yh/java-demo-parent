@@ -16,7 +16,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.159.133:3306/suyh_activiti?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://docker:3306/suyh_activiti?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
     password: root
     username: root
   flyway:
@@ -36,3 +36,10 @@ spring:
     baselineVersion: 1
     # 迁移时是否校验，默认值：true
     validateOnMigrate: true
+mybatis-plus:
+  type-aliases-package: com.suyh.form.entity
+  configuration:
+    map-underscore-to-camel-case: true
+debug: true
+server:
+  port: 8000
