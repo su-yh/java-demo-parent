@@ -1,6 +1,6 @@
 package com.suyh.activiti.config;
 
-import com.suyh.listener.GlobalListener;
+import com.suyh.activiti.listener.GlobalListener;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.spring.SpringProcessEngineConfiguration;
