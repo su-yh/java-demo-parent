@@ -1,4 +1,4 @@
-package com.suyh.form.entity;
+package com.suyh.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -20,7 +20,7 @@ public class FormPropertyTemplateEntity implements Serializable {
     public static final long serialVersionUID = 42L;
 
     // 主键
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     // 业务key
     @TableField(value = "business_key", jdbcType = JdbcType.VARCHAR)

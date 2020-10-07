@@ -36,10 +36,10 @@ spring:
     baselineVersion: 1
     # 迁移时是否校验，默认值：true
     validateOnMigrate: true
-mybatis-plus:
-  type-aliases-package: com.suyh.form.entity
-  configuration:
-    map-underscore-to-camel-case: true
+#mybatis-plus:
+#  type-aliases-package: com.suyh.entity
+#  configuration:
+#    map-underscore-to-camel-case: true
 debug: true
 server:
   port: 8000
