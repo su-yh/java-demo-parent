@@ -11,6 +11,7 @@ import java.util.Date;
 
 /**
  * 使用@Autowired 注解，注入相同类型不同ID 的Bean 对象时需要配置 @Qualifier
+ * 注解@Autowired 默认是按类型进行注入的
  */
 @RestController
 public class ExampleDemoAutowiredController {
