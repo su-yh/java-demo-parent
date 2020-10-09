@@ -65,7 +65,7 @@ public class Application060401 {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("com.suyh.mapper"));
+        pc.setModuleName(scanner("模块名"));
         pc.setParent("com.baomidou.ant");
         mpg.setPackageInfo(pc);
 
