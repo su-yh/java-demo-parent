@@ -44,6 +44,7 @@
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
         <module>demo-25-flywaydb-01</module>
+        <module>demo-06-mybatis-04-generator-01</module>
     </modules>
 
     <dependencyManagement>
