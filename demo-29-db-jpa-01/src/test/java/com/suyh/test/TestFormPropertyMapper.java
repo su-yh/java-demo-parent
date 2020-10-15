@@ -48,12 +48,12 @@ public class TestFormPropertyMapper {
         log.info("formList: {}", formList);
     }
 
-    // 分页查询
+    // JPA 提供的分页查询
     @Test
     public void testQueryPage() {
         int curPage = 0;    // 分页是从0 开始计数的
-        int pageSize = 10;
-        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");//这里给的属性，是需要Entity 中定义的成员变量名
+        int pageSize = 2;
+        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");// 这里给的属性，是需要Entity 中定义的成员变量名
         Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
 
         // 创建匹配器，即如何使用查询条件
@@ -83,6 +83,24 @@ public class TestFormPropertyMapper {
         List<FormPropertyTemplateEntity> entityList = pageResult.getContent();
         for (FormPropertyTemplateEntity entity : entityList) {
             log.info("实体数据: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
+        }
+    }
+
+    /**
+     * 自定义分页查询
+     */
+    @Test
+    public void testCustomerPageQuery() {
+        int curPage = 1;    // 分页是从0 开始计数的
+        int pageSize = 2;
+        // 这里给的属性，是需要Entity 中定义的成员变量名
+        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
+        Page<FormPropertyTemplateEntity> entityList = formMapper.pageQueryParentIsNull(pageable);
+        long totalElements = entityList.getTotalElements();
+        log.info("总个数：{}", totalElements);
+        for (FormPropertyTemplateEntity entity : entityList) {
+            log.info("单个实体: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
         }
     }
 }

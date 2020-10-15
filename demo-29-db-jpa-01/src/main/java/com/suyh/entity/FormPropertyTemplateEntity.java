@@ -1,5 +1,6 @@
 package com.suyh.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -56,15 +57,20 @@ public class FormPropertyTemplateEntity implements Serializable {
     @Column(name = "value_custom_text")
     private String valueCustomText;
 
+    @Column(name = "parent_id")
+    private String parentId;
+
     @Column(name = "create_by")
     private String createBy;
 
     @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     @Column(name = "update_by")
     private String updateBy;
 
     @Column(name = "update_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }
