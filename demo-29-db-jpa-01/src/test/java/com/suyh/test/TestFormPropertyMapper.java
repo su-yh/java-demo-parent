@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,6 +47,13 @@ public class TestFormPropertyMapper {
     public void testQuery() {
         List<FormPropertyTemplateEntity> formList = formMapper.findAll();
         log.info("formList: {}", formList);
+        List<Long> ids = new ArrayList<>();
+        ids.add(1L);
+        ids.add(3L);
+        formList = formMapper.findByIdIn(ids);
+        log.info("formList findByIdIn: {}", formList);
+        formList = formMapper.findByParentIdIsNull();
+        log.info("formList findByParentIdIsNull: {}", formList);
     }
 
     // JPA 提供的分页查询
@@ -83,6 +91,22 @@ public class TestFormPropertyMapper {
         List<FormPropertyTemplateEntity> entityList = pageResult.getContent();
         for (FormPropertyTemplateEntity entity : entityList) {
             log.info("实体数据: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
+        }
+    }
+
+    @Test
+    public void testQueryPage02() {
+        int curPage = 1;    // 分页是从0 开始计数的
+        int pageSize = 2;
+        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");// 这里给的属性，是需要Entity 中定义的成员变量名
+        Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
+
+        Page<FormPropertyTemplateEntity> pageResult = formMapper.findByParentIdIsNull(pageable);
+        long total = pageResult.getTotalElements();
+        log.info("总数: {}", total);
+
+        for (FormPropertyTemplateEntity entity : pageResult) {
+            log.info("实体数据01: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
         }
     }
 
