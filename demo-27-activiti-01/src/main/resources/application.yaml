@@ -1,0 +1,45 @@
+# activiti-engine.jar包中自带了创建activiti工作流数据库表的SQL语句和自动初始化数据库的方法。
+# SQL语句在org.activiti.db.create包下，
+# 初始化方法在org.activiti.engine.impl.db.DbSchemaCreate的main方法之中。
+
+spring:
+  activiti:
+    #数据库更新策略
+    # false: 启动时检查数据库版本，发生不匹配抛异常。一般线上用此配置
+    # create-drop: 引擎启动的时候创建表，结束的时候销毁，一般用于测试；
+    # true: 启动时自动检并更新数据库表，不存在会创建。一般在开发的时候我们使用此配置
+    database-schema-update: true
+    # 是否需要历史相关的数据库表
+    db-history-used: true
+    # 这个应该是程序启动时自动部署该目录下的流程定义，但是这个目录下面不能为空否则报错。启动失败
+    # process-definition-location-prefix: classpath:/process/
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://docker:3306/suyh_activiti?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
+    password: root
+    username: root
+  flyway:
+    # 是否开户flywaydb, 默认值：true
+    enabled: true
+    # 配置SQL指定脚本位置
+    locations: classpath:db/migration
+    # 当需要低版本的脚本时，需要置成true，否则只能执行高版本的脚本, 默认为: false
+    outOfOrder: true
+    # 有数据的数据库请保留此值为true，禁用clean命令，执行clean命令会清空数据库
+    cleanDisabled: true
+    # 记录migrate历史记录的表名，默认为 flyway_schema_history
+    table: schema_version_history
+    # 当数据库不是空数据库时，需要配置为true，空数据库则可以不配置。默认值：false
+    baselineOnMigrate: false
+    # 配置了该版本后，migrate会从比该版本大的版本进行migrate，不配置时默认值为1
+    baselineVersion: 1
+    # 迁移时是否校验，默认值：true
+    validateOnMigrate: true
+#mybatis-plus:
+#  type-aliases-package: com.suyh.entity
+#  configuration:
+#    map-underscore-to-camel-case: true
+debug: true
+server:
+  port: 8000

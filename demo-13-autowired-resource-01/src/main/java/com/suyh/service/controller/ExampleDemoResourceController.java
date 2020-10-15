@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * 使用@Resource 注入Bean 对象，通过name 属性来指定相同类型不同ID 的bean
+ * 注解@Resource 默认是按ID进行注入的
  */
 @RestController
 public class ExampleDemoResourceController {
