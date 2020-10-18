@@ -29,15 +29,8 @@ public class DemoHttpRequestTest {
     @Resource
     private TestRestTemplate restTemplate;
 
-    @Value("${server.port}")
-    private String port;
-
-    private String preUrl = "http://localhost:8080";
-
-    @Before
-    public void before() {
-        preUrl = "http://localhpst:" + port;
-    }
+    @Value("http://localhost:${server.port}")
+    private String preUrl;
 
     /**
      * 不带参数的get 请求

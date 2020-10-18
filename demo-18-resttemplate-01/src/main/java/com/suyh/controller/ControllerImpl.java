@@ -58,8 +58,10 @@ public class ControllerImpl {
         return makeNotice();
     }
 
+    // 这里是get 请求，而参数是一个实体对象。
+    // 那么这里就不能使用@RequestParam 注解了。
     @GetMapping("/get/info/data")
-    public Notice getInfoData(@RequestParam DataBean reqData) {
+    public Notice getInfoData(DataBean reqData) {
         log.info("ControllerImpl getInfoEntity, request param: {}", reqData);
 
         Notice resp = makeNotice();
