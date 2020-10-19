@@ -41,12 +41,14 @@ public class TestWebClient {
         Flux<Notice> noticePostFlux = client.post().uri("/impl/post/info/entity")
                 .bodyValue(noticeEntity).retrieve()
                 // 对异常状态的处理，对于状态为200 的不需要处理。如果有多个，则链式写法就可以了
-                .onStatus(httpStatus -> !httpStatus.equals(HttpStatus.OK), clientResponse -> Mono.error(new RuntimeException("error")))
-                .onStatus(httpStatus -> httpStatus.equals(HttpStatus.OK), clientResponse -> Mono.error(new RuntimeException("success")))
+                // 这里如果捕获到了，那么后面的subscribe 里面就不会被调用了。
+                .onStatus(httpStatus -> httpStatus.equals(HttpStatus.NOT_FOUND), clientResponse -> Mono.error(new RuntimeException("error 404")))
+                .onStatus(httpStatus -> httpStatus.equals(HttpStatus.INTERNAL_SERVER_ERROR), clientResponse -> Mono.error(new RuntimeException("error 500")))
                 .bodyToFlux(Notice.class);
         noticePostFlux.subscribe(notice -> log.info("noticeFlux 10086: {}",
                 ToStringBuilder.reflectionToString(notice, ToStringStyle.JSON_STYLE)), error -> log.error("error", error));
 
         TimeUnit.SECONDS.sleep(10);
+        log.info("finished.");
     }
 }
