@@ -3,11 +3,17 @@ package com.suyh.controller;
 import com.suyh.entity.DataBean;
 import com.suyh.entity.Notice;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/impl")
@@ -42,10 +48,37 @@ public class ControllerImpl {
     }
 
     @GetMapping("/get/info")
-    public Notice getInfo() {
+    public Notice getInfo() throws InterruptedException {
+
+        log.info("ControllerImpl getInfo. before");
+        TimeUnit.SECONDS.sleep(3);
         log.info("ControllerImpl getInfo.");
 
         return makeNotice();
+    }
+
+    @PostMapping("/post/info")
+    public Notice getInfoPost(int status) throws InterruptedException {
+
+        log.info("ControllerImpl postInfo. before");
+        TimeUnit.SECONDS.sleep(3);
+        log.info("ControllerImpl postInfo.");
+
+        Notice result = makeNotice();
+        result.setStatus(status);
+        return result;
+    }
+
+    @PostMapping("/post/info/entity")
+    public Notice getInfoPostEntity(@RequestBody Notice noticeEntity) throws InterruptedException {
+
+        log.info("ControllerImpl postInfo. before");
+        TimeUnit.SECONDS.sleep(3);
+        log.info("ControllerImpl postInfo.");
+
+        Notice result = makeNotice();
+        result.setStatus(noticeEntity.getStatus());
+        return result;
     }
 
     @GetMapping("/get/info/param")

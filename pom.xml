@@ -49,6 +49,7 @@
         <module>demo-28-devtools-01</module>
         <module>demo-27-activiti-02</module>
         <module>demo-29-db-jpa-01</module>
+        <module>demo-18-WebClient-02</module>
     </modules>
 
     <dependencyManagement>
