@@ -19,10 +19,10 @@ public class SomeServiceAutoConfiguration {
     @Resource
     private SomeServiceProperties properties;
 
-    // 注意以下两个方法的定义顺序不能换。否则会出现两个相烦类型的Bean 对象，如果同类型方式去注入将会报错
     @Bean
     // matchIfMissing 若没有配置该配置，则其结果与指定了该属性值为true 的效果相同，即指定了该属性的默认值为true
     @ConditionalOnProperty(name = "some.service.enable", havingValue = "true", matchIfMissing = true)  // 当指定属性与havingValue 的值匹配时，才会运行该方法
+    @ConditionalOnMissingBean
     public SomeService someService() {
         return new SomeService(properties.getPrefix(), properties.getSuffix());
     }
@@ -32,4 +32,5 @@ public class SomeServiceAutoConfiguration {
     public SomeService someService2() {
         return new SomeService("", "");
     }
+
 }
