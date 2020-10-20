@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * some.service.prefix 指定前缀的属性
  * some.service.suffix 指定后缀的属性
  */
-@ConfigurationProperties("some.service")    // 这个注解需要配置@EnableConfigurationProperties 使用
+@ConfigurationProperties("some.service")    // 这个注解需要配和@EnableConfigurationProperties 使用
 @Data
 public class SomeServiceProperties {
     private String prefix;
