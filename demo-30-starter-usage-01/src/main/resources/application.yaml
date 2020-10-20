@@ -1,0 +1,6 @@
+server:
+  port: 13001
+some:
+  service:
+    prefix: $$$
+    suffix: "000111"
