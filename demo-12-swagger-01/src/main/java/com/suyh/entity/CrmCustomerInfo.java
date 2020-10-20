@@ -2,6 +2,7 @@ package com.suyh.entity;
 
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -21,26 +22,32 @@ public class CrmCustomerInfo implements Serializable {
     /**
      * 主键：客户ID(必填项)(主键ID)
      */
+    @ApiModelProperty(value = "客户ID", example = "uuid")
     private String customerId           = null;
     /**
      * 客户全称(必填项)
      */
+    @ApiModelProperty(value = "客户全名", example = "中华人民共和国")
     private String fullName             = null;
     /**
      * 客户简称
      */
+    @ApiModelProperty(value = "客户简称", example = "中国")
     private String shortName            = null;
     /**
      * 负责人
      */
+    @ApiModelProperty(value = "负责人", example = "小李子")
     private String managerName          = null;
     /**
      * 联系电话
      */
+    @ApiModelProperty(value = "电话", example = "71489894")
     private String managerPhone         = null;
     /**
      * 是否内部用户(这个字段似乎有些多余了)【radio:1-是,2-否】(必填项)
      */
+    @ApiModelProperty(value = "是否内部用户【1: 是,2: 否】", example = "1")
     private String innerCustomer        = null;
     /**
      * 客户类型【select:1-内部客户,2-供应商,3-承运商】
@@ -49,6 +56,7 @@ public class CrmCustomerInfo implements Serializable {
     /**
      * 联系地址
      */
+    @ApiModelProperty(value = "联系地址", name = "address", example = "重庆南川")
     private String address              = null;
     /**
      * 是否使用平台系统(当有自有系统时则可不使用平台系统)【radio:1-是,2-否】

@@ -20,13 +20,13 @@ public class OmsOrderOperationLog extends OmsBaseInfo {
      * 主键ID
      */
     @Id
-    @ApiModelProperty(value = "主键ID", name = "operationLogKeyId")
+    @ApiModelProperty(value = "主键ID", name = "operationLogKeyId", example = "operationLogKeyId")
     @ColumnType(jdbcType = JdbcType.NVARCHAR)
     private String operationLogKeyId;
     /**
      * 原始订单表中的主键ID
      */
-    @ApiModelProperty(value = "原始订单表中的主键ID", name = "rfSourceOrderKeyId")
+    @ApiModelProperty(value = "原始订单表中的主键ID", name = "rfSourceOrderKeyId", example = "rfSourceOrderKeyId")
     @ColumnType(jdbcType = JdbcType.NVARCHAR)
     private String rfSourceOrderKeyId;
     /**

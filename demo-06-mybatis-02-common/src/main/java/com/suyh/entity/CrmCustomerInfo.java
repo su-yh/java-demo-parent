@@ -33,7 +33,7 @@ public class CrmCustomerInfo extends BaseModel {
      *   客户全称
      */
     @ColumnType(jdbcType = JdbcType.NVARCHAR)
-    @ApiModelProperty(value = "客户全称")
+    @ApiModelProperty(value = "客户全称", example = "客户全称")
     private String fullName;
 
     /**

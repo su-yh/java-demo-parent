@@ -1,6 +1,7 @@
 package com.suyh.entity;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 2020-04-03 14:17
  */
 @ApiModel
+@Data
 public class CrmCustomer implements Serializable {
     private static final long serialVersionUID = -4610881375727920940L;
 

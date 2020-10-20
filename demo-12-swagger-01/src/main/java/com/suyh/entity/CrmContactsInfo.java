@@ -3,6 +3,7 @@ package com.suyh.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -17,42 +18,44 @@ import java.util.Date;
  * @技术服务 www.fwjava.com
  */
 @ApiModel
+@Data
 public class CrmContactsInfo implements Serializable {
 
     /**
      * 主键：联系人ID(必填项)(主键ID)
      */
     // value: 在UI 页面上显示该字段的注释
-    @ApiModelProperty(value = "联系人ID")
+    @ApiModelProperty(value = "联系人ID", example = "uuid")
     private String contactsId       = null;
     /**
      * 属主ID，映射到客户基本信息表(必填项)
      */
-    @ApiModelProperty(value = "属主ID")
+    @ApiModelProperty(value = "属主ID", example = "uuid")
     private String rfCustomerId     = null;
     /**
      * 联系类别
      */
-    @ApiModelProperty(value = "联系类别")
+    @ApiModelProperty(value = "联系类别", example = "contactsKins")
     private String contactsKinds    = null;
     /**
      * 联系人姓名
      */
-    @ApiModelProperty(value = "联系人姓名")
+    @ApiModelProperty(value = "联系人姓名", example = "联系人name")
     private String contactsName     = null;
     /**
      * 电话
      */
-    @ApiModelProperty(value = "电话")
+    @ApiModelProperty(value = "电话", example = "17727448330")
     private String phone            = null;
     /**
      * 邮箱
      */
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "邮箱", example = "787910081@qq.com")
     private String email            = null;
     /**
      * QQ号
      */
+    @ApiModelProperty(value = "QQ", example = "787910081")
     private String qq               = null;
     /**
      * 微信
