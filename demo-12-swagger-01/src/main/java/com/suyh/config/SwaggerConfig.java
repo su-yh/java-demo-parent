@@ -23,16 +23,51 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Profile({"local"}) // 限制，只有当spring.profiles.active = local 时此配置才有效
 public class SwaggerConfig {
 
+    /**
+     * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
+     */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .groupName("所有文档")
                 .select()
                 // 指定要扫描的基础包
-                .apis(RequestHandlerSelectors.basePackage("com.suyh"))
 //                .apis(RequestHandlerSelectors.any())
                 //扫描所有有注解的api，用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build()
+                .ignoredParameterTypes(ApiIgnore.class);
+    }
+
+    /**
+     * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
+     */
+    @Bean
+    public Docket createRestApiCustomer() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .groupName("客户、供应商、承运商等明细表控制器分组")
+                .select()
+                // 指定要扫描的基础包
+                .apis(RequestHandlerSelectors.basePackage("com.suyh.controller.normal"))
+                .paths(PathSelectors.any())
+                .build()
+                .ignoredParameterTypes(ApiIgnore.class);
+    }
+
+    /**
+     * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
+     */
+    @Bean
+    public Docket createRestApiOther() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .groupName("其他分组")
+                .select()
+                // 指定要扫描的基础包
+                .apis(RequestHandlerSelectors.basePackage("com.suyh.controller.other"))
                 .paths(PathSelectors.any())
                 .build()
                 .ignoredParameterTypes(ApiIgnore.class);

@@ -1,6 +1,6 @@
-package com.suyh.controller.impl;
+package com.suyh.controller.normal.impl;
 
-import com.suyh.controller.CrmCustomerController;
+import com.suyh.controller.normal.CrmCustomerController;
 import com.suyh.entity.*;
 import org.springframework.web.bind.annotation.RestController;
 

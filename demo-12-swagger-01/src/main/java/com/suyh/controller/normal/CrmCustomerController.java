@@ -1,4 +1,4 @@
-package com.suyh.controller;
+package com.suyh.controller.normal;
 
 import com.suyh.entity.*;
 import io.swagger.annotations.Api;
