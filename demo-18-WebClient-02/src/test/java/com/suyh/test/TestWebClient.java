@@ -68,20 +68,23 @@ public class TestWebClient {
         // subscribe() 就是提交，然后后台就会去自动触发HTTP 请求，这里显然是有一个线程在处理。
         // Notice.class 为响应的返回类型实体定义
         Flux<Notice> noticeFlux = client.get().uri("/impl/get/info").retrieve().bodyToFlux(Notice.class);
-        noticeFlux.subscribe(
-                // 正常结束，处理返回值
-                notice -> log.info("noticeFlux success, response entity: {}",
-                        ToStringBuilder.reflectionToString(notice, ToStringStyle.JSON_STYLE)),
-                // 出异常时调用
-                exception -> {
-                    countDownLatch.countDown();
-                    log.error("noticeFlux exception", exception);
-                },
-                // 如果异常，则没有调用
-                () -> {
-                    countDownLatch.countDown();
-                    log.info("noticeFlux complete.");
-                });
+        // 添加最终处理，不管正常还是异常都会调用
+        noticeFlux.doFinally(signalType -> countDownLatch.countDown())
+                .subscribe(
+                        // 正常结束，处理返回值
+                        // 这里的正常结束是返回值为 200的情况，其他的情况都没有处理。
+                        notice -> log.info("noticeFlux success, response entity: {}",
+                                ToStringBuilder.reflectionToString(notice, ToStringStyle.JSON_STYLE)),
+                        // 出异常时调用
+                        exception -> {
+
+                            log.error("noticeFlux exception", exception);
+                        },
+                        // 正常完成
+                        // 如果异常，则没有调用
+                        () -> {
+                            log.info("noticeFlux complete.");
+                        });
 
         countDownLatch.await();
         log.info("noticeFlux is finished.");

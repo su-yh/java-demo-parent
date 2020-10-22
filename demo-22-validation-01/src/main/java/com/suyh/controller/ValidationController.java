@@ -7,11 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 /**
  * __    限制	说明
@@ -38,6 +40,13 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class ValidationController {
 
+    @RequestMapping(value = "/get/child/entity", method = RequestMethod.GET)
+    public ChildEntity getChildEntityByGet(
+            @Valid ChildEntity childEntity) {
+        log.info("getChildEntity: {}", childEntity);
+        return childEntity;
+    }
+
     @PostMapping("/get/child/entity")
     public ChildEntity getChildEntity(
             @RequestBody @Valid ChildEntity childEntity) {
@@ -55,7 +64,7 @@ public class ValidationController {
 
     // 普通类型参数校验
     @GetMapping("/get/name")
-    public String getString(@RequestParam("name") @NotNull String name) {
+    public String getString(@RequestParam("name") @NotBlank String name) {
         log.info("getString, name: {}", name);
         return name;
     }
