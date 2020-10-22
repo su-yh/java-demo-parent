@@ -1,2 +1,7 @@
 server:
   port: 12101
+suyh:
+  server:
+    controller:
+      exception:
+        global: true

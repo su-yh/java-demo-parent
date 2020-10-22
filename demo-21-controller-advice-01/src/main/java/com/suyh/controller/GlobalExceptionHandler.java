@@ -1,13 +1,16 @@
 package com.suyh.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 全局性的异常处理
+ * 默认禁止
  */
 @RestControllerAdvice
+@ConditionalOnProperty(name = "suyh.server.controller.exception.global", havingValue = "true")
 @Slf4j
 public class GlobalExceptionHandler {
 

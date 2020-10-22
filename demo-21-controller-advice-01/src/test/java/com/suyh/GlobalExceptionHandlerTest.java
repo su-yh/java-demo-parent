@@ -24,8 +24,12 @@ public class GlobalExceptionHandlerTest {
     @Value("http://localhost:${server.port}")
     private String domain;
 
+    @Value("${suyh.server.controller.exception.global}")
+    private boolean enable;
+
     @Test
     public void test01() {
+        log.info("enable: {}", enable);
         String url = domain + "/req/exception";
 
         String res = restTemplate.getForObject(url, String.class);

@@ -33,7 +33,7 @@
                 <directory>src/main/resources</directory>
             </testResource>
             <testResource>
-                <directory>src/main/resources</directory>
+                <directory>src/test/resources</directory>
             </testResource>
         </testResources>
     </build>
