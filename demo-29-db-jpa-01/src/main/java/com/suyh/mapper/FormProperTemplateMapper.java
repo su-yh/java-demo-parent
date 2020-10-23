@@ -10,20 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemplateEntity, Long> {
-    /**
-     * 问题：这个查询出来的是全部数据，并不是分页指定的条数
-     * `@Query(value = "SELECT model FROM FormPropertyTemplateEntity model WHERE parentId IS NULL ORDER BY ?#{#pageable}")`
-     * 你大爷的，这后面的 "ORDER BY ?#{#pageable}" 不能加，加了就是全部查询出来了，起不到分页的作用。
-     * <p>
-     * 自定义分页查询
-     * 查询某个字段为NULL的情况
-     * 对于某个字段为NULL的情况的，不好处理。    -- 已经处理了，看下面的 findByParentIdIsNull(pageable)
-     *
-     * @param pageable 分页条件，页数从0 开始
-     * @return 结果集
-     */
-    @Query(value = "SELECT model FROM FormPropertyTemplateEntity model WHERE parentId IS NULL")
-    Page<FormPropertyTemplateEntity> pageQueryParentIsNull(Pageable pageable);
 
     /**
      * select * from t where id in (id1, id2, ...)
@@ -47,4 +33,26 @@ public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemp
      * @return 结果集
      */
     Page<FormPropertyTemplateEntity> findByParentIdIsNull(Pageable pageable);
+
+
+
+
+
+
+
+
+    /**
+     * 问题：这个查询出来的是全部数据，并不是分页指定的条数
+     * `@Query(value = "SELECT model FROM FormPropertyTemplateEntity model WHERE parentId IS NULL ORDER BY ?#{#pageable}")`
+     * 你大爷的，这后面的 "ORDER BY ?#{#pageable}" 不能加，加了就是全部查询出来了，起不到分页的作用。
+     * <p>
+     * 自定义分页查询
+     * 查询某个字段为NULL的情况
+     * 对于某个字段为NULL的情况的，不好处理。    -- 已经处理了， findByParentIdIsNull(pageable)
+     *
+     * @param pageable 分页条件，页数从0 开始
+     * @return 结果集
+     */
+    @Query(value = "SELECT model FROM FormPropertyTemplateEntity model WHERE parentId IS NULL")
+    Page<FormPropertyTemplateEntity> pageQueryParentIsNull(Pageable pageable);
 }

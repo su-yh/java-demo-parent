@@ -2,6 +2,7 @@ package com.suyh.test;
 
 import com.suyh.entity.FormPropertyTemplateEntity;
 import com.suyh.mapper.FormProperTemplateMapper;
+import com.suyh.util.JpaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -126,5 +127,50 @@ public class TestFormPropertyMapper {
         for (FormPropertyTemplateEntity entity : entityList) {
             log.info("单个实体: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
         }
+    }
+
+    /**
+     * 模糊匹配查询
+     */
+    @Test
+    public void testJpaUtils01() {
+        FormPropertyTemplateEntity entity = new FormPropertyTemplateEntity();
+        entity.setBusinessKey("key");
+        int curPage = 1;    // 分页是从0 开始计数的
+        int pageSize = 3;
+        // 这里给的属性，是需要Entity 中定义的成员变量名
+        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
+
+        ExampleMatcher matcherLike = JpaUtils.makeStringQueryLike(FormPropertyTemplateEntity.class);
+        Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
+        Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
+        long totalRows = pageResult.getTotalElements();
+        List<FormPropertyTemplateEntity> content = pageResult.getContent();
+        log.info("总个数：{}", totalRows);
+        log.info("当前页数量：{}", content.size());
+    }
+
+    /**
+     * 精确匹配查询
+     */
+    @Test
+    public void testJpaUtils02() {
+        FormPropertyTemplateEntity entity = new FormPropertyTemplateEntity();
+        entity.setId(1L);
+        entity.setBusinessKey("testBusinessKey");
+        int curPage = 1;    // 分页是从0 开始计数的
+        int pageSize = 3;
+        // 这里给的属性，是需要Entity 中定义的成员变量名
+        Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
+
+        ExampleMatcher matcherLike = JpaUtils.makeStringQueryExact(FormPropertyTemplateEntity.class);
+        Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
+        Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
+        long totalRows = pageResult.getTotalElements();
+        List<FormPropertyTemplateEntity> content = pageResult.getContent();
+        log.info("总个数：{}", totalRows);
+        log.info("当前页数量：{}", content.size());
     }
 }

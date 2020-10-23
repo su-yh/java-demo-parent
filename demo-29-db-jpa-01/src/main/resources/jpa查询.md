@@ -24,3 +24,17 @@ Spring Data JPA 查询方法支持的关键字（可参考：https://docs.spring
 | `NotIn`             | `findByAgeNotIn(Collection<Age> age)` | `… where x.age not in ?1`                                    |
 | `True`              | `findByActiveTrue()`                  | `… where x.active = true`                                    |
 | `False`             | `findByActiveFalse()`                 | `… where x.active = false`                                   |
+
+**Matching 生成的语句**
+- DEFAULT (case-sensitive) firstname = ?0 默认（大小写敏感）
+- DEFAULT (case-insensitive) LOWER(firstname) = LOWER(?0) 默认（忽略大小写）
+- EXACT (case-sensitive) firstname = ?0 精确匹配（大小写敏感）
+- EXACT (case-insensitive) LOWER(firstname) = LOWER(?0) 精确匹配（忽略大小写）
+- STARTING (case-sensitive) firstname like ?0 + ‘%’ 前缀匹配（大小写敏感）
+- STARTING (case-insensitive) LOWER(firstname) like LOWER(?0) + ‘%’ 前缀匹配（忽略大小写）
+- ENDING (case-sensitive) firstname like ‘%’ + ?0 后缀匹配（大小写敏感）
+- ENDING (case-insensitive) LOWER(firstname) like ‘%’ + LOWER(?0) 后缀匹配（忽略大小写）
+- CONTAINING (case-sensitive) firstname like ‘%’ + ?0 + ‘%’ 模糊查询（大小写敏感）
+- CONTAINING (case-insensitive) LOWER(firstname) like ‘%’ + LOWER(?0) + ‘%’ 模糊查询（忽略大小写） 
+
+
