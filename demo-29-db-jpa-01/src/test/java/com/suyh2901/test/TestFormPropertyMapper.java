@@ -1,4 +1,4 @@
-package com.suyh.test;
+package com.suyh2901.test;
 
 import com.suyh0002.util.JpaUtils;
 import com.suyh2901.entity.FormPropertyTemplateEntity;
