@@ -1,6 +1,6 @@
-package com.suyh.dto;
+package com.suyh2901.dto;
 
-import com.suyh.entity.FormPropertyTemplateEntity;
+import com.suyh2901.entity.FormPropertyTemplateEntity;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;

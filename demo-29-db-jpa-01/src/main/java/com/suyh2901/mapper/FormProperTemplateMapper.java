@@ -1,4 +1,4 @@
-package com.suyh.mapper;
+package com.suyh2901.mapper;
 
 import com.suyh.entity.FormPropertyTemplateEntity;
 import org.springframework.data.domain.Page;
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Collection;
 import java.util.List;
 
-public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemplateEntity, Long> {
+public interface FormProperTemplateMapper extends JpaRepository<com.suyh2901.entity.FormPropertyTemplateEntity, Long> {
 
     /**
      * select * from t where id in (id1, id2, ...)
@@ -17,14 +17,14 @@ public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemp
      * @param ids
      * @return
      */
-    List<FormPropertyTemplateEntity> findByIdIn(Collection<Long> ids);
+    List<com.suyh2901.entity.FormPropertyTemplateEntity> findByIdIn(Collection<Long> ids);
 
     /**
      * 查询parentId 字段为NULL 的记录
      *
      * @return 结果集
      */
-    List<FormPropertyTemplateEntity> findByParentIdIsNull();
+    List<com.suyh2901.entity.FormPropertyTemplateEntity> findByParentIdIsNull();
 
     /**
      * 这个解决了，某个字段为NULL 的情况的分页查询
@@ -32,7 +32,7 @@ public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemp
      * @param pageable 分页条件
      * @return 结果集
      */
-    Page<FormPropertyTemplateEntity> findByParentIdIsNull(Pageable pageable);
+    Page<com.suyh2901.entity.FormPropertyTemplateEntity> findByParentIdIsNull(Pageable pageable);
 
 
 
@@ -54,5 +54,5 @@ public interface FormProperTemplateMapper extends JpaRepository<FormPropertyTemp
      * @return 结果集
      */
     @Query(value = "SELECT model FROM FormPropertyTemplateEntity model WHERE parentId IS NULL")
-    Page<FormPropertyTemplateEntity> pageQueryParentIsNull(Pageable pageable);
+    Page<com.suyh2901.entity.FormPropertyTemplateEntity> pageQueryParentIsNull(Pageable pageable);
 }

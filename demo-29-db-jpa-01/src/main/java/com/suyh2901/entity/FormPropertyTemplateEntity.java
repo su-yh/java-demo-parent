@@ -1,4 +1,4 @@
-package com.suyh.entity;
+package com.suyh2901.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.suyh.utils.ClassUtils;

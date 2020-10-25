@@ -1,4 +1,4 @@
-package com.suyh.dto;
+package com.suyh2901.dto;
 
 import javax.validation.constraints.Null;
 
