@@ -5,7 +5,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-public class JpaUtil {
+public class JpaUtils {
     /**
      * 对类对象的字符串属性进行精确匹配数据库查询的匹配器
      *

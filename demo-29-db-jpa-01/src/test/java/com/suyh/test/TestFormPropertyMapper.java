@@ -2,7 +2,7 @@ package com.suyh.test;
 
 import com.suyh.entity.FormPropertyTemplateEntity;
 import com.suyh.mapper.FormProperTemplateMapper;
-import com.suyh0002.util.JpaUtil;
+import com.suyh0002.util.JpaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -142,7 +142,7 @@ public class TestFormPropertyMapper {
         Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
         Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
 
-        ExampleMatcher matcherLike = JpaUtil.makeStringQueryLike(FormPropertyTemplateEntity.class);
+        ExampleMatcher matcherLike = JpaUtils.makeStringQueryLike(FormPropertyTemplateEntity.class);
         Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
         Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
         long totalRows = pageResult.getTotalElements();
@@ -165,7 +165,7 @@ public class TestFormPropertyMapper {
         Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
         Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
 
-        ExampleMatcher matcherLike = JpaUtil.makeStringQueryExact(FormPropertyTemplateEntity.class);
+        ExampleMatcher matcherLike = JpaUtils.makeStringQueryExact(FormPropertyTemplateEntity.class);
         Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
         Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
         long totalRows = pageResult.getTotalElements();
