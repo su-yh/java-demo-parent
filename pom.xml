@@ -18,6 +18,7 @@
     <modules>
         <module>demo-00-00-core</module>
         <module>demo-00-01-common</module>
+        <module>demo-00-02-jpa</module>
         <module>demo-01-log4j2</module>
         <module>demo-01-test-01</module>
         <module>demo-01-test-02-mock</module>
@@ -37,6 +38,7 @@
         <module>demo-13-autowired-resource-01</module>
         <module>demo-16-guava-01</module>
         <module>demo-18-resttemplate-01</module>
+        <module>demo-18-WebClient-02</module>
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>
         <module>demo-21-controller-advice-01</module>
@@ -49,9 +51,7 @@
         <module>demo-28-devtools-01</module>
         <module>demo-27-activiti-02</module>
         <module>demo-29-db-jpa-01</module>
-        <module>demo-18-WebClient-02</module>
         <module>demo-30-starter-define-01</module>
-        <module>demo-30-starter-usage-01</module>
     </modules>
 
     <dependencyManagement>
