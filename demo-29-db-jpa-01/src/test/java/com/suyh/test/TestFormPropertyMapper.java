@@ -1,8 +1,8 @@
 package com.suyh.test;
 
-import com.suyh.entity.FormPropertyTemplateEntity;
-import com.suyh.mapper.FormProperTemplateMapper;
 import com.suyh0002.util.JpaUtils;
+import com.suyh2901.entity.FormPropertyTemplateEntity;
+import com.suyh2901.mapper.FormProperTemplateMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
