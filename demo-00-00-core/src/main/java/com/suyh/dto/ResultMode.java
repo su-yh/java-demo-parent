@@ -11,7 +11,5 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 public class ResultMode<T> extends ResultEntity {
-    private static final long serialVersionUID = 344142L;
-
     private T data;
 }

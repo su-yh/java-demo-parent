@@ -15,13 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ResultPage<T> extends ResultEntity {
 
-    /**
-     * 总记录数
-     */
-    private int total;
-    /**
-     * 当前页
-     */
-    private int page;
+    public ResultPage(PageInfoDto pageInfo, List<T> data) {
+        this.pageInfo = pageInfo;
+        this.data = data;
+    }
+
+    private PageInfoDto pageInfo;
     private List<T> data;
 }
