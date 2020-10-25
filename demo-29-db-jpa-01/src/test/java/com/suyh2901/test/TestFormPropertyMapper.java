@@ -2,7 +2,7 @@ package com.suyh2901.test;
 
 import com.suyh0002.util.JpaUtils;
 import com.suyh2901.entity.FormPropertyTemplateEntity;
-import com.suyh2901.mapper.FormProperTemplateMapper;
+import com.suyh2901.repository.FormProperTemplateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 public class TestFormPropertyMapper {
     @Resource
-    private FormProperTemplateMapper formMapper;
+    private FormProperTemplateRepository formRepository;
 
     @Test
     public void testInsert() {
@@ -40,20 +40,20 @@ public class TestFormPropertyMapper {
         entity.setPattern("yyyy-MM-dd HH:mm:ss.SSS");
         entity.setValueCustom("testValueCustom");
         entity.setValueCustomText("testValueCustomeText");
-        formMapper.save(entity);
+        formRepository.save(entity);
         log.info("save entity: {}", ToStringBuilder.reflectionToString(entity, ToStringStyle.JSON_STYLE));
     }
 
     @Test
     public void testQuery() {
-        List<FormPropertyTemplateEntity> formList = formMapper.findAll();
+        List<FormPropertyTemplateEntity> formList = formRepository.findAll();
         log.info("formList: {}", formList);
         List<Long> ids = new ArrayList<>();
         ids.add(1L);
         ids.add(3L);
-        formList = formMapper.findByIdIn(ids);
+        formList = formRepository.findByIdIn(ids);
         log.info("formList findByIdIn: {}", formList);
-        formList = formMapper.findByParentIdIsNull();
+        formList = formRepository.findByParentIdIsNull();
         log.info("formList findByParentIdIsNull: {}", formList);
     }
 
@@ -75,7 +75,7 @@ public class TestFormPropertyMapper {
         FormPropertyTemplateEntity queryEntity = new FormPropertyTemplateEntity();
         queryEntity.setBusinessKey("testBusinessKey");
         Example<FormPropertyTemplateEntity> queryExample = Example.of(queryEntity);
-        Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(queryExample, pageable);
+        Page<FormPropertyTemplateEntity> pageResult = formRepository.findAll(queryExample, pageable);
         long total = pageResult.getTotalElements();
         log.info("总数: {}", total);
 
@@ -102,7 +102,7 @@ public class TestFormPropertyMapper {
         Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");// 这里给的属性，是需要Entity 中定义的成员变量名
         Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
 
-        Page<FormPropertyTemplateEntity> pageResult = formMapper.findByParentIdIsNull(pageable);
+        Page<FormPropertyTemplateEntity> pageResult = formRepository.findByParentIdIsNull(pageable);
         long total = pageResult.getTotalElements();
         log.info("总数: {}", total);
 
@@ -121,7 +121,7 @@ public class TestFormPropertyMapper {
         // 这里给的属性，是需要Entity 中定义的成员变量名
         Sort sortBy = Sort.by(Sort.Direction.DESC, "updateTime");
         Pageable pageable = PageRequest.of(curPage, pageSize, sortBy);
-        Page<FormPropertyTemplateEntity> entityList = formMapper.pageQueryParentIsNull(pageable);
+        Page<FormPropertyTemplateEntity> entityList = formRepository.pageQueryParentIsNull(pageable);
         long totalElements = entityList.getTotalElements();
         log.info("总个数：{}", totalElements);
         for (FormPropertyTemplateEntity entity : entityList) {
@@ -144,7 +144,7 @@ public class TestFormPropertyMapper {
 
         ExampleMatcher matcherLike = JpaUtils.makeStringQueryLike(FormPropertyTemplateEntity.class);
         Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
-        Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
+        Page<FormPropertyTemplateEntity> pageResult = formRepository.findAll(exampleQuery, pageable);
         long totalRows = pageResult.getTotalElements();
         List<FormPropertyTemplateEntity> content = pageResult.getContent();
         log.info("总个数：{}", totalRows);
@@ -167,7 +167,7 @@ public class TestFormPropertyMapper {
 
         ExampleMatcher matcherLike = JpaUtils.makeStringQueryExact(FormPropertyTemplateEntity.class);
         Example<FormPropertyTemplateEntity> exampleQuery = Example.of(entity, matcherLike);
-        Page<FormPropertyTemplateEntity> pageResult = formMapper.findAll(exampleQuery, pageable);
+        Page<FormPropertyTemplateEntity> pageResult = formRepository.findAll(exampleQuery, pageable);
         long totalRows = pageResult.getTotalElements();
         List<FormPropertyTemplateEntity> content = pageResult.getContent();
         log.info("总个数：{}", totalRows);

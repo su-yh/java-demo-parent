@@ -1,4 +1,4 @@
-package com.suyh2901.mapper;
+package com.suyh2901.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Collection;
 import java.util.List;
 
-public interface FormProperTemplateMapper extends JpaRepository<com.suyh2901.entity.FormPropertyTemplateEntity, Long> {
+public interface FormProperTemplateRepository extends JpaRepository<com.suyh2901.entity.FormPropertyTemplateEntity, Long> {
 
     /**
      * select * from t where id in (id1, id2, ...)
