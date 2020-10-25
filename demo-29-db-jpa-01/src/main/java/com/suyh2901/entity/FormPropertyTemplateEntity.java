@@ -23,6 +23,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "form_property_template")
+// 但是还是要注意，只有调用jpa的save 方法才会生效
 @EntityListeners(AuditingEntityListener.class)  // 使用 @CreatedBy @CreatedDate 等注解
 public class FormPropertyTemplateEntity implements Serializable {
     static final long serialVersionUID = 42L;
