@@ -7,12 +7,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,23 +35,23 @@ public class JpaRangeQuery<T> implements Specification<T> {
         Predicate predicateExample = QueryByExamplePredicateBuilder.getPredicate(root, cb, example);
 
         List<Predicate> rangePredicate = new ArrayList<>();
-        for (IAttributeRange<?> rangElement : rangeList) {
-            if (rangElement.getLowerBound() != null) {
-                if (rangElement.isContainLower()) {
+        for (IAttributeRange<?> rangeElement : rangeList) {
+            if (rangeElement.getLowerBound() != null) {
+                if (rangeElement.isContainLower()) {
                     rangePredicate.add(cb.greaterThanOrEqualTo(
-                            root.get(rangElement.getAttribute()), rangElement.getLowerBound()));
+                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
                 } else {
                     rangePredicate.add(cb.greaterThan(
-                            root.get(rangElement.getAttribute()), rangElement.getLowerBound()));
+                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
                 }
             }
-            if (rangElement.getUpperBound() != null) {
-                if (rangElement.isContainUpper()) {
+            if (rangeElement.getUpperBound() != null) {
+                if (rangeElement.isContainUpper()) {
                     rangePredicate.add(cb.lessThanOrEqualTo(
-                            root.get(rangElement.getAttribute()), rangElement.getLowerBound()));
+                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
                 } else {
                     rangePredicate.add(cb.lessThan(
-                            root.get(rangElement.getAttribute()), rangElement.getLowerBound()));
+                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
                 }
             }
         }
@@ -68,9 +66,9 @@ public class JpaRangeQuery<T> implements Specification<T> {
     public interface IAttributeRange<T> {
         String getAttribute();
 
-        T getLowerBound();
+        Comparable<T> getLowerBound();
 
-        T getUpperBound();
+        Comparable<T> getUpperBound();
 
         boolean isContainLower();
 
@@ -84,9 +82,9 @@ public class JpaRangeQuery<T> implements Specification<T> {
         static final long serialVersionUID = 42L;
 
         private String attribute;   // 属性名称字符串
-        private T lowerBound;   // 下边界
+        private Comparable<T> lowerBound;   // 下边界
         private boolean containLower;   // 是否包含下边界
-        private T upperBound;   // 上边界
+        private Comparable<T> upperBound;   // 上边界
         private boolean containUpper; // 是否包含上边界
 
         @Override
