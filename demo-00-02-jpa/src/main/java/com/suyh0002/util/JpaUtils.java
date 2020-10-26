@@ -141,7 +141,7 @@ public class JpaUtils {
             }
         }
 
-        String[] strs = ignoreField.toArray(new String[ignoreField.size()]);
+        String[] strs = ignoreField.toArray(new String[0]);
         // tianjia IS NULL de panduan, yijihuluodiao zhidingpaixudeziduan
         exampleMatcher = exampleMatcher.withIncludeNullValues().withIgnorePaths(strs);
 
