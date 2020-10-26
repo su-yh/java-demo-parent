@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
@@ -19,8 +20,13 @@ import java.util.List;
  * @param <T>
  */
 public class JpaRangeQuery<T> implements Specification<T> {
-    private Example<T> example;
-    private final List<IAttributeRange<?>> rangeList = new ArrayList<>();
+    private final Example<T> example;
+    private List<IAttributeRange<Long>> rangeList;
+
+    public JpaRangeQuery(Example<T> example, List<IAttributeRange<Long>> rangeList) {
+        this.example = example;
+        this.rangeList = rangeList;
+    }
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
@@ -34,41 +40,41 @@ public class JpaRangeQuery<T> implements Specification<T> {
         example.getMatcher().withIgnorePaths(ignorePaths.toArray(new String[0]));
         Predicate predicateExample = QueryByExamplePredicateBuilder.getPredicate(root, cb, example);
 
-        List<Predicate> rangePredicate = new ArrayList<>();
-        for (IAttributeRange<?> rangeElement : rangeList) {
+        Predicate result = predicateExample;
+        for (IAttributeRange<Long> rangeElement : rangeList) {
             if (rangeElement.getLowerBound() != null) {
                 if (rangeElement.isContainLower()) {
-                    rangePredicate.add(cb.greaterThanOrEqualTo(
-                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+                    Long lowerBound = rangeElement.getLowerBound();
+                    Path<Long> objectPath = root.get(rangeElement.getAttribute());
+                    Predicate predicate = cb.greaterThanOrEqualTo(objectPath, lowerBound);
+                    result = cb.and(predicateExample, predicate);
                 } else {
-                    rangePredicate.add(cb.greaterThan(
+                    Predicate predicate = (cb.greaterThan(
                             root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+                    result = cb.and(predicateExample, predicate);
                 }
             }
             if (rangeElement.getUpperBound() != null) {
                 if (rangeElement.isContainUpper()) {
-                    rangePredicate.add(cb.lessThanOrEqualTo(
+                    Predicate predicate = (cb.lessThanOrEqualTo(
                             root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+                    result = cb.and(predicateExample, predicate);
                 } else {
-                    rangePredicate.add(cb.lessThan(
+                    Predicate predicate = (cb.lessThan(
                             root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+                    result = cb.and(predicateExample, predicate);
                 }
             }
         }
-
-        if (rangePredicate.isEmpty()) {
-            return predicateExample;
-        }
-
-        return cb.and(predicateExample, rangePredicate.toArray(new Predicate[0]));
+        return result;
     }
 
     public interface IAttributeRange<T> {
         String getAttribute();
 
-        Comparable<T> getLowerBound();
+        T getLowerBound();
 
-        Comparable<T> getUpperBound();
+        T getUpperBound();
 
         boolean isContainLower();
 
@@ -82,9 +88,9 @@ public class JpaRangeQuery<T> implements Specification<T> {
         static final long serialVersionUID = 42L;
 
         private String attribute;   // 属性名称字符串
-        private Comparable<T> lowerBound;   // 下边界
+        private T lowerBound;   // 下边界
         private boolean containLower;   // 是否包含下边界
-        private Comparable<T> upperBound;   // 上边界
+        private T upperBound;   // 上边界
         private boolean containUpper; // 是否包含上边界
 
         @Override
