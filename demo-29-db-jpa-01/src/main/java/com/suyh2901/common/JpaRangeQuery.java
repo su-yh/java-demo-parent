@@ -21,9 +21,9 @@ import java.util.List;
  */
 public class JpaRangeQuery<T> implements Specification<T> {
     private final Example<T> example;
-    private List<IAttributeRange<Long>> rangeList;
+    private final List<IAttributeRange<? extends Comparable<? super Object>>> rangeList;
 
-    public JpaRangeQuery(Example<T> example, List<IAttributeRange<Long>> rangeList) {
+    public JpaRangeQuery(Example<T> example, List<IAttributeRange<? extends Comparable<? super Object>>> rangeList) {
         this.example = example;
         this.rangeList = rangeList;
     }
@@ -41,40 +41,52 @@ public class JpaRangeQuery<T> implements Specification<T> {
         Predicate predicateExample = QueryByExamplePredicateBuilder.getPredicate(root, cb, example);
 
         Predicate result = predicateExample;
-        for (IAttributeRange<Long> rangeElement : rangeList) {
+        for (IAttributeRange<? extends Comparable<? super Object>> rangeElement : rangeList) {
             if (rangeElement.getLowerBound() != null) {
-                if (rangeElement.isContainLower()) {
-                    Long lowerBound = rangeElement.getLowerBound();
-                    Path<Long> objectPath = root.get(rangeElement.getAttribute());
-                    Predicate predicate = cb.greaterThanOrEqualTo(objectPath, lowerBound);
-                    result = cb.and(predicateExample, predicate);
-                } else {
-                    Predicate predicate = (cb.greaterThan(
-                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
-                    result = cb.and(predicateExample, predicate);
-                }
+                result = getPredicateLower(root, cb, predicateExample, rangeElement);
             }
             if (rangeElement.getUpperBound() != null) {
-                if (rangeElement.isContainUpper()) {
-                    Predicate predicate = (cb.lessThanOrEqualTo(
-                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
-                    result = cb.and(predicateExample, predicate);
-                } else {
-                    Predicate predicate = (cb.lessThan(
-                            root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
-                    result = cb.and(predicateExample, predicate);
-                }
+                result = getPredicateUpper(root, cb, predicateExample, rangeElement);
             }
         }
         return result;
     }
 
-    public interface IAttributeRange<T> {
+    private <E extends Comparable<? super E>> Predicate getPredicateUpper(Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
+        Predicate result;
+        if (rangeElement.isContainUpper()) {
+            Predicate predicate = (cb.lessThanOrEqualTo(
+                    root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+            result = cb.and(predicateExample, predicate);
+        } else {
+            Predicate predicate = (cb.lessThan(
+                    root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+            result = cb.and(predicateExample, predicate);
+        }
+        return result;
+    }
+
+    private <E extends Comparable<? super E>> Predicate getPredicateLower(Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
+        Predicate result;
+        if (rangeElement.isContainLower()) {
+            E lowerBound = rangeElement.getLowerBound();
+            Path<E> objectPath = root.get(rangeElement.getAttribute());
+            Predicate predicate = cb.greaterThanOrEqualTo(objectPath, lowerBound);
+            result = cb.and(predicateExample, predicate);
+        } else {
+            Predicate predicate = (cb.greaterThan(
+                    root.get(rangeElement.getAttribute()), rangeElement.getLowerBound()));
+            result = cb.and(predicateExample, predicate);
+        }
+        return result;
+    }
+
+    public interface IAttributeRange<Y extends Comparable<? super Y>> {
         String getAttribute();
 
-        T getLowerBound();
+        Y getLowerBound();
 
-        T getUpperBound();
+        Y getUpperBound();
 
         boolean isContainLower();
 
@@ -84,13 +96,13 @@ public class JpaRangeQuery<T> implements Specification<T> {
     }
 
     @Data
-    public static class AttributeRange<T> implements IAttributeRange<T>, Serializable {
+    public static class AttributeRange<Y extends Comparable<? super Y>> implements IAttributeRange<Y>, Serializable {
         static final long serialVersionUID = 42L;
 
         private String attribute;   // 属性名称字符串
-        private T lowerBound;   // 下边界
+        private Y lowerBound;   // 下边界
         private boolean containLower;   // 是否包含下边界
-        private T upperBound;   // 上边界
+        private Y upperBound;   // 上边界
         private boolean containUpper; // 是否包含上边界
 
         @Override
