@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * JPA范围查询工具类
+ *
+ * @param <T>
+ */
 public class JpaRangeQuery<T> implements Specification<T> {
     private Example<T> example;
     private final List<IAttributeRange<?>> rangeList = new ArrayList<>();
