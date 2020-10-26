@@ -52,7 +52,8 @@ public class JpaRangeQuery<T> implements Specification<T> {
         return result;
     }
 
-    private <E extends Comparable<? super E>> Predicate getPredicateUpper(Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
+    private <E extends Comparable<? super E>> Predicate getPredicateUpper(
+            Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
         Predicate result;
         if (rangeElement.isContainUpper()) {
             Predicate predicate = (cb.lessThanOrEqualTo(
@@ -66,7 +67,8 @@ public class JpaRangeQuery<T> implements Specification<T> {
         return result;
     }
 
-    private <E extends Comparable<? super E>> Predicate getPredicateLower(Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
+    private <E extends Comparable<? super E>> Predicate getPredicateLower(
+            Root<T> root, CriteriaBuilder cb, Predicate predicateExample, IAttributeRange<E> rangeElement) {
         Predicate result;
         if (rangeElement.isContainLower()) {
             E lowerBound = rangeElement.getLowerBound();
