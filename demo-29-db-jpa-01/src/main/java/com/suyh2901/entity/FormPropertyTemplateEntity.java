@@ -29,20 +29,6 @@ public class FormPropertyTemplateEntity implements Serializable {
     static final long serialVersionUID = 42L;
 
     /**
-     * 通过子类对象，重新构建并注入相同属性的Entity 对象
-     * 这样做是为了处理，JPA 对于@Entity 的子类处理操作时不认。
-     * 具体什么原因不知道。但是暂时这样处理吧。在工作中遇到过这个问题。
-     *
-     * @param child 子类实体对象
-     * @return
-     */
-    public static FormPropertyTemplateEntity makeEntityByChild(FormPropertyTemplateEntity child) {
-        FormPropertyTemplateEntity resultEntity = new FormPropertyTemplateEntity();
-        resultEntity.propertyInject(child);
-        return resultEntity;
-    }
-
-    /**
      * 将本类对象的所有属性通过entity 进行注入，这里将不包括父类的属性注入
      *
      * @param entity 实体属性来源

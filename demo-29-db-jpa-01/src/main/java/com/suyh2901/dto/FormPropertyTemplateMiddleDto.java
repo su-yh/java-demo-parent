@@ -2,6 +2,7 @@ package com.suyh2901.dto;
 
 import com.suyh2901.entity.FormPropertyTemplateEntity;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
  * 但是不管是创建还是更新实体，对于其他字段(比如：varKey)。
  * 当它的值非空是都是相同的校验。
  */
+@MappedSuperclass
 public class FormPropertyTemplateMiddleDto extends FormPropertyTemplateEntity {
 
     /**

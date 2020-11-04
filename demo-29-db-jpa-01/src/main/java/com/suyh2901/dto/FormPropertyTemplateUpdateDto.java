@@ -1,7 +1,9 @@
 package com.suyh2901.dto;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+@MappedSuperclass
 public class FormPropertyTemplateUpdateDto extends FormPropertyTemplateMiddleDto {
 
     /**
