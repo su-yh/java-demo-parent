@@ -53,6 +53,7 @@
         <module>demo-29-db-jpa-01</module>
         <module>demo-30-starter-define-01</module>
         <module>demo-30-starter-usage-01</module>
+        <module>demo-31-async-01</module>
     </modules>
 
     <dependencyManagement>
