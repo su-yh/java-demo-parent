@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
     </parent>
 
     <packaging>pom</packaging>
@@ -54,6 +54,7 @@
         <module>demo-30-starter-define-01</module>
         <module>demo-30-starter-usage-01</module>
         <module>demo-31-async-01</module>
+        <module>demo-32-es-01</module>
     </modules>
 
     <dependencyManagement>
