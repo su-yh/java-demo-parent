@@ -55,6 +55,8 @@
         <module>demo-30-starter-usage-01</module>
         <module>demo-31-async-01</module>
         <module>demo-32-es-01</module>
+        <module>demo-33-jackson-01</module>
+        <module>demo-33-jackson-02</module>
     </modules>
 
     <dependencyManagement>
@@ -133,12 +135,6 @@
                         <artifactId>mybatis-spring-boot-starter</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.9</version>
             </dependency>
 
             <dependency>
