@@ -50,7 +50,7 @@ public class JsonUtil {
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
     }
 
-    public static void custor(ObjectMapper mapper) {
+    public static void custom(ObjectMapper mapper) {
         // 字段保留，将null值转为""
         mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @Override
