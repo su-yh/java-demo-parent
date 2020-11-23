@@ -22,7 +22,10 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -179,5 +182,43 @@ public class Application3201Tests {
         for (SearchHit documentField : hits) {
             log.info("documentField: {}", documentField.getSourceAsMap());
         }
+    }
+
+    @Test
+    public void testPutMapping() throws IOException {
+        PutMappingRequest request = new PutMappingRequest("twitter");
+
+        XContentBuilder builder = XContentFactory.jsonBuilder();
+        builder.startObject();
+        {
+            builder.startObject("properties");
+            {
+                builder.startObject("message");
+                {
+                    builder.field("type", "text");
+                }
+                builder.endObject();
+            }
+            {
+                builder.startObject("date");
+                {
+                    builder.field("type", "date");
+                }
+                builder.endObject();
+            }
+            {
+                builder.startObject("age");
+                {
+                    builder.field("type", "long");
+                }
+                builder.endObject();
+            }
+            builder.endObject();
+        }
+        builder.endObject();
+        request.source(builder);
+
+        AcknowledgedResponse response = client.indices().putMapping(request, RequestOptions.DEFAULT);
+        log.info("put mapping result: {}", response.isAcknowledged());
     }
 }
