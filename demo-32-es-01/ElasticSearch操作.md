@@ -15,6 +15,32 @@ https://www.elastic.co/guide/en/elasticsearch/client/java-rest/current/index.htm
 
 
 
+### text 和keyword
+
+> 都是字符串类型
+>
+> - text
+>
+> > 这种类型不能做完全匹配，即：不能使用term 进行精确查询，当使用term 查询时将查询不到数据。它只能使用match进行查询
+> >
+> > 所以我看Kibana 中的示例数据所有的text 类型都追加了keyword类型
+> >
+> > ```json
+> > "product_name" : {
+> >   "type" : "text",
+> >   "fields" : {
+> > 	"keyword" : {
+> > 	  "type" : "keyword"
+> > 	}
+> >   },
+> >   "analyzer" : "english"
+> > }
+> > ```
+>
+> - keyword
+>
+> > 这种类型可以做完全匹配，它不会被分词。所以它可以使用term 进行精确匹配查询
+
 ### 操作示例
 
 #### 创建索引
@@ -320,6 +346,125 @@ https://www.elastic.co/guide/en/elasticsearch/client/java-rest/current/index.htm
 > }
 > ```
 
+##### 查询嵌套对象中的元素条件
+
+> ```json
+> {
+>   "category" : [
+> 	"Men's Clothing"
+>   ],
+>   "currency" : "EUR",
+>   "customer_first_name" : "Eddie",
+>   "customer_full_name" : "Eddie Underwood",
+>   "customer_gender" : "MALE",
+>   "customer_id" : 38,
+>   "customer_last_name" : "Underwood",
+>   "customer_phone" : "",
+>   "day_of_week" : "Monday",
+>   "day_of_week_i" : 0,
+>   "email" : "eddie@underwood-family.zzz",
+>   "manufacturer" : [
+> 	"Elitelligence",
+> 	"Oceanavigations"
+>   ],
+>   "order_date" : "2020-12-07T09:28:48+00:00",
+>   "order_id" : 584677,
+>   "products" : [
+> 	{
+> 	  "base_price" : 11.99,
+> 	  "discount_percentage" : 0,
+> 	  "quantity" : 1,
+> 	  "manufacturer" : "Elitelligence",
+> 	  "tax_amount" : 0,
+> 	  "product_id" : 6283,
+> 	  "category" : "Men's Clothing",
+> 	  "sku" : "ZO0549605496",
+> 	  "taxless_price" : 11.99,
+> 	  "unit_discount_amount" : 0,
+> 	  "min_price" : 6.35,
+> 	  "_id" : "sold_product_584677_6283",
+> 	  "discount_amount" : 0,
+> 	  "created_on" : "2016-12-26T09:28:48+00:00",
+> 	  "product_name" : "Basic T-shirt - dark blue/white",
+> 	  "price" : 11.99,
+> 	  "taxful_price" : 11.99,
+> 	  "base_unit_price" : 11.99
+> 	},
+> 	{
+> 	  "base_price" : 24.99,
+> 	  "discount_percentage" : 0,
+> 	  "quantity" : 1,
+> 	  "manufacturer" : "Oceanavigations",
+> 	  "tax_amount" : 0,
+> 	  "product_id" : 19400,
+> 	  "category" : "Men's Clothing",
+> 	  "sku" : "ZO0299602996",
+> 	  "taxless_price" : 24.99,
+> 	  "unit_discount_amount" : 0,
+> 	  "min_price" : 11.75,
+> 	  "_id" : "sold_product_584677_19400",
+> 	  "discount_amount" : 0,
+> 	  "created_on" : "2016-12-26T09:28:48+00:00",
+> 	  "product_name" : "Sweatshirt - grey multicolor",
+> 	  "price" : 24.99,
+> 	  "taxful_price" : 24.99,
+> 	  "base_unit_price" : 24.99
+> 	}
+>   ],
+>   "sku" : [
+> 	"ZO0549605496",
+> 	"ZO0299602996"
+>   ],
+>   "taxful_total_price" : 36.98,
+>   "taxless_total_price" : 36.98,
+>   "total_quantity" : 2,
+>   "total_unique_products" : 2,
+>   "type" : "order",
+>   "user" : "eddie",
+>   "geoip" : {
+> 	"country_iso_code" : "EG",
+> 	"location" : {
+> 	  "lon" : 31.3,
+> 	  "lat" : 30.1
+> 	},
+> 	"region_name" : "Cairo Governorate",
+> 	"continent_name" : "Africa",
+> 	"city_name" : "Cairo"
+>   }
+> }
+> ```
+>
+> 
+>
+> ```json
+> GET /kibana_sample_data_ecommerce/_doc/_search
+> {
+>   "query": {
+>     "bool": {
+>       "must": [
+>         {
+>           "match": {
+>             "customer_id": "38"
+>           }
+>         }
+>       ], 
+>       "filter": {
+>         "range": {
+>           "products.base_price": {
+>               "gte": 11,
+>               "lte": 12
+>           }
+>         }
+>       }
+>     }
+>   },
+>   "from": 0,
+>   "size": 10
+> }
+> ```
+>
+> 
+
 #### 精确匹配
 
 > term，直接查询精确的分词
@@ -529,6 +674,27 @@ https://www.elastic.co/guide/en/elasticsearch/client/java-rest/current/index.htm
 
 
 
+
+
+
+# 其他
+
+```java
+@CelonEsProperty
+
+// 泛型: 范围查询
+CelonEsRangeQuery<T>
+{
+    // 下边界
+    lowerValue;
+    // 上边界
+    upperValue;
+    // 是否包含下边界
+    lowerInclude;
+    // 是否包含上边界
+    upperInclude;
+}
+```
 
 
 
