@@ -292,4 +292,8 @@ public class Application3201Tests {
         AcknowledgedResponse response = client.indices().putMapping(request, RequestOptions.DEFAULT);
         log.info("put mapping result: {}", response.isAcknowledged());
     }
+
+    //  elasticsearch date 的默认类型："strict_date_optional_time||epoch_millis"
+
+
 }
