@@ -30,11 +30,13 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
+import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +44,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application3201.class)
@@ -111,11 +120,24 @@ public class Application3201Tests {
 
     // 获取文档信息
     @Test
-    public void testGetDoc() throws IOException {
-        GetRequest request = new GetRequest("kuang_index", "1");
+    public void testGetDoc() throws IOException, ParseException {
+        GetRequest request = new GetRequest("kibana_sample_data_logs", "8Pe1-nUBGMFI76K-eiLF");
         GetResponse response = client.get(request, RequestOptions.DEFAULT);
+        Map<String, Object> source = response.getSource();
+        Object timestamp = source.get("timestamp");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date timeDate = sdf.parse((String) timestamp);
+        log.info("timeDate: {}", timeDate);
+        log.info("timestamp: {}", timeDate.getTime());
+        log.info("timestamp: {}", timestamp);
         log.info("result: {}", response.getSourceAsString());
         log.info("result: {}", response);   // 返回的全部内容和命令是一样的
+
+        SimpleDateFormat sdfLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        sdfLocal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        Date localDate = sdfLocal.parse("2020-11-16 10:59:45.071");
+        log.info("timeDate-local: {}", localDate);
+        log.info("timeStamp-local: {}", localDate.getTime());
     }
 
     // 更新文档信息
@@ -181,6 +203,55 @@ public class Application3201Tests {
         log.info("hits: {}", hits);
         for (SearchHit documentField : hits) {
             log.info("documentField: {}", documentField.getSourceAsMap());
+        }
+    }
+
+    @Test
+    public void testSearchDateRange() throws IOException, ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String strFromDate = "2020-11-16T19:56:43.000Z";
+        String strToDate = "2020-11-16T19:57:00.000Z";
+        Date fromDate = sdf.parse(strFromDate);
+        Date toDate = sdf.parse(strToDate);
+        log.info("fromDate: {}", fromDate.getTime());
+        log.info("toDate: {}", toDate.getTime());
+
+        SearchRequest request = new SearchRequest("kibana_sample_data_logs");
+        // 构建搜索条件
+//        MatchAllQueryBuilder matchAllQueryBuilder = QueryBuilders.matchAllQuery();
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        RangeQueryBuilder timestampRange = QueryBuilders.rangeQuery("timestamp");
+        timestampRange.from(fromDate, true);
+        timestampRange.to(toDate, true);
+        timestampRange.timeZone("GMT+00:00");
+//        timestampRange.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        sourceBuilder.query(timestampRange);
+        // 分页查询
+        sourceBuilder.from(0);
+        sourceBuilder.size(30);
+//        sourceBuilder.sort("timestamp", SortOrder.ASC);
+        sourceBuilder.sort("timestamp", SortOrder.DESC);
+
+        // 将搜索条件放到查询对象中
+        request.source(sourceBuilder);
+
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        // 得到搜索的结果，全部在hits 中
+        SearchHits hits = response.getHits();
+        log.info("hits: {}", hits);
+        log.info("hits total size: {}", hits.getTotalHits());
+        for (SearchHit documentField : hits) {
+            log.info("docId: {}", documentField.docId());
+            log.info("id: {}", documentField.getId());
+            log.info("documentField: {}", documentField.getSourceAsString());
+            Object timestamp = documentField.getSourceAsMap().get("timestamp");
+            String strTime = (String) timestamp;
+            log.info("timestamp: {}", timestamp);
+//            sdf.setTimeZone(TimeZone.getTimeZone("GMT+0:00"));
+            Date parse = sdf.parse(strTime);
+            log.info("parse: {}", parse.getTime());
         }
     }
 
