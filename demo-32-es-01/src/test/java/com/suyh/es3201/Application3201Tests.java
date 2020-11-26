@@ -207,9 +207,8 @@ public class Application3201Tests {
     public void testSearchDateRange() throws IOException, ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//        sdf.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
         String strFromDate = "2020-11-16T19:56:43.000Z";
-        String strToDate = "2020-11-16T19:57:00.000Z";
+        String strToDate = "2020-11-16T20:57:00.000Z";
         Date fromDate = sdf.parse(strFromDate);
         Date toDate = sdf.parse(strToDate);
         log.info("fromDate: {}", fromDate.getTime());
@@ -217,18 +216,17 @@ public class Application3201Tests {
 
         SearchRequest request = new SearchRequest("kibana_sample_data_logs");
         // 构建搜索条件
-//        MatchAllQueryBuilder matchAllQueryBuilder = QueryBuilders.matchAllQuery();
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         RangeQueryBuilder timestampRange = QueryBuilders.rangeQuery("timestamp");
-        timestampRange.from(fromDate, true);
-        timestampRange.to(toDate, true);
-        timestampRange.timeZone("GMT+00:00");
+        int rawOffset = TimeZone.getDefault().getRawOffset();
+        timestampRange.from(fromDate.getTime() + rawOffset, true);
+        timestampRange.to(toDate.getTime() + rawOffset, true);
+//        timestampRange.timeZone("GMT+00:00");
 //        timestampRange.format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         sourceBuilder.query(timestampRange);
         // 分页查询
         sourceBuilder.from(0);
         sourceBuilder.size(30);
-//        sourceBuilder.sort("timestamp", SortOrder.ASC);
         sourceBuilder.sort("timestamp", SortOrder.DESC);
 
         // 将搜索条件放到查询对象中

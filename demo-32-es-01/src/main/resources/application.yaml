@@ -1,0 +1,6 @@
+com.suyh.core.objectMapper.enable
+com:
+  suyh:
+    core:
+      objectMapper:
+        enable: true

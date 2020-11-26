@@ -13,9 +13,10 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @Slf4j
 public class SuyhJacksonAutoConfiguration {
 
+    // 这里还是默认关闭吧，其实很少有项目中使用这种配置
     @Bean("objectMapper")
     @ConditionalOnMissingBean(ObjectMapper.class)
-    @ConditionalOnProperty(name = "com.suyh.core.objectMapper.enable", havingValue = "true", matchIfMissing = true)
+    @ConditionalOnProperty(name = "com.suyh.core.objectMapper.enable", havingValue = "true")
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
         log.info("ObjectMapper configuration: use SuyhJacksonAutoConfiguration");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
