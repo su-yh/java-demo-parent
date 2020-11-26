@@ -1,6 +1,58 @@
-com.suyh.core.objectMapper.enable
 com:
   suyh:
     core:
       objectMapper:
         enable: true
+
+spring:
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints:
+            - localhost:9200
+          # 链接到es的超时时间，毫秒为单位，默认10秒（10000毫秒）
+          connection-timeout: 10000
+          # 读取和写入的超时时间，单位为毫秒，默认5秒（5000毫秒）
+          socket-timeout: 5000
+      repositories:
+        enabled: true
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:9200
+#     这两个属性在新版本的springboot中已经不建议使用，9300属于elasticsearch各节点之间的通讯接口。
+#     属于lowlevelclient。我们推荐使用9200的RestHighLevelClient去链接
+#     cluster-nodes: 127.0.0.1:9300
+#     cluster-name: helloElasticsearch
+
+#  Document
+#
+#    indexName：索引的名字
+#    type：文档类型名称
+#    shards：分片数，默认5
+#    replicas：副本数量，默认1
+#    createIndex：是否创建索引（索引不存在的情况下），默认true
+#    useServerConfiguration：创建索引的时候，是否使用服务端的配置，默认为false
+#    refreshInterval：刷新频率即配置一个文档新增后多久可以查询到，默认为1秒
+#    indexStoreType：索引存储方式，默认为fs文件存储类型
+#
+#  Field
+#
+#    format：时间格式，默认无，存储毫秒数。具体参数可参照org.springframework.data.elasticsearch.annotations.DateFormat
+#    index：是否进行分词，默认为true
+#    searchAnalyzer：指定字段搜索时使用的分词器
+#    analyzer：指定字段建立索引时所使用的分词器
+#    ignoreFields：指定忽略字段
+#    type：指定字段类型，具体可参照org.springframework.data.elasticsearch.annotations.FieldType
+#
+
+#        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder()
+#        .withQuery(boolQueryBuilder);
+#        builder.withPageable(new PageRequest(param.getPageNo(), 20))
+#        .withSort(new FieldSortBuilder("updateTime").order(SortOrder.DESC));
+#        SearchQuery searchQuery = builder.build();
+#        logger.info("QueryDSL:\n{}", searchQuery.getQuery().toString());
+
+# 自定义分词器，参考博客：
+#     https://www.cnblogs.com/yfb918/p/10718712.html
+#     https://blog.csdn.net/laoyang360/article/details/89048503
