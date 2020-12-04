@@ -62,7 +62,7 @@ public class KibanaEcommerceEntity implements Serializable {
     @Field(type = FieldType.Keyword)
     private String currency;
 
-    @Field(name = "taxless_total_price", type = FieldType.Double)
+    @Field(name = "taxless_total_price", type = FieldType.Half_Float)
     private Double taxlessTotalPrice;
 
     @Field(name = "total_unique_products", type = FieldType.Integer)
@@ -92,6 +92,6 @@ public class KibanaEcommerceEntity implements Serializable {
     @Field(name = "day_of_week", type = FieldType.Keyword)
     private String dayOfWeek;
 
-    @Field(name = "taxful_total_price", type = FieldType.Double)
+    @Field(name = "taxful_total_price", type = FieldType.Half_Float)
     private Double taxfulTotalPrice;
 }
