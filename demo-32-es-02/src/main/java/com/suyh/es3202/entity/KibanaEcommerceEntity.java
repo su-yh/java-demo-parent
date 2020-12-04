@@ -14,7 +14,6 @@ import java.util.List;
 
 @Data
 @Document(indexName = "kibana_sample_data_ecommerce", type = "_doc", shards = 1, replicas = 0)
-//@Document(indexName = "kibana_sample_data_ecommerce_suyh", type = "_doc", shards = 1, replicas = 0)
 @ApiModel(value = "KibanaSampleDataEcommerceEntity", description = "KibanaSampleDataEcommerceEntity 实体")
 public class KibanaEcommerceEntity implements Serializable {
     static final long serialVersionUID = 42L;

@@ -1,7 +1,7 @@
 package com.suyh.es3202.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.suyh.es3202.util.EsFieldName;
+import com.suyh.es3202.es.EsFieldName;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

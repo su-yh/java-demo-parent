@@ -1,4 +1,4 @@
-package com.suyh.es3202.util;
+package com.suyh.es3202.es;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
