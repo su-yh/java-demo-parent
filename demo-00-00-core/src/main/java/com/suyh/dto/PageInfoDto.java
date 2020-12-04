@@ -5,9 +5,15 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
 public class PageInfoDto implements Serializable {
     static final long serialVersionUID = 1L;
 
+    public PageInfoDto(int curPage, int pageSize) {
+        this.curPage = curPage;
+        this.pageSize = pageSize;
+    }
+    
     /**
      * 当前页 以1开始为第一页
      */
