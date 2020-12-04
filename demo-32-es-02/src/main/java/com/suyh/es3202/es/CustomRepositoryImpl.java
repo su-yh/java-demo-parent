@@ -34,11 +34,6 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
     }
 
     @Override
-    public void someCustomMethod() {
-        log.info("CustomRepositoryImpl someCustomMethod ");
-    }
-
-    @Override
     public Page<T> search(T queryObj, Pageable pageable) {
         BoolQueryBuilder boolQueryBuilder = CustomRepositoryImpl.makeMatchQuery(queryObj);
         return search(boolQueryBuilder, pageable);

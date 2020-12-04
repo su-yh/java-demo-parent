@@ -11,8 +11,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface CustomRepository<T, ID> extends ElasticsearchRepository<T, ID> {
-    void someCustomMethod();
-
     /**
      * 按条件查询
      */
