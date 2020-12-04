@@ -24,11 +24,12 @@ import java.util.Date;
 @ApiModel(value = "ProcessFormEsDo", description = "ProcessFormEsDo 表单实体")
 public class ProcessFormEsDo implements Serializable {
 
-    public static final String FN_LAST_UPDATE_DATE = "lastUpdateDate";
-    public static final String FN_START_TIME = "startTime";
-    public static final String FN_END_TIME = "endTime";
-    public static final String FN_CREATED_DATE = "createdDate";
-    public static final String FN_PROC_INST_START_TIME = "processInstanceStartTime";
+    // 对应ES 中属性名称
+    public static final String FN_ES_LAST_UPDATE_DATE = "lastUpdateDate";
+    public static final String FN_ES_START_TIME = "startTime";
+    public static final String FN_ES_END_TIME = "endTime";
+    public static final String FN_ES_CREATED_DATE = "createdDate";
+    public static final String FN_ES_PROC_INST_START_TIME = "processInstanceStartTime";
 
     @Id
     private String id;
@@ -104,7 +105,7 @@ public class ProcessFormEsDo implements Serializable {
     /**
      * 流程发起时间
      */
-    @Field(type = FieldType.Date, format = DateFormat.custom,
+    @Field(name = FN_ES_PROC_INST_START_TIME, type = FieldType.Date, format = DateFormat.custom,
             pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date processInstanceStartTime;

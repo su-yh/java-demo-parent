@@ -20,18 +20,18 @@ import java.util.Date;
 @ApiModel(value = "ProcessFormEsRangeQueryVo", description = "ProcessFormEsRangeQueryVo 表单实体")
 public class ProcessFormEsRangeQueryVo extends com.suyh.es3202.entity.ProcessFormEsDo {
 
-    @EsFieldName(name = ProcessFormEsDo.FN_START_TIME)
+    @EsFieldName(name = ProcessFormEsDo.FN_ES_START_TIME)
     private EsQueryRange<Date> startTimeRange;
 
-    @EsFieldName(name = ProcessFormEsDo.FN_END_TIME)
+    @EsFieldName(name = ProcessFormEsDo.FN_ES_END_TIME)
     private EsQueryRange<Date> endTimeRange;
 
-    @EsFieldName(name = ProcessFormEsDo.FN_LAST_UPDATE_DATE)
+    @EsFieldName(name = ProcessFormEsDo.FN_ES_LAST_UPDATE_DATE)
     private EsQueryRange<Date> lastUpdateDateRange;
 
-    @EsFieldName(name = ProcessFormEsDo.FN_CREATED_DATE)
+    @EsFieldName(name = ProcessFormEsDo.FN_ES_CREATED_DATE)
     private EsQueryRange<Date> createdDateRange;
 
-    @EsFieldName(name = ProcessFormEsDo.FN_PROC_INST_START_TIME)
+    @EsFieldName(name = ProcessFormEsDo.FN_ES_PROC_INST_START_TIME)
     private EsQueryRange<Date> processInstanceStartTimeRange;
 }
