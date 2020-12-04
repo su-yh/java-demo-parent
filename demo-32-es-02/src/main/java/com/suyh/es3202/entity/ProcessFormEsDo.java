@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document(indexName = "tpl_wf_procform_t", type = "_doc")
+@Document(indexName = "tpl_wf_procform_t", type = "_doc", createIndex = false)
 @ApiModel(value = "ProcessFormEsDo", description = "ProcessFormEsDo 表单实体")
 public class ProcessFormEsDo implements Serializable {
 
