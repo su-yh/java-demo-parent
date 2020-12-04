@@ -1,7 +1,8 @@
 package com.suyh.es3202.controller;
 
 import com.suyh.dto.PageInfoDto;
-import com.suyh.dto.ResultMode;
+import com.suyh.dto.ResultCollection;
+import com.suyh.dto.ResultSingle;
 import com.suyh.dto.ResultPage;
 import com.suyh.es3202.entity.ProcessFormEsDo;
 import com.suyh.es3202.service.EsService;
@@ -39,9 +40,9 @@ public class EsController {
     @ApiOperation(value = "获取所有实体对象", notes = "获取所有实体对象")
     @ApiImplicitParams({})
     @RequestMapping(value = "/suyh/es/get/entity/List", method = RequestMethod.GET)
-    public ResultMode<List<ProcessFormEsDo>> getEntityList() {
+    public ResultCollection<ProcessFormEsDo> getEntityList() {
         List<ProcessFormEsDo> resultList = esService.getEntityList();
-        return new ResultMode<>(resultList);
+        return new ResultCollection<>(resultList);
     }
 
     @ApiOperation(value = "分页查询", notes = "分页查询")
@@ -70,36 +71,36 @@ public class EsController {
     // 指定所有的参数列表
     @ApiImplicitParams({})
     @RequestMapping(value = "/suyh/es/add/entity", method = RequestMethod.POST)
-    public ResultMode<String> addEntity() {
+    public ResultSingle<String> addEntity() {
         String id = esService.addEntity();
-        return new ResultMode<>(id);
+        return new ResultSingle<>(id);
     }
 
     @ApiOperation(value = "删除一个实体对象", notes = "删除一个实体对象")
     // 指定所有的参数列表
     @ApiImplicitParams({})
     @RequestMapping(value = "/suyh/es/del/entity", method = RequestMethod.POST)
-    public ResultMode<String> delEntity(String id) {
+    public ResultSingle<String> delEntity(String id) {
         esService.delEntity(id);
-        return new ResultMode<>("成功");
+        return new ResultSingle<>("成功");
     }
 
     @ApiOperation(value = "查询一个索引是否存在", notes = "查询一个索引是否存在")
     // 指定所有的参数列表
     @ApiImplicitParams({})
     @RequestMapping(value = "/suyh/es/index/exists", method = RequestMethod.GET)
-    public ResultMode<Boolean> indexExists(@RequestParam("name") String name) {
+    public ResultSingle<Boolean> indexExists(@RequestParam("name") String name) {
         boolean result = esService.indexExists(name);
-        return new ResultMode<>(result);
+        return new ResultSingle<>(result);
     }
 
     @ApiOperation(value = "按条件查询删除", notes = "按条件查询删除")
     // 指定所有的参数列表
     @ApiImplicitParams({})
     @RequestMapping(value = "/suyh/es/delByQuery", method = RequestMethod.GET)
-    public ResultMode<Boolean> batchDel() {
+    public ResultSingle<Boolean> batchDel() {
         esService.batchDel();
-        return new ResultMode<>(true);
+        return new ResultSingle<>(true);
     }
 
 }

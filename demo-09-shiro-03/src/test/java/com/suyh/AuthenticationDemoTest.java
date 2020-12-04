@@ -1,18 +1,21 @@
 package com.suyh;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.ExpiredCredentialsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.config.IniSecurityManagerFactory;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Factory;
 import org.junit.Assert;
 import org.junit.Test;
-
-import javax.validation.constraints.AssertTrue;
 
 /**
  * 完成用户认证功能

@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(value = "ProcessFormEsRangeQueryVo", description = "ProcessFormEsRangeQueryVo 表单实体")
-public class ProcessFormEsRangeQueryVo extends ProcessFormEsDo {
+public class ProcessFormEsRangeQueryVo extends com.suyh.es3202.entity.ProcessFormEsDo {
 
     @EsFieldName(name = ProcessFormEsDo.FN_START_TIME)
     private EsQueryRange<Date> startTimeRange;
