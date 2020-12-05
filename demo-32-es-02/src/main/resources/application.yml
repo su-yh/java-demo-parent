@@ -22,7 +22,7 @@ spring:
       - org.springframework.boot.autoconfigure.data.elasticsearch.ReactiveRestClientAutoConfiguration
       # 它是直接被标记为过期的了，直接排除
       - org.springframework.boot.autoconfigure.elasticsearch.jest.JestAutoConfiguration
-      # 下面两个是需要的不能被排除掉
+      # 下面两个是需要的不能被排除掉，我们现在使用的就是它们两自动配置的bean 功能
       # - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
       # - org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration
 
