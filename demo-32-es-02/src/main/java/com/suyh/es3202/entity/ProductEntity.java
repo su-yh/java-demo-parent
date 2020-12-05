@@ -63,7 +63,7 @@ public class ProductEntity implements Serializable {
     private String id;
 
     @Field(type = FieldType.Text)
-    private List<String> category;
+    private String category;
 
     @Field(type = FieldType.Keyword)
     private String sku;

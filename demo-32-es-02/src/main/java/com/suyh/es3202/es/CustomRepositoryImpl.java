@@ -137,6 +137,13 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
      * @return 字段别名
      */
     private static String getEsFieldName(Field field) {
+        if (true) {
+            // 我搞了一个晚上都没找到处理ES 数据中字段与java bean 中定义的属性不一致的问题
+            // 但是从业务角度来说，为了避免这样的问题，最好的处理就是将bean 属性与es 中的数据类型属性处理一致
+            // 所以使用es Field 注解的时候不要使用别名
+            return field.getName();
+        }
+
         String esFieldName = field.getName();
         org.springframework.data.elasticsearch.annotations.Field esField
                 = field.getAnnotation(org.springframework.data.elasticsearch.annotations.Field.class);
