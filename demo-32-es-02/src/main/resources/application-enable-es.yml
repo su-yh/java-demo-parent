@@ -1,0 +1,13 @@
+# 启用ES 的配置文件
+# The transport client support is deprecated. Use other supported clients instead.
+# spring.data.elasticsearch.repositories.enabled
+spring:
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:9200
+      connection-timeout: 1s
+      read-timeout: 30s
+
+
+
+
