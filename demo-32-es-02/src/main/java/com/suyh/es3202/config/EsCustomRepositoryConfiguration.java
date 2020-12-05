@@ -3,6 +3,7 @@ package com.suyh.es3202.config;
 import com.suyh.es3202.es.CustomEsEntityMapper;
 import com.suyh.es3202.es.CustomEsResultMapper;
 import com.suyh.es3202.es.CustomRepositoryImpl;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.core.EntityMapper;
@@ -13,6 +14,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 /**
  * 按配置来进行添加自定义repository
  */
+@ConditionalOnProperty(name = "com.suyh.es.enable", havingValue = "true")
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.suyh.es3202.repository", repositoryBaseClass = CustomRepositoryImpl.class)
 public class EsCustomRepositoryConfiguration {

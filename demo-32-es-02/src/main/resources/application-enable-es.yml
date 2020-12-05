@@ -8,6 +8,9 @@ spring:
       connection-timeout: 1s
       read-timeout: 30s
 
-
+com:
+  suyh:
+    es:
+      enable: true
 
 

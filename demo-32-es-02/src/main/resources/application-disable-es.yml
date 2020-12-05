@@ -9,7 +9,10 @@ spring:
       - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
       - org.springframework.boot.autoconfigure.elasticsearch.rest.RestClientAutoConfiguration
 
-
+com:
+  suyh:
+    es:
+      enable: false
 
 
 

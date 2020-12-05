@@ -16,7 +16,9 @@ spring:
       - org.springframework.boot.autoconfigure.elasticsearch.jest.JestAutoConfiguration
   profiles:
     include:
+#      - disable-es
       - enable-es
+
 
 
 
