@@ -1,0 +1,4 @@
+# 添加自己的自动配置类的配置项，这里配置的类，将会被spring 扫描到，并交给spring 进行自动管理。
+# 而不需要必须要@SpringBootApplication 所在注解的同名包下面
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.suyh.es3202.config.EsCustomRepositoryConfiguration

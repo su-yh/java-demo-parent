@@ -19,6 +19,28 @@ spring:
 #      - disable-es
       - enable-es
 
-
+# org.springframework.boot spring-boot-actuator-autoconfigure 项目中自动装配了如下三个健康检查
+#  org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchClientHealthContributorAutoConfiguration
+#  org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchJestHealthContributorAutoConfiguration
+#  org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticSearchRestHealthContributorAutoConfiguration
+# 下面演示禁用所有指标，
+#  仅启用db指标：
+#management:
+#  endpoint:
+#    health:
+#      show-details: always
+#  health:
+#    defaults:
+#      enabled: false
+#    db:
+#      enabled: true
+#    elasticsearch:
+#      enabled: false
+#    redis:
+#      enabled: false
+#    mongo:
+#      enabled: false
+#    solr:
+#      enabled: false
 
 
