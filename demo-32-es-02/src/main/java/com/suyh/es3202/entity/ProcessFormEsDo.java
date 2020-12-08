@@ -21,6 +21,8 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(indexName = "tpl_wf_procform_t", type = "_doc", createIndex = false)
+// 按bean 对象的属性进行添加索引前缀
+// @Document(indexName = "#{esConfigProperties.indexPrefix}_tpl_wf_procform_t", type = "_doc", createIndex = false)
 @ApiModel(value = "ProcessFormEsDo", description = "ProcessFormEsDo 表单实体")
 public class ProcessFormEsDo implements Serializable {
 
