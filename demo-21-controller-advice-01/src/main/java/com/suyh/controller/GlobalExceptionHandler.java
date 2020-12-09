@@ -8,6 +8,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
 
 import java.util.List;
 
@@ -55,6 +56,20 @@ public class GlobalExceptionHandler {
     public String handlerException(MethodArgumentNotValidException exception) {
         BindingResult bindingResult = exception.getBindingResult();
         return resultMessage(bindingResult);
+    }
+
+    /**
+     * 在开课吧中雷老师讲的对参数异常校验的处理
+     *
+     * @param exception
+     * @return
+     */
+    @ExceptionHandler(WebExchangeBindException.class)
+    public String handlerException(WebExchangeBindException exception) {
+        log.error("get RuntimeException, message: {}", exception.getMessage());
+        return exception.getFieldErrors().stream()
+                .map(e -> e.getField() + ":" + e.getDefaultMessage())
+                .reduce("", (s1, s2) -> s1 + "\n" + s2);
     }
 
     /**
