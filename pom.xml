@@ -58,10 +58,17 @@
         <module>demo-33-jackson-01</module>
         <module>demo-33-jackson-02</module>
         <module>demo-32-es-02</module>
+        <module>demo-29-db-jpa-02-custom</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <!-- swagger ui 的doc.html 文档 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>1.9.3</version>
+            </dependency>
             <!-- MySQL Connector -->
             <dependency>
                 <groupId>mysql</groupId>
