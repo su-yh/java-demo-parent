@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  * 但是不管是创建还是更新实体，对于其他字段(比如：varKey)。
  * 当它的值非空是都是相同的校验。
  */
-@MappedSuperclass
+//@MappedSuperclass // 这个注解的使用是在实体类的基类上面，而非子类
 public class FormPropertyTemplateMiddleDto extends FormPropertyTemplateEntity {
 
     /**
