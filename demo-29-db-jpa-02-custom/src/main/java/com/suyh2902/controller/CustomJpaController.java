@@ -1,6 +1,7 @@
 package com.suyh2902.controller;
 
 import com.suyh.dto.ResultSingle;
+import com.suyh2902.entity.FormPropertyTemplateEntity;
 import com.suyh2902.repository.FormProperTemplateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +21,13 @@ public class CustomJpaController {
     public ResultSingle<String> customMethod() {
         repository.someCustomMethod(null);
         return new ResultSingle<>("OK");
+    }
+
+    @RequestMapping(value = "/custom/save", method = RequestMethod.GET)
+    public ResultSingle<String> customSave() {
+        FormPropertyTemplateEntity result = repository.save(null);
+        log.info("result: {}", result);
+
+        return new ResultSingle<>();
     }
 }
