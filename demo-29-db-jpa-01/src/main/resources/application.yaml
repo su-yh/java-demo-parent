@@ -26,5 +26,6 @@ spring:
   jpa:
     # 操作数据库时显示sql语句
     show-sql: true
-server:
-  port: 12901
+# 这个工程不需要创建web 应用，这里的测试都是通过TEST 进行单元测试的
+#server:
+#  port: 12901
