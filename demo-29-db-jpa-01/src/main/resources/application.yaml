@@ -1,3 +1,4 @@
+
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -25,3 +26,5 @@ spring:
   jpa:
     # 操作数据库时显示sql语句
     show-sql: true
+server:
+  port: 12901
