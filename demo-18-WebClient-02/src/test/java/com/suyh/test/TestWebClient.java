@@ -23,7 +23,7 @@ public class TestWebClient {
         WebClient client = WebClient.create("http://localhost:11801");
 
         // subscribe() 就是提交，然后后台就会去自动触发HTTP 请求，这里显然是有一个线程在处理。
-        //GET请求用户列表
+        // GET请求用户列表
         Flux<Notice> noticeFlux = client.get().uri("/impl/get/info").retrieve().bodyToFlux(Notice.class);
         noticeFlux.subscribe(notice -> log.info("noticeFlux 01: {}",
                 ToStringBuilder.reflectionToString(notice, ToStringStyle.JSON_STYLE)));
