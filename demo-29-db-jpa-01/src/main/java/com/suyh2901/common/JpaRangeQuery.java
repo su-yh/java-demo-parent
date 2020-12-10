@@ -16,6 +16,13 @@ import java.util.List;
 
 /**
  * JPA范围查询工具类
+ * JPA 的复杂查询主要是通过实现 Specification 接口，然后配置JpaSpecificationExecutor 这个接口的各个接口来使用
+ * 从而达到自定义的复杂查询功能
+ *
+ * 但是这个下面的代码在测试的时候总是没能达到预期的结果。
+ * 我记得是时间的范围查询总是不对。
+ *
+ * 除了这种方法，还可以实现自定义的查询，在demo-29-db-jpa-02-custom 这个工程下面正准备实现。看结果怎么样吧
  *
  * @param <T>
  */
