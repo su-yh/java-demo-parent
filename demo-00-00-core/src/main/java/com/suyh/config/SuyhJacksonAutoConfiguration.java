@@ -18,6 +18,9 @@ public class SuyhJacksonAutoConfiguration {
     @ConditionalOnMissingBean(ObjectMapper.class)
     @ConditionalOnProperty(name = "com.suyh.core.objectMapper.enable", havingValue = "true")
     public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+        // 这里有个地方需要注意一下，在jackson 2.10 的StdDateFormat 的默认格式化还是使用"yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        // 但是在2.11 的时候换成了"yyyy-MM-dd'T'HH:mm:ss.SSSX"就最后一个字母的变动，却会使得无法格式化成功。
+        // 它主要的类是在 com.fasterxml.jackson.databind.util.StdDateFormat 类中定义的
         log.info("ObjectMapper configuration: use SuyhJacksonAutoConfiguration");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         JsonUtil.initMapper(objectMapper);
