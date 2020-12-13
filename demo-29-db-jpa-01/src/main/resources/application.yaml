@@ -24,8 +24,26 @@ spring:
     # 迁移时是否校验，默认值：true
     validateOnMigrate: true
   jpa:
-    # 操作数据库时显示sql语句
+    # 操作数据库时显示sql语句，默认值: false
     show-sql: true
+    # 在程序启动时自动创建相关的表, 默认值: false
+    generate-ddl: false
+    hibernate:
+      # 程序启用时，对表的操作。none 不要做任何操作。即保留之前操作的数据库表中的数据
+      ddl-auto: none
+logging:
+  pattern:
+    console: level-%level %msg%n
+  # 有个问题，下面的这些日志等级是console 的呢，还是说console 与logfile都一样的？
+  level:
+    root: info
+    org.hiibernate: info
+    # 在show-sql为true时，显示SQL 中的动态参数值
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    # 在show-sql为true时，显示查询结果
+    org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
+    com.suyh2901: debug
+
 # 这个工程不需要创建web 应用，这里的测试都是通过TEST 进行单元测试的
 #server:
 #  port: 12901
