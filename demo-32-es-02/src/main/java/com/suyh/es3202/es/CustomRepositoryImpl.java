@@ -50,6 +50,81 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
 
         elasticsearchOperations.delete(deleteQuery);
     }
+    
+    /**
+     * 通过方法调用
+     * 重建索引，同时添加一个自定义分词器
+     *
+     * PUT /tpl_wf_procform_t
+     * {
+     * ...."settings": {
+     * ........"analysis": {
+     * ............"analyzer": {
+     * ................"my_group_id_analyzer": {
+     * ...................."type": "pattern",
+     * ...................."pattern": "[,\\s]",
+     * ...................."lowercase": true
+     * ................}
+     * ............}
+     * ........}
+     * ....}
+     * }
+     *
+     * @return
+     */
+    public boolean recreateIndexBySetting() {
+        XContentBuilder builder = null;
+        try {
+            builder = XContentFactory.jsonBuilder();
+            builder.startObject();
+            {
+                builder.startObject("analysis");
+                {
+                    builder.startObject("analyzer");
+                    {
+                        // 自定义分词器名
+                        builder.startObject("my_group_id_analyzer");
+                        {
+                            // 分词器类型为：正则
+                            builder.field("type", "pattern");
+                            // 正则匹配，分词符号，见到这些符号则分词
+                            builder.field("pattern", "[,\\s]");
+                            // 这个应该是匹配的时候忽略大小写吧
+                            builder.field("lowercase", true);
+                        }
+                        builder.endObject();
+                    }
+                    builder.endObject();
+                }
+                builder.endObject();
+            }
+            builder.endObject();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        Class<T> clazz = entityInformation.getJavaType();
+        // 先删除已存在的索引
+        elasticsearchOperations.deleteIndex(clazz);
+        // 重建索引，同时按实体对象的注解进行更新mapping
+        return elasticsearchOperations.createIndex(clazz, builder) && elasticsearchOperations.putMapping(clazz);
+    }
+
+    /**
+     * 这里的效果与上面的一样，只是使用了不同的参数
+     * @return
+     */
+    public boolean recreateIndexAnalyzer() {
+        Settings pattern = Settings.builder()
+                .put("analysis.analyzer.my_group_id_analyzer.type", "pattern")
+                .put("analysis.analyzer.my_group_id_analyzer.lowercase", true)
+                .put("analysis.analyzer.my_group_id_analyzer.pattern", "[, ]")
+                .build();
+
+        Class<T> clazz = entityInformation.getJavaType();
+        elasticsearchOperations.deleteIndex(clazz);
+        return elasticsearchOperations.createIndex(clazz, pattern);
+    }
 
 
     /**
