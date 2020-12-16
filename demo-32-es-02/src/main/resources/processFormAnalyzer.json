@@ -1,0 +1,11 @@
+{
+  "analysis": {
+    "analyzer": {
+      "processFormAnalyzer": {
+        "type": "pattern",
+        "pattern": "[,\\s]",
+        "lowercase": true
+      }
+    }
+  }
+}
