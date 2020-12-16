@@ -74,7 +74,6 @@ public class EsService {
         entity.setHandlers("handlers");
         entity.setUserIds("userIds");
         entity.setGroupIds("groupIds");
-        entity.setCcUserIds("CCUserIds");
         entity.setStartUserId("startUserId");
         entity.setLookUpId("lookUpId");
         entity.setSuspensionState(2);

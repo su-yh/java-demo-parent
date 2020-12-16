@@ -3,6 +3,9 @@ package com.suyh.es3202.es;
 import com.suyh.es3202.entity.EsQueryRange;
 import com.suyh.es3202.repository.CustomRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -15,6 +18,7 @@ import org.springframework.data.elasticsearch.repository.support.ElasticsearchEn
 import org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Date;

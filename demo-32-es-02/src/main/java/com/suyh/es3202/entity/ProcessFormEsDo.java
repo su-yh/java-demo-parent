@@ -9,28 +9,28 @@ import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
  * @author 苏雲弘
  * @since 2020-11-26
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document(indexName = "tpl_wf_procform_t", type = "_doc", createIndex = false)
 // 指定自定义setting，主要是自定义分词，将json数据填写到配置文件中，
 // 然后在启动的时候会读取该文件，在创建索引的时候同时设置此参数
-@Setting(settingPath = "processFormAnalyzer.json")
+@Setting(settingPath = "es/settings/processFormAnalyzer.json")
 // 按bean 对象的属性进行添加索引前缀
 // @Document(indexName = "#{esConfigProperties.indexPrefix}_tpl_wf_procform_t", type = "_doc", createIndex = false)
+@Document(indexName = "tpl_wf_procform_t", type = "_doc", createIndex = false)
 @ApiModel(value = "ProcessFormEsDo", description = "ProcessFormEsDo 表单实体")
 public class ProcessFormEsDo implements Serializable {
 
     public static final String CUSTOM_ANALYZER = "processFormAnalyzer";
-    
+
     // 对应ES 中属性名称
     public static final String FN_ES_LAST_UPDATE_DATE = "lastUpdateDate";
     public static final String FN_ES_START_TIME = "startTime";
@@ -105,32 +105,32 @@ public class ProcessFormEsDo implements Serializable {
      * 开始时间
      */
     @Field(type = FieldType.Date, format = DateFormat.custom,
-            pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            pattern = "epoch_millis||yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     private Date startTime;
 
     /**
      * 流程发起时间
      */
     @Field(name = FN_ES_PROC_INST_START_TIME, type = FieldType.Date, format = DateFormat.custom,
-            pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            pattern = "epoch_millis||yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     private Date processInstanceStartTime;
 
     /**
      * 结束时间
      */
     @Field(type = FieldType.Date, format = DateFormat.custom,
-            pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            pattern = "epoch_millis||yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     private Date endTime;
 
     /**
      * 最后更新时间
      */
     @Field(type = FieldType.Date, format = DateFormat.custom,
-            pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            pattern = "epoch_millis||yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     private Date lastUpdateDate;
 
     /**
@@ -143,8 +143,8 @@ public class ProcessFormEsDo implements Serializable {
      * 创建时间
      */
     @Field(type = FieldType.Date, format = DateFormat.custom,
-            pattern = "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+            pattern = "epoch_millis||yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "GMT+8")
     private Date createdDate;
 
     /**
@@ -240,3 +240,5 @@ public class ProcessFormEsDo implements Serializable {
     @Field(type = FieldType.Long)
     private Long lastUpdateTimestamp;
 }
+
+
