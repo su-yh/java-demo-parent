@@ -21,11 +21,16 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(indexName = "tpl_wf_procform_t", type = "_doc", createIndex = false)
+// 指定自定义setting，主要是自定义分词，将json数据填写到配置文件中，
+// 然后在启动的时候会读取该文件，在创建索引的时候同时设置此参数
+@Setting(settingPath = "processFormAnalyzer.json")
 // 按bean 对象的属性进行添加索引前缀
 // @Document(indexName = "#{esConfigProperties.indexPrefix}_tpl_wf_procform_t", type = "_doc", createIndex = false)
 @ApiModel(value = "ProcessFormEsDo", description = "ProcessFormEsDo 表单实体")
 public class ProcessFormEsDo implements Serializable {
 
+    public static final String CUSTOM_ANALYZER = "processFormAnalyzer";
+    
     // 对应ES 中属性名称
     public static final String FN_ES_LAST_UPDATE_DATE = "lastUpdateDate";
     public static final String FN_ES_START_TIME = "startTime";
@@ -162,20 +167,23 @@ public class ProcessFormEsDo implements Serializable {
 
     /**
      * 当前处理人
+     * 使用自定义的分词器
      */
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = CUSTOM_ANALYZER)
     private String handlers;
 
     /**
      * 当前处理人ids
+     * 使用自定义的分词器
      */
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = CUSTOM_ANALYZER)
     private String userIds;
 
     /**
      * 处理人群组ids
+     * 使用自定义的分词器
      */
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = CUSTOM_ANALYZER)
     private String groupIds;
 
     /**
@@ -207,14 +215,6 @@ public class ProcessFormEsDo implements Serializable {
      */
     @Field(type = FieldType.Integer)
     private Integer revision;
-
-    /**
-     * 抄送人ids
-     * 这里要注意一下，entity中的命名为 CCUserIds，这里处理成小写主要是映射到es 会有些问题。
-     * 无法正常映射过去。
-     */
-    @Field(type = FieldType.Text)
-    private String ccUserIds;
 
     /**
      * 操作状态
