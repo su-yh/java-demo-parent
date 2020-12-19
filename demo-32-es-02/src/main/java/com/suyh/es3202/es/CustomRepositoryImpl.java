@@ -2,18 +2,30 @@ package com.suyh.es3202.es;
 
 import com.suyh.es3202.entity.EsQueryRange;
 import com.suyh.es3202.repository.CustomRepository;
+import com.suyh.es3202.util.EsFieldName;
+import com.suyh.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.UpdateByQueryRequest;
+import org.elasticsearch.script.ScriptType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.DeleteQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.data.elasticsearch.repository.support.ElasticsearchEntityInformation;
 import org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository;
 import org.springframework.util.StringUtils;
@@ -21,7 +33,10 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -33,28 +48,125 @@ import java.util.TimeZone;
 @Slf4j
 public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T, ID> implements CustomRepository<T, ID> {
 
+    private RestHighLevelClient restHighLevelClient;
     public CustomRepositoryImpl(ElasticsearchEntityInformation<T, ID> metadata, ElasticsearchOperations elasticsearchOperations) {
         super(metadata, elasticsearchOperations);
     }
 
+    /**
+     * 获取RestHighLevelClient 对象
+     *
+     * @return RestHighLevelClient 实例
+     */
+    public RestHighLevelClient getClient() {
+        if (restHighLevelClient == null) {
+            restHighLevelClient =  CommonInit.getBean(RestHighLevelClient.class);
+        }
+        return restHighLevelClient;
+    }
+
     @Override
+    public String indexName() {
+        return entityInformation.getIndexName();
+    }
+
+    @Override
+    public <E> Collection<T> search(E queryObj) {
+        BoolQueryBuilder boolQueryBuilder = makeMatchQuery(queryObj);
+        log.info("search(E queryObj), boolQueryBuilder: {}", boolQueryBuilder);
+        Iterable<T> resultIter = search(boolQueryBuilder);
+        List<T> resultList = new ArrayList<>();
+        resultIter.forEach(resultList::add);
+        return resultList;
+    }
+
     public Page<T> search(T queryObj, Pageable pageable) {
-        BoolQueryBuilder boolQueryBuilder = CustomRepositoryImpl.makeMatchQuery(queryObj);
+        BoolQueryBuilder boolQueryBuilder = makeMatchQuery(queryObj);
+        log.info("search(E queryObj, Pageable pageable), boolQueryBuilder: {}", boolQueryBuilder);
         return search(boolQueryBuilder, pageable);
     }
 
     @Override
+    public <E> Collection<T> searchLike(E queryObj) {
+        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+        BoolQueryBuilder boolLikeQueryBuilder = makeLikeQuery(queryObj);
+        nativeSearchQueryBuilder.withQuery(boolLikeQueryBuilder);
+        log.info("searchLike(E queryObj), boolLikeQueryBuilder: {}", boolLikeQueryBuilder);
+        Iterable<T> resultIter = search(nativeSearchQueryBuilder.build());
+        List<T> resultList = new ArrayList<>();
+        resultIter.forEach(resultList::add);
+        return resultList;
+    }
+
+    @Override
+    public <E> Page<T> searchLike(E queryObj, Pageable pageable) {
+        BoolQueryBuilder boolLikeQueryBuilder = makeLikeQuery(queryObj);
+        log.info("searchLike(E queryObj, Pageable pageable), boolLikeQueryBuilder: {}", boolLikeQueryBuilder);
+        return search(boolLikeQueryBuilder, pageable);
+    }
+
+    @Override
     public void deleteByQuery(T queryObj) {
-        BoolQueryBuilder boolQueryBuilder = CustomRepositoryImpl.makeMatchQuery(queryObj);
+        BoolQueryBuilder boolQueryBuilder = makeMatchQuery(queryObj);
 
         DeleteQuery deleteQuery = new DeleteQuery();
         deleteQuery.setQuery(boolQueryBuilder);
         deleteQuery.setType(entityInformation.getType());
         deleteQuery.setIndex(entityInformation.getIndexName());
 
+        log.info("deleteByQuery(E queryObj), query: {}", boolQueryBuilder);
         elasticsearchOperations.delete(deleteQuery);
     }
-    
+
+
+    @Override
+    public boolean recreateIndex() {
+        log.info("recreateIndex");
+        Class<T> clazz = entityInformation.getJavaType();
+        elasticsearchOperations.deleteIndex(clazz);
+        return elasticsearchOperations.createIndex(clazz) && elasticsearchOperations.putMapping(clazz);
+    }
+
+    @Override
+    public <E> void updateByNeed(E updateObj, String id) {
+        UpdateRequest updateRequest = new UpdateRequest();
+        // 这里还有待优化的空间，可以使用EntityMapper bean对象的mapToString() 方法来进行json 序列化。
+        String jsonObj = JsonUtil.convertBean2String(updateObj);
+        updateRequest.doc(jsonObj, XContentType.JSON);
+        UpdateQuery updateQuery = new UpdateQuery();
+        updateQuery.setId(id);
+        updateQuery.setIndexName(entityInformation.getIndexName());
+        updateQuery.setType(entityInformation.getType());
+        updateQuery.setUpdateRequest(updateRequest);
+
+        log.info("jsonObj: {}", jsonObj);
+        log.info("updateByNeed(E queryObj, String id), updateRequest: {}", updateRequest);
+        elasticsearchOperations.update(updateQuery);
+    }
+
+    @Override
+    public <E> void updateByQuery(E queryObj, T updateObj) {
+        String indexName = entityInformation.getIndexName();
+
+        BoolQueryBuilder boolQueryBuilder = makeMatchQuery(queryObj);
+        UpdateByQueryRequest request = new UpdateByQueryRequest(indexName);
+        request.setConflicts("proceed");    // 失败继续
+        request.setQuery(boolQueryBuilder); // 查询条件
+
+        Script updateScript = makeUpdateScriptByEntity(updateObj);
+        request.setScript(updateScript);
+
+        try {
+            log.info("boolQueryBuilder: {}", boolQueryBuilder);
+            BulkByScrollResponse bulkResponse = getClient().updateByQuery(request, RequestOptions.DEFAULT);
+            log.info("updateByQuery result, totalDocs: {}, updateDocs: {}", bulkResponse.getTotal(),
+                    bulkResponse.getUpdated());
+        } catch (IOException exception) {
+            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, exception.getMessage());
+        }
+    }
+
+
     /**
      * 通过方法调用
      * 重建索引，同时添加一个自定义分词器
@@ -115,7 +227,7 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
     }
 
     /**
-     * 这里的效果与上面的一样，只是使用了不同的参数
+     * 这里的效果与上面的(recreateIndexBySetting)一样，只是使用了不同的参数
      * @return
      */
     public boolean recreateIndexAnalyzer() {
@@ -129,7 +241,6 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
         elasticsearchOperations.deleteIndex(clazz);
         return elasticsearchOperations.createIndex(clazz, pattern);
     }
-
 
     /**
      * 生成匹配查询
@@ -146,119 +257,170 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
 
     /**
      * 生成匹配查询
+     * 精确查询与分词查询
      *
-     * @param entity           查询匹配条件，按类属性名称进行拼接
-     * @param clazz            进行条件拼接的属性所属的类，仅处理该类通过递归处理直到全部处理完成。
-     * @param boolQueryBuilder bool 查询构造器
-     * @param <E>              泛型
+     * @param entity            查询匹配条件，按类属性名称进行拼接
+     * @param clazz             进行条件拼接的属性所属的类，仅处理该类通过递归处理直到全部处理完成。
+     * @param matchQueryBuilder bool 查询构造器
+     * @param <E>               泛型
      */
-    private static <E> void makeMatchQuery(E entity, Class<?> clazz, BoolQueryBuilder boolQueryBuilder) {
+    public static <E> void makeMatchQuery(E entity, Class<?> clazz, BoolQueryBuilder matchQueryBuilder) {
         if (entity == null || clazz == null) {
             return;
         }
 
-        try {
-            Field[] fields = clazz.getDeclaredFields();
-            for (Field field : fields) {
-                if (Modifier.isStatic(field.getModifiers())) {
-                    continue;
-                }
-                field.setAccessible(true);
-
-                // 如果配置了 json 别名，则以json别名为准进行处理查询
-                Object fieldValue = field.get(entity);
-                if (fieldValue == null) {
-                    continue;
-                }
-
-                makeFieldMustQuery(boolQueryBuilder, field, fieldValue);
-            }
-        } catch (IllegalAccessException exception) {
-            log.error("makeMatchQuery failed.");
-            return;
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            makeMatchQuery(entity, field, matchQueryBuilder);
         }
 
         // 递归处理父类
-        makeMatchQuery(entity, clazz.getSuperclass(), boolQueryBuilder);
+        makeMatchQuery(entity, clazz.getSuperclass(), matchQueryBuilder);
     }
 
     /**
-     * 对单个字段进行AND 匹配
+     * 对某个字段的处理，主要是做代码提取以及异常的处理，cleancode 时缩进太多
+     * 同时简化外部调用对异常的单独处理
      *
-     * @param boolQueryBuilder bool 匹配器
-     * @param field            处理字段
-     * @param fieldValue       字段值
+     * @param entity            实体对象
+     * @param field             字段
+     * @param matchQueryBuilder 匹配器
+     * @param <E>               实体泛型
      */
-    private static void makeFieldMustQuery(BoolQueryBuilder boolQueryBuilder, Field field, Object fieldValue) {
-        if (fieldValue instanceof EsQueryRange) {
+    private static <E> void makeMatchQuery(E entity, Field field, BoolQueryBuilder matchQueryBuilder) {
+        if (Modifier.isStatic(field.getModifiers())) {
+            return;
+        }
+        Object fieldValue = getFieldValue(entity, field);
+        if (fieldValue == null) {
+            return;
+        }
+
+        if (fieldValue instanceof CelonEsQueryRange) {
+            return;
+        }
+
+        // 日期不做等值匹配，就算要做等值匹配这里也是需要像范围查询那样做处理的。
+        if (fieldValue instanceof Date) {
+            return;
+        }
+
+        // 这里还有些不准确，如果数据类型是其它的对象类型的话这样是有问题的
+        MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery(field.getName(), fieldValue);
+        matchQueryBuilder.must(queryBuilder);
+    }
+
+    /**
+     * 生成匹配查询
+     *
+     * @param entity 查询匹配条件，所有的条件以and 拼接
+     * @param <E>    泛型
+     * @return elastic search 提供的bool 查询器
+     */
+    public static <E> BoolQueryBuilder makeLikeQuery(E entity) {
+        BoolQueryBuilder likeQueryBuilder = QueryBuilders.boolQuery();
+        makeLikeQuery(entity, entity.getClass(), likeQueryBuilder);
+        return likeQueryBuilder;
+    }
+
+    /**
+     * 生成匹配查询
+     * 精确查询与分词查询
+     *
+     * @param entity           查询匹配条件，按类属性名称进行拼接
+     * @param clazz            进行条件拼接的属性所属的类，仅处理该类通过递归处理直到全部处理完成。
+     * @param likeQueryBuilder bool 查询构造器
+     * @param <E>              泛型
+     */
+    public static <E> void makeLikeQuery(E entity, Class<?> clazz, BoolQueryBuilder likeQueryBuilder) {
+        if (entity == null || clazz == null) {
+            return;
+        }
+
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            makeLikeQuery(entity, field, likeQueryBuilder);
+        }
+
+        // 递归处理父类
+        makeLikeQuery(entity, clazz.getSuperclass(), likeQueryBuilder);
+    }
+
+    /**
+     * 对某个字段的处理，主要是做代码提取以及异常的处理，cleancode 时缩进太多
+     * 同时简化外部调用对异常的单独处理
+     *
+     * @param entity           实体对象
+     * @param field            字段
+     * @param likeQueryBuilder 匹配器
+     * @param <E>              实体对象泛型
+     */
+    private static <E> void makeLikeQuery(E entity, Field field, BoolQueryBuilder likeQueryBuilder) {
+        if (Modifier.isStatic(field.getModifiers())) {
+            return;
+        }
+        Object fieldValue = getFieldValue(entity, field);
+        if (fieldValue == null) {
+            return;
+        }
+
+        // 日期不做等值匹配，就算要做等值匹配这里也是需要像范围查询那样做处理的。
+        if (fieldValue instanceof Date) {
+            return;
+        }
+
+        if (fieldValue instanceof CelonEsQueryRange) {
             // 范围过滤
-            EsQueryRange<?> rangeQuery = (EsQueryRange<?>) fieldValue;
-            if (!rangeQuery.isValid()) {
-                return;
+            CelonEsQueryRange<?> rangeQuery = (CelonEsQueryRange<?>) fieldValue;
+            if (rangeQuery.isValid()) {
+                likeQueryBuilder.must(makeRangeQueryBuilder(field, rangeQuery));
             }
-            RangeQueryBuilder queryBuilder = makeRangeQueryBuilder(field, rangeQuery);
-            boolQueryBuilder.must(queryBuilder);
         } else {
-            // 日期不做等值匹配，就算要做等值匹配这里也是需要像范围查询那样做处理的。
-            if (fieldValue instanceof Date) {
-                return;
-            }
-            String esFieldName = getEsFieldName(field);
-            MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery(esFieldName, fieldValue);
-            boolQueryBuilder.must(queryBuilder);
+            likeQueryBuilder.must(makeFieldLikeQuery(field, fieldValue));
         }
     }
 
     /**
-     * 从注解中得到ES中的字段别名
+     * 创建字段的查询子句
+     * 对于keyword 才有模糊查询 text 似乎只有分词查询与全限定查询。
      *
-     * @param field field
-     * @return 字段别名
+     * @param field      类字段属性
+     * @param fieldValue 字段值
+     * @return 查询子句
      */
-    private static String getEsFieldName(Field field) {
-        if (true) {
-            // 我搞了一个晚上都没找到处理ES 数据中字段与java bean 中定义的属性不一致的问题
-            // 但是从业务角度来说，为了避免这样的问题，最好的处理就是将bean 属性与es 中的数据类型属性处理一致
-            // 所以使用es Field 注解的时候不要使用别名
-            return field.getName();
+    public static QueryBuilder makeFieldLikeQuery(Field field, Object fieldValue) {
+        if (fieldValue instanceof String) {
+            org.springframework.data.elasticsearch.annotations.Field esField = field.getAnnotation(
+                    org.springframework.data.elasticsearch.annotations.Field.class);
+            if (esField != null && esField.type().equals(FieldType.Keyword)) {
+                // 对于keyword 类型，需要做模糊查询，其它类型直接做分词匹配查询
+                return QueryBuilders.wildcardQuery(field.getName(), "*" + fieldValue + "*");
+            }
+            if (esField == null || esField.type().equals(FieldType.Auto)) {
+                return QueryBuilders.wildcardQuery(field.getName() + ".keyword", "*" + fieldValue + "*");
+            }
         }
 
-        String esFieldName = field.getName();
-        org.springframework.data.elasticsearch.annotations.Field esField
-                = field.getAnnotation(org.springframework.data.elasticsearch.annotations.Field.class);
-        if (esField == null) {
-            return esFieldName;
-        }
-
-        String name = esField.name();
-        if (!StringUtils.isEmpty(name)) {
-            return name;
-        }
-
-        String value = esField.value();
-        if (!StringUtils.isEmpty(value)) {
-            return value;
-        }
-
-        return esFieldName;
+        return QueryBuilders.matchQuery(field.getName(), fieldValue);
     }
 
     /**
      * 提取的代码，太长了
+     * 处理范围查询的字段生成查询子句
      *
-     * @param field      EsQueryRange 类型的字段
+     * @param field      CelonEsQueryRange 类型的字段
      * @param rangeQuery 范围查询对象
      * @return RangeQueryBuilder
      */
-    private static RangeQueryBuilder makeRangeQueryBuilder(Field field, EsQueryRange<?> rangeQuery) {
-        EsFieldName annotation = field.getAnnotation(EsFieldName.class);
+    public static RangeQueryBuilder makeRangeQueryBuilder(Field field, CelonEsQueryRange<?> rangeQuery) {
+        CelonEsFieldName annotation = field.getAnnotation(CelonEsFieldName.class);
         if (annotation == null) {
-            return null;
+            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, "lose @CelonEsFieldName");
         }
         String propertyName = annotation.name();
         RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(propertyName);
-        Object upperValue = rangeQuery.getUpperValue();
         Object lowerValue = rangeQuery.getLowerValue();
+        Object upperValue = rangeQuery.getUpperValue();
         // ES 底层对日期类型只支持UTC类型时间，现在我们拿到的是GMT 类型的日期。
         // 不明白这两个时间之间为什么会有偏差。这里将时区的偏差加上以处理日期的范围查询
         if (upperValue instanceof Date) {
@@ -270,5 +432,126 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
         rangeQueryBuilder.from(lowerValue, rangeQuery.isLowerInclude());
         rangeQueryBuilder.to(upperValue, rangeQuery.isUpperInclude());
         return rangeQueryBuilder;
+    }
+
+    /**
+     * 这部分代码仅做备份，如果上面的范围查询没有问题则不需要了，ES 的底层日期类型与当前系统中的日期类型处理已经一致处理了。
+     * 提取的代码，太长了
+     * 处理范围查询的字段生成查询子句
+     *
+     * @param field      CelonEsQueryRange 类型的字段
+     * @param rangeQuery 范围查询对象
+     * @return RangeQueryBuilder
+     */
+    public static RangeQueryBuilder makeRangeQueryBuilderBackup(Field field, CelonEsQueryRange<?> rangeQuery) {
+        CelonEsFieldName annotation = field.getAnnotation(CelonEsFieldName.class);
+        if (annotation == null) {
+            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, "lose @CelonEsFieldName");
+        }
+        String propertyName = annotation.name();
+        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(propertyName);
+        Object upperValue = rangeQuery.getUpperValue();
+        Object lowerValue = rangeQuery.getLowerValue();
+        rangeQueryBuilder.from(lowerValue, rangeQuery.isLowerInclude());
+        rangeQueryBuilder.to(upperValue, rangeQuery.isUpperInclude());
+        return rangeQueryBuilder;
+    }
+
+    /**
+     * 生成一个elasticSearch的更新脚本对象
+     *
+     * @param paramsObj 更新实体对象
+     * @param <T>       泛型
+     * @return 返回更新脚本
+     */
+    public static <T> Script makeUpdateScriptByEntity(T paramsObj) {
+        StringBuilder sbCode = new StringBuilder();
+        fillUpdateScriptCode(paramsObj.getClass(), sbCode);
+
+        String jsonParams = JsonUtil.convertBean2String(paramsObj);
+        Map<String, Object> paramsMap = JsonUtil.convertJsonStrToMap(jsonParams, String.class, Object.class);
+        log.info("script code: {}", sbCode.toString());
+        log.info("paramsMap: {}", paramsMap);
+        return new Script(ScriptType.INLINE, "painless", sbCode.toString(), paramsMap);
+    }
+
+    /**
+     * 按递归处理，实体对象的所有
+     *
+     * @param clazz  泛型类对象
+     * @param sbCode StringBuilder
+     * @param <T>    泛型
+     */
+    private static <T> void fillUpdateScriptCode(Class<T> clazz, StringBuilder sbCode) {
+        if (clazz == null) {
+            return;
+        }
+
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+
+            // 示例: if (params.{fieldName} != null) {
+            // 示例:     ctx._source['{fieldName}'] = params.{fieldName};
+            // 示例: }
+            String fieldName = field.getName();
+            sbCode.append("if (params.").append(fieldName).append(" != null) {");
+            sbCode.append("ctx._source['").append(fieldName).append("'] = params.").append(fieldName).append(";");
+            sbCode.append("}");
+        }
+
+        // 递归所有父类属性
+        Class<? super T> superclass = clazz.getSuperclass();
+        fillUpdateScriptCode(superclass, sbCode);
+    }
+
+    private static <T> Object getFieldValue(T entityObject, Field field) {
+        try {
+            field.setAccessible(true);
+            return field.get(entityObject);
+        } catch (IllegalAccessException exception) {
+            log.error("CelonEsRepositoryImpl, getFieldValue failed.");
+            throw new RuntimeException(exception.getMessage());
+        }
+    }
+
+    /**
+     * bool 查询的嵌套条件
+     * {
+     * .."bool": {
+     * ...."should": [
+     * ......{
+     * ........"match": {
+     * .........."userIds": "dGVzdDE="
+     * ........}
+     * ......},
+     * ......{
+     * ........"match": {
+     * .........."groupIds": "MySQL_test_2.test"
+     * ........}
+     * ......}
+     * ....]
+     * ..}
+     * }
+     */
+    private static void function(BoolQueryBuilder boolQueryBuilder) {
+        // 创建一个嵌套的查询
+        BoolQueryBuilder myTaskQueryBuilder = new BoolQueryBuilder();
+
+        // 添加嵌套查询条件，这里使用逻辑或
+        MatchQueryBuilder matchUserId = QueryBuilders.matchQuery("userIds", "userIdValue");
+        myTaskQueryBuilder.should(matchUserId);
+
+        // 再添加一个嵌套查询条件，这里也是逻辑或
+        List<String> groupIdList = new ArrayList<>();
+        if (groupIdList != null && !groupIdList.isEmpty()) {
+            String groupIds = "groupId01,groupId02,groupId03";
+            MatchQueryBuilder matchGroupId = QueryBuilders.matchQuery("groupIds", groupIds);
+            myTaskQueryBuilder.should(matchGroupId);
+        }
+
+        boolQueryBuilder.must(myTaskQueryBuilder);
     }
 }
