@@ -482,6 +482,57 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
      * @param sbCode StringBuilder
      * @param <T>    泛型
      */
+    private static <T> void fillUpdateScriptCodeAndParams(Class<?> clazz, T obj, StringBuilder sbCode,
+            Map<String, Object> params) {
+        if (clazz == null) {
+            return;
+        }
+
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+
+            // 示例: if (params.{fieldName} != null) {
+            // 示例:     ctx._source['{fieldName}'] = params.{fieldName};
+            // 示例: }
+            String fieldName = field.getName();
+            sbCode.append("if (params.").append(fieldName).append(" != null) {");
+            sbCode.append("ctx._source['").append(fieldName).append("'] = params.").append(fieldName).append(";");
+            sbCode.append("}");
+
+            Object fieldValue = getFieldValue(obj, field);
+            if (fieldValue == null) {
+                continue;
+            }
+
+            Object paramValue = fieldValue;
+            if (fieldValue instanceof String) {
+                // 空白字符串忽略
+                if (StringUtils.isBlank(((String)fieldValue))) {
+                    continue;
+                }
+            } else if (fieldValue instanceof Date) {
+                String dateJson = JsonUtil.convertBean2String(fieldValue);
+                // 去除前尾的双引号，由json序列化之后，会在日期转换的结果字符串添加前后双引号，这里将其做删除处理。
+                paramValue = dateJson.substring(1, dateJson.length() - 1);
+            }
+            params.put(fieldName, paramValue);
+        }
+
+        // 递归所有父类属性
+        Class<?> superclass = clazz.getSuperclass();
+        fillUpdateScriptCodeAndParams(superclass, obj, sbCode, params);
+    }
+
+    /**
+     * 按递归处理，实体对象的所有
+     *
+     * @param clazz  泛型类对象
+     * @param sbCode StringBuilder
+     * @param <T>    泛型
+     */
     private static <T> void fillUpdateScriptCode(Class<T> clazz, StringBuilder sbCode) {
         if (clazz == null) {
             return;
