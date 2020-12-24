@@ -620,25 +620,25 @@ https://www.elastic.co/guide/en/elasticsearch/client/java-rest/current/index.htm
 > 
 >
 > ```java
->     public CelonPagedResult<ProcessFormHiEsDo> fieldExists(int curPage, int pageSize, String fieldName, boolean exist) {
->         ExistsQueryBuilder existsQueryBuilder = QueryBuilders.existsQuery(fieldName);
->         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
->         if (exist) {
->             // 该值存在：is not null
->             boolQueryBuilder.must(existsQueryBuilder);
->         } else {
->             // 该值不存在：is null
->             boolQueryBuilder.mustNot(existsQueryBuilder);
->         }
-> 
->         log.info("fieldExists, boolQueryBuilder: {}", boolQueryBuilder);
->         CelonPageVO pageInfo = new CelonPageVO(pageSize, curPage);
->         PageRequest pageRequest = PageRequest.of(pageInfo.getCurPage() - 1, pageInfo.getPageSize());
->         Page<ProcessFormHiEsDo> pageResult = iProcessFormHiEsRepository.search(boolQueryBuilder, pageRequest);
->         pageInfo.setTotalRows((int) pageResult.getTotalElements());
-> 
->         return new CelonPagedResult<>(pageInfo, pageResult.getContent());
+> public PagedResult<ProcessFormHiEsDo> fieldExists(int curPage, int pageSize, String fieldName, boolean exist) {
+>     ExistsQueryBuilder existsQueryBuilder = QueryBuilders.existsQuery(fieldName);
+>     BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+>     if (exist) {
+>         // 该值存在：is not null
+>         boolQueryBuilder.must(existsQueryBuilder);
+>     } else {
+>         // 该值不存在：is null
+>         boolQueryBuilder.mustNot(existsQueryBuilder);
 >     }
+> 
+>     log.info("fieldExists, boolQueryBuilder: {}", boolQueryBuilder);
+>     PageVO pageInfo = new PageVO(pageSize, curPage);
+>     PageRequest pageRequest = PageRequest.of(pageInfo.getCurPage() - 1, pageInfo.getPageSize());
+>     Page<ProcessFormHiEsDo> pageResult = iProcessFormHiEsRepository.search(boolQueryBuilder, pageRequest);
+>     pageInfo.setTotalRows((int) pageResult.getTotalElements());
+> 
+>     return new PagedResult<>(pageInfo, pageResult.getContent());
+> }
 > ```
 >
 > 
