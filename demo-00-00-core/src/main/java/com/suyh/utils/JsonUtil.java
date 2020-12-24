@@ -33,7 +33,7 @@ public class JsonUtil {
     // 博客参考：https://www.cnblogs.com/yuluoxingkong/p/7676089.html
     public static void initMapper(ObjectMapper mapper) {
         // 设置默认日期的格式化，优先级低于 @JsonFormat
-        mapper.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        mapper.setTimeZone(TimeZone.getDefault());
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
         // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
         // ignored non null field

@@ -2,7 +2,7 @@ package com.suyh.es3202.es;
 
 import com.suyh.es3202.entity.EsQueryRange;
 import com.suyh.es3202.repository.CustomRepository;
-import com.suyh.es3202.util.EsFieldName;
+import com.suyh.init.CommonInit;
 import com.suyh.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.update.UpdateRequest;
@@ -14,10 +14,12 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.UpdateByQueryRequest;
+import org.elasticsearch.script.Script;
 import org.elasticsearch.script.ScriptType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -65,7 +68,6 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
         return restHighLevelClient;
     }
 
-    @Override
     public String indexName() {
         return entityInformation.getIndexName();
     }
@@ -131,7 +133,7 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
     public <E> void updateByNeed(E updateObj, String id) {
         UpdateRequest updateRequest = new UpdateRequest();
         // 这里还有待优化的空间，可以使用EntityMapper bean对象的mapToString() 方法来进行json 序列化。
-        String jsonObj = JsonUtil.convertBean2String(updateObj);
+        String jsonObj = JsonUtil.serializable(updateObj);
         updateRequest.doc(jsonObj, XContentType.JSON);
         UpdateQuery updateQuery = new UpdateQuery();
         updateQuery.setId(id);
@@ -162,7 +164,7 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
             log.info("updateByQuery result, totalDocs: {}, updateDocs: {}", bulkResponse.getTotal(),
                     bulkResponse.getUpdated());
         } catch (IOException exception) {
-            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
         }
     }
 
@@ -296,7 +298,7 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
             return;
         }
 
-        if (fieldValue instanceof CelonEsQueryRange) {
+        if (fieldValue instanceof EsQueryRange) {
             return;
         }
 
@@ -369,9 +371,9 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
             return;
         }
 
-        if (fieldValue instanceof CelonEsQueryRange) {
+        if (fieldValue instanceof EsQueryRange) {
             // 范围过滤
-            CelonEsQueryRange<?> rangeQuery = (CelonEsQueryRange<?>) fieldValue;
+            EsQueryRange<?> rangeQuery = (EsQueryRange<?>) fieldValue;
             if (rangeQuery.isValid()) {
                 likeQueryBuilder.must(makeRangeQueryBuilder(field, rangeQuery));
             }
@@ -412,10 +414,10 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
      * @param rangeQuery 范围查询对象
      * @return RangeQueryBuilder
      */
-    public static RangeQueryBuilder makeRangeQueryBuilder(Field field, CelonEsQueryRange<?> rangeQuery) {
-        CelonEsFieldName annotation = field.getAnnotation(CelonEsFieldName.class);
+    public static RangeQueryBuilder makeRangeQueryBuilder(Field field, EsQueryRange<?> rangeQuery) {
+        EsFieldName annotation = field.getAnnotation(EsFieldName.class);
         if (annotation == null) {
-            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, "lose @CelonEsFieldName");
+            throw new RuntimeException("lose @CelonEsFieldName");
         }
         String propertyName = annotation.name();
         RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(propertyName);
@@ -443,10 +445,10 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
      * @param rangeQuery 范围查询对象
      * @return RangeQueryBuilder
      */
-    public static RangeQueryBuilder makeRangeQueryBuilderBackup(Field field, CelonEsQueryRange<?> rangeQuery) {
-        CelonEsFieldName annotation = field.getAnnotation(CelonEsFieldName.class);
+    public static RangeQueryBuilder makeRangeQueryBuilderBackup(Field field, EsQueryRange<?> rangeQuery) {
+        EsFieldName annotation = field.getAnnotation(EsFieldName.class);
         if (annotation == null) {
-            throw new CelonBpmBusinessException(ErrorCode.ECD_INTERNAL_ERROR, "lose @CelonEsFieldName");
+            throw new RuntimeException("lose @CelonEsFieldName");
         }
         String propertyName = annotation.name();
         RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery(propertyName);
@@ -468,8 +470,8 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
         StringBuilder sbCode = new StringBuilder();
         fillUpdateScriptCode(paramsObj.getClass(), sbCode);
 
-        String jsonParams = JsonUtil.convertBean2String(paramsObj);
-        Map<String, Object> paramsMap = JsonUtil.convertJsonStrToMap(jsonParams, String.class, Object.class);
+        String jsonParams = JsonUtil.serializable(paramsObj);
+        Map<String, Object> paramsMap = JsonUtil.deserializeToMap(jsonParams, String.class, Object.class);
         log.info("script code: {}", sbCode.toString());
         log.info("paramsMap: {}", paramsMap);
         return new Script(ScriptType.INLINE, "painless", sbCode.toString(), paramsMap);
@@ -510,11 +512,11 @@ public class CustomRepositoryImpl<T, ID> extends SimpleElasticsearchRepository<T
             Object paramValue = fieldValue;
             if (fieldValue instanceof String) {
                 // 空白字符串忽略
-                if (StringUtils.isBlank(((String)fieldValue))) {
+                if (StringUtils.isEmpty(fieldValue)) {
                     continue;
                 }
             } else if (fieldValue instanceof Date) {
-                String dateJson = JsonUtil.convertBean2String(fieldValue);
+                String dateJson = JsonUtil.serializable(fieldValue);
                 // 去除前尾的双引号，由json序列化之后，会在日期转换的结果字符串添加前后双引号，这里将其做删除处理。
                 paramValue = dateJson.substring(1, dateJson.length() - 1);
             }
