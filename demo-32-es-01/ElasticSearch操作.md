@@ -587,6 +587,60 @@ https://www.elastic.co/guide/en/elasticsearch/client/java-rest/current/index.htm
 > }
 > ```
 >
+
+#### null 值匹配(某个属性是否存在)
+
+> ```
+> GET /dev_tpl_wf_hi_procform_t/_search
+> {
+>   "query": {
+>     "bool": {
+>       "must_not": [
+>         {
+>           "exists": {
+>             "field": "ccuserIds"
+>           }
+>         }
+>       ],
+>       "should": []
+>     }
+>   },
+>   "from": 0,
+>   "size": 10,
+>   "sort": [{
+>     "lookUpId": {
+>       "order": "asc"
+>     }
+>   }],
+>   "aggs": {
+>   }
+> }
+> ```
+>
+> 
+>
+> ```java
+>     public CelonPagedResult<ProcessFormHiEsDo> fieldExists(int curPage, int pageSize, String fieldName, boolean exist) {
+>         ExistsQueryBuilder existsQueryBuilder = QueryBuilders.existsQuery(fieldName);
+>         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+>         if (exist) {
+>             // 该值存在：is not null
+>             boolQueryBuilder.must(existsQueryBuilder);
+>         } else {
+>             // 该值不存在：is null
+>             boolQueryBuilder.mustNot(existsQueryBuilder);
+>         }
+> 
+>         log.info("fieldExists, boolQueryBuilder: {}", boolQueryBuilder);
+>         CelonPageVO pageInfo = new CelonPageVO(pageSize, curPage);
+>         PageRequest pageRequest = PageRequest.of(pageInfo.getCurPage() - 1, pageInfo.getPageSize());
+>         Page<ProcessFormHiEsDo> pageResult = iProcessFormHiEsRepository.search(boolQueryBuilder, pageRequest);
+>         pageInfo.setTotalRows((int) pageResult.getTotalElements());
+> 
+>         return new CelonPagedResult<>(pageInfo, pageResult.getContent());
+>     }
+> ```
+>
 > 
 
 #### 高亮
