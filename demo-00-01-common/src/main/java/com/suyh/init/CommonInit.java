@@ -23,6 +23,7 @@ import javax.annotation.Resource;
  * 需要实现 ApplicationRunner 接口
  */
 @Component
+// 要获取一git 的一些信息，需要在pom.xml 中添加一些插件
 @PropertySource(value = "classpath:git.properties", ignoreResourceNotFound = true)
 @Order(100)
 @Slf4j
