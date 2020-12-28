@@ -59,6 +59,7 @@
         <module>demo-33-jackson-02</module>
         <module>demo-32-es-02</module>
         <module>demo-29-db-jpa-02-custom</module>
+        <module>demo-34-actuator-01</module>
     </modules>
 
     <dependencyManagement>
@@ -219,6 +220,27 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <!-- swagger ui 的doc.html 文档 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+        </dependency>
+    </dependencies>
 
     <!-- 指定拉取阿里云仓库 -->
     <!--    <repositories>-->
