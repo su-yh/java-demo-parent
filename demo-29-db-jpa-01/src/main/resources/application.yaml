@@ -38,9 +38,9 @@ logging:
   level:
     root: info
     org.hiibernate: info
-    # 在show-sql为true时，显示SQL 中的动态参数值
+    # 在${spring.jpa.show-sql}为true时，显示SQL 中的动态参数值
     org.hibernate.type.descriptor.sql.BasicBinder: trace
-    # 在show-sql为true时，显示查询结果
+    # 在${spring.jpa.show-sql}为true时，显示查询结果
     org.hibernate.hql.internal.ast.exec.BasicExecutor: trace
     com.suyh2901: debug
 
