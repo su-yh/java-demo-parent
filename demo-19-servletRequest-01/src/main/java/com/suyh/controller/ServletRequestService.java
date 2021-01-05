@@ -1,30 +1,24 @@
 package com.suyh.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Service
 @Slf4j
-@Api("servlet-request-controller")
-public class ServletRequestController {
+public class ServletRequestService {
 
-    @Resource
-    private ServletRequestService service;
-
-    @ApiOperation(value = "getInfo")
-    @RequestMapping(value = "/get/info", method = RequestMethod.GET)
-    public String getInfo() {
-        service.temp();
+    /**
+     * 通过此现象可以得出，通过 RequestContextHolder.getRequestAttributes() 所得到的上下文数据是不能跨线程的。
+     */
+    @Async
+    public void temp() {
+        log.info("ServletRequestService#temp(), current thread: {}, tokenValue: {}", Thread.currentThread().getName(), "");
 
         // 获取请求上下文，从中提取出header 中的token 数据
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -33,8 +27,6 @@ public class ServletRequestController {
         HttpServletRequest request = servletRequestAttributes.getRequest();
 
         String tokenValue = request.getHeader("token");
-        log.info("ServletRequestController#getInfo(), current thread: {}, tokenValue: {}", Thread.currentThread().getName(), tokenValue);
-
-        return tokenValue;
+        log.info("ServletRequestService#temp(), current thread: {}, tokenValue: {}", Thread.currentThread().getName(), tokenValue);
     }
 }
