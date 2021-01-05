@@ -6,6 +6,12 @@
         "pattern": "[,\\s]",
         "lowercase": true
       }
+    },
+    "normalizer": {
+      "lowercase": {
+        "type": "custom",
+        "filter": ["lowercase"]
+      }
     }
   }
 }
