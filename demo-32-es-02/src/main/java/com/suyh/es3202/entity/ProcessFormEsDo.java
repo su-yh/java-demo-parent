@@ -43,8 +43,9 @@ public class ProcessFormEsDo implements Serializable {
 
     /**
      * taskId
+     * normalizer = "lowercase" 对于Keyword 类型的查询，可以忽略大小写。该值需要在settings 中进行设置。详见：processFormAnalyzer.json  【normalizer】
      */
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Keyword, normalizer = "lowercase")
     private String taskId;
 
     /**
