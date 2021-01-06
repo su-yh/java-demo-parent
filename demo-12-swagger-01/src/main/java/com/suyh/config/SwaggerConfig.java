@@ -36,7 +36,8 @@ public class SwaggerConfig {
 //                .apis(RequestHandlerSelectors.any())
                 //扫描所有有注解的api，用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(PathSelectors.any())
+                // 过滤前缀路径(不包含上下文，上下文另外处理)
+                .paths(Predicates.or(PathSelectors.ant("/services/suyh/dev/**")), PathSelectors.ant("/services/suyh/local/**")))
                 .build()
                 .ignoredParameterTypes(ApiIgnore.class);
     }
