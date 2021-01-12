@@ -63,7 +63,7 @@ public class Work {
         List<SubwayCircleLine> sourceCircleLines = siteLineMapping.get(sourceSiteCode);
         // 终点站所在环线的所有编号
         List<SubwayCircleLine> destCircleLines = siteLineMapping.get(sourceSiteCode);
-        int minNumber = 0;
+        int minNumber = Integer.MAX_VALUE;
         for (SubwayCircleLine curCircleLine : sourceCircleLines) {
             Integer currentNumber = 0;
             if (curCircleLine.exist(destSiteCode)) {
@@ -73,8 +73,7 @@ public class Work {
             }
 
             ResultValue resultValue = new ResultValue();
-            resultValue.setSuccess(false);
-            resultValue.setNum(1);
+            resultValue.add(1);
 
             SubwaySite[] sites = curCircleLine.getSites();
             for (SubwaySite site : sites) {
@@ -91,12 +90,19 @@ public class Work {
             }
         }
 
-        System.out.println(minNumber);
+        System.out.println("最后的结果: " + minNumber);
         //        int n = 3;
         //        Integer[] site = new Integer[n];
     }
 
     public static class ResultValue {
+        private boolean success = false;
+        private int num = 0;
+
+        public void add(int value) {
+            num += value;
+        }
+
         public boolean isSuccess() {
             return success;
         }
@@ -112,9 +118,6 @@ public class Work {
         public void setNum(int num) {
             this.num = num;
         }
-
-        private boolean success;
-        private int num;
     }
 
     /**
