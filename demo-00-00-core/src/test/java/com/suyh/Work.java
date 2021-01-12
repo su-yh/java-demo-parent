@@ -21,6 +21,8 @@ import java.util.Scanner;
 
 public class Work {
 
+    private static Map<Integer, List<SubwayCircleLine>> siteLineMapping = null;
+
     /**
      * 2021-01-12 工作级考试
      */
@@ -49,7 +51,7 @@ public class Work {
         }
 
         // <站点编号, 站点所属环线>
-        Map<Integer, List<SubwayCircleLine>> siteLineMapping = mappingSiteLine(subwayCircleLines);
+        siteLineMapping = mappingSiteLine(subwayCircleLines);
         System.out.println("################ 站点-环线映射关系 #################");
         siteLineMapping.forEach((site, lines) -> {
             System.out.println("当前站点[" + site + "], 所在环线: " + lines);
@@ -78,8 +80,7 @@ public class Work {
                 }
                 ResultValue resultValue = new ResultValue();
                 resultValue.add(1);
-                ResultValue curResult = arriveSite(siteLineMapping, curCircleLine.getCodeCircleLine(), site, destSiteCode,
-                        resultValue);
+                ResultValue curResult = arriveSite(curCircleLine.getCodeCircleLine(), site, destSiteCode, resultValue);
                 if (curResult.isSuccess()) {
                     if (curResult.getNum() < minNumber) {
                         minNumber = resultValue.getNum();
@@ -123,22 +124,13 @@ public class Work {
      * @param totalNumber
      * @return
      */
-    private static ResultValue arriveSite(Map<Integer, List<SubwayCircleLine>> siteLineMapping, Integer excludeCircleLine,
-                                   SubwaySite curSiteCode, Integer destSiteCode, ResultValue resultValue) {
-        ResultValue curResult = new ResultValue();
-        curResult.setNum(resultValue.getNum());
-        if (curSiteCode == null) {
-            curResult.setSuccess(false);
-            return curResult;
-        }
-
+    private static ResultValue arriveSite(Integer excludeCircleLine, SubwaySite curSiteCode, Integer destSiteCode, ResultValue resultValue) {
         resultValue.add(1);
-        curResult.add(1);
 
         List<SubwayCircleLine> subwayCircleLines = siteLineMapping.get(curSiteCode.getSiteCode());
         if (subwayCircleLines == null || subwayCircleLines.isEmpty()) {
-            curResult.setSuccess(false);
-            return curResult;
+            resultValue.setSuccess(false);
+            return resultValue;
         }
         for (SubwayCircleLine curCircleLine : subwayCircleLines) {
             if (curCircleLine.getCodeCircleLine().equals(excludeCircleLine)) {
@@ -147,23 +139,24 @@ public class Work {
             }
 
             if (curCircleLine.exist(destSiteCode)) {
-                curResult.setSuccess(true);
-                return curResult;
+                resultValue.setSuccess(true);
+                return resultValue;
             }
 
             SubwaySite[] sites = curCircleLine.getSites();
             for (SubwaySite site : sites) {
-                ResultValue tempResult = arriveSite(siteLineMapping, curCircleLine.getCodeCircleLine(), site, destSiteCode,
-                        resultValue);
-                if (tempResult.isSuccess()) {
-                    tempResult.setSuccess(true);
-                    return tempResult;
+                ResultValue nextResult = new ResultValue();
+                nextResult.setNum(resultValue.getNum());
+                resultValue = arriveSite(curCircleLine.getCodeCircleLine(), site, destSiteCode, nextResult);
+                if (resultValue.isSuccess()) {
+                    resultValue.setSuccess(true);
+                    return resultValue;
                 }
             }
         }
 
-        curResult.setSuccess(false);
-        return curResult;
+        resultValue.setSuccess(false);
+        return resultValue;
     }
 
     /**
