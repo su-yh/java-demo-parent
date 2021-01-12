@@ -5,9 +5,11 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 //        2
 //        3 3
@@ -61,10 +63,21 @@ public class Work {
         Integer sourceSiteCode = sc.nextInt();
         System.out.print("请输入终点站编号: ");
         Integer destSiteCode = sc.nextInt();
+        int minNumber = doMinNumber(sourceSiteCode, destSiteCode);
+
+        System.out.println("最后的结果: " + minNumber);
+    }
+
+    /**
+     * 求最小路径环线数
+     *
+     * @param sourceSiteCode 始发站点
+     * @param destSiteCode 目标站点
+     * @return 最小路径环线
+     */
+    private static int doMinNumber(Integer sourceSiteCode, Integer destSiteCode) {
         // 始发站所在环线的所有编号
         List<SubwayCircleLine> sourceCircleLines = siteLineMapping.get(sourceSiteCode);
-        // 终点站所在环线的所有编号
-        List<SubwayCircleLine> destCircleLines = siteLineMapping.get(sourceSiteCode);
         int minNumber = Integer.MAX_VALUE;
         for (SubwayCircleLine curCircleLine : sourceCircleLines) {
             if (curCircleLine.exist(destSiteCode)) {
@@ -80,26 +93,36 @@ public class Work {
                     continue;
                 }
                 ResultValue resultValue = new ResultValue();
+                resultValue.addCircleLine(curCodeCircleLine);
                 resultValue.add(1);
-                ResultValue curResult = arriveSite(curCodeCircleLine, site.getSiteCode(), destSiteCode, resultValue);
+                ResultValue curResult = arriveSite(site.getSiteCode(), destSiteCode, resultValue);
                 if (curResult.isSuccess()) {
-                    System.out.println("找到一条线路");
                     if (curResult.getNum() < minNumber) {
                         minNumber = curResult.getNum();
                     }
                 }
             }
         }
-
-        System.out.println("最后的结果: " + minNumber);
+        return minNumber;
     }
 
     public static class ResultValue {
         private boolean success = false;
         private int num = 0;
 
+        // 一共所经历过的所有环线
+        private Set<Integer> circleLines = new HashSet<>();
+
         public void add(int value) {
             num += value;
+        }
+
+        public void addCircleLine(Integer circleLineCode) {
+            circleLines.add(circleLineCode);
+        }
+
+        public boolean existCircleLine(Integer circleLineCode) {
+            return circleLines.contains(circleLineCode);
         }
 
         public boolean isSuccess() {
@@ -117,39 +140,60 @@ public class Work {
         public void setNum(int num) {
             this.num = num;
         }
+
+        public Set<Integer> getCircleLines() {
+            return circleLines;
+        }
+
+        public void addCircleLines(Set<Integer> circleLines) {
+            this.circleLines.addAll(circleLines);
+        }
     }
 
     /**
-     * 从指定环线(${circleLine})的指定站点(${siteCode}) 走到目标站点(${destSiteCode})
+     * 从指定站点(${siteCode}) 走到目标站点(${destSiteCode})
      *
-     * @param circleLine 指定环线
      * @param siteCode 所在环线的指定站点
      * @param destSiteCode 目标站点
      * @param resultValue 当前走过的环线
      * @return
      */
-    private static ResultValue arriveSite(Integer circleLine, Integer siteCode, Integer destSiteCode, ResultValue resultValue) {
+    private static ResultValue arriveSite(Integer siteCode, Integer destSiteCode, final ResultValue resultValue) {
+        resultValue.setSuccess(false);
         resultValue.add(1);
+
+        ResultValue finalResult = new ResultValue();
+        finalResult.setNum(resultValue.getNum());
+        finalResult.addCircleLines(resultValue.getCircleLines());
 
         List<SubwayCircleLine> subwayCircleLines = siteLineMapping.get(siteCode);
         if (subwayCircleLines == null || subwayCircleLines.isEmpty()) {
-            resultValue.setSuccess(false);
-            return resultValue;
+            finalResult.setSuccess(false);
+            return finalResult;
         }
+
+        // 这里的数量超过一个，那么当前站点，就是换乘站
         for (SubwayCircleLine curCircleLine : subwayCircleLines) {
-            // 已经处理过的环线，排除掉
-            if (curCircleLine.getCodeCircleLine().equals(circleLine)) {
+            // 已经跑过的环线，不能再跑
+            if (resultValue.existCircleLine(curCircleLine.getCodeCircleLine())) {
                 continue;
             }
 
+            ResultValue middleResult = new ResultValue();
+            middleResult.setNum(resultValue.getNum());
+            middleResult.addCircleLines(resultValue.getCircleLines());
+            middleResult.addCircleLine(curCircleLine.getCodeCircleLine());
+
             // 这个站点的其它环线是否包含了目标站点
             if (curCircleLine.exist(destSiteCode)) {
-                resultValue.setSuccess(true);
-                return resultValue;
+                System.out.println("找到了一条线路");
+                finalResult.setSuccess(true);
+                finalResult.addCircleLines(middleResult.getCircleLines());
+                finalResult.setNum(middleResult.getNum());
+                return finalResult;
+                // continue;   // 继续，是寻找所有的可能线程。这里可以直接返回的
             }
 
-            // 这个站点
-            Integer codeCircleLine = curCircleLine.getCodeCircleLine();
             SubwaySite[] sites = curCircleLine.getSites();
             for (SubwaySite site : sites) {
                 // 已经处理过的站点，排除掉
@@ -157,17 +201,23 @@ public class Work {
                     continue;
                 }
                 ResultValue nextResult = new ResultValue();
-                nextResult.setNum(resultValue.getNum());
-                resultValue = arriveSite(codeCircleLine, site.getSiteCode(), destSiteCode, nextResult);
-                if (resultValue.isSuccess()) {
-                    resultValue.setSuccess(true);
-                    return resultValue;
+                nextResult.setNum(middleResult.getNum());
+                nextResult.addCircleLines(middleResult.getCircleLines());
+                ResultValue tempResultValue = arriveSite(site.getSiteCode(), destSiteCode, nextResult);
+                if (tempResultValue.isSuccess()) {
+                    if (tempResultValue.getNum() < finalResult.getNum()) {
+                        finalResult.setSuccess(true);
+                        finalResult.setNum(tempResultValue.getNum());
+                        finalResult.addCircleLines(tempResultValue.getCircleLines());
+
+                        // 这里的确是完全可以return了，因为只要每多递归进入一次，线程就会+1，只会更大，不会更小。
+                        return finalResult;
+                    }
                 }
             }
         }
 
-        resultValue.setSuccess(false);
-        return resultValue;
+        return finalResult;
     }
 
     /**
