@@ -75,9 +75,72 @@ public class Work {
         Integer sourceSiteCode = sc.nextInt();
         System.out.print("请输入终点站编号: ");
         Integer destSiteCode = sc.nextInt();
-        int minNumber = doMinNumber(sourceSiteCode, destSiteCode);
+        // int minNumber = doMinNumber(sourceSiteCode, destSiteCode);
+        int minNumber = doMinNumber02(sourceSiteCode, destSiteCode);
 
         System.out.println("最后的结果: " + minNumber);
+    }
+
+    private static int doMinNumber02(Integer sourceSiteCode, Integer destSiteCode) {
+        // 当前就是第一条环线
+        int resultNumber = 1;
+        // 始发站所在环线的所有编号
+        List<SubwayCircleLine> sourceCircleLines = siteLineMapping.get(sourceSiteCode);
+        if (sourceCircleLines 中存在 destSiteCode) {
+            return resultNumber;
+        }
+
+        // 已处理过的所有的站点
+        Set<Integer> excludeSites = new HashSet<>();
+        excludeSites.add(sourceSiteCode);
+
+        // 已处理过的所有的环线
+        Set<Integer> excludeLines = new HashSet<>();
+        excludeLines.addAll(sourceCircleLines.iterator());
+
+        // 这些线上的所有站点
+        Set<Integer> sites = sourceCircleLines.getAllSize();
+        // 这些线上的所有站点所在的所有的线
+        Set<Integer> lines = siteLineMapping.get(sites 中的每一个站点);
+
+        // 最新的要处理的环线
+        Set<Integer> newLines = lines.exclude(excludeLines);
+
+        return doing(newLines, destSiteCode, resultNumber, excludeSites, excludeLines);
+    }
+
+    /**
+     *
+     *
+     * @param lines 当前要处理的环线集合
+     * @param destSiteCode 目标站点
+     * @param number 当前的最小环线数量
+     * @param excludeSites 已处理过的站点
+     * @param excludeLines 已处理过的环线
+     */
+    private static int doing(Set<Integer> lines, Integer destSiteCode, int number,
+                              Set<Integer> excludeSites, Set<Integer> excludeLines) {
+        ++number;
+        if (lines exist destSiteCode) {
+            // 找到了最小环线数量
+            return number;
+        }
+
+        // 1. 将lines 中每条环线的每个站点都添加到 excludeSites，表示这些站点都处理过了。就是现在处理的。
+
+        // 2. 将lines 中的每条环线都添加到 excludeLines，表示这些环线都处理过了。就是现在处理的。
+
+        // 3. lines 中的所有站点
+        Set<Integer> allSites;
+
+        // 4. allSites 中排除掉 excludeSites 已处理过的站点，剩下的站点集合
+        Set<Integer> curSites;
+
+        // 5. curSites 中的所有的站点，不过要排除掉 excludeLines中的所有环线。剩下的环线就是接下来要处理的环线
+        Set<Integer> nextLines;
+
+        return doing(nextLines, destSiteCode, number, excludeSites, excludeLines);
+
     }
 
     /**
