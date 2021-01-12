@@ -73,6 +73,7 @@ public class Work {
                 break;
             }
 
+            Integer curCodeCircleLine = curCircleLine.getCodeCircleLine();
             SubwaySite[] sites = curCircleLine.getSites();
             for (SubwaySite site : sites) {
                 if (site.getSiteCode().equals(sourceSiteCode)) {
@@ -80,10 +81,11 @@ public class Work {
                 }
                 ResultValue resultValue = new ResultValue();
                 resultValue.add(1);
-                ResultValue curResult = arriveSite(curCircleLine.getCodeCircleLine(), site, destSiteCode, resultValue);
+                ResultValue curResult = arriveSite(curCodeCircleLine, site.getSiteCode(), destSiteCode, resultValue);
                 if (curResult.isSuccess()) {
+                    System.out.println("找到一条线路");
                     if (curResult.getNum() < minNumber) {
-                        minNumber = resultValue.getNum();
+                        minNumber = curResult.getNum();
                     }
                 }
             }
@@ -118,36 +120,45 @@ public class Work {
     }
 
     /**
-     * 递归调用，找到目标站点
-     * 从当前站点到达目标站点
+     * 从指定环线(${circleLine})的指定站点(${siteCode}) 走到目标站点(${destSiteCode})
      *
-     * @param totalNumber
+     * @param circleLine 指定环线
+     * @param siteCode 所在环线的指定站点
+     * @param destSiteCode 目标站点
+     * @param resultValue 当前走过的环线
      * @return
      */
-    private static ResultValue arriveSite(Integer excludeCircleLine, SubwaySite curSiteCode, Integer destSiteCode, ResultValue resultValue) {
+    private static ResultValue arriveSite(Integer circleLine, Integer siteCode, Integer destSiteCode, ResultValue resultValue) {
         resultValue.add(1);
 
-        List<SubwayCircleLine> subwayCircleLines = siteLineMapping.get(curSiteCode.getSiteCode());
+        List<SubwayCircleLine> subwayCircleLines = siteLineMapping.get(siteCode);
         if (subwayCircleLines == null || subwayCircleLines.isEmpty()) {
             resultValue.setSuccess(false);
             return resultValue;
         }
         for (SubwayCircleLine curCircleLine : subwayCircleLines) {
-            if (curCircleLine.getCodeCircleLine().equals(excludeCircleLine)) {
-                // 排除的环线，已经处理过了的环线
+            // 已经处理过的环线，排除掉
+            if (curCircleLine.getCodeCircleLine().equals(circleLine)) {
                 continue;
             }
 
+            // 这个站点的其它环线是否包含了目标站点
             if (curCircleLine.exist(destSiteCode)) {
                 resultValue.setSuccess(true);
                 return resultValue;
             }
 
+            // 这个站点
+            Integer codeCircleLine = curCircleLine.getCodeCircleLine();
             SubwaySite[] sites = curCircleLine.getSites();
             for (SubwaySite site : sites) {
+                // 已经处理过的站点，排除掉
+                if (site.getSiteCode().equals(siteCode)) {
+                    continue;
+                }
                 ResultValue nextResult = new ResultValue();
                 nextResult.setNum(resultValue.getNum());
-                resultValue = arriveSite(curCircleLine.getCodeCircleLine(), site, destSiteCode, nextResult);
+                resultValue = arriveSite(codeCircleLine, site.getSiteCode(), destSiteCode, nextResult);
                 if (resultValue.isSuccess()) {
                     resultValue.setSuccess(true);
                     return resultValue;
