@@ -21,6 +21,18 @@ import java.util.Set;
 //
 //        2
 
+/**
+ * 3
+ * 4 4 3
+ * 1 3 4 7
+ * 3 9 6 7
+ * 3 2 6
+ * 1
+ * 2
+ *
+ * 结果: 2
+ */
+
 public class Work {
 
     private static Map<Integer, List<SubwayCircleLine>> siteLineMapping = null;
