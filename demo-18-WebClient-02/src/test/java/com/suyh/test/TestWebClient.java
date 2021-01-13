@@ -100,8 +100,16 @@ public class TestWebClient {
         //创建客户端
         WebClient client = WebClient.create("http://localhost:11801");
 
+        int pageNumber = 1;
+        int pageSize = 10;
         // Notice.class 为响应的返回类型实体定义
-        Mono<Notice> noticeMono = client.get().uri("/impl/get/info").retrieve().bodyToMono(Notice.class);
+        Mono<Notice> noticeMono = client.get()
+                .uri(uriBuilder -> uriBuilder.path("/impl/get/info")
+                        .queryParam("pageNumber", pageNumber)
+                        .queryParam("pageSize", pageSize)
+                        .build())
+                .retrieve()
+                .bodyToMono(Notice.class);
         Notice resultEntity = noticeMono.block();   // 这里会阻塞当前线程，直到请求返回结果
         log.info("noticeMono success, response entity: {}",
                 ToStringBuilder.reflectionToString(resultEntity, ToStringStyle.JSON_STYLE));
