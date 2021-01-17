@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -158,5 +159,12 @@ public class TestWebClient {
 
         log.info("http request finished.");
         TimeUnit.SECONDS.sleep(4);
+    }
+
+    @Test
+    public void test010101() {
+        // Map<String, String> header = new HashMap<>();
+        // header.put(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
+        log.info("MediaType.APPLICATION_JSON.toString(): {}",  MediaType.APPLICATION_JSON.toString());
     }
 }

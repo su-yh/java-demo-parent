@@ -5,8 +5,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -39,6 +42,7 @@ public class FirstFilter implements Filter {
         if (token == null || token.length() == 0) {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.addHeader(HttpHeaders.AUTHORIZATION, "token-value");
+            // response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
             response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
 
             response.getWriter().print("{\"code\": -100, \"message\": \"no token\"}");
