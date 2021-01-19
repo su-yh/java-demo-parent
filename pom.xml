@@ -246,6 +246,30 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
     </dependencies>
+         
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring_profiles_active>dev</spring_profiles_active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <!-- 排除所有带环境的配置 -->
+                            <exclude>application-*.properties</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
     <!-- 指定拉取阿里云仓库 -->
     <!--    <repositories>-->
@@ -265,8 +289,12 @@
     <build>
         <resources>
             <resource>
-                <directory>src\main\resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <!-- 仅添加指定环境的配置文件 -->
+                    <include>application-${spring_profiles_active}.properties</include>
+                </includes>
             </resource>
         </resources>
         <testResources>
