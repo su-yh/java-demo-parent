@@ -60,6 +60,7 @@
         <module>demo-32-es-02</module>
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
+        <module>demo-35-aware-01</module>
     </modules>
 
     <dependencyManagement>

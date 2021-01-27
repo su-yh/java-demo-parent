@@ -1,5 +1,6 @@
 package com.suyh.config;
 
+import com.google.common.base.Predicates;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,7 @@ public class SwaggerConfig {
                 //扫描所有有注解的api，用这种方式更灵活
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 过滤前缀路径(不包含上下文，上下文另外处理)
-                .paths(Predicates.or(PathSelectors.ant("/services/suyh/dev/**")), PathSelectors.ant("/services/suyh/local/**")))
+                .paths(Predicates.or(PathSelectors.ant("/services/suyh/dev/**"), PathSelectors.ant("/services/suyh/local/**")))
                 .build()
                 .ignoredParameterTypes(ApiIgnore.class);
     }
