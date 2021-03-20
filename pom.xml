@@ -48,8 +48,8 @@
         <module>demo-25-flywaydb-01</module>
         <module>demo-26-resource-01</module>
         <module>demo-27-activiti-01</module>
-        <module>demo-28-devtools-01</module>
         <module>demo-27-activiti-02</module>
+        <module>demo-28-devtools-01</module>
         <module>demo-29-db-jpa-01</module>
         <module>demo-30-starter-define-01</module>
         <module>demo-30-starter-usage-01</module>
@@ -61,6 +61,7 @@
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
+        <module>demo-36-listener-01</module>
     </modules>
 
     <dependencyManagement>
@@ -272,21 +273,6 @@
         </profile>
     </profiles>
 
-    <!-- 指定拉取阿里云仓库 -->
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <name>阿里云仓库</name>-->
-    <!--            <id>spring</id>-->
-    <!--            <url>https://maven.aliyun.com/repository/spring</url>-->
-    <!--            <releases>-->
-    <!--                <enabled>true</enabled>-->
-    <!--            </releases>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>true</enabled>-->
-    <!--            </snapshots>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
-
     <build>
         <resources>
             <resource>
@@ -308,6 +294,11 @@
             </testResource>
         </testResources>
         <plugins>
+            <!-- maven 的打包插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!--
                 这个插件必须要生成一个jar 包对象，并且会去找一个MainClass 如果没找到就会报错
                 所以这个插件不应该放在parent 中
