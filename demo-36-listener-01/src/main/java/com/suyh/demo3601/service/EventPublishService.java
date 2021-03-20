@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomEventPublishService implements ApplicationEventPublisherAware {
+public class EventPublishService implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher eventPublisher;
 
     @Override
