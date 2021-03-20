@@ -4,6 +4,9 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * 用于事件发布的aware
+ */
 @Component
 public class SuyhEventPublishAware implements ApplicationEventPublisherAware {
     public static ApplicationEventPublisher eventPublisher;
