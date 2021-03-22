@@ -62,6 +62,7 @@
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
         <module>demo-36-listener-01</module>
+        <module>demo-37-caffeine-01</module>
     </modules>
 
     <dependencyManagement>
