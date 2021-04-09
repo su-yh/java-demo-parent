@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AnnotationListener {
+    /**
+     * 对两种事件监听生效(ContextRefreshedEvent、CustomEvent)
+     *
+     * @param event
+     */
     @EventListener({ContextRefreshedEvent.class, CustomEvent.class})
     public void multiEvent(ApplicationEvent event) {
         if (event instanceof CustomEvent) {
@@ -22,6 +27,9 @@ public class AnnotationListener {
         }
     }
 
+    /**
+     * 对CustomEvent 事件监听生效
+     */
     @EventListener
     public void listenCustomEvent(CustomEvent event) {
         System.out.println("custom event: " + event.getSource());

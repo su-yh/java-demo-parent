@@ -3,7 +3,7 @@ package com.suyh.listeners.custom;
 import org.springframework.context.ApplicationEvent;
 
 /**
- * 自定义事件
+ * 自定义事件类型
  * ApplicationEvent 事件是同步执行的。
  */
 public class CustomEvent extends ApplicationEvent {
