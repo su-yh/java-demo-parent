@@ -1,8 +1,8 @@
 package com.suyh.demo2102.filter;
 
+import com.suyh.demo2102.exception.SuyhException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-public class FirstFilter implements Filter {
+public class DemoFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
@@ -40,15 +40,7 @@ public class FirstFilter implements Filter {
         log.info("HttpHeaders.AUTHORIZATION: {}", token);
 
         if (token == null || token.length() == 0) {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            response.addHeader(HttpHeaders.AUTHORIZATION, "token-value");
-            // response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
-            response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
-
-            response.getWriter().print("{\"code\": -100, \"message\": \"no token\"}");
-
-            // 如果想要过滤器结束，并返回则不要调用 doFilter() 方法
-            return;
+            throw new SuyhException("suyh filter exception message");
         }
 
         // 继续下一个过滤器
