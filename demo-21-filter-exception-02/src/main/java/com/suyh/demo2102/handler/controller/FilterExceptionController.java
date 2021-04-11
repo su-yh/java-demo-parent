@@ -14,6 +14,9 @@ import java.util.Map;
 
 /**
  * 对filter 或者 interceptor 的异常的拦截处理
+ * 刚测试了一下，当该controller 存在，且@RestControllerAdvice 实现的类也存在，则filter 里面的异常将会走此异常处理类
+ * 而mvc 的异常，将会按正常的@RestControllerAdvice 的实现类处理。
+ * 如果没有实现@RestControllerAdvice 的实现类，则异常全部都会走这里。
  */
 @Controller
 public class FilterExceptionController extends BasicErrorController {
