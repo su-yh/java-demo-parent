@@ -9,7 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-21-controller-advice-01</artifactId>
+    <artifactId>demo-21-filter-exception-02</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -22,16 +27,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <testResources>
-            <testResource>
-                <directory>src/main/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
-    </build>
-
 </project>
