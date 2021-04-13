@@ -1,3 +1,5 @@
 # java-demo-springboot
 
-> response.setHeader("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
+> if (MediaType.APPLICATION_JSON_VALUE.equalsIgnoreCase(request.getHeader("Accept"))) {
+>                    response.setHeader("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
+>                }
