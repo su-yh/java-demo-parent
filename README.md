@@ -1,3 +1,3 @@
 # java-demo-springboot
 
-> MediaType.APPLICATION_JSON_UTF8_VALUE
+> response.setHeader("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
