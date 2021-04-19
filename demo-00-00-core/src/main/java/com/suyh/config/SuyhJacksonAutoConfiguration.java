@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @Slf4j
@@ -25,5 +30,22 @@ public class SuyhJacksonAutoConfiguration {
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         JsonUtil.initMapper(objectMapper);
         return objectMapper;
+    }
+
+    /**
+     * MappingJackson2HttpMessageConverter 是spring boot 处理@RequestBody 的实体映射处理类
+     * 需要验证一下，如果说是正确的那么可以利用派生该类，来实现对空白字符串的统一处理。
+     *
+     * @param objectMapper
+     * @return
+     */
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+        MappingMessageConverter httpMessageConverter = new MappingMessageConverter(objectMapper);
+        // 设置中文编码格式
+        List<MediaType> list = new ArrayList<>();
+        list.add(MediaType.APPLICATION_JSON);
+        httpMessageConverter.setSupportedMediaTypes(list);
+        return httpMessageConverter;
     }
 }
