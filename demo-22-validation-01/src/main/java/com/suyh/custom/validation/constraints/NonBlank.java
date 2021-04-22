@@ -1,5 +1,14 @@
 package com.suyh.custom.validation.constraints;
 
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
  * 自定义实现接口参数校验注解
  * 允许null值，但是不允许元素空
@@ -11,7 +20,7 @@ package com.suyh.custom.validation.constraints;
         ElementType.PARAMETER, ElementType.TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {NonBlankValidator.class})
+@Constraint(validatedBy = {com.suyh.custom.validation.constraints.NonBlankValidator.class})
 @Repeatable(value = NonBlank.List.class)
 public @interface NonBlank {
 
