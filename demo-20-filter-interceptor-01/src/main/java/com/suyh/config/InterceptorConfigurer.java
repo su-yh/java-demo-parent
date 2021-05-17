@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 
+// 接口WebMvcConfigurer 的详细介绍，博客：https://blog.csdn.net/zhangpower1993/article/details/89016503
 @Configuration
 public class InterceptorConfigurer implements WebMvcConfigurer {
 
