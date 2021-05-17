@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 /**
  * 但是这里有一个问题，就是这里面的路径需要被spring 扫描到
+ * 对于@EnableConfigurationProperties 与 @ConfigurationProperties 两个注解的解释，参考博客：https://blog.csdn.net/zknxx/article/details/79183698
  */
 @Configuration
 @EnableConfigurationProperties(SomeServiceProperties.class)
