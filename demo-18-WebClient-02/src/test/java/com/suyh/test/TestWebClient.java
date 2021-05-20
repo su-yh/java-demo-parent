@@ -195,4 +195,19 @@ public class TestWebClient {
          */
         void setStatus(Boolean status);
     }
+    
+    public void asyncPost() {
+        // post 方式的异步调用
+        webClient.post()
+                .uri("")
+                // 请求body 参数
+                .syncBody(machineInfo)
+                // 发起调用
+                .retrieve()
+                // 异步调用，这里的参数指定返回值的参数类型，它会帮我们按JSON 格式封装好。
+                // 同步调用则使用：.bodyToMono()
+                .bodyToFlux(String.class)
+                // 发布，这里没有接收响应的处理。如果需要则在这里添加回调方法
+                .subscribe();
+    }
 }
