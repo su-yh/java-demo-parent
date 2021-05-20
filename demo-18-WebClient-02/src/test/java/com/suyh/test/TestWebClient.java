@@ -167,4 +167,32 @@ public class TestWebClient {
         // header.put(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON.toString());
         log.info("MediaType.APPLICATION_JSON.toString(): {}",  MediaType.APPLICATION_JSON.toString());
     }
+    
+    // 健康检查URL后缀
+    private static final String URL_SUFFIX = "/endpoints/info";
+    
+    // 异步请求健康检查http 接口
+    private void asyncHttpHealthy(CountDownLatch countDownLatch, String url, CallbackHealthy callback) {
+        if (StringUtils.isEmpty(url)) {
+            countDownLatch.countDown();
+            return;
+        }
+        WebClient.create(url + URL_SUFFIX)
+                .get()
+                .retrieve()
+                .bodyToFlux(String.class)
+                .doFinally(signalType -> countDownLatch.countDown())
+                .timeout(Duration.ofSeconds(5))
+                .doOnComplete(() -> callback.setStatus(Boolean.TRUE))
+                .subscribe(result -> {}, exception -> {});
+    }
+
+    private interface CallbackHealthy {
+        /**
+         * 设置状态: 成功与失败
+         *
+         * @param status 状态
+         */
+        void setStatus(Boolean status);
+    }
 }
