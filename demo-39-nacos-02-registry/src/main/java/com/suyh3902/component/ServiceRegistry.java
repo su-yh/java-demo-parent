@@ -28,6 +28,7 @@ public class ServiceRegistry implements InitializingBean {
         // 获取到本地主机网络地址
         // 没能成功，不知道为什么
         // 报错信息：failed to req API:/nacos/v1/ns/instance after all servers([localhost:8348]) tried
+        // 这个报错的解决：nacos-discovery-spring-boot-starter 依赖的版本从0.2.1 升级到0.2.2就好了。
         InetAddress localHost = InetAddress.getLocalHost();
         namingService.registerInstance(applicationName, localHost.getHostAddress(), listenerPort);
     }
