@@ -25,12 +25,10 @@ public class ServiceRegistry implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        try {
-            // 获取到本地主机网络地址
-            InetAddress localHost = InetAddress.getLocalHost();
-            namingService.registerInstance(applicationName, localHost.getHostAddress(), listenerPort);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // 获取到本地主机网络地址
+        // 没能成功，不知道为什么
+        // 报错信息：failed to req API:/nacos/v1/ns/instance after all servers([localhost:8348]) tried
+        InetAddress localHost = InetAddress.getLocalHost();
+        namingService.registerInstance(applicationName, localHost.getHostAddress(), listenerPort);
     }
 }
