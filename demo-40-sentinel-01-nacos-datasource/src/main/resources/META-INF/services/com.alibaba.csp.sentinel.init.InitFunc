@@ -1,0 +1,3 @@
+# 自定义Sentinel 连接到nacos SPI 扩展资源
+# 这里的文件名还有目录都是固定的，参考源码: com.alibaba.csp.sentinel.spi.SpiLoader#SPI_FILE_PREFIX
+com.suyh4001.init.NacosDataSourceInitFunc
