@@ -2,6 +2,7 @@ package com.suyh.test;
 
 import com.suyh.test.entity.Notice;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -173,7 +175,7 @@ public class TestWebClient {
     
     // 异步请求健康检查http 接口
     private void asyncHttpHealthy(CountDownLatch countDownLatch, String url, CallbackHealthy callback) {
-        if (StringUtils.isEmpty(url)) {
+        if (StringUtils.isBlank(url)) {
             countDownLatch.countDown();
             return;
         }
@@ -197,11 +199,14 @@ public class TestWebClient {
     }
     
     public void asyncPost() {
+        WebClient client = WebClient.create("http://localhost:11801");
+        Notice noticeEntity = new Notice();
+        noticeEntity.setStatus(10086);
         // post 方式的异步调用
-        webClient.post()
+        client.post()
                 .uri("")
-                // 请求body 参数
-                .syncBody(machineInfo)
+                // 请求body 参数，或者使用bodyValue(..)
+                .syncBody(noticeEntity)
                 // 发起调用
                 .retrieve()
                 // 异步调用，这里的参数指定返回值的参数类型，它会帮我们按JSON 格式封装好。

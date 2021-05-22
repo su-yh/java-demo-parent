@@ -42,6 +42,7 @@
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>
         <module>demo-21-controller-advice-01</module>
+        <module>demo-21-filter-exception-02</module>
         <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
@@ -63,7 +64,11 @@
         <module>demo-35-aware-01</module>
         <module>demo-36-listener-01</module>
         <module>demo-37-caffeine-01</module>
-        <module>demo-21-filter-exception-02</module>
+        <module>demo-38-spi-load</module>
+        <module>demo-39-nacos-01-discovery</module>
+        <module>demo-39-nacos-02-registry</module>
+        <module>demo-40-sentinel-01-nacos-datasource</module>
+        <module>demo-41-bean-exclude-01</module>
     </modules>
 
     <dependencyManagement>
