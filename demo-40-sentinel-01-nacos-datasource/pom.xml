@@ -12,7 +12,8 @@
     <artifactId>demo-40-sentinel-01-nacos-datasource</artifactId>
 
     <description>
-        实现sentinel 持久化到nacos 配置中心
+        作为sentinel 客户端，监听nacos 上的相关规则(限流、熔断等)，同步最新的配置到本地。
+        同时未关闭通过transfer 进行网络通信的规则变更
     </description>
 
     <dependencies>
