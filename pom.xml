@@ -263,6 +263,8 @@
                 <spring_profiles_active>dev</spring_profiles_active>
             </properties>
             <activation>
+                <!-- 默认激活的配置需要禁用时使用非排除掉 -->
+                <!-- mvn clean package -P !dev -->
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
@@ -270,8 +272,14 @@
                     <resource>
                         <directory>${project.basedir}/src/main/resources</directory>
                         <filtering>true</filtering>
+                        <includes>
+                            <include>application*.properties</include>
+                            <include>application*.yml</include>
+                            <include>application*.yaml</include>
+                        </includes>
                         <excludes>
                             <!-- 排除所有带环境的配置 -->
+                            <!-- 如果include 和exclude 同时存在，则exclude 优先级会更高 -->
                             <exclude>application-*.properties</exclude>
                         </excludes>
                     </resource>
@@ -289,6 +297,14 @@
                     <!-- 仅添加指定环境的配置文件 -->
                     <include>application-${spring_profiles_active}.properties</include>
                 </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/mapper</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
+                <targetPath>${project.build.outputDirectory}/mapper</targetPath>
             </resource>
         </resources>
         <testResources>
@@ -320,8 +336,8 @@
                     注意
                         如果遇到${project.version}无法生效，是因为
                         由于 **${}** 方式会被maven处理。
-                        如果你pom继承了spring-boot-starter-parent，Spring
-                        Boot已经将maven-resources-plugins默认的${}方式改为了@@方式，如@name@
+                        如果你pom继承了spring-boot-starter-parent，Spring Boot
+                        已经将maven-resources-plugins默认的${}方式改为了@@方式，如@name@
                         如果还想继续使用${}占位符方式，只需要在pom文件中加上下面配置即可：
                 -->
                 <groupId>org.apache.maven.plugins</groupId>
