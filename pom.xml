@@ -67,8 +67,10 @@
         <module>demo-38-spi-load</module>
         <module>demo-39-nacos-01-discovery</module>
         <module>demo-39-nacos-02-registry</module>
+        <module>demo-39-nacos-03-listener</module>
         <module>demo-40-sentinel-01-nacos-datasource</module>
         <module>demo-41-bean-exclude-01</module>
+        <module>demo-42-spring-boot-ext-01</module>
     </modules>
 
     <dependencyManagement>

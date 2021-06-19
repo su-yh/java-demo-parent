@@ -1,5 +1,16 @@
 package com.suyh4201;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.context.config.ConfigFileApplicationListener;
+import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.core.Ordered;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MapPropertySource;
+import org.springframework.core.env.MutablePropertySources;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 环境后置处理器
  * 用于处理系统变量与环境变量加载之后，在配置属性文件加载之前处理配置中心的配置属性值加载。
@@ -15,21 +26,20 @@ public class ConfigCenterLoader implements EnvironmentPostProcessor, Ordered {
      */
     public static final String CONFIG_CENTER_NAME = "configCenter";
 
-    private ConfigurableEnvironment environment;
+    // 此属性要生效必须放在命令行参数上
+    // 当然，放到系统环境变量中也是可以的。
+    public static final String ENABLED_CONFIG_CENTER = "suyh.ext.config.center.enabled";
 
-    private WebClient configCenterClient;
+    private ConfigurableEnvironment environment;
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         this.environment = environment;
         // 是否禁止连接到配置中心
-        Boolean enabledConfigCenter = environment.getProperty(
-                SentinelConfigConstants.ENABLED_CONFIG_CENTER, Boolean.class, true);
+        Boolean enabledConfigCenter = environment.getProperty(ENABLED_CONFIG_CENTER, Boolean.class, Boolean.TRUE);
         if (!enabledConfigCenter) {
             return;
         }
-
-        init();
 
         Map<String, Object> configCenterProperties = buildMap();
         MutablePropertySources sources = environment.getPropertySources();
@@ -42,35 +52,8 @@ public class ConfigCenterLoader implements EnvironmentPostProcessor, Ordered {
 
     private Map<String, Object> buildMap() {
         Map<String, Object> map = new HashMap<>();
-        // TODO: 这里添加自己的配置属性。
+        map.put("suyh.env.key", "suyhEnvValue");
         return map;
-    }
-
-    private void init() {
-
-        String configCenterRestUrl = configCenterUrl.replace("/services/ConfigCenterService",
-                "/services/saasConfigcenterGetConfig");
-
-        configCenterClient = WebClient.create(configCenterRestUrl);
-    }
-
-    private ConfigCenterPropertiesVo loadConfigCenterProperties(String basicToken) throws JsonProcessingException {
-        Mono<String> stringMono = configCenterClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("application_id", appId)
-                        .queryParam("sub_application_id", subAppId)
-                        .queryParam("region", dockerRegion)
-                        .queryParam("environment", dockerEnv)
-                        .queryParam("version", dockerVersion)
-                        .build())
-                .header(HttpHeaders.AUTHORIZATION, basicToken)
-                .retrieve()
-                .onStatus(httpStatus -> !httpStatus.equals(HttpStatus.OK),
-                        clientResponse -> Mono.error(new JalorSentinelException("http request failed")))
-                .bodyToMono(String.class);
-        String result = stringMono.block();
-        System.out.println("result: " + result);
-        return JsonUtils.deserialize(result, ConfigCenterPropertiesVo.class);
     }
 
     @Override

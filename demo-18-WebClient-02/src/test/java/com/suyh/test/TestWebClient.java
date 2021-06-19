@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -214,5 +215,26 @@ public class TestWebClient {
                 .bodyToFlux(String.class)
                 // 发布，这里没有接收响应的处理。如果需要则在这里添加回调方法
                 .subscribe();
+    }
+
+    /**
+     * 同步get 请求
+     * 添加查询参数
+     * 添加header 值
+     */
+    public void syncGet() {
+        WebClient configCenterClient = WebClient.create("www.baidu.com");
+
+        Mono<TestWebClient02KaiKeBa.Student> stringMono = configCenterClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("application_id", "appId")
+                        .build())
+                .header(HttpHeaders.AUTHORIZATION, "token-value")
+                .retrieve()
+                .onStatus(httpStatus -> !httpStatus.equals(HttpStatus.OK),
+                        clientResponse -> Mono.error(new RuntimeException("http request failed")))
+                .bodyToMono(TestWebClient02KaiKeBa.Student.class);
+        TestWebClient02KaiKeBa.Student result = stringMono.block();
+        System.out.println("result: " + result);
     }
 }
