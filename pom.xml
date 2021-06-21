@@ -69,6 +69,7 @@
         <module>demo-39-nacos-02-registry</module>
         <module>demo-39-nacos-03-listener</module>
         <module>demo-40-sentinel-01-nacos-datasource</module>
+        <module>demo-40-sentinel-02-spring-boot-web</module>
         <module>demo-41-bean-exclude-01</module>
         <module>demo-42-spring-boot-ext-01</module>
     </modules>
@@ -298,6 +299,8 @@
                 <includes>
                     <!-- 仅添加指定环境的配置文件 -->
                     <include>application-${spring_profiles_active}.properties</include>
+                    <!--妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。-->
+                    <include>*</include>
                 </includes>
             </resource>
             <resource>
