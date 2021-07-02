@@ -24,5 +24,19 @@ public class ScheduleConfig implements SchedulingConfigurer {
         taskRegistrar.addFixedDelayTask(
                 new IntervalTask(this::someTask, 5000, 60000)
         );
+
+        PeriodicTrigger periodicTrigger = new PeriodicTrigger(5000);
+        // fixedRate == false: 上次任务<完成>之后开始计时，5秒后开始下一次任务。
+        // fixedRate == true:  上次任务<开始>之后开始计时，5秒后开始下一次任务。
+        periodicTrigger.setFixedRate(true);
+        TriggerTask task = new TriggerTask(() -> {
+            log.info("TriggerTask");
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, periodicTrigger);
+        taskRegistrar.addTriggerTask(task);
     }
 }
