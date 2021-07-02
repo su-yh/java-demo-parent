@@ -18,5 +18,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         // 设定一个长度10的定时任务线程池
         taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));
+        // 在这里可以直接添加任务以及cron 表达式
+        taskRegistrar.addCronTask(() -> log.info("info - BeansConfiguration"), "* * * * * *");
     }
 }
