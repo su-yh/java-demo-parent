@@ -271,3 +271,54 @@
 //            this.siteCode = siteCode;
 //        }
 //    }
+  
+
+    // @ConfigurationProperties 这个的值没有变化呢。
+    // 实时更新配置，动态更新@Value 的值。
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        log.info("url: {}", url);
+        updateConfigValue();
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        for (String beanName : beanNames) {
+            log.info("beanNames: {}", beanName);
+        }
+
+        Object[] beans = new Object[beanNames.length];
+        for (int i = 0; i < beanNames.length; i++) {
+            beans[i] = applicationContext.getBean(beanNames[i]);
+        }
+
+        for (Object bean : beans) {
+            ReflectionUtils.doWithLocalFields(bean.getClass(), field -> {
+                // 忽略静态属性
+                if (Modifier.isStatic(field.getModifiers())) {
+                    return;
+                }
+
+                Value annotationValue = field.getAnnotation(Value.class);
+                if (annotationValue == null) {
+                    return;
+                }
+
+                // elText: ${spring.profiles.active}
+                String elText = annotationValue.value();
+                String curValue = environment.resolvePlaceholders(elText);
+                if (curValue == null) {
+                    log.warn("parseValue is null");
+                    return;
+                }
+                Object sourceValue = field.get(bean);
+                log.info("field: {}, update value: {} -> {}", field.getName(), sourceValue, curValue);
+                if (!curValue.equals(sourceValue)) {
+                    field.set(bean, curValue);
+                }
+            });
+        }
+    }
+
+    private void updateConfigValue() {
+        System.setProperty("configcenter_url", "new url suyh");
+        System.setProperty("some.service.prefix", "cccc");
+        System.setProperty("some.service.suffix", "dddd");
+    }
