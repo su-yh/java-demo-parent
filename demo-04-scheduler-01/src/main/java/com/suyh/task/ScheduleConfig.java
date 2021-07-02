@@ -20,5 +20,9 @@ public class ScheduleConfig implements SchedulingConfigurer {
         taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));
         // 在这里可以直接添加任务以及cron 表达式
         taskRegistrar.addCronTask(() -> log.info("info - BeansConfiguration"), "* * * * * *");
+        // 添加一个普通定时任务，首次执行延迟60 秒，之后每5 秒执行一次
+        taskRegistrar.addFixedDelayTask(
+                new IntervalTask(this::someTask, 5000, 60000)
+        );
     }
 }
