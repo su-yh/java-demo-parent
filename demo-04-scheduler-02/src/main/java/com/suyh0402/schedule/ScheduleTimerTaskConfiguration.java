@@ -1,19 +1,21 @@
-package com.suyh.task;
+package com.suyh0402.schedule;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.IntervalTask;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.config.TriggerTask;
+import org.springframework.scheduling.support.PeriodicTrigger;
 
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-// 所有的定时任务都放在一个线程池中，定时任务启动时使用不同都线程。
-
-/**
- * 所有的定时任务都会到这个线程池中来取线程，然后运行定时任务。
- * 如果不加这个配置类，则所有的定时任务都会在一个线程中运行。
- */
 @Configuration
-public class ScheduleConfig implements SchedulingConfigurer {
+@EnableScheduling
+@Slf4j
+public class ScheduleTimerTaskConfiguration implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         // 设定一个长度10的定时任务线程池
@@ -38,5 +40,9 @@ public class ScheduleConfig implements SchedulingConfigurer {
             }
         }, periodicTrigger);
         taskRegistrar.addTriggerTask(task);
+    }
+
+    public void someTask() {
+        log.info("someTask callback");
     }
 }
