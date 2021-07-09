@@ -273,6 +273,10 @@
 //    }
   
 
+    // 日志系统还没有初始化，这里使用缓存日志，暂时缓存下来。然后在后面并在合适的时机回放日志
+    // 参考博客：https://blog.csdn.net/u010634066/article/details/109201470
+    private static final DeferredLog logger = new DeferredLog();
+
     // @ConfigurationProperties 这个的值没有变化呢。
     // 实时更新配置，动态更新@Value 的值。
     @Override
