@@ -22,9 +22,11 @@
         <module>demo-01-log4j2</module>
         <module>demo-01-test-01</module>
         <module>demo-01-test-02-mock</module>
+        <module>demo-02-config-center-01</module>
         <module>demo-02-properties-01</module>
         <module>demo-03-jedis-01</module>
         <module>demo-04-scheduler-01</module>
+        <module>demo-04-scheduler-02</module>
         <module>demo-06-mybatis-01</module>
         <module>demo-06-mybatis-02-common</module>
         <module>demo-06-mybatis-03-multi-db-01</module>
