@@ -1,0 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.suyh0201.environment.ConfigCenterEnvironmentPostProcessor
+org.springframework.context.ApplicationListener=\
+  com.suyh0201.environment.ConfigCenterEnvironmentPostProcessor
