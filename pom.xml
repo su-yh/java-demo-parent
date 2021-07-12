@@ -67,6 +67,7 @@
         <module>demo-36-listener-01</module>
         <module>demo-37-caffeine-01</module>
         <module>demo-38-spi-load</module>
+        <module>demo-38-properties-load</module>
         <module>demo-39-nacos-01-discovery</module>
         <module>demo-39-nacos-02-registry</module>
         <module>demo-39-nacos-03-listener</module>
@@ -74,7 +75,6 @@
         <module>demo-40-sentinel-02-spring-boot-web</module>
         <module>demo-41-bean-exclude-01</module>
         <module>demo-42-spring-boot-ext-01</module>
-        <module>demo-38-properties-load</module>
     </modules>
 
     <dependencyManagement>
