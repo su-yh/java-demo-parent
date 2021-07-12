@@ -1,4 +1,4 @@
-package com.suyh.demo3601.init;
+package com.suyh0201.environment;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -13,6 +13,7 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.IntervalTask;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import javax.annotation.Resource;
