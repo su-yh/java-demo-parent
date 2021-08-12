@@ -4,6 +4,8 @@
 <!-- status：Log4j内部事件记录的等级，只对Log4j本身的事件有效。  -->
 <!-- monitorInterval：Log4j 2 定期检查和应用配置文件的时间间隔（单位：秒，如果更改配置文件，不用重启系统）。  -->
 <Configuration status="info" monitorInteval="60">
+    <!-- 过滤器参考博客：https://blog.csdn.net/justry_deng/article/details/109413153 -->
+    
     <!-- 这里相当于设置一组 key-value  name 对应key, 文本对应value -->
     <!-- spName = sp  |  spFileName = spFile -->
     <Properties>
