@@ -76,6 +76,7 @@
         <module>demo-40-sentinel-02-spring-boot-web</module>
         <module>demo-41-bean-exclude-01</module>
         <module>demo-42-spring-boot-ext-01</module>
+
     </modules>
 
     <dependencyManagement>
