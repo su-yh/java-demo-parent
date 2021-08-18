@@ -1,4 +1,4 @@
-
+package com.suyh43.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +29,7 @@ public class RoutingDelegate {
      * 请求转发
      *
      * @param request request
-     * @param addr    示例：http://localhost.huawei.com:9571
+     * @param addr    示例：http://localhost:9571
      * @param uri     示例: /app/briefinfos.json 必须以/ 开头
      * @return result
      */
@@ -60,6 +60,15 @@ public class RoutingDelegate {
         return addr + uri + queryString;
     }
 
+    /**
+     * 组装RequestEntity
+     *
+     * @param request request
+     * @param url url
+     * @return request entity
+     * @throws URISyntaxException exception
+     * @throws IOException exception
+     */
     private RequestEntity<byte[]> createRequestEntity(HttpServletRequest request, String url) throws URISyntaxException, IOException {
         String method = request.getMethod();
         HttpMethod httpMethod = HttpMethod.resolve(method);
@@ -68,16 +77,35 @@ public class RoutingDelegate {
         return new RequestEntity<>(body, headers, httpMethod, new URI(url));
     }
 
+    /**
+     * 执行请求转发
+     *
+     * @param requestEntity 组装 好的所有的请求数据
+     * @return result
+     */
     private ResponseEntity<String> route(RequestEntity<byte[]> requestEntity) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(requestEntity, String.class);
     }
 
+    /**
+     * 组装请求body
+     *
+     * @param request request
+     * @return body
+     * @throws IOException io exception
+     */
     private byte[] parseRequestBody(HttpServletRequest request) throws IOException {
         InputStream inputStream = request.getInputStream();
         return StreamUtils.copyToByteArray(inputStream);
     }
 
+    /**
+     * 组装所有头信息
+     *
+     * @param request request
+     * @return headers
+     */
     private MultiValueMap<String, String> parseRequestHeader(HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
         List<String> headerNames = Collections.list(request.getHeaderNames());
