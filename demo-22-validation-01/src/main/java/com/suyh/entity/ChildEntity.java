@@ -1,5 +1,7 @@
 package com.suyh.entity;
 
+import com.suyh.constants.ValidationConstants;
+import com.suyh.custom.validation.constraints.NumberMatch;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -27,4 +29,9 @@ public class ChildEntity implements Serializable {
 
     @Range(min = 1000, max = 9999, message = "非法值，有效范围：[{min}, {max}]")
     private Integer num;
+
+    @NumberMatch(
+            enabledValue = {ValidationConstants.KINDS_SERVLET, ValidationConstants.KINDS_REACTIVE},
+            message = "类别不匹配，可选值：{enabledValue}")
+    private Integer kinds;
 }

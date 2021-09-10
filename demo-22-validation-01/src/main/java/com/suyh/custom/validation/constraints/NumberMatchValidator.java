@@ -1,4 +1,4 @@
-package com.huawei.his.framework.sentinel.dashboard.ext.custom.validation.constraints;
+package com.suyh.custom.validation.constraints;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,3 +1,5 @@
+package com.suyh.custom.validation.constraints;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
