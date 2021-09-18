@@ -1,3 +1,4 @@
+-- 参考博客：https://www.cnblogs.com/nickhan/p/10434604.html
 -- 分布式锁，需要添加如下表到数据库中
 CREATE TABLE shedlock(
                          name VARCHAR(64),
