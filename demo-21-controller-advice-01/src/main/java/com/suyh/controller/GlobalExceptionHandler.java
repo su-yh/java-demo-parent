@@ -159,6 +159,19 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 缺少必须参数异常处理
+     * required = true
+     *
+     * @param exception exception
+     * @return result
+     */
+    @ExceptionHandler(value = {ServletRequestBindingException.class})
+    String handleControllerException(ServletRequestBindingException exception) {
+        log.error("failed, ServletRequestBindingException", exception);
+        return makeResult(-1, exception.getMessage());
+    }
+    
+    /**
      * 参数绑定异常处理
      *
      * @param exception the exception
