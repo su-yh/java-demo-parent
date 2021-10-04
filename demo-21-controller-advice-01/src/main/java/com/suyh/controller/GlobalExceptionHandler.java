@@ -21,7 +21,8 @@ import java.util.Locale;
 
 /**
  * 全局性的异常处理
- * 默认禁止
+ * RequestBodyAdvice: 在进入到controller 中之前做一些处理
+ * ResponseBodyAdvice: 在离开controller 之后做一些处理
  */
 @RestControllerAdvice
 @ConditionalOnProperty(name = "suyh.server.controller.exception.global", havingValue = "true")
@@ -147,18 +148,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 参数校验异常处理
-     *
-     * @param exception the exception
-     * @return the response entity
-     */
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    String handleControllerException(MethodArgumentNotValidException exception) {
-        log.error("CelonBpmCoreExceptionHandler, MethodArgumentNotValidException", exception);
-        return handleBindException(exception.getBindingResult());
-    }
-
-    /**
      * 缺少必须参数异常处理
      * required = true
      *
@@ -171,18 +160,6 @@ public class GlobalExceptionHandler {
         return makeResult(-1, exception.getMessage());
     }
     
-    /**
-     * 参数绑定异常处理
-     *
-     * @param exception the exception
-     * @return the response entity
-     */
-    @ExceptionHandler(value = {BindException.class})
-    String handleControllerException(BindException exception) {
-        log.error("CelonBpmCoreExceptionHandler, BindException", exception);
-        return handleBindException(exception.getBindingResult());
-    }
-
     /**
      * 非法参数异常
      *
