@@ -77,6 +77,7 @@
         <module>demo-41-bean-exclude-01</module>
         <module>demo-42-spring-boot-ext-01</module>
         <module>demo-43-web-redirect-01</module>
+        <module>demo-44-spring-mvc-01</module>
     </modules>
 
     <dependencyManagement>
@@ -229,11 +230,11 @@
             </dependency>
 
             <!-- shedlock - 使用 redis -->
-            <dependency>
-                <groupId>net.javacrumbs.shedlock</groupId>
-                <artifactId>shedlock-provider-jedis</artifactId>
-                <version>0.17.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>net.javacrumbs.shedlock</groupId>-->
+<!--                <artifactId>shedlock-provider-jedis</artifactId>-->
+<!--                <version>0.17.0</version>-->
+<!--            </dependency>-->
 
         </dependencies>
     </dependencyManagement>
