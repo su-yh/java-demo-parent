@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Student implements Serializable {
-    static final long serialVersionUID = 42L;
+    private static final long serialVersionUID = 6297874087558744229L;
 
     private String number;
     private Long classNumber;

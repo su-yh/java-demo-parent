@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class Person implements Serializable {
-    static final long serialVersionUID = 42L;
+    private static final long serialVersionUID = 2899950741904558796L;
 
     private String name;
     private Integer age;
