@@ -78,6 +78,7 @@
         <module>demo-42-spring-boot-ext-01</module>
         <module>demo-43-web-redirect-01</module>
         <module>demo-44-spring-mvc-01</module>
+        <module>demo-45-cxf-sentinel-01</module>
     </modules>
 
     <dependencyManagement>
