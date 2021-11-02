@@ -39,6 +39,7 @@
         <module>demo-09-shiro-04-ssm</module>
         <module>demo-12-swagger-01</module>
         <module>demo-13-autowired-resource-01</module>
+        <module>demo-16-caffeine-01</module>
         <module>demo-16-guava-01</module>
         <module>demo-18-resttemplate-01</module>
         <module>demo-18-WebClient-02</module>
@@ -66,7 +67,6 @@
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
         <module>demo-36-listener-01</module>
-        <module>demo-37-caffeine-01</module>
         <module>demo-38-spi-load</module>
         <module>demo-38-properties-load</module>
         <module>demo-39-nacos-01-discovery</module>
