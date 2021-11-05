@@ -5,11 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 统一返回类
- *
- * @author mason
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
