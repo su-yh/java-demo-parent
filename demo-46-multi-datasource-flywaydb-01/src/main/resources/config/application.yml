@@ -2,7 +2,7 @@ multi:
   datasource:
     druid:
       # 是否使用druid 连接池来创建数据源
-      enabled: false
+      enabled: true
 
 multi4601:
   datasource:
