@@ -1,12 +1,12 @@
 package com.suyh4601.mapper.slave;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suyh4601.entity.slave.SlaveTestUser;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
-@Repository
-public interface SlaveTestUserMapper extends BaseMapper<SlaveTestUser> {
+import java.util.List;
 
+public interface SlaveTestUserMapper {
+    SlaveTestUser selectById(@Param("id") Long id);
 
-
+    List<SlaveTestUser> selectAll();
 }

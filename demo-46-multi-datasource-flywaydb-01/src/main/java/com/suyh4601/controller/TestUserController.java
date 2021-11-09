@@ -1,6 +1,5 @@
 package com.suyh4601.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.suyh4601.entity.master.MasterTestUser;
 import com.suyh4601.entity.slave.SlaveTestUser;
 import com.suyh4601.mapper.slave.SlaveTestUserMapper;
@@ -28,8 +27,8 @@ public class TestUserController {
      * 查询
      */
     @GetMapping("/find")
-    public Object find(int id) {
-        SlaveTestUser testUser = slaveTestUserMapper.selectOne(new QueryWrapper<SlaveTestUser>().eq("id" , id));
+    public Object find(Long id) {
+        SlaveTestUser testUser = slaveTestUserMapper.selectById(id);
         if (testUser != null) {
             return ResponseResult.success(testUser);
         } else {
@@ -43,10 +42,9 @@ public class TestUserController {
     @GetMapping("/listall")
     public Object listAll() {
         //自定义接口查询
-        QueryWrapper<MasterTestUser> queryWrapper = new QueryWrapper<>();
-        List<MasterTestUser> resultData = masterTestUserMapper.selectAll(queryWrapper.isNotNull("name"));
+        List<MasterTestUser> resultData = masterTestUserMapper.selectAll();
         //mp内置接口
-        List<SlaveTestUser> resultDataSlave = slaveTestUserMapper.selectList(null);
+        List<SlaveTestUser> resultDataSlave = slaveTestUserMapper.selectAll();
         int initSize = 30;
         Map<String, Object> result = new HashMap<>(initSize);
         result.put("master" , resultData);

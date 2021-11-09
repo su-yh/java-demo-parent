@@ -33,7 +33,7 @@ public class TestUserEntity implements Serializable {
     /** 出生时间 */
     private Date dateOfBirth;
     /** 1:已删除,0:未删除 */
-    private Integer deleted;
+    private Boolean deleted;
     /** 创建时间 */
     private Date sysCreateTime;
     /** 创建人 */

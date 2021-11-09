@@ -21,15 +21,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis</groupId>-->
+<!--            <artifactId>mybatis-spring</artifactId>-->
+<!--            <version>2.0.6</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -67,6 +72,22 @@
                     <include>*</include>
                 </includes>
                 <targetPath>${project.build.outputDirectory}/config</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/mapper/master</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
+                <targetPath>${project.build.outputDirectory}/mapper/master</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/mapper/slave</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
+                <targetPath>${project.build.outputDirectory}/mapper/slave</targetPath>
             </resource>
         </resources>
     </build>

@@ -3,10 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suyh4601.mapper.master.MasterTestUserMapper">
-    <select id="selectAll" resultType="masterTestUser">
+    <resultMap id="masterTestUser" type="com.suyh4601.entity.master.MasterTestUser">
+        <id column="id" jdbcType="BIGINT" property="id" javaType="java.lang.Long" />
+
+        <result column="name" jdbcType="VARCHAR" property="name" javaType="java.lang.String" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" javaType="java.lang.String" />
+        <result column="title" jdbcType="VARCHAR" property="title" javaType="java.lang.String" />
+        <result column="email" jdbcType="VARCHAR" property="email" javaType="java.lang.String" />
+        <result column="gender" jdbcType="VARCHAR" property="gender" javaType="java.lang.String" />
+        <result column="date_of_birth" jdbcType="TIMESTAMP" property="dateOfBirth" javaType="java.util.Date" />
+        <result column="deleted" jdbcType="BIT" property="deleted" javaType="java.lang.Boolean" />
+        <result column="sys_create_time" jdbcType="TIMESTAMP" property="sysCreateTime" javaType="java.util.Date" />
+        <result column="sys_create_user" jdbcType="VARCHAR" property="sysCreateUser" javaType="java.lang.String" />
+        <result column="sys_update_time" jdbcType="TIMESTAMP" property="sysUpdateTime" javaType="java.util.Date" />
+        <result column="sys_update_user" jdbcType="VARCHAR" property="sysUpdateUser" javaType="java.lang.String" />
+        <result column="record_version" jdbcType="BIGINT" property="recordVersion" javaType="java.lang.Long" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="masterTestUser">
         select * from test_user
-        <if test="ew!=null">
-          ${ew.customSqlSegment}
-        </if>
     </select>
 </mapper>
