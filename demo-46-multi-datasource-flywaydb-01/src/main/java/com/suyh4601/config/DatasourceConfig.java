@@ -12,13 +12,13 @@ import javax.sql.DataSource;
 @PropertySource("classpath:config/jdbc.properties")
 public class DatasourceConfig {
     @Bean("dataSourceMaster")
-    @ConfigurationProperties(prefix = "spring.datasource.master")
+    @ConfigurationProperties(prefix = "multi4601.datasource.master")
     public DataSource masterDataSource(){
         return DataSourceBuilder.create().build();
     }
 
     @Bean("dataSourceSlave")
-    @ConfigurationProperties(prefix = "spring.datasource.slave")
+    @ConfigurationProperties(prefix = "multi4601.datasource.slave")
     public DataSource slaveDataSource(){
         return DataSourceBuilder.create().build();
     }

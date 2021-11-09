@@ -41,4 +41,33 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/db/migrate/master</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/db/migrate/master</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/db/migrate/slave</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/db/migrate/slave</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/config</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/config</targetPath>
+            </resource>
+        </resources>
+    </build>
 </project>
