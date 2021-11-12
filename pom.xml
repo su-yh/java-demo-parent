@@ -80,6 +80,7 @@
         <module>demo-44-spring-mvc-01</module>
         <module>demo-45-cxf-sentinel-01</module>
         <module>demo-46-multi-datasource-flywaydb-01</module>
+        <module>demo-47-01-springboot-metadata</module>
     </modules>
 
     <dependencyManagement>
@@ -258,6 +259,7 @@
                     <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
             </exclusions>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
@@ -279,7 +281,7 @@
             <activation>
                 <!-- 默认激活的配置需要禁用时使用非排除掉 -->
                 <!-- mvn clean package -P !dev -->
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <resources>
@@ -303,26 +305,26 @@
     </profiles>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <!-- 仅添加指定环境的配置文件 -->
-                    <include>application-${spring_profiles_active}.properties</include>
-                    <!--妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。-->
-                    <include>*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${project.basedir}/src/main/resources/mapper</directory>
-                <includes>
-                    <include>*.xml</include>
-                </includes>
-                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
-                <targetPath>${project.build.outputDirectory}/mapper</targetPath>
-            </resource>
-        </resources>
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>${project.basedir}/src/main/resources</directory>-->
+<!--                <filtering>true</filtering>-->
+<!--                <includes>-->
+<!--                    &lt;!&ndash; 仅添加指定环境的配置文件 &ndash;&gt;-->
+<!--                    <include>application-${spring_profiles_active}.properties</include>-->
+<!--                    &lt;!&ndash;妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。&ndash;&gt;-->
+<!--                    <include>*</include>-->
+<!--                </includes>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>${project.basedir}/src/main/resources/mapper</directory>-->
+<!--                <includes>-->
+<!--                    <include>*.xml</include>-->
+<!--                </includes>-->
+<!--                &lt;!&ndash; 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 &ndash;&gt;-->
+<!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
+<!--            </resource>-->
+<!--        </resources>-->
         <testResources>
             <testResource>
                 <directory>src\main\resources</directory>

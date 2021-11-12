@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "name": "suyh.service.config.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.suyh4701.config.SomeServiceAutoConfiguration",
+      "defaultValue": true,
+      "description": "Description for suyh.service.config.enabled."
+    }
+  ]
+}
