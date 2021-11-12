@@ -243,8 +243,11 @@
 
     <dependencies>
         <dependency>
+            <!-- 链式调用：添加注解【@Accessors(chain = true)】 -->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <!-- lombok 只在编译时有效，不需要在运行时使用。 -->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -334,6 +337,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <!-- lombok 只在编译时有效 -->
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <!--
                 这个插件必须要生成一个jar 包对象，并且会去找一个MainClass 如果没找到就会报错
