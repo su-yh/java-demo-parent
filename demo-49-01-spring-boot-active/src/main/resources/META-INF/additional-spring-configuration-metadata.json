@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "suyh49.test.key01",
+      "type": "java.lang.String",
+      "sourceType": "com.suyh4901.init.InitRunner",
+      "defaultValue": "NO-KEY-01",
+      "description": "Description."
+    },
+    {
+      "name": "suyh49.test.key02",
+      "type": "java.lang.String",
+      "sourceType": "com.suyh4901.init.InitRunner",
+      "defaultValue": "NO-KEY-02",
+      "description": "Description."
+    }
+  ]
+}

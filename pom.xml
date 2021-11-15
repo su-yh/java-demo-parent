@@ -82,6 +82,7 @@
         <module>demo-46-multi-datasource-flywaydb-01</module>
         <module>demo-47-01-springboot-metadata</module>
         <module>demo-48-01-cors</module>
+        <module>demo-49-01-spring-boot-active</module>
     </modules>
 
     <dependencyManagement>
