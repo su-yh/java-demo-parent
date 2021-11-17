@@ -23,8 +23,8 @@ import java.util.List;
 public interface CrmCustomerController {
 
 
-    @ApiOperation(value = "添加一个客户、供应商、承运商等",
-            notes = "增加客户、供应商、承运商等记录")
+    @ApiOperation(value = "标签显示：添加一个客户、供应商、承运商等",
+            notes = "接口描述：增加客户、供应商、承运商等记录")
     // 指定所有的参数列表
     @ApiImplicitParams({
             // 指定具体的参数
@@ -48,8 +48,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmCustomerAdd(@RequestBody CrmCustomer customer);
 
     // 客户联系人信息  =====================================================================
-    @ApiOperation(value = "添加一条客户的联系人信息",
-            notes = "添加客户、供应商、承运商等的联系人记录")
+    @ApiOperation(value = "标签显示：添加一条客户的联系人信息",
+            notes = "接口描述：添加客户、供应商、承运商等的联系人记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "crmContactsInfo", value = "客户的联系人信息实体类",
                     required = true, paramType = "body", dataType = "CrmContactsInfo")
@@ -60,8 +60,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmContactsAdd(@RequestBody CrmContactsInfo crmContactsInfo);
 
 
-    @ApiOperation(value = "修改客户的联系人信息",
-            notes = "修改客户、供应商、承运商等的联系人记录")
+    @ApiOperation(value = "标签显示：修改客户的联系人信息",
+            notes = "接口描述：修改客户、供应商、承运商等的联系人记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "crmContactsInfo", value = "客户的联系人信息实体类",
                     required = true, paramType = "body", dataType = "CrmContactsInfo")
@@ -72,8 +72,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmContactsModify(@RequestBody CrmContactsInfo crmContactsInfo);
 
 
-    @ApiOperation(value = "删除客户的联系人信息",
-            notes = "删除客户、供应商、承运商等的联系人记录")
+    @ApiOperation(value = "标签显示：删除客户的联系人信息",
+            notes = "接口描述：删除客户、供应商、承运商等的联系人记录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "contactsIds", value = "联系人ID列表",
                     required = true, paramType = "body",
@@ -84,8 +84,8 @@ public interface CrmCustomerController {
             method = RequestMethod.POST)
     ResultMode<String> crmContactsDel(@RequestBody List<String> contactsIds);
 
-    @ApiOperation(value = "查询客户的联系人信息列表",
-            notes = "查询客户的联系人信息列表")
+    @ApiOperation(value = "标签显示：查询客户的联系人信息列表",
+            notes = "接口描述：查询客户的联系人信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customerId", value = "客户的唯一ID",
                     required = true, dataType = "String")
@@ -97,8 +97,8 @@ public interface CrmCustomerController {
 
 
     // 客户发票信息  =====================================================================
-    @ApiOperation(value = "添加一条客户的发票信息",
-            notes = "添加一条客户的发票信息")
+    @ApiOperation(value = "标签显示：添加一条客户的发票信息",
+            notes = "接口描述：添加一条客户的发票信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "crmInvoiceInfo", value = "客户的发票信息实体类",
                     required = true, paramType = "body", dataType = "CrmInvoiceInfo")
@@ -109,8 +109,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmInvoiceAdd(@RequestBody CrmInvoiceInfo crmInvoiceInfo);
 
 
-    @ApiOperation(value = "修改客户的发票信息",
-            notes = "修改客户的发票信息")
+    @ApiOperation(value = "标签显示：修改客户的发票信息",
+            notes = "接口描述：修改客户的发票信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "crmInvoiceInfo", value = "客户的发票信息实体类",
                     required = true, paramType = "body", dataType = "CrmInvoiceInfo")
@@ -121,8 +121,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmInvoiceModify(@RequestBody CrmInvoiceInfo crmInvoiceInfo);
 
 
-    @ApiOperation(value = "删除客户的发票信息",
-            notes = "删除客户的发票信息")
+    @ApiOperation(value = "标签显示：删除客户的发票信息",
+            notes = "接口描述：删除客户的发票信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "invoiceIds", value = "发票ID列表",
                     required = true, paramType = "body",
@@ -133,8 +133,8 @@ public interface CrmCustomerController {
             method = RequestMethod.POST)
     ResultMode<String> crmInvoiceDel(@RequestBody List<String> invoiceIds);
 
-    @ApiOperation(value = "查询客户的发票信息列表",
-            notes = "查询客户的发票信息列表")
+    @ApiOperation(value = "标签显示：查询客户的发票信息列表",
+            notes = "接口描述：查询客户的发票信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customerId", value = "客户的唯一ID",
                     required = true, dataType = "String")
@@ -147,8 +147,8 @@ public interface CrmCustomerController {
 
 
     // 客户收款人信息  =====================================================================
-    @ApiOperation(value = "添加一条客户的收款人信息",
-            notes = "添加一条客户的收款人信息")
+    @ApiOperation(value = "标签显示：添加一条客户的收款人信息",
+            notes = "接口描述：添加一条客户的收款人信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "payeeInfo", value = "客户的收款人信息实体类",
                     required = true, paramType = "body", dataType = "CrmPayeeInfo")
@@ -159,8 +159,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmPayeeAdd(@RequestBody CrmPayeeInfo payeeInfo);
 
 
-    @ApiOperation(value = "修改客户的收款人信息",
-            notes = "修改客户的收款人信息")
+    @ApiOperation(value = "标签显示：修改客户的收款人信息",
+            notes = "接口描述：修改客户的收款人信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "payeeInfo", value = "客户的收款人信息实体类",
                     required = true, paramType = "body", dataType = "CrmPayeeInfo")
@@ -171,8 +171,8 @@ public interface CrmCustomerController {
     ResultMode<String> crmPayeeModify(@RequestBody CrmPayeeInfo payeeInfo);
 
 
-    @ApiOperation(value = "删除客户的收款人信息",
-            notes = "删除客户的收款人信息")
+    @ApiOperation(value = "标签显示：删除客户的收款人信息",
+            notes = "接口描述：删除客户的收款人信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "payeeIds", value = "收款人ID列表",
                     required = true, paramType = "body",
@@ -183,8 +183,8 @@ public interface CrmCustomerController {
             method = RequestMethod.POST)
     ResultMode<String> crmPayeeDel(@RequestBody List<String> payeeIds);
 
-    @ApiOperation(value = "查询客户的收款人信息列表",
-            notes = "查询客户的收款人信息列表")
+    @ApiOperation(value = "标签显示：查询客户的收款人信息列表",
+            notes = "接口描述：查询客户的收款人信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customerId", value = "客户的唯一ID",
                     required = true, dataType = "String")
@@ -193,5 +193,4 @@ public interface CrmCustomerController {
             produces = {"application/json;charset=UTF-8"},
             method = RequestMethod.POST)
     ResultMode<CrmContactsInfo> crmPayeeQuery(String customerId);
-
 }

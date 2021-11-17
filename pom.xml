@@ -47,6 +47,7 @@
         <module>demo-20-filter-interceptor-01</module>
         <module>demo-21-controller-advice-01</module>
         <module>demo-21-filter-exception-02</module>
+        <module>demo-21-03-simpleMappingExceptionResolver</module>
         <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
@@ -269,6 +270,7 @@
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
         <!-- swagger ui 的doc.html 文档 -->
+        <!--http://localhost:12103/doc.html-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
