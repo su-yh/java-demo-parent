@@ -15,6 +15,12 @@ import java.lang.reflect.Type;
 /**
  * 自定义重写@RequestBody 的json 映射到实体
  *
+ * 但是显然这个方式很不好理解，我也知道当时在哪里找的。
+ * 不过现在可以查看：JacksonAutoConfiguration.JacksonObjectMapperBuilderConfiguration 这个配置类。
+ * 它提供了一个自定义接口，Jackson2ObjectMapperBuilderCustomizer,然后我们实现它就好了。
+ * 更好的处理方式就是使用配置项，查看：JacksonProperties。
+ * 另外一个，参考博客：https://blog.csdn.net/Heron22/article/details/109512976
+ *
  * @author sWX5327794
  * @since 2021-04-16
  */

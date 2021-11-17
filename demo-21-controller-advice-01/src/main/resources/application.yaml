@@ -5,3 +5,6 @@ suyh:
     controller:
       exception:
         global: true
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
