@@ -27,6 +27,16 @@ public class CustomerExceptionHandler {
              *   "path": "/req/suyh/exception"
              * }
              */
+            /*
+             * 使用自定义的ObjectMapper 之后，这个时间也可以显示成我们想要的时间了。
+             * {
+             *   "timestamp": "2021-11-17 21:42:28.506",
+             *   "status": 11011,
+             *   "error": "Http Status 11011",
+             *   "message": "other suyh exception message",
+             *   "path": "/req/suyh/exception"
+             * }
+             */
             // 通过这里返回状态码和错误消息给前端
             response.sendError(11011, "other suyh exception message");
         } catch (IOException ex) {
