@@ -1,5 +1,6 @@
 package com.suyh4701.properties.outer;
 
+import com.suyh4701.properties.inner.ActiveEnvironment;
 import com.suyh4701.properties.inner.ContainerType;
 import com.suyh4701.properties.inner.Inner;
 import lombok.Data;
@@ -17,6 +18,9 @@ public class Outer {
      */
     @NestedConfigurationProperty
     private Inner inner;
+
+    @NestedConfigurationProperty
+    private ActiveEnvironment activeEnv = ActiveEnvironment.NONE;
 
     @NestedConfigurationProperty
     private ContainerType containerType = ContainerType.SIMPLE;
