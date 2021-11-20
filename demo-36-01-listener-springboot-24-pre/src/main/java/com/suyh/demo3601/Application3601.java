@@ -1,4 +1,4 @@
-package com.suyh.demo3601;
+package com.suyh.demo3602;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
