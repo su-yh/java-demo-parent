@@ -6,11 +6,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.4.6</version>
-        <relativePath></relativePath>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-49-01-spring-boot-active</artifactId>
+    <artifactId>demo-49-01-spring-boot-24-active</artifactId>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

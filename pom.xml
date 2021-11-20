@@ -43,6 +43,7 @@
         <module>demo-16-guava-01</module>
         <module>demo-18-resttemplate-01</module>
         <module>demo-18-WebClient-02</module>
+        <module>demo-18-WebClient-03</module>
         <module>demo-19-servletRequest-01</module>
         <module>demo-20-filter-interceptor-01</module>
         <module>demo-21-controller-advice-01</module>
@@ -83,8 +84,7 @@
         <module>demo-46-multi-datasource-flywaydb-01</module>
         <module>demo-47-01-springboot-metadata</module>
         <module>demo-48-01-cors</module>
-        <module>demo-49-01-spring-boot-active</module>
-        <module>demo-18-WebClient-03</module>
+        <module>demo-49-01-spring-boot-24-active</module>
     </modules>
 
     <dependencyManagement>
