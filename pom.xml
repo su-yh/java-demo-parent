@@ -9,6 +9,12 @@
     <groupId>com.suyh</groupId>
     <artifactId>java-demo-springboot</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
     <modules>
         <module>demo-00-00-core</module>
         <module>demo-00-01-common</module>
@@ -43,8 +49,6 @@
         <module>demo-21-controller-advice-01</module>
         <module>demo-21-filter-exception-02</module>
         <module>demo-21-03-simpleMappingExceptionResolver</module>
-        <module>demo-22-validation-01</module>
-        <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
         <module>demo-25-flywaydb-01</module>
         <module>demo-26-resource-01</module>
@@ -55,10 +59,8 @@
         <module>demo-30-starter-define-01</module>
         <module>demo-30-starter-usage-01</module>
         <module>demo-31-async-01</module>
-        <module>demo-32-es-01</module>
         <module>demo-33-jackson-01</module>
         <module>demo-33-jackson-02</module>
-        <module>demo-32-es-02</module>
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
@@ -303,9 +305,13 @@
             <!--springboot 2.4.x 版本之前-->
             <id>springboot-24-pre</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
+                <module>demo-22-validation-01</module>
+                <module>demo-23-aop-01</module>
+                <module>demo-32-es-01</module>
+                <module>demo-32-es-02</module>
                 <module>demo-36-01-listener-springboot-24-pre</module>
             </modules>
             <dependencyManagement>
@@ -324,7 +330,7 @@
             <!--springboot 2.4.x 版本之后-->
             <id>springboot-24-post</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
                 <module>demo-36-02-listener-springboot-24-post</module>

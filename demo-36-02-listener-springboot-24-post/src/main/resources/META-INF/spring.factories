@@ -1,0 +1,16 @@
+# Application Listeners
+# 配置事件监听器
+org.springframework.context.ApplicationListener=\
+  com.suyh.listeners.multi.MultiEventListener,\
+  com.suyh.listeners.single.ContextRefreshedEventListener,\
+  com.suyh.listeners.single.ContextStartedEventListener,\
+  com.suyh.listeners.single.ContextStoppedEventListener,\
+  com.suyh.listeners.single.ContextClosedEventListener,\
+  com.suyh.listeners.single.RequestHandledEventListener,\
+  com.suyh.listeners.single.ApplicationFailedEventListener,\
+  com.suyh.listeners.single.ApplicationPreparedEventListener,\
+  com.suyh.listeners.single.ApplicationReadyEventListener,\
+  com.suyh.listeners.single.ApplicationStartedEventListener,\
+  com.suyh.listeners.single.ApplicationEnvironmentPreparedEventListener,\
+  com.suyh.listeners.single.ApplicationStartingEventListener,\
+  com.suyh.listeners.custom.CustomEventListener
