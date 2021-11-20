@@ -68,7 +68,8 @@
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
-        <module>demo-36-listener-01</module>
+        <module>demo-36-01-listener-springboot-24-pre</module>
+<!--        <module>demo-36-02-listener-springboot-24-post</module>-->
         <module>demo-38-spi-load</module>
         <module>demo-38-properties-load</module>
         <module>demo-39-nacos-01-discovery</module>
@@ -276,7 +277,7 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
     </dependencies>
-         
+
     <profiles>
         <profile>
             <id>dev</id>
