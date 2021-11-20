@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-49-01-spring-boot-24-active</artifactId>
+    <artifactId>demo-49-01-active-spring-boot-24-post</artifactId>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

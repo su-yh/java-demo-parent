@@ -4,12 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-    </parent>
-
     <packaging>pom</packaging>
 
     <groupId>com.suyh</groupId>
@@ -68,8 +62,6 @@
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
-        <module>demo-36-01-listener-springboot-24-pre</module>
-<!--        <module>demo-36-02-listener-springboot-24-post</module>-->
         <module>demo-38-spi-load</module>
         <module>demo-38-properties-load</module>
         <module>demo-39-nacos-01-discovery</module>
@@ -85,7 +77,6 @@
         <module>demo-46-multi-datasource-flywaydb-01</module>
         <module>demo-47-01-springboot-metadata</module>
         <module>demo-48-01-cors</module>
-        <module>demo-49-01-spring-boot-24-active</module>
     </modules>
 
     <dependencyManagement>
@@ -238,11 +229,11 @@
             </dependency>
 
             <!-- shedlock - 使用 redis -->
-<!--            <dependency>-->
-<!--                <groupId>net.javacrumbs.shedlock</groupId>-->
-<!--                <artifactId>shedlock-provider-jedis</artifactId>-->
-<!--                <version>0.17.0</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>net.javacrumbs.shedlock</groupId>-->
+            <!--                <artifactId>shedlock-provider-jedis</artifactId>-->
+            <!--                <version>0.17.0</version>-->
+            <!--            </dependency>-->
 
         </dependencies>
     </dependencyManagement>
@@ -308,29 +299,72 @@
                 </resources>
             </build>
         </profile>
+        <profile>
+            <!--springboot 2.4.x 版本之前-->
+            <id>springboot-24-pre</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>demo-36-01-listener-springboot-24-pre</module>
+            </modules>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-dependencies</artifactId>
+                        <version>2.2.5.RELEASE</version>
+                        <scope>import</scope>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <!--springboot 2.4.x 版本之后-->
+            <id>springboot-24-post</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>demo-36-02-listener-springboot-24-post</module>
+                <module>demo-49-01-active-spring-boot-24-post</module>
+            </modules>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-dependencies</artifactId>
+                        <version>2.4.6</version>
+                        <scope>import</scope>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
     </profiles>
 
     <build>
-<!--        <resources>-->
-<!--            <resource>-->
-<!--                <directory>${project.basedir}/src/main/resources</directory>-->
-<!--                <filtering>true</filtering>-->
-<!--                <includes>-->
-<!--                    &lt;!&ndash; 仅添加指定环境的配置文件 &ndash;&gt;-->
-<!--                    <include>application-${spring_profiles_active}.properties</include>-->
-<!--                    &lt;!&ndash;妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。&ndash;&gt;-->
-<!--                    <include>*</include>-->
-<!--                </includes>-->
-<!--            </resource>-->
-<!--            <resource>-->
-<!--                <directory>${project.basedir}/src/main/resources/mapper</directory>-->
-<!--                <includes>-->
-<!--                    <include>*.xml</include>-->
-<!--                </includes>-->
-<!--                &lt;!&ndash; 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 &ndash;&gt;-->
-<!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
-<!--            </resource>-->
-<!--        </resources>-->
+        <!--        <resources>-->
+        <!--            <resource>-->
+        <!--                <directory>${project.basedir}/src/main/resources</directory>-->
+        <!--                <filtering>true</filtering>-->
+        <!--                <includes>-->
+        <!--                    &lt;!&ndash; 仅添加指定环境的配置文件 &ndash;&gt;-->
+        <!--                    <include>application-${spring_profiles_active}.properties</include>-->
+        <!--                    &lt;!&ndash;妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。&ndash;&gt;-->
+        <!--                    <include>*</include>-->
+        <!--                </includes>-->
+        <!--            </resource>-->
+        <!--            <resource>-->
+        <!--                <directory>${project.basedir}/src/main/resources/mapper</directory>-->
+        <!--                <includes>-->
+        <!--                    <include>*.xml</include>-->
+        <!--                </includes>-->
+        <!--                &lt;!&ndash; 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 &ndash;&gt;-->
+        <!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
+        <!--            </resource>-->
+        <!--        </resources>-->
         <testResources>
             <testResource>
                 <directory>src\main\resources</directory>
