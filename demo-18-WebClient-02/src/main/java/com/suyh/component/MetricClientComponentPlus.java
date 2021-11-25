@@ -26,10 +26,10 @@ public class MetricClientComponentPlus {
     // Spring Boot auto-configures a `WebClient.Builder` instance with nice defaults and customizations.
     // We can use it to create a dedicated `WebClient` for our component.
     public MetricClientComponentPlus(WebClient.Builder builder) {
-        this.client01 = builder.baseUrl("http://arms-dev.hissit.huawei.com").build();
-        this.client02 = builder.baseUrl("http://arms-dev.hissit.huawei.com").build();
-        this.client03 = builder.baseUrl("http://kweekshcct-kv7ex.huawei.com:52463").build();
-        this.client04 = builder.baseUrl("http://kweekshcct-6edy6.huawei.com:52463").build();
+        this.client01 = builder.baseUrl("http://arms-dev.hissit.com").build();
+        this.client02 = builder.baseUrl("http://arms-dev.hissit.com").build();
+        this.client03 = builder.baseUrl("http://kweekshcct-kv7ex.com:52463").build();
+        this.client04 = builder.baseUrl("http://kweekshcct-6edy6.com:52463").build();
     }
 
     @PostConstruct
