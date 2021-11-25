@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 @Slf4j
-public class MetricClientComponent {
+public class MetricClientComponentPlus {
     private final WebClient client01;
     private final WebClient client02;
     private final WebClient client03;
@@ -25,7 +25,7 @@ public class MetricClientComponent {
 
     // Spring Boot auto-configures a `WebClient.Builder` instance with nice defaults and customizations.
     // We can use it to create a dedicated `WebClient` for our component.
-    public MetricClientComponent(WebClient.Builder builder) {
+    public MetricClientComponentPlus(WebClient.Builder builder) {
         this.client01 = builder.baseUrl("http://arms-dev.hissit.huawei.com").build();
         this.client02 = builder.baseUrl("http://arms-dev.hissit.huawei.com").build();
         this.client03 = builder.baseUrl("http://kweekshcct-kv7ex.huawei.com:52463").build();
