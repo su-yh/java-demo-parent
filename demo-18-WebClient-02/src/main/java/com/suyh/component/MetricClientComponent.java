@@ -87,6 +87,7 @@ public class MetricClientComponent {
         mergeFlux.doOnNext(responseEntity -> System.out.println("flux responseEntity: " + responseEntity))
                 .doOnError(exception -> System.out.println("exception: " + exception.getMessage()))
                 // Schedulers.parallel() 返回一个线程池调度器，多次调用返回的是相同对象，所以它有缓存。
+                // https://www.modb.pro/db/88311
                 .subscribeOn(Schedulers.parallel())
                 // 异步调度
                 .subscribe();
