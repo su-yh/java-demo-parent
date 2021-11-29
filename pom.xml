@@ -371,15 +371,6 @@
         <!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
         <!--            </resource>-->
         <!--        </resources>-->
-        <testResources>
-            <testResource>
-                <directory>src\main\resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-            <testResource>
-                <directory>src\test\resources</directory>
-            </testResource>
-        </testResources>
         <plugins>
             <!-- maven 的打包插件 -->
             <plugin>
@@ -395,6 +386,20 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!--打包源码的插件，还需要包含下面的配置。我没有加的时候是没有打包成功的。-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
