@@ -1,4 +1,4 @@
-package com.suyh;
+package com.suyh0201;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // https://blog.csdn.net/SwordSnapLiu/article/details/78540902
 @Slf4j
 @SpringBootApplication
-public class Application {
+public class Application0201 {
     static {
         // 指定日志配置文件所在路径，默认情况下是在resources 目录下面找
         System.setProperty("log4j.configurationFile", "config/log4j2.xml");
@@ -17,7 +17,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class);
+        SpringApplication.run(Application0201.class);
         log.info("begin...");
 
         log.debug("debug log.");

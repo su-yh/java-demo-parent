@@ -385,6 +385,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.5.RELEASE</version>
                 <configuration>
                     <excludes>
                         <!-- lombok 只在编译时有效 -->
@@ -393,56 +394,6 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                </configuration>
-            </plugin>
-            <!--
-                这个插件必须要生成一个jar 包对象，并且会去找一个MainClass 如果没找到就会报错
-                所以这个插件不应该放在parent 中
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            -->
-            <plugin>
-                <!--
-                    http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters
-                    注意
-                        如果遇到${project.version}无法生效，是因为
-                        由于 **${}** 方式会被maven处理。
-                        如果你pom继承了spring-boot-starter-parent，Spring Boot
-                        已经将maven-resources-plugins默认的${}方式改为了@@方式，如@name@
-                        如果还想继续使用${}占位符方式，只需要在pom文件中加上下面配置即可：
-                -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>utf-8</encoding>
-                    <!-- 使用默认的字符读取maven pom.xml 中的变量值 -->
-                    <!-- <useDefaultDelimiters>true</useDefaultDelimiters> -->
-                    <delimiters>
-                        <delimiter>${*}</delimiter>
-                        <delimiter>@</delimiter>
-                    </delimiters>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- 版本控制打包插件 -->
-                <!-- 更新项目当前版本 mvn versions:set -DnewVersion=1.0 -->
-                <!-- 回滚项目版本，必须有备份文件才有效 mvn versions:revert -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <configuration>
-                    <!-- 是否生成备份文件，如果不生成不能回滚 -->
-                    <generateBackupPoms>false</generateBackupPoms>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <configuration>
-                    <!-- 跳过该模块的发布 -->
-                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

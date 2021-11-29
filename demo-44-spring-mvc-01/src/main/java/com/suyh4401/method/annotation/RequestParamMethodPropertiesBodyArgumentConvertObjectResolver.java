@@ -9,7 +9,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import sun.reflect.misc.FieldUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -55,7 +54,7 @@ public class RequestParamMethodPropertiesBodyArgumentConvertObjectResolver imple
         }
 
         // 获取字段
-        Field[] fields = FieldUtil.getDeclaredFields(parameterType);
+        Field[] fields = parameterType.getDeclaredFields();
         // 实例化对象
         Object result = ClassUtils.newInstance(parameterType);
         // 往对象写入值
