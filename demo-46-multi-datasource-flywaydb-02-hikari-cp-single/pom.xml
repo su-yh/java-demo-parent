@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>java-demo-springboot</artifactId>
+        <groupId>com.suyh</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>demo-46-multi-datasource-flywaydb-02-hikari-cp-single</artifactId>
+    <description>使用spring 默认提供的连接池，数据源使用mysql</description>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!--实现对数据库连接池的自动化配置-->
+        <!--无需主动引入 HikariCP 的依赖。因为在 Spring Boot 2.X 中，spring-boot-starter-jdbc 默认引入 com.zaxxer.HikariCP 依赖。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/db/migrate/master</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/db/migrate/master</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/db/migrate/slave</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/db/migrate/slave</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/config</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <targetPath>${project.build.outputDirectory}/config</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/mapper/master</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
+                <targetPath>${project.build.outputDirectory}/mapper/master</targetPath>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/mapper/slave</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <!-- 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 -->
+                <targetPath>${project.build.outputDirectory}/mapper/slave</targetPath>
+            </resource>
+        </resources>
+    </build>
+</project>
