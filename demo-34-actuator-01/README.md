@@ -5,6 +5,8 @@
     
     健康检查的实现类：HealthEndpoint
 
+所有的统计数据都会在应用启动的时候注册到统计注册类中：`io.micrometer.core.instrument.MeterRegistry#getOrCreateMeter`
+
 JvmGcMetrics
 
 TomcatMetrics
