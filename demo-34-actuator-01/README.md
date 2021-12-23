@@ -4,3 +4,7 @@
     安全：https://segmentfault.com/a/1190000021611510
     
     健康检查的实现类：HealthEndpoint
+
+JvmGcMetrics
+
+TomcatMetrics
