@@ -1,11 +1,7 @@
-multi:
-  datasource:
-    druid:
-      # 是否使用druid 连接池来创建数据源
-      enabled: true
-
 multi4601:
   datasource:
+    #type: com.zaxxer.hikari.HikariDataSource # 使用Hikari 连接池
+    type: com.alibaba.druid.pool.DruidDataSource # 使用druid 连接池
     druid:
       # druid 连接池配置
       master:
@@ -27,19 +23,20 @@ multi4601:
         min-idle: 10
         max-wait: 2000
     # 普通连接配置
-    master:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
-      username: root
-      password: root
-    slave:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
-      username: root
-      password: root
+    hikari:
+      master:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        username: root
+        password: root
+      slave:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        username: root
+        password: root
 
 server:
-  port: 8080
+  port: 8901
   servlet:
     context-path: /
 
