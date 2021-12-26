@@ -27,7 +27,7 @@ spring:
     # 迁移时是否校验，默认值：true
     validateOnMigrate: true
   datasource:
-    url: jdbc:mysql://100.84.137.160:3306/suyh_single_datasource_hikari_cp?allowMultiQueries=true&verifyServerCertificate=false&&useSSL=false
+    url: jdbc:mysql://docker:3306/suyh_single_datasource_hikari_cp?characterEncoding=utf-8&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: root
