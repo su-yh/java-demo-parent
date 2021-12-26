@@ -14,28 +14,28 @@ public class DatasourceConfig {
     @Bean("dataSourceMaster")
     @ConfigurationProperties(prefix = "multi4601.datasource.druid.master")
     @ConditionalOnProperty(name = "multi.datasource.druid.enabled", matchIfMissing = true, havingValue = "true")
-    public DataSource masterDruidDataSource(){
+    public DataSource masterDruidDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean("dataSourceSlave")
     @ConfigurationProperties(prefix = "multi4601.datasource.druid.slave")
     @ConditionalOnProperty(name = "multi.datasource.druid.enabled", matchIfMissing = true, havingValue = "true")
-    public DataSource slaveDruidDataSource(){
+    public DataSource slaveDruidDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean("dataSourceMaster")
     @ConfigurationProperties(prefix = "multi4601.datasource.master")
     @ConditionalOnProperty(name = "multi.datasource.druid.enabled", matchIfMissing = true, havingValue = "false")
-    public DataSource masterDataSource(){
+    public DataSource masterDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean("dataSourceSlave")
     @ConfigurationProperties(prefix = "multi4601.datasource.slave")
     @ConditionalOnProperty(name = "multi.datasource.druid.enabled", matchIfMissing = true, havingValue = "false")
-    public DataSource slaveDataSource(){
+    public DataSource slaveDataSource() {
         return DataSourceBuilder.create().build();
     }
 
