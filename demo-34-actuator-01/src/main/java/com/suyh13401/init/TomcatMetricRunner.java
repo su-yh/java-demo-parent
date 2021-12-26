@@ -1,8 +1,5 @@
-package com.huawei.app.init;
+package com.suyh13401.init;
 
-import com.alibaba.csp.sentinel.config.SentinelConfig;
-import com.alibaba.csp.sentinel.transport.config.TransportConfig;
-import com.alibaba.csp.sentinel.transport.endpoint.Endpoint;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.tomcat.TomcatMetrics;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +24,7 @@ import java.util.Set;
 @Component
 @EnableScheduling
 @Slf4j
-public class SentinelAppRunner implements ApplicationRunner {
+public class TomcatMetricRunner implements ApplicationRunner {
     @Resource
     private MeterRegistry registry;
 
@@ -70,9 +67,6 @@ public class SentinelAppRunner implements ApplicationRunner {
 
     /**
      * 参考：io.micrometer.core.instrument.binder.tomcat.TomcatMetrics#getNamePattern(java.lang.String)
-     *
-     * @param namePatternSuffix
-     * @return
      */
     private ObjectName getNamePattern(String namePatternSuffix) {
         try {
@@ -85,8 +79,6 @@ public class SentinelAppRunner implements ApplicationRunner {
 
     /**
      * 获取第一个数据信息
-     *
-     * @param name
      */
     private void logFirstMetricInfo(String name) {
         // 参考自：io.micrometer.core.instrument.binder.tomcat.TomcatMetrics.registerThreadPoolMetrics
