@@ -14,7 +14,11 @@ public class DatasourceConfig {
     @Configuration
     @ConditionalOnProperty(name = "multi4601.datasource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource")
     public static class Druid {
-        // 使用druid 提供的builder 构造
+        /**
+         * 使用druid 提供的builder 构造
+         * 这里使用的注释@ConfigurationProperties 可以绑定配置属性
+         * 在bean 对象仓库之后会处理配置项，所以这些配置会被绑定到DruidDataSource。
+         */
         @Bean("dataSourceMaster")
         @ConfigurationProperties(prefix = "multi4601.datasource.druid.master")
         public DruidDataSource masterDruidDataSource() {
