@@ -29,6 +29,8 @@ management:
       context-path: /ooo    # 指定actuator监控器的上下文路径，一般使用默认值: ${server.servlet.context-path}
   endpoints:
     web:
+      # http://localhost:13499/ooo/base/info
+      # http://localhost:13499/ooo/base/suyh-custom/name/suyh
       base-path: /base      # 指定actuator监控终端的基本路径，一般使用默认值: "actuator"
       exposure:
         # 默认情况只开启两个[health,info]，具体的可以参考开课吧课件中的文档
