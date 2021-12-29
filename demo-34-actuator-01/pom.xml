@@ -28,6 +28,13 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--占位符生效-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <!-- maven 的打包插件 -->
             <plugin>
