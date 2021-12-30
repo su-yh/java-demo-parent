@@ -10,3 +10,13 @@
 JvmGcMetrics
 
 TomcatMetrics
+
+spring boot actuator: https://www.hangge.com/blog/cache/detail_2723.html
+
+注册度量：DataSourcePoolMetrics
+
+其他：
+
+CommonsDbcp2DataSourcePoolMetadata、DataSourcePoolMetadataProvidersConfiguration
+
+使用：@Import(DataSourcePoolMetadataProvidersConfiguration.class)
