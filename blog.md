@@ -4,6 +4,8 @@ spring boot 启动分析参考博客：https://www.jianshu.com/p/84f45bea357c
 
 spring boot actuator: https://www.hangge.com/blog/cache/detail_2723.html
 
+DataSourcePoolMetrics
+
 开源框架是如何通过JMX来做监控的(一) - JMX简介和Standard MBean: https://www.cnblogs.com/trust-freedom/p/6842332.html
 
 JMX超详细解读: https://www.cnblogs.com/dongguacai/p/5900507.html
