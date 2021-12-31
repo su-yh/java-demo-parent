@@ -21,6 +21,11 @@ CommonsDbcp2DataSourcePoolMetadata、DataSourcePoolMetadataProvidersConfiguratio
 
 使用：@Import(DataSourcePoolMetadataProvidersConfiguration.class)
 
+Tomcat 线程池可以通过`beanServer.queryNames(getNamePattern(":type=ThreadPool,name=*"), null);`的方式获取到相关信息。
+是因为下面的这部分代码。
+io.micrometer.core.instrument.binder.tomcat.TomcatMetrics#registerThreadPoolMetrics
+但是数据源的没找到，注册到`MeterRegistry`的是如下代码，似乎并没有往`MBeanServer`中注册。需要好好看一下。
+org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics#bindDataSource
 
 ---
 
