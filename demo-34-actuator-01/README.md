@@ -27,6 +27,12 @@ io.micrometer.core.instrument.binder.tomcat.TomcatMetrics#registerThreadPoolMetr
 但是数据源的没找到，注册到`MeterRegistry`的是如下代码，似乎并没有往`MBeanServer`中注册。需要好好看一下。
 org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics#bindDataSource
 
+结论：
+这两个注册都是将统计数据注册到`MeterRegistry`中，可以通过`MeterRegistry` 来获取到这些数据的统计信息。
+上面的Tomcat 线程池，的统计数据来自：`MBeanServer`，而下面的那个数据源的统计数据来自：`DataSource`。
+
+这里面最关系的技术是`MBeanServer` 与`MeterRegistry` 的使用。
+
 ---
 
 - tag 参数的使用
