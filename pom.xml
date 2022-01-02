@@ -335,6 +335,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>demo-34-actuator-02</module>
                 <module>demo-36-02-listener-springboot-24-post</module>
                 <module>demo-49-01-active-spring-boot-24-post</module>
             </modules>
