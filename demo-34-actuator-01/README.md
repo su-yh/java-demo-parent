@@ -25,6 +25,15 @@ Tomcat 线程池可以通过`beanServer.queryNames(getNamePattern(":type=ThreadP
 是因为下面的这部分代码。
 io.micrometer.core.instrument.binder.tomcat.TomcatMetrics#registerThreadPoolMetrics
 但是数据源的没找到，注册到`MeterRegistry`的是如下代码，似乎并没有往`MBeanServer`中注册。需要好好看一下。
+org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics#bindTo
+    ```java
+        // 这里最重要的就是：DataSourcePoolMetadata::getActive，就是需要实现该接口，然后就可以拿到对应的值了。
+        // 对于我们来说，需要实现druid 数据源连接池的话，则可以按org.springframework.boot.jdbc.metadata.HikariDataSourcePoolMetadata 
+        // 模仿着来实现。
+        bindPoolMetadata(registry, "active",
+                "Current number of active connections that have been allocated from the data source.",
+                DataSourcePoolMetadata::getActive);    
+    ```
 org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics#bindDataSource
 
 结论：

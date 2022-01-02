@@ -27,12 +27,20 @@ spring:
     # 迁移时是否校验，默认值：true
     validateOnMigrate: true
   datasource:
+    # 由于druid-spring-boot-starter 并没有按spring boot 的规范实现，所以这里并没有生效。
+    type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://docker:3306/suyh_db_3402?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     # 使用ENC() 的属性会调用解密方法
     password: root
+server:
+  port: 3402
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 
