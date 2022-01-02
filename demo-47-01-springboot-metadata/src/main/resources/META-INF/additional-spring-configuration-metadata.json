@@ -7,5 +7,30 @@
       "defaultValue": true,
       "description": "Description for suyh.service.config.enabled."
     }
+  ],
+  "hints": [
+    {
+      "name": "some.service.contexts.keys",
+      "values": [
+        {
+          "value": "sample1",
+          "description": "sample1 的描述信息."
+        },
+        {
+          "value": "sample2"
+        }
+      ]
+    },
+    {
+      "name": "some.service.values",
+      "values": [
+        {
+          "value": "array-value-01"
+        },
+        {
+          "value": "array-value-02"
+        }
+      ]
+    }
   ]
 }

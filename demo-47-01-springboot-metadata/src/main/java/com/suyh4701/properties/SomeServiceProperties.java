@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 属性封装类，将配置文件中的相关属性封装到当前类实例中
@@ -44,6 +45,20 @@ public class SomeServiceProperties {
      * 还可以直接指定一个接口类，使用该类的子类的完全限定类名就可以进行配置了。
      */
     private Class<? extends DataSource> type;
+
+    /**
+     * 对于map 类型，我们可以使用hits 给出一些提示。
+     * some.service.contexts.keys
+     * some.service.contexts.values
+     */
+    private Map<String, Integer> contexts;
+
+    /**
+     * 数组类型
+     * 在hits 中配置的值可以在这里提示出来，
+     * 如果没有在hits 中配置相应的值，则会被标记为红色。
+     */
+    private List<String> values;
 
     /**
      * 对于过时的配置项，使用注解添加，可以在配置文件里面被识别
