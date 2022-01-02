@@ -32,7 +32,6 @@ spring:
     url: jdbc:mysql://docker:3306/suyh_db_3402?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
-    # 使用ENC() 的属性会调用解密方法
     password: root
 server:
   port: 3402
