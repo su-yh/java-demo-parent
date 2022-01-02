@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.util.unit.DataSize;
 
+import javax.sql.DataSource;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +39,11 @@ public class SomeServiceProperties {
     @Deprecated
     private String deprecatedItem;
     private List<String> addresses = new ArrayList<>(Arrays.asList("localhost", "otherhost"));
+
+    /**
+     * 还可以直接指定一个接口类，使用该类的子类的完全限定类名就可以进行配置了。
+     */
+    private Class<? extends DataSource> type;
 
     /**
      * 对于过时的配置项，使用注解添加，可以在配置文件里面被识别
