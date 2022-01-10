@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,13 +15,13 @@ public class TempDemoController {
     @Resource
     private ApplicationContext context;
 
+    @Resource
+    private UserService userService;
+
     @GetMapping("/bean")
     public String registerBean() {
-        //将applicationContext转换为ConfigurableApplicationContext
-        ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) context;
-
         // 获取bean工厂并转换为DefaultListableBeanFactory
-        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) configurableApplicationContext.getBeanFactory();
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getAutowireCapableBeanFactory();
 
         // 通过BeanDefinitionBuilder创建bean定义
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(UserComponent.class);
@@ -32,7 +31,7 @@ public class TempDemoController {
         beanDefinitionBuilder.addPropertyReference("userService", "userService");
 
         // 注册bean
-        defaultListableBeanFactory.registerBeanDefinition("userComponent", beanDefinitionBuilder.getRawBeanDefinition());
+        beanFactory.registerBeanDefinition("userComponent", beanDefinitionBuilder.getRawBeanDefinition());
 
         // 从spring 框架中取出刚注册的这个bean 对象
         UserComponent userComponent = context.getBean("userComponent", UserComponent.class);
@@ -40,7 +39,30 @@ public class TempDemoController {
         return userComponent.toAction("动态注册生成调用");
 
         //删除bean.
-        //defaultListableBeanFactory.removeBeanDefinition("testService");
+        //beanFactory.removeBeanDefinition("testService");
 
+    }
+
+    @GetMapping("/bean/args")
+    public String registerBeanArgs() {
+        // 获取bean工厂并转换为DefaultListableBeanFactory
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getAutowireCapableBeanFactory();
+
+        // 通过BeanDefinitionBuilder创建bean定义
+        BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(UserArgsComponent.class);
+
+        // 构造方法的参数
+        beanDefinitionBuilder.addConstructorArgValue(userService);
+
+        // 注册bean
+        beanFactory.registerBeanDefinition("userArgsComponent", beanDefinitionBuilder.getRawBeanDefinition());
+
+        // 从spring 框架中取出刚注册的这个bean 对象
+        UserArgsComponent userArgsComponent = context.getBean("userArgsComponent", UserArgsComponent.class);
+
+        return userArgsComponent.toAction("动态注册生成调用，带参构造方法。");
+
+        //删除bean.
+        //beanFactory.removeBeanDefinition("testService");
     }
 }
