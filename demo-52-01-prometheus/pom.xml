@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.suyh.demo</groupId>
-    <artifactId>demo-prometheus</artifactId>
+    <artifactId>demo-52-01-prometheus</artifactId>
     <version>1.0.0</version>
 
     <properties>

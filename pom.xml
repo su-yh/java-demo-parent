@@ -82,6 +82,7 @@
         <module>demo-48-01-cors</module>
         <module>demo-50-01-httpclient</module>
         <module>demo-51-01-bean-dynamic</module>
+        <module>demo-52-01-prometheus</module>
     </modules>
 
     <dependencyManagement>
