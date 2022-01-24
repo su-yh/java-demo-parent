@@ -14,6 +14,7 @@ public class BeansConfiguration {
 
     /**
      * 参考: {@link PrometheusMetricsExportAutoConfiguration}
+     * 配置项(默认true)：management.metrics.export.prometheus.enabled=true
      */
     @ConditionalOnEnabledMetricsExport("prometheus")
     @Bean
