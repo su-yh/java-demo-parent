@@ -10,6 +10,11 @@ import io.micrometer.core.lang.NonNull;
 
 import java.util.Random;
 
+/**
+ * 实现接口MeterBinder 则可以通过访问: http://localhost:6557/gov/app/demo/arms/actuator/prometheus?includedNames=arms_system_pass_qps_second&includedNames=arms_system_rt_second
+ * 的方式来获取相关数据信息了。
+ * 在 prometheus 的服务端。
+ */
 public class ArmsDemoMetrics implements MeterBinder {
     private final Random random = new Random();
 
