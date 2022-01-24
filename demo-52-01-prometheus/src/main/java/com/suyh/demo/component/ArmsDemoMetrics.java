@@ -14,6 +14,8 @@ import java.util.Random;
  * 实现接口MeterBinder 则可以通过访问: http://localhost:6557/gov/app/demo/arms/actuator/prometheus?includedNames=arms_system_pass_qps_second&includedNames=arms_system_rt_second
  * 的方式来获取相关数据信息了。
  * 在 prometheus 的服务端。
+ * 对于实现MeterBinder 的bean 对象，只有在应用启用的时候来注册一个指标到Metric, prometheus 可以取到所有的Metric 中的指标数据。
+ * 但是如果要实时动态添加不同的指标到Prometheus ，则需要实现自定义Collector 才可以。
  */
 public class ArmsDemoMetrics implements MeterBinder {
     private final Random random = new Random();
