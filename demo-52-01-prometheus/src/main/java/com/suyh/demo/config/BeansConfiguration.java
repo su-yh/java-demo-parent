@@ -22,7 +22,8 @@ public class BeansConfiguration {
         return new ArmsDemoMetrics();
     }
 
-    @ConditionalOnBean(CollectorRegistry.class)
+    // ConditionalOnBean 注解对bean 的注册顺序有关，使用它有危险。
+    // @ConditionalOnBean(CollectorRegistry.class)
     @Bean
     public SampleBean sampleBean(CollectorRegistry collectorRegistry) {
         return new SampleBean(collectorRegistry);
