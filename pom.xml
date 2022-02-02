@@ -83,6 +83,7 @@
         <module>demo-50-01-httpclient</module>
         <module>demo-51-01-bean-dynamic</module>
         <module>demo-52-01-prometheus</module>
+        <module>demo-54-01-javassist</module>
     </modules>
 
     <dependencyManagement>
