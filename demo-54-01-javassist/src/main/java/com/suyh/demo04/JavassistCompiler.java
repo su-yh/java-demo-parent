@@ -10,8 +10,6 @@ import javassist.CtNewMethod;
 import javassist.Modifier;
 import javassist.NotFoundException;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class JavassistCompiler {
@@ -51,12 +49,6 @@ public class JavassistCompiler {
         buffer.append("System.out.println(\"age=\"+age);\n}");
         ctMethod.setBody(buffer.toString());
         ctClass.addMethod(ctMethod);
-
-        byte[] bytes = ctClass.toBytecode();
-        File file = new File("c:/java-demo/Person.class");
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(bytes);
-        fos.close();
 
         return ctClass;
     }
