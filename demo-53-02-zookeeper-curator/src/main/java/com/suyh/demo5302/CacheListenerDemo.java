@@ -8,6 +8,7 @@ import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
+import org.junit.Test;
 
 /**
  * 监听节点
@@ -24,7 +25,8 @@ public class CacheListenerDemo {
         return curatorFramework;
     }
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test01() throws Exception {
         try {
             String testPath = "pathChildrenCacheTest";
             //创建连接
@@ -55,6 +57,7 @@ public class CacheListenerDemo {
                         break;
                     case CHILD_ADDED:
                         System.out.println("Child added");
+                        log.info("Child added, path: {}", event.getData().getPath());
                         break;
                     case CHILD_UPDATED:
                         System.out.println("Child updated");
@@ -81,7 +84,7 @@ public class CacheListenerDemo {
             client.delete().guaranteed().deletingChildrenIfNeeded().forPath("/" + testPath + "/2");
             Thread.sleep(1000);
 
-            // 可以接收到临时节点的创建事件，更深的子节点的创建事件也可以监听到
+            // 可以接收到临时节点的创建事件，但不能监听到更深层次的子节点的创建事件
             client.create().creatingParentContainersIfNeeded()
                     .withMode(CreateMode.EPHEMERAL).forPath("/" + testPath + "/suyh/temp/path-temp", "init".getBytes());
 
