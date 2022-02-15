@@ -17,3 +17,4 @@ springboot整合prometheus: https://sb-woms.gitbook.io/sb/prometheus/springboot-
 
 springboot 中获取所有的api 接口: https://baeldung-cn.com/spring-boot-get-all-endpoints
   https://blog.csdn.net/anshichuxuezhe/article/details/115860852
+  在模块 demo-43-web-redirect-01 中有一个 AllUrlsRunner
