@@ -14,3 +14,6 @@ HttpClient详细梳理: https://www.jianshu.com/p/14c005e9287c
 Micrometer自定义业务监控指标: https://github.com/TFdream/blog/issues/340
 
 springboot整合prometheus: https://sb-woms.gitbook.io/sb/prometheus/springboot-prometheus-03
+
+springboot 中获取所有的api 接口: https://baeldung-cn.com/spring-boot-get-all-endpoints
+  https://blog.csdn.net/anshichuxuezhe/article/details/115860852
