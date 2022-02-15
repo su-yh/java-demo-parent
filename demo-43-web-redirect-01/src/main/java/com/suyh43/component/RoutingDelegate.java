@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * 路由转发代理
+ * 有跨域问题
  */
 @Component
 @Slf4j
