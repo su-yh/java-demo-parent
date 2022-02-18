@@ -88,6 +88,7 @@
         <module>demo-53-01-zookeeper</module>
         <module>demo-53-02-zookeeper-curator</module>
         <module>demo-54-01-javassist</module>
+        <module>demo-01-test-03-junit5</module>
     </modules>
 
     <dependencyManagement>
