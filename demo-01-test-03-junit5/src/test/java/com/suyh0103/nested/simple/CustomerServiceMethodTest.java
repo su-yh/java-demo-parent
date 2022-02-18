@@ -1,4 +1,4 @@
-package com.suyh0103.nested;
+package com.suyh0103.nested.simple;
 
 import com.suyh0103.Customer;
 import com.suyh0103.CustomerService;
