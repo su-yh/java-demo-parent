@@ -49,6 +49,7 @@
         <module>demo-21-controller-advice-01</module>
         <module>demo-21-filter-exception-02</module>
         <module>demo-21-03-simpleMappingExceptionResolver</module>
+        <module>demo-22-validation-01</module>
         <module>demo-23-aop-01</module>
         <module>demo-24-profile-01</module>
         <module>demo-25-flywaydb-01</module>
@@ -316,7 +317,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
-                <module>demo-22-validation-01</module>
                 <module>demo-32-es-01</module>
                 <module>demo-32-es-02</module>
                 <module>demo-36-01-listener-springboot-24-pre</module>
@@ -340,7 +340,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-<!--                <module>demo-22-validation-01</module>-->
 <!--                <module>demo-32-es-01</module>-->
 <!--                <module>demo-32-es-02</module>-->
                 <module>demo-34-actuator-02</module>
