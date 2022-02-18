@@ -61,6 +61,7 @@
         <module>demo-30-starter-define-01</module>
         <module>demo-30-starter-usage-01</module>
         <module>demo-31-async-01</module>
+        <module>demo-32-es-01</module>
         <module>demo-33-jackson-01</module>
         <module>demo-33-jackson-02</module>
         <module>demo-29-db-jpa-02-custom</module>
@@ -317,7 +318,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
-                <module>demo-32-es-01</module>
                 <module>demo-32-es-02</module>
                 <module>demo-36-01-listener-springboot-24-pre</module>
             </modules>
@@ -340,8 +340,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-<!--                <module>demo-32-es-01</module>-->
-<!--                <module>demo-32-es-02</module>-->
                 <module>demo-34-actuator-02</module>
                 <module>demo-36-02-listener-springboot-24-post</module>
                 <module>demo-49-01-active-spring-boot-24-post</module>

@@ -6,11 +6,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
@@ -27,6 +33,7 @@ import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +46,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
 
 @RunWith(SpringRunner.class)
@@ -96,60 +104,60 @@ public class Application3201Tests {
     // 获取文档，判断是否存在 get /index/_doc/1
     @Test
     public void testIsExists() throws IOException {
-//        GetRequest request = new GetRequest("kuang_index", "1");
-//        // 不获取返回的 _source 的上下文数据
-//        request.fetchSourceContext(new FetchSourceContext(false));
-//        // 排序字段
-//        request.storedFields("_none_");
-//
-//        boolean exists = client.exists(request, RequestOptions.DEFAULT);
-//        log.info("result: {}", exists);
+        GetRequest request = new GetRequest("kuang_index", "1");
+        // 不获取返回的 _source 的上下文数据
+        request.fetchSourceContext(new FetchSourceContext(false));
+        // 排序字段
+        request.storedFields("_none_");
+
+        boolean exists = client.exists(request, RequestOptions.DEFAULT);
+        log.info("result: {}", exists);
     }
 
     // 获取文档信息
     @Test
     public void testGetDoc() throws IOException, ParseException {
-//        GetRequest request = new GetRequest("kibana_sample_data_logs", "8Pe1-nUBGMFI76K-eiLF");
-//        GetResponse response = client.get(request, RequestOptions.DEFAULT);
-//        Map<String, Object> source = response.getSource();
-//        Object timestamp = source.get("timestamp");
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//        Date timeDate = sdf.parse((String) timestamp);
-//        log.info("timeDate: {}", timeDate);
-//        log.info("timestamp: {}", timeDate.getTime());
-//        log.info("timestamp: {}", timestamp);
-//        log.info("result: {}", response.getSourceAsString());
-//        log.info("result: {}", response);   // 返回的全部内容和命令是一样的
-//
-//        SimpleDateFormat sdfLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-//        sdfLocal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-//        Date localDate = sdfLocal.parse("2020-11-16 10:59:45.071");
-//        log.info("timeDate-local: {}", localDate);
-//        log.info("timeStamp-local: {}", localDate.getTime());
+        GetRequest request = new GetRequest("kibana_sample_data_logs", "8Pe1-nUBGMFI76K-eiLF");
+        GetResponse response = client.get(request, RequestOptions.DEFAULT);
+        Map<String, Object> source = response.getSource();
+        Object timestamp = source.get("timestamp");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        Date timeDate = sdf.parse((String) timestamp);
+        log.info("timeDate: {}", timeDate);
+        log.info("timestamp: {}", timeDate.getTime());
+        log.info("timestamp: {}", timestamp);
+        log.info("result: {}", response.getSourceAsString());
+        log.info("result: {}", response);   // 返回的全部内容和命令是一样的
+
+        SimpleDateFormat sdfLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        sdfLocal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        Date localDate = sdfLocal.parse("2020-11-16 10:59:45.071");
+        log.info("timeDate-local: {}", localDate);
+        log.info("timeStamp-local: {}", localDate.getTime());
     }
 
     // 更新文档信息
     @Test
     public void testUpdateDoc() throws IOException {
-//        UpdateRequest request = new UpdateRequest("kuang_index", "1");
-//        request.timeout(TimeValue.timeValueSeconds(1));
-//
-//        User user = new User("狂神说Java", 18);
-//        request.doc(JsonUtil.serializable(user), XContentType.JSON);
-//
-//        UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
-//        log.info("result: {}", response.status());
-//        log.info("result: {}", response);   // 返回的全部内容和命令是一样的
+        UpdateRequest request = new UpdateRequest("kuang_index", "1");
+        request.timeout(TimeValue.timeValueSeconds(1));
+
+        User user = new User("狂神说Java", 18);
+        request.doc(JsonUtil.serializable(user), XContentType.JSON);
+
+        UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
+        log.info("result: {}", response.status());
+        log.info("result: {}", response);   // 返回的全部内容和命令是一样的
     }
 
     // 删除文档记录
     @Test
     public void testDeleteDoc() throws IOException {
-//        DeleteRequest request = new DeleteRequest("kuang_index", "3");
-//
-//        DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
-//        log.info("result:{}", response.status());
-//        log.info("result: {}", response);
+        DeleteRequest request = new DeleteRequest("kuang_index", "3");
+
+        DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+        log.info("result:{}", response.status());
+        log.info("result: {}", response);
     }
 
     @Test
