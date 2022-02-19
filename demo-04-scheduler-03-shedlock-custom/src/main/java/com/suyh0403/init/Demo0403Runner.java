@@ -23,12 +23,32 @@ public class Demo0403Runner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+//        testBaseShedlock();
+         testPlusShedlock();
+    }
+
+    private void testBaseShedlock() throws InterruptedException {
+//        customShedlock.executeRegistryWithLock("appname-base");
+//        TimeUnit.SECONDS.sleep(5);
+//        customShedlock.executeRegistryWithLock("appname-base");
         Executor executor = Executors.newScheduledThreadPool(20);
-        for (int i = 0; i < 10; i++) {
-            executor.execute(() ->  customShedlock.executeRegistryWithLock("appname-base"));
+        for (int i = 0; i < 20; i++) {
+            log.info("第{}个开始", i + 1);
+            executor.execute(() -> customShedlock.executeRegistryWithLock("appname-base"));
+            TimeUnit.SECONDS.sleep(1);
         }
-        for (int i = 0; i < 10; i++) {
-            executor.execute(() ->  {
+    }
+
+    private void testPlusShedlock() throws InterruptedException {
+//        boolean res1 = customShedlockPlus.executeRegistryWithLock("appname-plus");
+//        TimeUnit.SECONDS.sleep(5);
+//        boolean res2 = customShedlockPlus.executeRegistryWithLock("appname-plus");
+//        log.info("res1: {}, res2: {}", res1, res2);
+
+        Executor executor = Executors.newScheduledThreadPool(20);
+        for (int i = 0; i < 20; i++) {
+            log.info("第{}个开始", i + 1);
+            executor.execute(() -> {
                 boolean res = customShedlockPlus.executeRegistryWithLock("appname-plus");
                 log.info("plus execute result: {}", res);
             });
