@@ -2,7 +2,6 @@ package com.suyh.shedlock;
 
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.core.SchedulerLock;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,6 @@ import java.util.concurrent.TimeUnit;
  * );
  */
 @Component
-@EnableScheduling
 @Slf4j
 public class ScheduleShedlock {
 
@@ -41,12 +39,12 @@ public class ScheduleShedlock {
      * lockAtLeastFor & lockAtLeastForString:
      *      指定应保留锁定的最短时间。可以防止任务很短且节点之间的时钟差的情况下，多节点执行。
      */
-    @Scheduled(cron = "0 0 * * * ? ")
-    @SchedulerLock(name = "channelCronName", lockAtMostFor = 5 * 1000)
+    @Scheduled(cron = "*/10 * * * * ?")
+    @SchedulerLock(name = "channelCronName", lockAtLeastFor = 3 * 1000, lockAtMostFor = 5 * 1000)
     public void channelCron() {
-        log.info("*********每小时执行一次");
+        log.info("*********从整秒开始，每经过10 秒执行一次，最少持有该锁3 秒，最多持有该锁5 秒");
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             log.error("", e);
         }

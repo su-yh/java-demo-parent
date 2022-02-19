@@ -2,7 +2,6 @@ package com.suyh.task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import java.util.Date;
  * 如果添加了线程池的配置就会在线程池中运行
  */
 @Component
-@EnableScheduling
 public class SchedulerTask {
     private Logger logger = LoggerFactory.getLogger(SchedulerTask.class);
 

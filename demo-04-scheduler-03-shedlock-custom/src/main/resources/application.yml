@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://docker:3306/suyh_db_demo_0403?useSSL=false
+    username: root
+    password: root
+  profiles:
+    active: name01

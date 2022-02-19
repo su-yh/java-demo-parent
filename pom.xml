@@ -28,6 +28,7 @@
         <module>demo-03-jedis-01</module>
         <module>demo-04-scheduler-01</module>
         <module>demo-04-scheduler-02</module>
+        <module>demo-04-scheduler-03-shedlock-custom</module>
         <module>demo-06-mybatis-01</module>
         <module>demo-06-mybatis-02-common</module>
         <module>demo-06-mybatis-03-multi-db-01</module>
