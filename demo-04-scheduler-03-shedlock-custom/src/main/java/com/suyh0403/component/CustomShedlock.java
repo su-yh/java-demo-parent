@@ -84,14 +84,16 @@ public class CustomShedlock {
         @Override
         @NonNull
         public Optional<LockConfiguration> getLockConfiguration(@NonNull Runnable task) {
-            LockConfiguration lockConfiguration = new LockConfiguration(ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
+            LockConfiguration lockConfiguration = new LockConfiguration(
+                    ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
             return Optional.of(lockConfiguration);
         }
 
         @Override
         @NonNull
         public Optional<LockConfiguration> getLockConfiguration(Object object, Method method) {
-            LockConfiguration lockConfiguration = new LockConfiguration(ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
+            LockConfiguration lockConfiguration = new LockConfiguration(
+                    ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
             return Optional.of(lockConfiguration);
         }
     }

@@ -1,6 +1,7 @@
 package com.suyh0403.component;
 
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.core.ClockProvider;
 import net.javacrumbs.shedlock.core.LockConfiguration;
 import net.javacrumbs.shedlock.core.LockProvider;
 import net.javacrumbs.shedlock.core.SimpleLock;
@@ -9,14 +10,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.Duration;
-import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * TODO: suyh - 有问题，后面完全锁不住了。拿锁一直成功。
- */
 @Component
 @Slf4j
 public class CustomShedlockPlus {
@@ -44,18 +41,16 @@ public class CustomShedlockPlus {
             this.task();
             return true;
         } finally {
-            // 正常来说，我们应该马上释放锁让下次的请求正常获取到锁，但是某些场景我们可以不用释放锁，
-            // 让锁过期之后再允许获取，那么我们就可以不释放它。
             lock.get().unlock();
-            log.info("释放锁。");
         }
     }
 
     private LockConfiguration buildLockConfiguration(String lockName) {
-        Duration lockAtMost = Duration.ofSeconds(10);   // 持有锁最大时间
-        Duration lockAtLeast = Duration.ofSeconds(5);   // 持有锁最少时间
-        Instant now = Instant.now();
-        return new LockConfiguration(lockName, now.plus(lockAtMost), now.plus(lockAtLeast));
+        // 持有锁最大时间，如果持有锁的那个实例，一直没释放锁，那么达到该时间之后该锁也会失效。
+        Duration lockAtMost = Duration.ofSeconds(5);
+        // 持有锁最少时间，就算是主动释放了锁也需要3 秒之后才可以再次被锁。
+        Duration lockAtLeast = Duration.ofSeconds(3);
+        return new LockConfiguration(ClockProvider.now(), lockName, lockAtMost, lockAtLeast);
     }
 
     public void task() {
