@@ -1,19 +1,19 @@
 package com.suyh0403.component;
 
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.core.ClockProvider;
 import net.javacrumbs.shedlock.core.DefaultLockManager;
 import net.javacrumbs.shedlock.core.LockConfiguration;
 import net.javacrumbs.shedlock.core.LockConfigurationExtractor;
 import net.javacrumbs.shedlock.core.LockManager;
 import net.javacrumbs.shedlock.core.LockProvider;
-import net.javacrumbs.shedlock.spring.internal.SpringLockConfigurationExtractor;
+import net.javacrumbs.shedlock.spring.ExtendedLockConfigurationExtractor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Method;
 import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.TemporalAmount;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,17 +64,17 @@ public class CustomShedlock {
      * 这里自定义这个扩展类，主要是重写{@link #getLockConfiguration} 方法，在父类里面对task 做了一些要求。
      * 为了方便，这里不做太多限制，方便使用。
      */
-    private static class CustomLockConfigurationExtractor extends SpringLockConfigurationExtractor {
-        private final TemporalAmount lockAtMostFor;
-        private final TemporalAmount lockAtLeastFor;
+    private static class CustomLockConfigurationExtractor implements ExtendedLockConfigurationExtractor {
+        private final Duration lockAtMostFor;
+        private final Duration lockAtLeastFor;
         private final String lockName;
 
         public CustomLockConfigurationExtractor(
-                @NonNull TemporalAmount lockAtMostFor,
-                @NonNull TemporalAmount lockAtLeastFor,
+                @NonNull Duration lockAtMostFor,
+                @NonNull Duration lockAtLeastFor,
                 @NonNull String lockName) {
             // StringValueResolver 值直接置null。简化string 的解析，所有的字符串在这里都直接通过lockName 以及TemporalAmount 处理
-            super(lockAtMostFor, lockAtLeastFor, null);
+            // super(lockAtMostFor, lockAtLeastFor, null);
 
             this.lockAtMostFor = lockAtMostFor;
             this.lockAtLeastFor = lockAtLeastFor;
@@ -82,13 +82,16 @@ public class CustomShedlock {
         }
 
         @Override
-        public Optional<LockConfiguration> getLockConfiguration(Runnable task) {
-            if (task == null) {
-                return Optional.empty();
-            }
+        @NonNull
+        public Optional<LockConfiguration> getLockConfiguration(@NonNull Runnable task) {
+            LockConfiguration lockConfiguration = new LockConfiguration(ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
+            return Optional.of(lockConfiguration);
+        }
 
-            Instant now = Instant.now();
-            LockConfiguration lockConfiguration = new LockConfiguration(lockName, now.plus(lockAtMostFor), now.plus(lockAtLeastFor));
+        @Override
+        @NonNull
+        public Optional<LockConfiguration> getLockConfiguration(Object object, Method method) {
+            LockConfiguration lockConfiguration = new LockConfiguration(ClockProvider.now(), lockName, lockAtMostFor, lockAtLeastFor);
             return Optional.of(lockConfiguration);
         }
     }
