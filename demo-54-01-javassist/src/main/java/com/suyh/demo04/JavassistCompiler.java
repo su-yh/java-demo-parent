@@ -10,6 +10,8 @@ import javassist.CtNewMethod;
 import javassist.Modifier;
 import javassist.NotFoundException;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class JavassistCompiler {
@@ -17,6 +19,8 @@ public class JavassistCompiler {
         // 获取CtClass 实例的工具类 Class Type Class, 字节码类型的class 类
         ClassPool pool = ClassPool.getDefault();
         CtClass ctClass = genericClass(pool);
+        writeToFile1(ctClass);
+        writeToFile2(ctClass);
         invokeInstance(ctClass);
     }
 
@@ -36,12 +40,25 @@ public class JavassistCompiler {
         ctClass.addMethod(CtNewMethod.getter("getAge", ageField));
         ctClass.addMethod(CtNewMethod.setter("setAge", ageField));
 
-        // 向ctClass 中初始化无参构造器
+        /*
+         * 向ctClass 中初始化无参构造器:
+         * public Person() {
+         *      name = "zhangsan";
+         *      age = 23;
+         * }
+         */
         CtConstructor ctConstructor = new CtConstructor(new CtClass[]{}, ctClass);
         String body = "{\nname=\"zhangsan\";\nage=23;\n}";
         ctConstructor.setBody(body);
         ctClass.addConstructor(ctConstructor);
 
+        /*
+         * 添加一个方法
+         * public void personInfo() {
+         *      System.out.println("name="+name);
+         *      System.out.println("age="+age);
+         * }
+         */
         CtMethod ctMethod = new CtMethod(CtClass.voidType, "personInfo", new CtClass[]{}, ctClass);
         ctMethod.setModifiers(Modifier.PUBLIC);
         StringBuffer buffer = new StringBuffer();
@@ -51,6 +68,18 @@ public class JavassistCompiler {
         ctClass.addMethod(ctMethod);
 
         return ctClass;
+    }
+
+    private static void writeToFile1(CtClass ctClass) throws IOException, CannotCompileException {
+        ctClass.writeFile("e:/java-demo");
+    }
+
+    private static void writeToFile2(CtClass ctClass) throws IOException, CannotCompileException {
+        byte[] bytes = ctClass.toBytecode();
+        File file = new File("e:/java-demo/Person.class");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(bytes);
+        fos.close();
     }
 
     private static void invokeInstance(CtClass ctClass) throws Exception {
