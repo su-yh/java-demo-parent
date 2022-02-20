@@ -23,8 +23,8 @@ public class Demo0403Runner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        // testBaseShedlock();
-         testPlusShedlock();
+        testBaseShedlock();
+        testPlusShedlock();
     }
 
     private void testBaseShedlock() throws InterruptedException {

@@ -14,6 +14,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 直接使用{@link LockProvider} 进行动态获取并执行分布式锁的调用。
+ * 调用方法没有限制。而且更简单，方便。
+ */
 @Component
 @Slf4j
 public class CustomShedlockPlus {

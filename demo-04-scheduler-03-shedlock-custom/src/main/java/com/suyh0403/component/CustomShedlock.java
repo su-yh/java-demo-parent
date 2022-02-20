@@ -19,6 +19,10 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 借助{@link DefaultLockManager} 的实现，动态获取并执行分布式锁的调用。
+ * 但是仅支持{@link Runnable} 接口的方法。
+ */
 @Component
 @Slf4j
 public class CustomShedlock {
@@ -42,11 +46,11 @@ public class CustomShedlock {
     }
 
     private LockManager buildLockManager(String appName) {
-        Duration lockAtMost = Duration.ofSeconds(10);   // 持有锁最大时间
-        Duration lockAtLeast = Duration.ofSeconds(3);   // 持有锁最少时间
+        Duration lockAtMostFor = Duration.ofSeconds(10);   // 持有锁最大时间
+        Duration lockAtLeastFor = Duration.ofSeconds(3);   // 持有锁最少时间
         LockConfigurationExtractor lockConfigurationExtractor
                 = new CustomLockConfigurationExtractor(
-                lockAtMost, lockAtLeast, appName);
+                lockAtMostFor, lockAtLeastFor, appName);
         return new DefaultLockManager(lockProvider, lockConfigurationExtractor);
     }
 
