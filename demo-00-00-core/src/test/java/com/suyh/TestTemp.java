@@ -3,7 +3,7 @@ package com.suyh;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.suyh.entity.Person;
 import com.suyh.utils.JsonUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;

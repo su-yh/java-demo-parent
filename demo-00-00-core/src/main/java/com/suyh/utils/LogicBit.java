@@ -1,3 +1,5 @@
+package com.suyh.utils;
+
 public class LogicBit {
     private final boolean isLogicAnd;
     private boolean isInit = false;

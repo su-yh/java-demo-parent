@@ -1,3 +1,12 @@
+package com.suyh.utils;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.security.SecureRandom;
+import java.util.stream.IntStream;
+
 class LogicBitTest {
     private static final SecureRandom secureRandom = new SecureRandom();
 
@@ -74,3 +83,4 @@ class LogicBitTest {
     static IntStream rangeProvider() {
         return IntStream.range(1, 65);
     }
+}
