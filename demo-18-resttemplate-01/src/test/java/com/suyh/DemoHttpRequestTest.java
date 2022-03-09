@@ -76,6 +76,34 @@ public class DemoHttpRequestTest {
         }
     }
 
+    @Test
+    public void tttt() {
+        String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
+
+        // 这里应该是路径参数
+        // URI (URL) parameters
+        Map<String, String> urlParams = new HashMap<>();
+        urlParams.put("planet", "Mars");
+        urlParams.put("moon", "Phobos");
+
+        // 这里应该就是查询参数
+        // Query parameters
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
+                // Add query parameter
+                .queryParam("firstName", "Mark")
+                .queryParam("lastName", "Watney");
+
+
+        /*
+         * Console output:
+         * http://test.com/solarSystem/planets/Mars/moons/Phobos?firstName=Mark&lastName=Watney
+         */
+        URI uri = builder.buildAndExpand(urlParams).toUri();
+        restTemplate.exchange(uri , HttpMethod.PUT,
+                requestEntity, class_p);
+
+    }
+        
     /**
      * 随便生成一个请求参数
      *
