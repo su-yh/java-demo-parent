@@ -93,6 +93,8 @@ public class DemoHttpRequestTest {
                 .queryParam("firstName", "Mark")
                 .queryParam("lastName", "Watney");
 
+            // 如果没有路径参数就直接构建就可以了。
+        URI uri1 = builder.build().toUri();
 
         /*
          * Console output:
