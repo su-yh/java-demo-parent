@@ -1,5 +1,6 @@
 package com.suyh43.component;
 
+import com.suyh43.filter.RoutingFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,8 +23,11 @@ import java.util.List;
 /**
  * 路由转发代理
  * 有跨域问题
+ *
+ * @deprecated 参考: {@link RoutingFilter}
  */
 @Component
+@Deprecated
 @Slf4j
 public class RoutingDelegate {
     /**

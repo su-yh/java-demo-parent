@@ -2,6 +2,7 @@
 package com.suyh43.controller;
 
 import com.suyh43.component.RoutingDelegate;
+import com.suyh43.filter.RoutingFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求转发到sentinel 服务的请求
+ * @deprecated 参考：{@link RoutingFilter}
  */
 @RestController
 @RequestMapping("/redirect-service")
+@Deprecated
 @Slf4j
 public class RedirectSentinelController {
     @Resource
