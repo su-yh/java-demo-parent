@@ -1,5 +1,5 @@
 
-package com.suyh.demo5302;
+package com.suyh5303.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
@@ -16,13 +16,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class AppRuntimeMapping implements CuratorCacheListener, InitializingBean {
     public static final String LISTENER_PATH = "/mapping/app-instance";
-    private final CuratorFramework curator;
+    private final CuratorFramework client;
 
     // key: app name, value: arms runtime instance ip:port
     private final Map<String, String> mapping = new ConcurrentHashMap<>();
 
-    public AppRuntimeMapping(CuratorFramework curator) {
-        this.curator = curator;
+    public AppRuntimeMapping(CuratorFramework client) {
+        this.client = client;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AppRuntimeMapping implements CuratorCacheListener, InitializingBean
 
     public void start() {
         // 对指定路进行监听器的创建，每一个路径对应一个监听器
-        CuratorCache curatorCache = CuratorCache.build(curator, LISTENER_PATH);
+        CuratorCache curatorCache = CuratorCache.build(client, LISTENER_PATH);
         // 注册监听器
         curatorCache.listenable().addListener(this);
         // 开启监听器
