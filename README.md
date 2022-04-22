@@ -14,6 +14,8 @@ https://start.spring.io/
 
 # spring boot 与spring cloud 的版本匹配
 
+官网也有写版本映射：`https://spring.io/projects/spring-cloud`
+
 链接：`https://start.spring.io/actuator/info`
 
 ```json
