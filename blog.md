@@ -23,3 +23,6 @@ springboot 中获取所有的api 接口: https://baeldung-cn.com/spring-boot-get
 华为机试题库：https://www.nowcoder.com/ta/huawei/
 
 webclient 配置： https://www.hangge.com/blog/cache/detail_2640.html
+
+@ResponseBody不一定返回json: https://www.jianshu.com/p/c24d526d13c2
+
