@@ -26,3 +26,15 @@ webclient 配置： https://www.hangge.com/blog/cache/detail_2640.html
 
 @ResponseBody不一定返回json: https://www.jianshu.com/p/c24d526d13c2
 
+参考类：响应处理：`RequestResponseBodyMethodProcessor` 请求处理：`HttpMessageConverterExtractor`
+
+```java
+    // consumes 指定接收的请求头content-type 的类型，可以使用"!" 来做逻辑非运算。
+    // produces 指定响应的请求头content-type 的类型
+    @RequestMapping(method = RequestMethod.POST, 
+            consumes = "!" + MediaType.APPLICATION_JSON_VALUE, 
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String temp() {
+        return "OK";
+    }
+```
