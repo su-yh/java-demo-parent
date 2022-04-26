@@ -38,3 +38,17 @@ webclient 配置： https://www.hangge.com/blog/cache/detail_2640.html
         return "OK";
     }
 ```
+
+另外，还可以通过实现接口`WebMvcConfigurer` 来添加一些默认配置项。
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void configureContentNegotiation(@NonNull ContentNegotiationConfigurer configurer) {
+        // 配置默认的响应体类型，需要与请求头的Accept 匹配才可以，同时还需要有对应的解析器（即：需要将数据转换成JSON 的转换实现类，参考：HttpMessageConverter）。
+        // 这里的配置优先级低于：@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+        configurer.defaultContentType(MediaType.APPLICATION_JSON);
+    }
+}
+```
