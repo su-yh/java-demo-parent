@@ -52,3 +52,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 }
 ```
+
+
+websocket: https://blog.csdn.net/yingxiake/article/details/51213060
+
+https://zh.portaldacalheta.pt/using-spring-boot-websocket-implementation-with-stomp
+
+http://www.gxitsky.com/article/1605453579451554
+
