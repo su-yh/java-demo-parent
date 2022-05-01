@@ -3,6 +3,7 @@ package com.suyh5502.websocket.server.websocket;
 import com.suyh.utils.JsonUtil;
 import com.suyh5502.websocket.server.domain.Message;
 import com.suyh5502.websocket.server.domain.User;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -64,9 +65,11 @@ public class ChatWebSocketHandler implements WebSocketHandler {
      * 客户端发送服务器的消息时的处理函数，在这里收到消息之后可以分发消息
      */
     //处理消息：当一个新的WebSocket到达的时候，会被调用（在客户端通过Websocket API发送的消息会经过这里，然后进行相应的处理）
-    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> message) throws Exception {
+    public void handleMessage(@NonNull WebSocketSession webSocketSession, WebSocketMessage<?> message) throws Exception {
         //如果消息没有任何内容，则直接返回
-        if (message.getPayloadLength() == 0) return;
+        if (message.getPayloadLength() == 0) {
+            return;
+        }
         //反序列化服务端收到的json消息
         Message msg = JsonUtil.deserialize(message.getPayload().toString(), Message.class);
         msg.setDate(new Date());
@@ -78,10 +81,8 @@ public class ChatWebSocketHandler implements WebSocketHandler {
         System.out.println("消息（可存数据库作为历史记录）:" + message.getPayload().toString());
         //判断是群发还是单发
         if (msg.getTo() == null || msg.getTo().equals("-1")) {
-            //群发
             sendMessageToAll(new TextMessage(JsonUtil.serializable(msg)));
         } else {
-            //单发
             sendMessageToUser(msg.getTo(), new TextMessage(JsonUtil.serializable(msg)));
         }
     }
@@ -91,7 +92,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
      * 消息传输过程中出现的异常处理函数
      * 处理传输错误：处理由底层WebSocket消息传输过程中发生的异常
      */
-    public void handleTransportError(WebSocketSession webSocketSession, Throwable exception) throws Exception {
+    public void handleTransportError(WebSocketSession webSocketSession, @NonNull Throwable exception) throws Exception {
         // 记录日志，准备关闭连接
         System.out.println("Websocket异常断开:" + webSocketSession.getId() + "已经关闭");
         //一旦发生异常，强制用户下线，关闭session
@@ -134,7 +135,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
      * websocket链接关闭的回调
      * 连接关闭后：一般是回收资源等
      */
-    public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
+    public void afterConnectionClosed(WebSocketSession webSocketSession, @NonNull CloseStatus closeStatus) throws Exception {
         // 记录日志，准备关闭连接
         System.out.println("Websocket正常断开:" + webSocketSession.getId() + "已经关闭");
 

@@ -20,14 +20,13 @@ import javax.annotation.Resource;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-	//注入处理器
 	@Resource
 	private ChatWebSocketHandler webSocketHandler;
 	@Resource
 	private ChatHandshakeInterceptor chatHandshakeInterceptor;
 
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		//添加一个处理器还有定义处理器的处理路径
+		// 添加一个处理器还有定义处理器的处理路径: ${server.servlet.context-path}/ws
 		registry.addHandler(webSocketHandler, "/ws").addInterceptors(chatHandshakeInterceptor);
 	}
 }

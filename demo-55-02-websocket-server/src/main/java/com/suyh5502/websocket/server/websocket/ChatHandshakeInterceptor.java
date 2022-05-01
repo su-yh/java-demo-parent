@@ -1,14 +1,14 @@
 package com.suyh5502.websocket.server.websocket;
 
 import com.suyh5502.websocket.server.domain.User;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -23,26 +23,21 @@ public class ChatHandshakeInterceptor implements HandshakeInterceptor {
      * 握手之前，若返回false，则不建立链接
      */
     @Override
-    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-                                   Map<String, Object> attributes) throws Exception {
-        if (request instanceof ServletServerHttpRequest) {
-            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-            HttpSession session = servletRequest.getServletRequest().getSession(false);
-            //如果用户已经登录，允许聊天
-            if (session.getAttribute("loginUser") != null) {
-                //获取登录的用户
-                User loginUser = (User) session.getAttribute("loginUser");
-                //将用户放入socket处理器的会话(WebSocketSession)中
-                attributes.put("loginUser", loginUser);
-                System.out.println("Websocket:用户[ID:" + (loginUser.getId() + ",Name:" + loginUser.getNickname() + "]要建立连接"));
-            } else {
-                //用户没有登录，拒绝聊天
-                //握手失败！
-                System.out.println("--------------握手已失败...");
-                return false;
-            }
-        }
+    public boolean beforeHandshake(
+            @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response,
+            @NonNull WebSocketHandler wsHandler, @NonNull Map<String, Object> attributes) {
         System.out.println("--------------握手开始...");
+        HttpHeaders headers = request.getHeaders();
+        String id = headers.getFirst("id");
+        String nickName = headers.getFirst("NickName");
+        if (id == null || nickName == null) {
+            System.out.println("id or nick name is null");
+            return false;
+        }
+        User user = new User();
+        user.setId(id);
+        user.setNickname(nickName);
+        attributes.put("loginUser", user);
         return true;
     }
 
@@ -50,9 +45,9 @@ public class ChatHandshakeInterceptor implements HandshakeInterceptor {
      * 握手之后
      */
     @Override
-    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-                               Exception exception) {
+    public void afterHandshake(
+            @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response,
+            @NonNull WebSocketHandler wsHandler, Exception exception) {
         System.out.println("--------------握手成功啦...");
     }
-
 }
