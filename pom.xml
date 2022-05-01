@@ -92,6 +92,7 @@
         <module>demo-53-03-zookeeper-listener</module>
         <module>demo-54-01-javassist</module>
         <module>demo-55-01-websocket-echo</module>
+        <module>demo-55-02-websocket-server</module>
     </modules>
 
     <dependencyManagement>
