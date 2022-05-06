@@ -60,3 +60,13 @@ https://zh.portaldacalheta.pt/using-spring-boot-websocket-implementation-with-st
 
 http://www.gxitsky.com/article/1605453579451554
 
+翻译的中文文档：https://potoyang.gitbook.io/spring-in-action-v4/untitled-11
+
+消息转换器：
+
+ByteArrayMessageConverter  实现 MIME 类型为 “application/octetstream” 的消息与 byte[] 之间的相互转换
+
+MappingJackson2MessageConverter  实现 MIME 类型为 “application/json” 的消息与 Java 对象之间的相互转换
+
+StringMessageConverter  实现 MIME 类型为 “text/plain” 的消息与 String 之间的相互转换
+
