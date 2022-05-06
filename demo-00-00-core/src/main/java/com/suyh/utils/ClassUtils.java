@@ -29,10 +29,9 @@ public class ClassUtils {
                 continue;
             }
 
-            Object fieldValue = null;
             try {
                 field.setAccessible(true);  // 对私有属性打开允许访问标志
-                fieldValue = field.get(source);
+                Object fieldValue = field.get(source);
                 field.set(target, fieldValue);
             } catch (IllegalAccessException e) {
                 log.error("exception", e);
@@ -41,6 +40,7 @@ public class ClassUtils {
         }
     }
 
+    // TODO: suyh - 忽然发现这个方法似乎有些问题。
     public static <T> void strTrim(T entity, Class<?> clazz) {
         if (entity == null || clazz == null) {
             return;
@@ -56,39 +56,44 @@ public class ClassUtils {
                 field.setAccessible(true);
                 Object fieldValue = field.get(entity);
                 if (fieldValue == null) {
+                    field.set(entity, null);
                     continue;
                 }
 
-                if (fieldValue instanceof String) {
-                    String strValue = ((String) fieldValue).trim();
+                final Object newInstance = fieldValue.getClass().newInstance();
+                field.set(entity, newInstance);
+
+                // 基本类型
+                if (newInstance instanceof Integer
+                        || newInstance instanceof Boolean
+                        || newInstance instanceof Long
+                        || newInstance instanceof Double
+                        || newInstance instanceof Float
+                        || newInstance instanceof Date
+                        || newInstance instanceof Byte) {
+                    continue;
+                }
+
+                if (newInstance instanceof String) {
+                    String strValue = ((String) newInstance).trim();
                     field.set(entity, strValue);
                     log.info("field trim, class: {}, name: {} value: {}, type: {}",
                             clazz.getSimpleName(), field.getName(), field.get(entity), field.getType());
                 } else if (fieldValue instanceof Map) {
-                    Map<Object, Object> mapValue = (Map<Object, Object>) fieldValue;
-                    Collection<Object> values = mapValue.values();
-                    for (Object obj : values) {
-                        strTrim(obj, obj.getClass());
-                    }
+                    log.info("map 怎么处理呢？");
                 } else if (fieldValue instanceof Collection) {
                     Collection<Object> collObject = (Collection<Object>) fieldValue;
+                    Collection<Object> newCollObject = (Collection<Object>) newInstance;
                     for (Object obj : collObject) {
-                        strTrim(obj, obj.getClass());
+                        final Object newObj = obj.getClass().newInstance();
+                        newCollObject.add(newObj);
+                        strTrim(newObj, newObj.getClass());
                     }
-                } else if (fieldValue instanceof Integer
-                        || fieldValue instanceof Boolean
-                        || fieldValue instanceof Long
-                        || fieldValue instanceof Double
-                        || fieldValue instanceof Float
-                        || fieldValue instanceof Date
-                        || fieldValue instanceof Byte) {
-                    continue;
                 } else {
                     // 剩下的应该就是自定义类型了吧
-                    // String fieldValue = (String) field.get(entity);
-                    strTrim(fieldValue, fieldValue.getClass());
+                    strTrim(newInstance, newInstance.getClass());
                 }
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException | InstantiationException e) {
                 log.warn("strTrim failed", e);
             }
         }
