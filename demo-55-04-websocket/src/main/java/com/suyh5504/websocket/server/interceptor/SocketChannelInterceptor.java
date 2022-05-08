@@ -7,7 +7,7 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 
 /**
- *  另外 一种拦截器
+ * 另外 一种拦截器
  */
 public class SocketChannelInterceptor implements ChannelInterceptor {
 
@@ -15,8 +15,8 @@ public class SocketChannelInterceptor implements ChannelInterceptor {
      * 在完成发送之后进行调用，不管是否有异常发生，一般用于资源清理
      */
     @Override
-    public void afterSendCompletion(@NonNull Message<?> message, @NonNull MessageChannel channel,
-                                    boolean sent, Exception ex) {
+    public void afterSendCompletion(
+            @NonNull Message<?> message, @NonNull MessageChannel channel, boolean sent, Exception ex) {
         System.out.println("SocketChannelIntecepter->afterSendCompletion");
     }
 
@@ -34,16 +34,18 @@ public class SocketChannelInterceptor implements ChannelInterceptor {
      * 发送消息调用后立即调用
      */
     @Override
-    public void postSend(@NonNull Message<?> message, @NonNull MessageChannel channel,
-                         boolean sent) {
+    public void postSend(@NonNull Message<?> message, @NonNull MessageChannel channel, boolean sent) {
         System.out.println("SocketChannelIntecepter->postSend");
 
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(message);//消息头访问器
 
-        if (headerAccessor.getCommand() == null ) return ;// 避免非stomp消息类型，例如心跳检测
+        if (headerAccessor.getCommand() == null) {
+            // 避免非stomp消息类型，例如心跳检测
+            return;
+        }
 
         String sessionId = headerAccessor.getSessionAttributes().get("sessionId").toString();
-        System.out.println("SocketChannelIntecepter -> sessionId = "+sessionId);
+        System.out.println("SocketChannelIntecepter -> sessionId = " + sessionId);
 
         switch (headerAccessor.getCommand()) {
             case CONNECT:
@@ -62,13 +64,13 @@ public class SocketChannelInterceptor implements ChannelInterceptor {
     }
 
     //连接成功
-    private void connect(String sessionId){
-        System.out.println("connect sessionId="+sessionId);
+    private void connect(String sessionId) {
+        System.out.println("connect sessionId=" + sessionId);
     }
 
     //断开连接
-    private void disconnect(String sessionId){
-        System.out.println("disconnect sessionId="+sessionId);
+    private void disconnect(String sessionId) {
+        System.out.println("disconnect sessionId=" + sessionId);
         //用户下线操作
     }
 }
