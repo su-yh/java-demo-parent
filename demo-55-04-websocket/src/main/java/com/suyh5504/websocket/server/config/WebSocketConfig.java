@@ -1,5 +1,6 @@
 package com.suyh5504.websocket.server.config;
 
+import com.suyh5504.websocket.server.interceptor.HttpHandShakeInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,9 +15,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        HttpHandShakeInterceptor httpHandShakeInterceptor = new HttpHandShakeInterceptor();
         // 原来这里加上withSockJS() 的话，客户端需要添加一个/websocket 后缀才能连接上呢。
-        registry.addEndpoint("/stock-ticks");
-        registry.addEndpoint("/stock-ticks").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/stock-ticks").addInterceptors(httpHandShakeInterceptor);
+        registry.addEndpoint("/stock-ticks").addInterceptors(httpHandShakeInterceptor)
+                .setAllowedOriginPatterns("*").withSockJS();
     }
 
     @Override
