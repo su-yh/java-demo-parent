@@ -1,7 +1,9 @@
 package com.suyh5504.websocket.server.config;
 
 import com.suyh5504.websocket.server.interceptor.HttpHandShakeInterceptor;
+import com.suyh5504.websocket.server.interceptor.SocketChannelInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -27,5 +29,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         config.enableSimpleBroker("/topic");
         // 这个是指客户端访问服务端的时候需要添加的前缀
         config.setApplicationDestinationPrefixes("/app");
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new SocketChannelInterceptor());
+    }
+
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new SocketChannelInterceptor());
     }
 }

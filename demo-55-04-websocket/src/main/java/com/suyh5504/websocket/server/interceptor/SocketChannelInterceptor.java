@@ -6,9 +6,6 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 
-/**
- * 另外 一种拦截器
- */
 public class SocketChannelInterceptor implements ChannelInterceptor {
 
     /**
