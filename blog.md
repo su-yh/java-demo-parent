@@ -70,3 +70,5 @@ MappingJackson2MessageConverter  实现 MIME 类型为 “application/json” �
 
 StringMessageConverter  实现 MIME 类型为 “text/plain” 的消息与 String 之间的相互转换
 
+mini k8s: https://kubernetes.io/zh/docs/tutorials/hello-minikube/
+
