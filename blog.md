@@ -72,3 +72,6 @@ StringMessageConverter  实现 MIME 类型为 “text/plain” 的消息与 Stri
 
 mini k8s: https://kubernetes.io/zh/docs/tutorials/hello-minikube/
 
+k8s 教程：https://www.jianshu.com/p/ef400bfea973
+
+
