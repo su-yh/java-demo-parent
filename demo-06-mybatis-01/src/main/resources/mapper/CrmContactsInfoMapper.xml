@@ -47,6 +47,18 @@
       #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR})
   </insert>
+  <!-- TODO: suyh - 这里做的是笔记，记录插入更新的条件语句，基于mysql。 -->
+  <!-- TODO: suyh - 但是要注意的是，如果没有数据更新，或者没有数据插入，自增主键的id 值将不会有返回，需要做判断，如果返回值的id 为null，再重新去数据库查询。 -->
+  <insert id="insert" parameterType="com.suyh.model.CrmContactsInfo" useGeneratedKeys="true" keyProperty="entity.id" keyColumn="id">
+    insert into tpl_gov_microservice_t
+        (<include refid="insertColumns"/>)
+        values (<include refid="insertValues"/>)
+        on duplicate key update
+        service_id = #{entity.serviceId, jdbcType=VARCHAR},
+        context_path = #{entity.contextPath, jdbcType=VARCHAR},
+        service_type = #{entity.serviceType, jdbcType=VARCHAR},
+        last_updated_date = CURRENT_TIMESTAMP(3)
+  </insert>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
