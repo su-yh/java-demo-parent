@@ -123,6 +123,8 @@
                     charset="UTF-8"/>
 
             <Policies>
+                <!--每次启动新创建日志文件，而不在原来日志文件上写-->
+                <OnStartupTriggeringPolicy/>
                 <!--
                     这是什么情况，为什么会有这个报错?
                     ERROR Policies contains an invalid element or attribute "CronTriggeringPolicy"
@@ -164,6 +166,8 @@
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-5p %logger{36} [%pid:%t] %c{20}:%L --- %msg%n%ex"
                     charset="UTF-8"/>
             <Policies>
+                <!--每次启动新创建日志文件，而不在原来日志文件上写-->
+                <OnStartupTriggeringPolicy/>
                 <TimeBasedTriggeringPolicy interval="1" modulate="false"/>
                 <SizeBasedTriggeringPolicy size="10 MB"/>
             </Policies>
@@ -185,7 +189,8 @@
 
         <!--
             name 特殊指明某个自定义logger对象  可以为字符串，也可以为指定类的全路径
-            additivity =false则不往root路径下的日志里边打印    level为info级别
+            additivity=false则不往root路径下的日志里边打印(如果想某些日志只往某个日志文件中输出，则该值应该置为false)
+                level为info级别
             下边的appender-ref 指定哪一个appender
          -->
         <!-- 这里的日志配置，我只写到sp 对应的文件中。其他的日志文件以及控制台都不会有。 -->
