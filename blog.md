@@ -8,6 +8,7 @@ JMX超详细解读: https://www.cnblogs.com/dongguacai/p/5900507.html
 
 spring boot admin: https://juejin.cn/post/6844903984109617165
 
+spring boot @Import 注解： https://www.cnblogs.com/imyjy/p/16092825.html
 
 HttpClient详细梳理: https://www.jianshu.com/p/14c005e9287c
 
