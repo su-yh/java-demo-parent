@@ -37,12 +37,14 @@ public class SuyhTestInit implements ApplicationRunner {
                 redisMessagePublisher.publish(Student.getTopic(), stu);
             }
         }, 1000L, 1000L);
+        // 动态添加订阅，5 秒后再订阅
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 log.info("add listener topic.");
+                // 前缀订阅：new PatternTopic("/redis/*")
                 listenerContainer.addMessageListener(listener, new PatternTopic("/redis/publish"));
             }
-        }, 20_000L);
+        }, 5_000L);
     }
 }
