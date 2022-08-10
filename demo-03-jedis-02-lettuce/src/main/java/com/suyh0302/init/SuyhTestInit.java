@@ -43,6 +43,9 @@ public class SuyhTestInit implements ApplicationRunner {
             public void run() {
                 log.info("add listener topic.");
                 // 前缀订阅：new PatternTopic("/redis/*")
+                // PatternTopic.of("/**")
+                // PatternTopic.of("/*/publish")
+                // PatternTopic.of("/redis/*")
                 listenerContainer.addMessageListener(listener, new PatternTopic("/redis/publish"));
             }
         }, 5_000L);
