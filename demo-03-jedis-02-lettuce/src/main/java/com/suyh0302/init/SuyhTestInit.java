@@ -46,6 +46,7 @@ public class SuyhTestInit implements ApplicationRunner {
                 // PatternTopic.of("/**")
                 // PatternTopic.of("/*/publish")
                 // PatternTopic.of("/redis/*")
+                // 验证了一下，好像只能得到最新的推送，如果是在启动之前的推送是获取不到的。
                 listenerContainer.addMessageListener(listener, new PatternTopic("/redis/publish"));
             }
         }, 5_000L);
