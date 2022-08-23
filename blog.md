@@ -78,3 +78,5 @@ k8s 教程：https://www.jianshu.com/p/ef400bfea973
 k8s pod 与node 的区别说明：https://blog.csdn.net/zy103118/article/details/117964731
 
 supertoken: https://supertokens.com
+
+jwt token: https://blog.51cto.com/u_15127630/3892206
