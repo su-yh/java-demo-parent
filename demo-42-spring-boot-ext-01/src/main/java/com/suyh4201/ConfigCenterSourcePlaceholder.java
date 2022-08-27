@@ -20,10 +20,6 @@ import java.util.Map;
  * @since 2021-06-18
  */
 public class ConfigCenterSourcePlaceholder implements EnvironmentPostProcessor, Ordered {
-
-    /**
-     * 配置中心属性名，用于存放在系统属性中。
-     */
     public static final String SOURCE_PLACEHOLDER = "sourcePlaceholder";
 
     @Override
