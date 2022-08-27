@@ -2,3 +2,6 @@ suyh:
   tmp: nothing
   env:
     key: xxxooo
+
+  config-center:
+    enabled: true
