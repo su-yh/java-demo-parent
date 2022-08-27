@@ -3,6 +3,7 @@ package com.suyh4201;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.logging.DeferredLog;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
@@ -20,6 +21,10 @@ import java.util.Map;
  * @since 2021-06-18
  */
 public class ConfigCenterSourcePlaceholder implements EnvironmentPostProcessor, Ordered {
+
+    // 在这里还没有日志可用，但是可以使用该对象来处理相关日志，在日志初始化之后，它会将这些日志打印出来。
+    private static final DeferredLog logger = new DeferredLog();
+
     public static final String SOURCE_PLACEHOLDER = "sourcePlaceholder";
 
     @Override
@@ -33,6 +38,10 @@ public class ConfigCenterSourcePlaceholder implements EnvironmentPostProcessor, 
         // 为配置中心的配置属性资源占位。后面会从配置中心拉取相关数据然后替换该位置上的所有配置属性。
         // 即： 这里的configCenterProperties 是没有任何意义的。
         sources.addLast(new MapPropertySource(SOURCE_PLACEHOLDER, configCenterProperties));
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("config center value.");
+        }
     }
 
     private Map<String, Object> buildMap() {
