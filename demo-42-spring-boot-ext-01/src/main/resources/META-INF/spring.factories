@@ -1,2 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
   com.suyh4201.ConfigCenterLoader
+
+org.springframework.context.ApplicationListener=\
+  com.suyh4201.ApplicationEnvironmentPreparedEventListener
