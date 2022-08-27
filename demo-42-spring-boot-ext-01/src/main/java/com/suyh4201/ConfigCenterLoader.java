@@ -1,7 +1,7 @@
 package com.suyh4201;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.context.config.ConfigFileApplicationListener;
+import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -30,11 +30,8 @@ public class ConfigCenterLoader implements EnvironmentPostProcessor, Ordered {
     // 当然，放到系统环境变量中也是可以的。
     public static final String ENABLED_CONFIG_CENTER = "suyh.ext.config.center.enabled";
 
-    private ConfigurableEnvironment environment;
-
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        this.environment = environment;
         // 是否禁止连接到配置中心
         Boolean enabledConfigCenter = environment.getProperty(ENABLED_CONFIG_CENTER, Boolean.class, Boolean.TRUE);
         if (!enabledConfigCenter) {
@@ -59,6 +56,10 @@ public class ConfigCenterLoader implements EnvironmentPostProcessor, Ordered {
     @Override
     public int getOrder() {
         // 在配置文件加载之前，这个也很重要，它指定了要在应用配置文件加载之前执行。
-        return ConfigFileApplicationListener.DEFAULT_ORDER - 2;
+        // 因为该监听事件的所有功能都是一起做的，但是会按排序的先后顺序开始。
+        // 而配置文件的名称并不固定，所以并不好找到对应的资源名称
+        return ConfigDataEnvironmentPostProcessor.ORDER - 2;
+        // 低版本的被标记为过时了
+        // return ConfigFileApplicationListener.DEFAULT_ORDER - 2;
     }
 }
