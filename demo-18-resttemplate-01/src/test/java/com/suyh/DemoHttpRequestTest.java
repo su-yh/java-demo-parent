@@ -105,11 +105,20 @@ public class DemoHttpRequestTest {
          * Console output:
          * http://test.com/solarSystem/planets/Mars/moons/Phobos?firstName=Mark&lastName=Watney
          */
-        HttpEntity<String> requestEntity = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<Notice> reqEntity = new HttpEntity<>(new Notice(), headers);
 
         URI uri = builder.buildAndExpand(urlParams).toUri();
-        restTemplate.exchange(uri , HttpMethod.PUT, requestEntity, String.class);
+        // 返回值类型可以指定一个class 
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(
+                uri, HttpMethod.PUT, reqEntity, String.class);
+        if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+            return;
+        }
 
+        final String responseEntityBody = responseEntity.getBody();
     }
         
     /**
