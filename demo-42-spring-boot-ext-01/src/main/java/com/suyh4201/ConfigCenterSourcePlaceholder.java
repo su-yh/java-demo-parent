@@ -42,6 +42,9 @@ public class ConfigCenterSourcePlaceholder implements EnvironmentPostProcessor, 
         if (logger.isDebugEnabled()) {
             logger.debug("config center value.");
         }
+        
+        // 将日志缓存绑定到ConfigCenterSourcePlaceholder 中，在后续日志系统启动之后打印出来。
+        logger.replayTo(ConfigCenterSourcePlaceholder.class);
     }
 
     private Map<String, Object> buildMap() {
