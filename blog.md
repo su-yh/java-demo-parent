@@ -80,3 +80,7 @@ k8s pod 与node 的区别说明：https://blog.csdn.net/zy103118/article/details
 supertoken: https://supertokens.com
 
 jwt token: https://blog.51cto.com/u_15127630/3892206
+
+spring mvc 源码解析：
+1. https://zhuanlan.zhihu.com/p/58354248
+2. https://www.cnblogs.com/fangjian0423/p/springMVC-directory-summary.html
