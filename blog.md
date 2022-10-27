@@ -84,3 +84,6 @@ jwt token: https://blog.51cto.com/u_15127630/3892206
 spring mvc 源码解析：
 1. https://zhuanlan.zhihu.com/p/58354248
 2. https://www.cnblogs.com/fangjian0423/p/springMVC-directory-summary.html
+
+腾讯北极星：
+https://polarismesh.cn/zh/doc/%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86/%E5%8C%97%E6%9E%81%E6%98%9F%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.html#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86
