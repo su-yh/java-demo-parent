@@ -368,6 +368,13 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <!--使application*.* 中可以使用${xxx} 来引用pom.xml 中配置的变量，但不能直接被spring 加载到。-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <!--        <resources>-->
         <!--            <resource>-->
         <!--                <directory>${project.basedir}/src/main/resources</directory>-->
