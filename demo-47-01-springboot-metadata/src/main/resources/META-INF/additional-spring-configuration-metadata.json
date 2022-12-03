@@ -31,6 +31,22 @@
           "value": "array-value-02"
         }
       ]
+    },
+    {
+      "name": "some.service.any-value",
+      "values": [
+        {
+          "value": "value-1"
+        },
+        {
+          "value": "value-2"
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
     }
   ]
 }
