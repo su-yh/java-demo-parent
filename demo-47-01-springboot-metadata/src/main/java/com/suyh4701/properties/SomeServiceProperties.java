@@ -60,6 +60,8 @@ public class SomeServiceProperties {
      */
     private List<String> values;
 
+    private String anyValue;
+
     /**
      * 对于过时的配置项，使用注解添加，可以在配置文件里面被识别
      */
