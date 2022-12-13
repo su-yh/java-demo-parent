@@ -87,3 +87,11 @@ spring mvc 源码解析：
 
 腾讯北极星：
 https://polarismesh.cn/zh/doc/%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86/%E5%8C%97%E6%9E%81%E6%98%9F%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86/%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86.html#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86
+
+
+java agent: 在main 方法运行前的处理
+
+skywakling: https://github.com/apache/skywalking-java
+skywalking学习视频：https://www.bilibili.com/video/BV1dy4y1V7ck/?p=7&spm_id_from=pageDriver&vd_source=aeeb0d76d779ad41a6bb47f7e362ee98
+skywalking 中文文档(古老)：https://github.com/SkyAPM/document-cn-translation-of-skywalking
+
