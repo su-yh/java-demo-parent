@@ -95,3 +95,4 @@ skywakling: https://github.com/apache/skywalking-java
 skywalking学习视频：https://www.bilibili.com/video/BV1dy4y1V7ck/?p=7&spm_id_from=pageDriver&vd_source=aeeb0d76d779ad41a6bb47f7e362ee98
 skywalking 中文文档(古老)：https://github.com/SkyAPM/document-cn-translation-of-skywalking
 
+字节码修改技术: bytebuddy
