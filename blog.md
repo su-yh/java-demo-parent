@@ -96,3 +96,6 @@ skywalking学习视频：https://www.bilibili.com/video/BV1dy4y1V7ck/?p=7&spm_id
 skywalking 中文文档(古老)：https://github.com/SkyAPM/document-cn-translation-of-skywalking
 
 字节码修改技术: bytebuddy
+
+SOFABoot  SOFAArk   https://www.sofastack.tech/projects/sofa-boot/sofa-ark-readme/
+定义类加载模型，运行时底层插件、业务应用(模块)之间均相互隔离，单一插件和应用(模块)由不同的 ClassLoader 加载，可以有效避免相互之间的包冲突，提升插件和模块功能复用能力；
