@@ -101,3 +101,5 @@ SOFABoot  SOFAArk   https://www.sofastack.tech/projects/sofa-boot/sofa-ark-readm
 定义类加载模型，运行时底层插件、业务应用(模块)之间均相互隔离，单一插件和应用(模块)由不同的 ClassLoader 加载，可以有效避免相互之间的包冲突，提升插件和模块功能复用能力；
 Java隔离容器之sofa-ark使用说明及源码解析: https://juejin.cn/post/6844903653828984845
 业务系统模块化之模块化隔离方案：https://www.sofastack.tech/blog/sofastack-modular-isolation/
+
+微服务治理技术白皮书: https://developer.aliyun.com/ebook/7565?spm=opensergo-website.topbar.0.0.0
