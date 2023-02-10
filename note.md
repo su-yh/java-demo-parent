@@ -21,4 +21,4 @@ Apsara Clouder云计算专项技能认证：云服务器ECS入门：https://edu.
 
 疑难问题：
 1. @ConfigurationProperties 没有绑定到实际配置值的问题(原因就是有一个BeanFactoryPostProcessor 依赖了这个bean 对象，使用这个配置bean 对象提前创建，而配置的绑定实现是一个BeanPostProcessor)；
-2. 
+2. 框架实现问题，通过调试找出源代码逻辑问题以解决。(比如dev 环境不让连配置中心，spring.profiles.active 只允许 使用指定的几个值，以及Scanbackpakeage 将所有的注解都扫描，没法在业务层控制)
