@@ -92,12 +92,24 @@ https://polarismesh.cn/zh/doc/%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86/%E5%8C%97%E6%
 java agent: 在main 方法运行前的处理
 
 skywakling: https://github.com/apache/skywalking-java
+
 skywalking学习视频：https://www.bilibili.com/video/BV1dy4y1V7ck/?p=7&spm_id_from=pageDriver&vd_source=aeeb0d76d779ad41a6bb47f7e362ee98
+
 skywalking 中文文档(古老)：https://github.com/SkyAPM/document-cn-translation-of-skywalking
 
 字节码修改技术: bytebuddy
 
 SOFABoot  SOFAArk   https://www.sofastack.tech/projects/sofa-boot/sofa-ark-readme/
+
 定义类加载模型，运行时底层插件、业务应用(模块)之间均相互隔离，单一插件和应用(模块)由不同的 ClassLoader 加载，可以有效避免相互之间的包冲突，提升插件和模块功能复用能力；
 Java隔离容器之sofa-ark使用说明及源码解析: https://juejin.cn/post/6844903653828984845
+
 业务系统模块化之模块化隔离方案：https://www.sofastack.tech/blog/sofastack-modular-isolation/
+
+微服务治理技术白皮书: https://developer.aliyun.com/ebook/7565?spm=opensergo-website.topbar.0.0.0
+
+higress:  https://higress.io/zh-cn/
+
+WSL  windows 上运行linux 系统： https://learn.microsoft.com/zh-cn/windows/wsl/install
+
+
