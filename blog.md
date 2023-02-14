@@ -112,4 +112,4 @@ higress:  https://higress.io/zh-cn/
 
 WSL  windows 上运行linux 系统： https://learn.microsoft.com/zh-cn/windows/wsl/install
 
-
+ServiceMesh的关键：边车模式（sidecar）： https://zhuanlan.zhihu.com/p/258527216
