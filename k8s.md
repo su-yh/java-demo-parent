@@ -36,6 +36,12 @@ Please check the result using the command:
 改密码：
 
 ```txt
-K3bdp-su
+K3bdp-2023
+```
+
+忘记密码，可以使用命令改密码：
+将admin 密码改为：admin
+```txt
+kubectl patch users admin -p '{"spec":{"password":"admin"}}' --type='merge' && kubectl annotate users admin iam.kubesphere.io/password-encrypted-
 ```
 
