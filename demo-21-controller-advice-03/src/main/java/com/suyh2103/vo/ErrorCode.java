@@ -2,8 +2,9 @@ package com.suyh2103.vo;
 
 public enum ErrorCode {
     OK(0, "成功"),
-    ERROR(-1, "出错了"),
-    ERROR_SUYH(-2, "suyh 的错误码枚举"),
+    ERROR(-1, "500 错误"),
+    ERROR_SUYH(-2, "suyh 业务出错了"),
+    ERROR_SYSTEM(-3, "服务错误");
     ;
 
     private final Integer code;
