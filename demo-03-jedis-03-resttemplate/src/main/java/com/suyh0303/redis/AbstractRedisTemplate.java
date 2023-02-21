@@ -1,3 +1,22 @@
+package com.suyh0303.redis;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.suyh.utils.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> {
     private final RedisConnectionFactory factory;
@@ -13,7 +32,7 @@ public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> 
     @Override
     public void afterPropertiesSet() {
         ObjectMapper mapper = new ObjectMapper();
-        JsonUtils.mapperConfig(mapper);
+        JsonUtil.initMapper(mapper);
         serializer.setObjectMapper(mapper);
 
         final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
