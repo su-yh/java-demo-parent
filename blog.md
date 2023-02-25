@@ -2,6 +2,8 @@ spring boot tomcat 源码分析参考博客：https://www.jianshu.com/p/9da2b1e7
 
 spring boot 启动分析参考博客：https://www.jianshu.com/p/84f45bea357c
 
+spring boot 源码博客： https://blog.csdn.net/woshilijiuyi/article/details/82219585
+
 开源框架是如何通过JMX来做监控的(一) - JMX简介和Standard MBean: https://www.cnblogs.com/trust-freedom/p/6842332.html
 
 JMX超详细解读: https://www.cnblogs.com/dongguacai/p/5900507.html
@@ -112,4 +114,20 @@ higress:  https://higress.io/zh-cn/
 
 WSL  windows 上运行linux 系统： https://learn.microsoft.com/zh-cn/windows/wsl/install
 
+ServiceMesh的关键：边车模式（sidecar）： https://zhuanlan.zhihu.com/p/258527216
 
+Istio 
+Envoy 
+
+正则表达式图形表示 工具： https://regexper.com/
+
+POST MAN ：https://warped-crescent-146654.postman.co
+
+
+sentinel 的规则配置同步功能借助nacos 来实现。
+但是nacos 是有状态服务，且性能受资源的影响，在实际的使用过程中也遇到了一些问题，进而影响业务的正常功能。
+所以我们对该功能进行自行实现，借鉴nacos 与apollo 的长轮询思路实现了arwen 服务，来实现所有sentinel client 实例的规则配置的实时同步能力。
+这里面最大的问题就是缓存问题，如果同一个集群的多个sentinel client 被分流到了不同的arwen 那么如果使用本地缓存的话，那么所有的arwen 实例都将缓存所有的集群规则配置，这显示是不现实的。
+所以最开始的时候是通过请求头hash 的方式来将相同集群的所有实例分流到同一个arwen 服务，这样相同sentinel client 集群的规则配置将只会存在于一台arwen 服务上面。
+后来引入了redis，然后我们就将本地缓存取消然后使用redis 缓存能力。
+但是这样也引起了另一个问题，那就是初始化时redis 中没数据。与界面修改后，redis 修改了，要同步到arwen中。这里最后采用的redis 事件通知能力来实现的。

@@ -2,6 +2,7 @@ package com.suyh.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,8 +38,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public String customException(Exception e) {
+    public String customException(Exception e, HttpServletResponse response) {
         log.error("get Exception, message: {}", e.getMessage());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error result";
     }
 
@@ -48,8 +51,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(RuntimeException.class)
-    public String customRuntimeException(RuntimeException e) {
+    public String customRuntimeException(RuntimeException e, HttpServletResponse response) {
         log.error("get RuntimeException, message: {}", e.getMessage());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return "error runtime exception";
     }
 
@@ -61,7 +65,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handlerException(MethodArgumentNotValidException exception) {
+    public String handlerException(MethodArgumentNotValidException exception, HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         BindingResult bindingResult = exception.getBindingResult();
         return resultMessage(bindingResult);
     }
@@ -73,8 +78,9 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(WebExchangeBindException.class)
-    public String handlerException(WebExchangeBindException exception) {
+    public String handlerException(WebExchangeBindException exception, HttpServletResponse response) {
         log.error("get RuntimeException, message: {}", exception.getMessage());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return exception.getFieldErrors().stream()
                 .map(e -> e.getField() + ":" + e.getDefaultMessage())
                 .reduce("", (s1, s2) -> s1 + "\n" + s2);
@@ -88,7 +94,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(BindException.class)
-    public String handlerException(BindException exception) {
+    public String handlerException(BindException exception, HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return resultMessage(exception.getBindingResult());
     }
 
@@ -122,8 +129,9 @@ public class GlobalExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(value = {SQLException.class})
-    String handleControllerException(SQLException exception) {
+    String handleControllerException(SQLException exception, HttpServletResponse response) {
         log.error("CelonBpmCoreExceptionHandler, SQLException", exception);
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         String message = "internal error【SQL】. Please contact the jalor bpm administrator.";
         return makeResult(1, message);
     }
@@ -135,8 +143,9 @@ public class GlobalExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(value = {NullPointerException.class})
-    String handleControllerException(NullPointerException exception) {
+    String handleControllerException(NullPointerException exception, HttpServletResponse response) {
         log.error("CelonBpmCoreExceptionHandler, NullPointerException", exception);
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         String message = exception.getMessage();
         String result = null;
         if (StringUtils.isEmpty(message)) {
@@ -155,8 +164,9 @@ public class GlobalExceptionHandler {
      * @return result
      */
     @ExceptionHandler(value = {ServletRequestBindingException.class})
-    String handleControllerException(ServletRequestBindingException exception) {
+    String handleControllerException(ServletRequestBindingException exception, HttpServletResponse response) {
         log.error("failed, ServletRequestBindingException", exception);
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return makeResult(-1, exception.getMessage());
     }
     
@@ -167,8 +177,9 @@ public class GlobalExceptionHandler {
      * @return the response entity
      */
     @ExceptionHandler(value = {IllegalArgumentException.class})
-    String handleControllerException(IllegalArgumentException exception) {
+    String handleControllerException(IllegalArgumentException exception, HttpServletResponse response) {
         log.error("CelonBpmCoreExceptionHandler, IllegalArgumentException", exception);
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return makeResult(1, exception.getMessage());
     }
 
