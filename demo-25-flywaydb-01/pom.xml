@@ -32,6 +32,15 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <!--
+
+Flyway Community Edition 8.0.0-beta1 不再支持超过 5 年的数据库，包括 MySQL 5.7。
+
+this commit 中支持的最低 MySQL 版本从 5.7 提高到 8.0，在Flyway 8.0.0-beta1 中引入。
+
+目前支持 MySQL 5.7 的最新社区版版本为Flyway 7.15.0。
+-->
+            <version>7.15.0</version>
         </dependency>
 
         <!-- 属性加解密包 -->
