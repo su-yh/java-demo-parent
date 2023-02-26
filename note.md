@@ -28,3 +28,19 @@ Apsara Clouder云计算专项技能认证：云服务器ECS入门：https://edu.
 翻阅并阅读其全量核心源代码，基于源代码修改以实现环境隔离，并能满足华为的相关安全要求的处理。
 对于框架提供的配置中心sdk 的笨重，太多依赖不够单纯，重新对配置中心实现客户端sdk。
 实现多网络环境隔离要求的能力，在相同的代码框架下面对实现进行相关管理。
+
+```bash
+证书命令
+# 生成证书
+# -alias jalor_gateway  别名：jalor_gateway
+# -keyalg RSA  RSA 加密算法
+# -validity 1 有效期1天
+# -keystore d:/ssl/truststore.jks   存放路径
+# -storepass gateway   密码：gateway
+    keytool -genkey -alias jalor_gateway -keyalg RSA -keysize 1024 -keypass gateway -validity 1 -keystore d:/ssl/truststore.jks -deststoretype pkcs12 -storepass gateway 
+导入证书
+    keytool -import -alias HWIT -keystore  d:/ssl/truststore.jks -file  d:/ssl/HWIT.crt   -storepass gateway
+删除证书
+    keytool -delete -alias HWIT -keystore "d:/ssl/truststore.jks" -storepass gateway
+    keytool -delete -alias jalor_gateway -keystore "d:/ssl/truststore.jks" -storepass gateway
+```
