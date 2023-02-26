@@ -16,17 +16,20 @@ public class CurrUserArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         CurrLoginUser ann = parameter.getParameterAnnotation(CurrLoginUser.class);
+        if (ann == null) {
+            return false;
+        }
         Class<?> parameterType = parameter.getParameterType();
-        return (ann != null &&
-                (CurrUserVo.class.isAssignableFrom(parameterType)
-                        || Map.class.isAssignableFrom(parameterType)
-                        || Object.class.isAssignableFrom(parameterType)));
+        return (CurrUserVo.class.isAssignableFrom(parameterType)
+                || Map.class.isAssignableFrom(parameterType)
+                || Object.class.isAssignableFrom(parameterType));
     }
 
     @Override
     public Object resolveArgument(@NonNull MethodParameter parameter, ModelAndViewContainer container, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         // 获取到拦截器放到属性中的user 对象
+        assert request != null;
         return request.getAttribute("currLoginUser");
     }
 }
