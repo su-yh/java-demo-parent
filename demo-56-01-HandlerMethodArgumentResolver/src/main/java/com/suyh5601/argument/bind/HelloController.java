@@ -13,17 +13,17 @@ public class HelloController {
 
     @ResponseBody
     @GetMapping("/test/curruser")
-    public Object testCurrUser(@CurrUser CurrUserVo currUser) {
+    public Object testCurrUser(@CurrLoginUser CurrUserVo currUser) {
         return currUser;
     }
     @ResponseBody
     @GetMapping("/test/curruser/map")
-    public Object testCurrUserMap(@CurrUser Map<String,Object> currUser) {
+    public Object testCurrUserMap(@CurrLoginUser Map<String,Object> currUser) {
         return currUser;
     }
     @ResponseBody
     @GetMapping("/test/curruser/object")
-    public Object testCurrUserObject(@CurrUser Object currUser) {
+    public Object testCurrUserObject(@CurrLoginUser Object currUser) {
         return currUser;
     }
 }
