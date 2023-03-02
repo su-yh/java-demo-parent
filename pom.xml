@@ -69,6 +69,7 @@
         <module>demo-31-async-01</module>
         <module>demo-33-jackson-01</module>
         <module>demo-33-jackson-02</module>
+        <module>demo-33-jackson-03</module>
         <module>demo-29-db-jpa-02-custom</module>
         <module>demo-34-actuator-01</module>
         <module>demo-35-aware-01</module>
@@ -97,6 +98,7 @@
         <module>demo-54-01-javassist</module>
         <module>demo-55-01-websocket-echo</module>
         <module>demo-55-04-websocket</module>
+        <module>demo-56-01-HandlerMethodArgumentResolver</module>
         <module>demo-21-controller-advice-03</module>
     </modules>
 
