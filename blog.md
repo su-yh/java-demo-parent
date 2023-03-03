@@ -131,3 +131,6 @@ sentinel 的规则配置同步功能借助nacos 来实现。
 所以最开始的时候是通过请求头hash 的方式来将相同集群的所有实例分流到同一个arwen 服务，这样相同sentinel client 集群的规则配置将只会存在于一台arwen 服务上面。
 后来引入了redis，然后我们就将本地缓存取消然后使用redis 缓存能力。
 但是这样也引起了另一个问题，那就是初始化时redis 中没数据。与界面修改后，redis 修改了，要同步到arwen中。这里最后采用的redis 事件通知能力来实现的。
+
+
+ByteBuddy（史上最全）   https://blog.csdn.net/crazymakercircle/article/details/126579528
