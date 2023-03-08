@@ -40,9 +40,3 @@ Apsara Clouder云计算专项技能认证：云服务器ECS入门：https://edu.
     keytool -delete -alias jalor_gateway -keystore "d:/ssl/truststore.jks" -storepass gateway
 ```
 
-
-spring 提供的方便使用的工具类
-
-反射相关: ReflectionUtils
-
-方法相关：MethodIntrospector，大多数情况用它来查找带注解的方法。某个类里面，查找带了某个注解的方法集。
