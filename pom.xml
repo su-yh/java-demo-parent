@@ -19,87 +19,87 @@
     </properties>
 
     <modules>
-        <module>demo-00-00-core</module>
-        <module>demo-00-01-common</module>
-        <module>demo-00-02-jpa</module>
-        <module>demo-00-03-constants</module>
-        <module>demo-01-log4j2</module>
-        <module>demo-01-test-01</module>
-        <module>demo-01-test-02-mock</module>
-        <module>demo-01-test-03-junit5</module>
-        <module>demo-02-config-center-01</module>
-        <module>demo-02-properties-01</module>
-        <module>demo-03-jedis-01</module>
-        <module>demo-03-jedis-03-redis_template</module>
-        <module>demo-04-scheduler-01</module>
-        <module>demo-04-scheduler-02</module>
-        <module>demo-04-scheduler-03-shedlock-custom</module>
-        <module>demo-06-mybatis-01</module>
-        <module>demo-06-mybatis-02-common</module>
-        <module>demo-06-mybatis-03-multi-db-01</module>
-        <module>demo-07-kafka-01</module>
-        <module>demo-08-jwt-01</module>
-        <module>demo-09-shiro-01</module>
-        <module>demo-09-shiro-02</module>
-        <module>demo-09-shiro-03</module>
-        <module>demo-09-shiro-04-ssm</module>
-        <module>demo-12-swagger-01</module>
-        <module>demo-13-autowired-resource-01</module>
-        <module>demo-16-caffeine-01</module>
-        <module>demo-16-guava-01</module>
-        <module>demo-18-resttemplate-01</module>
-        <module>demo-18-WebClient-02</module>
-        <module>demo-18-WebClient-03</module>
-        <module>demo-19-servletRequest-01</module>
-        <module>demo-20-filter-interceptor-01</module>
-        <module>demo-21-controller-advice-01</module>
-        <module>demo-21-filter-exception-02</module>
-        <module>demo-21-03-simpleMappingExceptionResolver</module>
-        <module>demo-22-validation-01</module>
-        <module>demo-23-aop-01</module>
-        <module>demo-24-profile-01</module>
-        <module>demo-25-flywaydb-01</module>
-        <module>demo-26-resource-01</module>
-        <module>demo-27-activiti-01</module>
-        <module>demo-27-activiti-02</module>
-        <module>demo-28-devtools-01</module>
-        <module>demo-29-db-jpa-01</module>
-        <module>demo-30-starter-define-01</module>
-        <module>demo-30-starter-usage-01</module>
-        <module>demo-31-async-01</module>
-        <module>demo-33-jackson-01</module>
-        <module>demo-33-jackson-02</module>
-        <module>demo-33-jackson-03</module>
-        <module>demo-29-db-jpa-02-custom</module>
-        <module>demo-34-actuator-01</module>
-        <module>demo-35-aware-01</module>
-        <module>demo-38-spi-load</module>
-        <module>demo-38-properties-load</module>
-        <module>demo-39-nacos-01-discovery</module>
-        <module>demo-39-nacos-02-registry</module>
-        <module>demo-39-nacos-03-listener</module>
-        <module>demo-40-sentinel-01-nacos-datasource</module>
-        <module>demo-40-sentinel-02-spring-boot-web</module>
-        <module>demo-41-bean-exclude-01</module>
-        <module>demo-42-spring-boot-ext-01</module>
-        <module>demo-43-web-redirect-01</module>
-        <module>demo-44-spring-mvc-01</module>
-        <module>demo-45-cxf-sentinel-01</module>
-        <module>demo-46-multi-datasource-flywaydb-01</module>
-        <module>demo-46-multi-datasource-flywaydb-02-hikari-cp-single</module>
-        <module>demo-47-01-springboot-metadata</module>
-        <module>demo-48-01-cors</module>
-        <module>demo-50-01-httpclient</module>
-        <module>demo-51-01-bean-dynamic</module>
-        <module>demo-52-01-prometheus</module>
-        <module>demo-53-01-zookeeper</module>
-        <module>demo-53-02-zookeeper-curator</module>
-        <module>demo-53-03-zookeeper-listener</module>
-        <module>demo-54-01-javassist</module>
-        <module>demo-55-01-websocket-echo</module>
-        <module>demo-55-04-websocket</module>
+<!--        <module>demo-00-00-core</module>-->
+<!--        <module>demo-00-01-common</module>-->
+<!--        <module>demo-00-02-jpa</module>-->
+<!--        <module>demo-00-03-constants</module>-->
+<!--        <module>demo-01-log4j2</module>-->
+<!--        <module>demo-01-test-01</module>-->
+<!--        <module>demo-01-test-02-mock</module>-->
+<!--        <module>demo-01-test-03-junit5</module>-->
+<!--        <module>demo-02-config-center-01</module>-->
+<!--        <module>demo-02-properties-01</module>-->
+<!--        <module>demo-03-jedis-01</module>-->
+<!--        <module>demo-03-jedis-03-redis_template</module>-->
+<!--        <module>demo-04-scheduler-01</module>-->
+<!--        <module>demo-04-scheduler-02</module>-->
+<!--        <module>demo-04-scheduler-03-shedlock-custom</module>-->
+<!--        <module>demo-06-mybatis-01</module>-->
+<!--        <module>demo-06-mybatis-02-common</module>-->
+<!--        <module>demo-06-mybatis-03-multi-db-01</module>-->
+<!--        <module>demo-07-kafka-01</module>-->
+<!--        <module>demo-08-jwt-01</module>-->
+<!--        <module>demo-09-shiro-01</module>-->
+<!--        <module>demo-09-shiro-02</module>-->
+<!--        <module>demo-09-shiro-03</module>-->
+<!--        <module>demo-09-shiro-04-ssm</module>-->
+<!--        <module>demo-12-swagger-01</module>-->
+<!--        <module>demo-13-autowired-resource-01</module>-->
+<!--        <module>demo-16-caffeine-01</module>-->
+<!--        <module>demo-16-guava-01</module>-->
+<!--        <module>demo-18-resttemplate-01</module>-->
+<!--        <module>demo-18-WebClient-02</module>-->
+<!--        <module>demo-18-WebClient-03</module>-->
+<!--        <module>demo-19-servletRequest-01</module>-->
+<!--        <module>demo-20-filter-interceptor-01</module>-->
+<!--        <module>demo-21-controller-advice-01</module>-->
+<!--        <module>demo-21-filter-exception-02</module>-->
+<!--        <module>demo-21-03-simpleMappingExceptionResolver</module>-->
+<!--        <module>demo-21-controller-advice-03</module>-->
+<!--        <module>demo-22-validation-01</module>-->
+<!--        <module>demo-23-aop-01</module>-->
+<!--        <module>demo-24-profile-01</module>-->
+<!--        <module>demo-25-flywaydb-01</module>-->
+<!--        <module>demo-26-resource-01</module>-->
+<!--        <module>demo-27-activiti-01</module>-->
+<!--        <module>demo-27-activiti-02</module>-->
+<!--        <module>demo-28-devtools-01</module>-->
+<!--        <module>demo-29-db-jpa-01</module>-->
+<!--        <module>demo-30-starter-define-01</module>-->
+<!--        <module>demo-30-starter-usage-01</module>-->
+<!--        <module>demo-31-async-01</module>-->
+<!--        <module>demo-33-jackson-01</module>-->
+<!--        <module>demo-33-jackson-02</module>-->
+<!--        <module>demo-33-jackson-03</module>-->
+<!--        <module>demo-29-db-jpa-02-custom</module>-->
+<!--        <module>demo-34-actuator-01</module>-->
+<!--        <module>demo-35-aware-01</module>-->
+<!--        <module>demo-38-spi-load</module>-->
+<!--        <module>demo-38-properties-load</module>-->
+<!--        <module>demo-39-nacos-01-discovery</module>-->
+<!--        <module>demo-39-nacos-02-registry</module>-->
+<!--        <module>demo-39-nacos-03-listener</module>-->
+<!--        <module>demo-40-sentinel-01-nacos-datasource</module>-->
+<!--        <module>demo-40-sentinel-02-spring-boot-web</module>-->
+<!--        <module>demo-41-bean-exclude-01</module>-->
+<!--        <module>demo-42-spring-boot-ext-01</module>-->
+<!--        <module>demo-43-web-redirect-01</module>-->
+<!--        <module>demo-44-spring-mvc-01</module>-->
+<!--        <module>demo-45-cxf-sentinel-01</module>-->
+<!--        <module>demo-46-multi-datasource-flywaydb-01</module>-->
+<!--        <module>demo-46-multi-datasource-flywaydb-02-hikari-cp-single</module>-->
+<!--        <module>demo-47-01-springboot-metadata</module>-->
+<!--        <module>demo-48-01-cors</module>-->
+<!--        <module>demo-50-01-httpclient</module>-->
+<!--        <module>demo-51-01-bean-dynamic</module>-->
+<!--        <module>demo-52-01-prometheus</module>-->
+<!--        <module>demo-53-01-zookeeper</module>-->
+<!--        <module>demo-53-02-zookeeper-curator</module>-->
+<!--        <module>demo-53-03-zookeeper-listener</module>-->
+<!--        <module>demo-54-01-javassist</module>-->
+<!--        <module>demo-55-01-websocket-echo</module>-->
+<!--        <module>demo-55-04-websocket</module>-->
         <module>demo-56-01-HandlerMethodArgumentResolver</module>
-        <module>demo-21-controller-advice-03</module>
     </modules>
 
     <dependencyManagement>
@@ -328,11 +328,11 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <modules>
-                <module>demo-32-es-02</module>
-                <module>demo-34-actuator-02</module>
-                <module>demo-36-01-listener-springboot-24-pre</module>
-            </modules>
+<!--            <modules>-->
+<!--                <module>demo-32-es-02</module>-->
+<!--                <module>demo-34-actuator-02</module>-->
+<!--                <module>demo-36-01-listener-springboot-24-pre</module>-->
+<!--            </modules>-->
             <dependencyManagement>
                 <dependencies>
                     <dependency>
@@ -351,12 +351,12 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <modules>
-                <module>demo-32-es-01</module>
-                <module>demo-34-actuator-02</module>
-                <module>demo-36-02-listener-springboot-24-post</module>
-                <module>demo-49-01-active-spring-boot-24-post</module>
-            </modules>
+<!--            <modules>-->
+<!--                <module>demo-32-es-01</module>-->
+<!--                <module>demo-34-actuator-02</module>-->
+<!--                <module>demo-36-02-listener-springboot-24-post</module>-->
+<!--                <module>demo-49-01-active-spring-boot-24-post</module>-->
+<!--            </modules>-->
             <dependencyManagement>
                 <dependencies>
                     <dependency>
