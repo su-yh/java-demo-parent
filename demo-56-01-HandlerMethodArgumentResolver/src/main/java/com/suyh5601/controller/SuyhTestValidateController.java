@@ -37,6 +37,7 @@ public class SuyhTestValidateController {
         @Size(max = 64, message = "max size: {max}")
         private String tenantId;
 
+        // @Valid 级联约束
         @NotNull(message = "environ 不能是null")
         @Valid
         private TempEnviron environ;
