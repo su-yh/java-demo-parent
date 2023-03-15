@@ -18,7 +18,7 @@ import javax.validation.groups.Default;
 @Slf4j
 public class SuyhTestValidateController {
     @RequestMapping("/validate")
-    public Boolean testValidate(@RequestBody @Validated(value = {Create.class, Default.class}) @Valid TestReqDto reqDto) {
+    public Boolean testValidate(@RequestBody @Validated(value = {Create.class, Default.class}) TestReqDto reqDto) {
         return Boolean.TRUE;
     }
 
