@@ -44,9 +44,9 @@ public class UserArgumentResolverAndValidation implements HandlerMethodArgumentR
         }
 
         if (binderFactory != null) {
-            String name = ModelFactory.getNameForParameter(parameter);
-            WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
             if (attribute != null) {
+                String name = ModelFactory.getNameForParameter(parameter);
+                WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
                 validateIfApplicable(binder, parameter);
                 if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
                     throw new MethodArgumentNotValidException(parameter, binder.getBindingResult());

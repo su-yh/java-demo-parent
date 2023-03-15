@@ -1,3 +1,17 @@
+package com.suyh5601.controller;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
 @RestController
 @RequestMapping("/suyh")
 @Slf4j
@@ -18,9 +32,6 @@ public class SuyhTestValidateController {
         @Size(max = 64, message = "max size: {max}", groups = Update.class)
         private String subAppId;
 
-        /**
-         * 在蓝版对应的就是企业ID
-         */
         @NotBlank
         @Size(max = 64, message = "max size: {max}")
         private String tenantId;
@@ -31,12 +42,6 @@ public class SuyhTestValidateController {
 
     @Data
     public static class TempEnviron {
-        /**
-         * 部署环境，如：dev sit pro。
-         * 优先使用spring.profiles.active 的值，
-         * 若没有则取docker_env，
-         * 再没有则取default。
-         */
         @NotBlank
         @Size(max = 32, message = "max size: {max}")
         private String deployEnv;
@@ -44,16 +49,10 @@ public class SuyhTestValidateController {
         @Size(max = 32, message = "max size: {max}")
         private String clusterType;
 
-        /**
-         * 部署区域：贵阳、东莞东等，his 平台取docker_region 配置值
-         */
         @NotBlank
         @Size(max = 32, message = "max size: {max}")
         private String region;
 
-        /**
-         * 平台：his、华为云(hw_cloud)。
-         */
         @NotBlank
         @Size(max = 32, message = "max size: {max}")
         private String platform;
