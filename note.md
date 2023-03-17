@@ -40,3 +40,5 @@ Apsara Clouder云计算专项技能认证：云服务器ECS入门：https://edu.
     keytool -delete -alias jalor_gateway -keystore "d:/ssl/truststore.jks" -storepass gateway
 ```
 
+
+CustomValidatorBean   https://blog.csdn.net/f641385712/article/details/97270786
