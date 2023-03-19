@@ -7,13 +7,19 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.GroupSequence;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.util.List;
 
+@ConfigurationProperties("prop.suyh2202")
 @GroupSequenceProvider(PersonGroupSequenceProvider.class)
 @Data
+@Validated
 public class Person {
 
     @NotNull
@@ -33,5 +39,10 @@ public class Person {
     public interface WhenAge20And30Group {
     }
     public interface WhenAge30And40Group {
+    }
+
+    // 组序列
+    @GroupSequence({Default.class, WhenAge20And30Group.class, WhenAge30And40Group.class})
+    public interface Group {
     }
 }
