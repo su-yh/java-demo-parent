@@ -15,21 +15,7 @@ import java.util.Set;
 public class DemoApplication2202 {
     public static void main(String[] args)  {
         SpringApplication.run(DemoApplication2202.class, args);
-
-//        test(25);
-//        test(35);
     }
 
-    private static void test(int age) {
-        Person person = new Person();
-        person.setName("fsx");
-        person.setAge(age);
-        person.setHobbies(Arrays.asList("足球","篮球"));
 
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<Person>> result = validator.validate(person, Person.Group.class);
-
-        // 对结果进行遍历输出
-        result.stream().map(v -> v.getPropertyPath() + " " + v.getMessage() + ": " + v.getInvalidValue()).forEach(System.out::println);
-    }
 }

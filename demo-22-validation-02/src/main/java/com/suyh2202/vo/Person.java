@@ -41,9 +41,4 @@ public class Person {
     }
     public interface WhenAge30And40Group {
     }
-
-    // 组序列
-    @GroupSequence({Default.class, WhenAge20And30Group.class, WhenAge30And40Group.class})
-    public interface Group {
-    }
 }
