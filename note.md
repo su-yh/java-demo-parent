@@ -41,8 +41,12 @@ Apsara Clouder云计算专项技能认证：云服务器ECS入门：https://edu.
 ```
 
 
-CustomValidatorBean   https://blog.csdn.net/f641385712/article/details/97270786
+CustomValidatorBean   
+
+https://blog.csdn.net/f641385712/article/details/97270786
 
 https://www.cnblogs.com/yourbatman/p/11387438.html
 
 https://cloud.tencent.com/developer/article/1497732
+
+RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/89810020
