@@ -39,6 +39,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 // 过滤前缀路径(不包含上下文，上下文另外处理)
                 .paths(Predicates.or(PathSelectors.ant("/services/suyh/dev/**"), PathSelectors.ant("/services/suyh/local/**")))
+                .paths(PathSelectors.any())
                 .build()
                 .ignoredParameterTypes(ApiIgnore.class);
     }

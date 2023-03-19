@@ -44,6 +44,7 @@
 <!--        <module>demo-09-shiro-03</module>-->
 <!--        <module>demo-09-shiro-04-ssm</module>-->
 <!--        <module>demo-12-swagger-01</module>-->
+        <module>demo-12-swagger-02</module>
 <!--        <module>demo-13-autowired-resource-01</module>-->
 <!--        <module>demo-16-caffeine-01</module>-->
 <!--        <module>demo-16-guava-01</module>-->
