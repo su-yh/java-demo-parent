@@ -24,8 +24,6 @@ public class User {
     public interface GroupB {
     }
 
-    // 组序列
-
     /**
      * group 会按这个顺序进行校验，首先校验Default 组
      * 当Default 组校验不通过，则直接结束
