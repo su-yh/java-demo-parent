@@ -24,6 +24,7 @@ public class Person {
 
     @NotNull
     private String name;
+
     @NotNull
     @Range(min = 10, max = 40)
     private Integer age;
