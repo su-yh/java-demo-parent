@@ -1,10 +1,9 @@
-package com.suyh2202.vo;
+package com.suyh2203.vo;
 
-import com.suyh2202.validate.PersonPlusGroupSequenceProvider;
+import com.suyh2203.validate.PersonPlusGroupSequenceProvider;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.group.GroupSequenceProvider;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.GroupSequence;
@@ -13,7 +12,6 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 import java.util.List;
 
-@ConfigurationProperties("prop.suyh2202.plus")
 @GroupSequenceProvider(PersonPlusGroupSequenceProvider.class)
 @Data
 @Validated
