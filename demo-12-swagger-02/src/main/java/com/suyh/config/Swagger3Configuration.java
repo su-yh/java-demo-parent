@@ -97,7 +97,8 @@ public class Swagger3Configuration implements WebMvcConfigurer {
     private SecurityContext securityContexts() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.any())
+//                .forPaths(PathSelectors.any())    // 过时了
+                .operationSelector(operationContext -> true)
                 .build();
     }
 
