@@ -109,7 +109,7 @@ public class Swagger3Configuration implements WebMvcConfigurer {
     }
 
     /**
-     * swagger3 与springboot 2.6 以上版本冲突的解决，
+     * swagger3 与springboot actuator 2.6 以上版本冲突的解决，
      * 同时添加配置：spring.mvc.pathmatch.matching-strategy=ant_path_matcher
      * 参考：https://github.com/springfox/springfox/issues/3462
      * <p>
