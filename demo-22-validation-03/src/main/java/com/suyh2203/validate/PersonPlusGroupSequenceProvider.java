@@ -21,9 +21,9 @@ public class PersonPlusGroupSequenceProvider implements DefaultGroupSequenceProv
      * 合格方法是给T返回默认的组（多个）。因为默认的组是Default嘛~~~通过它可以自定指定
      * 入参T object允许在验证值状态的函数中动态组合默认组序列。（非常强大）
      * object是待校验的Bean。它可以为null哦~（Validator#validateValue的时候可以为null）
-     *
+     * <p>
      * 返回值表示默认组序列的List。它的效果同@GroupSequence定义组序列，尤其是列表List必须包含类型T
-
+     *
      * @param bean 实际校验的vo 对象
      * @return Default 分组列表
      */
@@ -32,19 +32,24 @@ public class PersonPlusGroupSequenceProvider implements DefaultGroupSequenceProv
         List<Class<?>> defaultGroupSequence = new ArrayList<>();
         defaultGroupSequence.add(PersonPlus.class); // 这一步不能省,否则Default分组都不会执行了，会抛错的
 
-        if (bean != null) { // 这块判空请务必要做
-            Integer age = bean.getAge();
-            if (age == null) {
-                return defaultGroupSequence;
-            }
-            log.info("年龄为：{}时，执行对应校验逻辑分组", age);
-
-            if (age >= 20 && age < 30) {
-                defaultGroupSequence.add(PersonPlus.WhenAge20And30GroupSequence.class);
-            } else if (age >= 30 && age < 40) {
-                defaultGroupSequence.add(PersonPlus.WhenAge30And40GroupSequence.class);
-            }
+        if (bean != null) {
+            // 在这里可以做非常多且复杂的逻辑操作。
+            // 针对每个字段都可以添加逻辑处理。
+            defaultGroupSequenceByAge(defaultGroupSequence, bean.getAge());
         }
         return defaultGroupSequence;
+    }
+
+    private void defaultGroupSequenceByAge(List<Class<?>> defaultGroupSequence, Integer age) {
+        if (age == null) {
+            return;
+        }
+        log.info("年龄为：{}时，执行对应校验逻辑分组", age);
+
+        if (age >= 20 && age < 30) {
+            defaultGroupSequence.add(PersonPlus.WhenAge20And30GroupSequence.class);
+        } else if (age >= 30 && age < 40) {
+            defaultGroupSequence.add(PersonPlus.WhenAge30And40GroupSequence.class);
+        }
     }
 }
