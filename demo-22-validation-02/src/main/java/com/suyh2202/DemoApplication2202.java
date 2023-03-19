@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
+import javax.validation.Validator;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -23,7 +24,8 @@ public class DemoApplication2202 {
         person.setAge(age);
         person.setHobbies(Arrays.asList("足球","篮球"));
 
-        Set<ConstraintViolation<Person>> result = Validation.buildDefaultValidatorFactory().getValidator().validate(person);
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<Person>> result = validator.validate(person);
 
         // 对结果进行遍历输出
         result.stream().map(v -> v.getPropertyPath() + " " + v.getMessage() + ": " + v.getInvalidValue()).forEach(System.out::println);
