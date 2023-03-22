@@ -1,6 +1,6 @@
-package com.suyh.config;
+package com.suyh1202.config;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Api;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -26,34 +25,43 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-@Profile({"dev", "local"})
+/**
+ * 在有些时候我们的接口都需要认证的，而有登录 接口是不需要认证的，所以我们需要将认证和不需要认证的分开。
+ * 将需要认证的接口，让添加 Authorization 请求头信息。
+ * 可以在注解中指定，如： @ApiOperation(authorizations = {@Authorization(value = "AuthToken")})
+ * 但是需要做相应的配置
+ */
+@Profile({"plus"})
 @EnableOpenApi
 @Configuration
-public class Swagger3Configuration implements WebMvcConfigurer {
+public class Swagger3ConfigurationPlus {
+    public static final String AUTH_KEY = "AuthToken";
 
+    /**
+     * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
+     */
     @Bean
-    public Docket createRestApi() {
+    public Docket userDocket() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
+                // 按分组显示的名称
+                .groupName("用户信息分组")
                 .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                // 指定要扫描的基础包，并且类上面有注解 @Api 的才会被扫描到
                 .apis(RequestHandlerSelectors.basePackage("com.suyh.controller"))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
+                .securitySchemes(schemes())
                 .ignoredParameterTypes(ApiIgnore.class);
     }
 
@@ -67,49 +75,17 @@ public class Swagger3Configuration implements WebMvcConfigurer {
                 .build();
     }
 
-    /**
-     * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
-     */
-    @Bean
-    public Docket createRestApiOther() {
-        return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
-                // 按分组显示的名称
-                .groupName("用户信息分组")
-                .select()
-                // 指定要扫描的基础包
-                .apis(RequestHandlerSelectors.basePackage("com.suyh.controller"))
-                .paths(PathSelectors.any())
-                .build()
-                // 允许请求头中添加Authorization 鉴权信息
-                // 参考：https://www.jianshu.com/p/450416498508
-                .securityContexts(Arrays.asList(securityContexts()))
-                .securitySchemes(Arrays.asList(securitySchemes()))
-                // 忽略某些参数
-                .ignoredParameterTypes(ApiIgnore.class);
-    }
-
-    private SecurityScheme securitySchemes() {
-        return new ApiKey("Authorization", "Authorization", "header");
-    }
-
-    private SecurityContext securityContexts() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-//                .forPaths(PathSelectors.any())    // 过时了
-                .operationSelector(operationContext -> true)
-                .build();
-    }
-
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("xxx", "描述信息");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("Authorization", authorizationScopes));
+    private List<SecurityScheme> schemes() {
+        List<SecurityScheme> list = new ArrayList<>();
+        // 这里使用ApiKey 的方式，同时还可以使用其他方式。但我还没弄清楚，只是暂时这样用。
+        list.add(new ApiKey(AUTH_KEY, "Authorization", "header"));
+        // 比如使用BasicAuth
+//         list.add(new springfox.documentation.service.BasicAuth("basicAuthToken"));
+        return list;
     }
 
     /**
-     * swagger3 与springboot actuator 2.6 以上版本冲突的解决，
+     * swagger3 与springboot 2.6 以上版本冲突的解决，
      * 同时添加配置：spring.mvc.pathmatch.matching-strategy=ant_path_matcher
      * 参考：https://github.com/springfox/springfox/issues/3462
      * <p>

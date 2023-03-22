@@ -1,6 +1,6 @@
-package com.suyh.controller;
+package com.suyh1202.controller;
 
-import com.suyh.config.Swagger3ConfigurationPlus;
+import com.suyh1202.config.Swagger3ConfigurationPlus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
