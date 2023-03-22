@@ -44,6 +44,8 @@ import java.util.List;
 @EnableOpenApi
 @Configuration
 public class Swagger3ConfigurationPlus {
+    public static final String AUTH_KEY = "AuthToken";
+
     /**
      * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
      */
@@ -54,22 +56,8 @@ public class Swagger3ConfigurationPlus {
                 // 按分组显示的名称
                 .groupName("用户信息分组")
                 .select()
-                // 指定要扫描的基础包
-                .apis(RequestHandlerSelectors.basePackage("com.mastermile.controller.user"))
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                .paths(PathSelectors.any())
-                .build()
-                .securitySchemes(schemes())
-                .ignoredParameterTypes(ApiIgnore.class);
-    }
-
-    @Bean
-    public Docket adofaerDocket() {
-        return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
-                .groupName("adofaer")
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.mastermile.adofaer.controller"))
+                // 指定要扫描的基础包，并且类上面有注解 @Api 的才会被扫描到
+                .apis(RequestHandlerSelectors.basePackage("com.suyh.controller"))
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
@@ -82,14 +70,17 @@ public class Swagger3ConfigurationPlus {
         return new ApiInfoBuilder()
                 .title("Swagger3接口文档")
                 .description("如有疑问，请联系开发工程师。")
-                .contact(new Contact("mastermile", "https://www.adofaer.com", "mastermile@adofaer.com"))
+                .contact(new Contact("suyh", "https://www.suyh.com", "suyh@sina.com.com"))
                 .version("1.0")
                 .build();
     }
 
     private List<SecurityScheme> schemes() {
         List<SecurityScheme> list = new ArrayList<>();
-        list.add(new ApiKey("AuthToken", "Authorization", "header"));
+        // 这里使用ApiKey 的方式，同时还可以使用其他方式。但我还没弄清楚，只是暂时这样用。
+        list.add(new ApiKey(AUTH_KEY, "Authorization", "header"));
+        // 比如使用BasicAuth
+//         list.add(new springfox.documentation.service.BasicAuth("basicAuthToken"));
         return list;
     }
 
