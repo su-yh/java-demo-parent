@@ -50,3 +50,8 @@ https://www.cnblogs.com/yourbatman/p/11387438.html
 https://cloud.tencent.com/developer/article/1497732
 
 RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/89810020
+
+
+// 取当前时间的UTC秒值
+        Instant instant = Instant.now();
+        final long epochSecond = instant.getEpochSecond();
