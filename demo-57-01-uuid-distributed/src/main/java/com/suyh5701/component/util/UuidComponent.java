@@ -2,10 +2,10 @@ package com.suyh5701.component.util;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.suyh5701.mapper.MmUuidMapper;
-import com.suyh5701.util.MmRandom;
-import com.suyh5701.util.MmUuidUtils;
-import com.suyh5701.vo.MmUuidVo;
+import com.suyh5701.mapper.UuidMapper;
+import com.suyh5701.util.GlobalRandom;
+import com.suyh5701.util.UuidUtils;
+import com.suyh5701.vo.UuidVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,10 +24,10 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class MmUuidComponent implements InitializingBean {
+public class UuidComponent implements InitializingBean {
     // 1 秒内最多允许产生的UUID 数量，超过则会重复。
     private static final int MAX_LOCAL_SEQUENCE = 0XFFFFFF;
-    private final MmUuidMapper uuidMapper;
+    private final UuidMapper uuidMapper;
 
     @Value("${spring.application.name}")
     private String serviceName;
@@ -45,14 +45,14 @@ public class MmUuidComponent implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        MmUuidUtils.setUuidComponent(this);
+        UuidUtils.setUuidComponent(this);
 
         // 初始化两个随机值，以免在去数据库拿之前就有人来调用。
-        serviceSequence.set(MmRandom.RANDOM.nextInt());
+        serviceSequence.set(GlobalRandom.RANDOM.nextInt());
 
         try {
             localSequenceLock.lock();
-            localSequence = MmRandom.RANDOM.nextInt(MAX_LOCAL_SEQUENCE);
+            localSequence = GlobalRandom.RANDOM.nextInt(MAX_LOCAL_SEQUENCE);
         } finally {
             localSequenceLock.unlock();
         }
@@ -64,12 +64,12 @@ public class MmUuidComponent implements InitializingBean {
      */
     @Transactional
     public void serviceSequenceTask() {
-        MmUuidVo mmUuidVo = uuidMapper.selectByPrimaryKey(serviceName);
-        if (mmUuidVo == null) {
+        UuidVo uuidVo = uuidMapper.selectByPrimaryKey(serviceName);
+        if (uuidVo == null) {
             throw new RuntimeException("m_uuid_t cannot found service: " + serviceName);
         }
 
-        Integer sequenceNumber = mmUuidVo.getSequenceNumber();
+        Integer sequenceNumber = uuidVo.getSequenceNumber();
         if (sequenceNumber == null) {
             throw new RuntimeException("m_uuid_t sequence_number is null for " + serviceName);
         }
@@ -104,7 +104,7 @@ public class MmUuidComponent implements InitializingBean {
 
     public String generateUuidString() {
         long mostSigBits = generateUuidLong();
-        long leastSigBits = MmRandom.RANDOM.nextLong();
+        long leastSigBits = GlobalRandom.RANDOM.nextLong();
         UUID uuid = new UUID(mostSigBits, leastSigBits);
         return uuid.toString();
     }

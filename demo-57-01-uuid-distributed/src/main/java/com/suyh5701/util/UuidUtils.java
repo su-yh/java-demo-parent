@@ -1,11 +1,11 @@
 package com.suyh5701.util;
 
-import com.suyh5701.component.util.MmUuidComponent;
+import com.suyh5701.component.util.UuidComponent;
 import lombok.Setter;
 
-public final class MmUuidUtils {
+public final class UuidUtils {
     @Setter
-    private static MmUuidComponent uuidComponent;
+    private static UuidComponent uuidComponent;
 
     public static long generateUuidLong() {
         return uuidComponent.generateUuidLong();

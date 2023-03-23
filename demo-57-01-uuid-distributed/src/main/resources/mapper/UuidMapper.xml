@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suyh5701.mapper.MmUuidMapper">
-    <resultMap id="uuidVo" type="com.suyh5701.vo.MmUuidVo">
+<mapper namespace="com.suyh5701.mapper.UuidMapper">
+    <resultMap id="uuidVo" type="com.suyh5701.vo.UuidVo">
         <id column="service_name" jdbcType="VARCHAR" property="serviceName" javaType="java.lang.String" />
 
         <result column="sequence_number" jdbcType="INTEGER" property="sequenceNumber" javaType="java.lang.Integer" />
