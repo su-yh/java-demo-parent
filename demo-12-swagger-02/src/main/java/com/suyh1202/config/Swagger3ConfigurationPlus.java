@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -37,14 +38,14 @@ import java.util.List;
 /**
  * 在有些时候我们的接口都需要认证的，而有登录 接口是不需要认证的，所以我们需要将认证和不需要认证的分开。
  * 将需要认证的接口，让添加 Authorization 请求头信息。
- * 可以在注解中指定，如： @ApiOperation(authorizations = {@Authorization(value = "AuthToken")})
+ * 可以在注解中指定，如： @ApiOperation(authorizations = {@Authorization(value = "Authorization")})
  * 但是需要做相应的配置
  */
 @Profile({"plus"})
 @EnableOpenApi
 @Configuration
 public class Swagger3ConfigurationPlus {
-    public static final String AUTH_KEY = "AuthToken";
+    public static final String AUTH_KEY = HttpHeaders.AUTHORIZATION;
 
     /**
      * 通过分组可以在生成的文档是下拉选择，查看哪一个分组
