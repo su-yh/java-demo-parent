@@ -50,3 +50,49 @@ https://www.cnblogs.com/yourbatman/p/11387438.html
 https://cloud.tencent.com/developer/article/1497732
 
 RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/89810020
+
+
+// 取当前时间的UTC秒值
+        Instant instant = Instant.now();
+        final long epochSecond = instant.getEpochSecond();
+
+// 由于两个long 进行位运算无法得到一个正确的值，所以将long 转换成两个int 分别进行位逻辑运算。
+```java
+        // 两个int 合并拼接成一个long
+        final ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(high);
+        buffer.putInt(lower);
+        buffer.flip();
+        long result = buffer.getLong();
+```
+```java
+        // 一个Long 转换成一个byte[]
+        final byte[] array = ByteBuffer.allocate(Long.BYTES).putLong(1L).array();
+
+        // 一个byte[8] 转换成一个Long
+        final ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.put(array, 0, array.length);
+        buffer.flip();
+        buffer.getLong();
+```
+
+```java
+        Instant instant = Instant.now();
+        final long epochSecond = instant.getEpochSecond();
+        int high = (int) epochSecond;
+        // 9 bits 用来自增存放同一微服务的实例数上限
+        int serviceSequence = 0XFF800000;
+        // 23 bits 用来自增存放每秒产生的uuid 上限
+        int localSequence = 0X4FFFFF;
+        int lower = serviceSequence | localSequence;
+
+        final ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(high);
+        buffer.putInt(lower);
+        buffer.flip();
+        long uuidResult = buffer.getLong();
+        System.out.printf("high: %#X\n", high);
+        System.out.printf("lower: %#X\n", lower);
+        System.out.printf("result: %#X\n", uuidResult);
+```
+
