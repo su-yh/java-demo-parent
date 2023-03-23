@@ -31,9 +31,9 @@
 <!--        <module>demo-02-properties-01</module>-->
 <!--        <module>demo-03-jedis-01</module>-->
 <!--        <module>demo-03-jedis-03-redis_template</module>-->
-<!--        <module>demo-04-scheduler-01</module>-->
-<!--        <module>demo-04-scheduler-02</module>-->
-<!--        <module>demo-04-scheduler-03-shedlock-custom</module>-->
+        <module>demo-04-scheduler-01</module>
+        <module>demo-04-scheduler-02</module>
+        <module>demo-04-scheduler-03-shedlock-custom</module>
 <!--        <module>demo-06-mybatis-01</module>-->
 <!--        <module>demo-06-mybatis-02-common</module>-->
 <!--        <module>demo-06-mybatis-03-multi-db-01</module>-->
@@ -46,7 +46,7 @@
         <module>demo-12-swagger-01</module>
         <module>demo-12-swagger-02</module>
 <!--        <module>demo-13-autowired-resource-01</module>-->
-<!--        <module>demo-16-caffeine-01</module>-->
+        <module>demo-16-caffeine-01</module>
 <!--        <module>demo-16-guava-01</module>-->
 <!--        <module>demo-18-resttemplate-01</module>-->
 <!--        <module>demo-18-WebClient-02</module>-->
@@ -104,6 +104,7 @@
 <!--        <module>demo-55-04-websocket</module>-->
         <module>demo-56-01-HandlerMethodArgumentResolver</module>
         <module>demo-22-validation-03</module>
+        <module>demo-57-01-uuid-distributed</module>
     </modules>
 
     <dependencyManagement>
