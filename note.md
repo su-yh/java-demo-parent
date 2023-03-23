@@ -80,8 +80,9 @@ RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/
         Instant instant = Instant.now();
         final long epochSecond = instant.getEpochSecond();
         int high = (int) epochSecond;
-        // 自增
+        // 9 bits 用来自增存放同一微服务的实例数上限
         int serviceSequence = 0XFF800000;
+        // 23 bits 用来自增存放每秒产生的uuid 上限
         int localSequence = 0X4FFFFF;
         int lower = serviceSequence | localSequence;
 
