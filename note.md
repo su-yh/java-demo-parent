@@ -75,3 +75,23 @@ RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/
         buffer.flip();
         buffer.getLong();
 ```
+
+```java
+        Instant instant = Instant.now();
+        final long epochSecond = instant.getEpochSecond();
+        int high = (int) epochSecond;
+        // 自增
+        int serviceSequence = 0XFF800000;
+        int localSequence = 0X4FFFFF;
+        int lower = serviceSequence | localSequence;
+
+        final ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(high);
+        buffer.putInt(lower);
+        buffer.flip();
+        long uuidResult = buffer.getLong();
+        System.out.printf("high: %#X\n", high);
+        System.out.printf("lower: %#X\n", lower);
+        System.out.printf("result: %#X\n", uuidResult);
+```
+
