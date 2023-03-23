@@ -12,7 +12,7 @@
     </sql>
 
     <update id="updateByPrimaryKey">
-        UPDATE mm_uuid_t
+        UPDATE uuid_t
         SET sequence_number = #{sequenceNumber, jdbcType = INTEGER},
             update_date = CURRENT_TIMESTAMP(3)
         where service_name = #{serviceName,jdbcType=VARCHAR}
@@ -20,7 +20,7 @@
 
     <select id="selectByPrimaryKey" resultMap="uuidVo">
         select <include refid="selectColumns"/>
-        from mm_uuid_t
+        from uuid_t
         where service_name = #{serviceName,jdbcType=VARCHAR}
     </select>
 </mapper>
