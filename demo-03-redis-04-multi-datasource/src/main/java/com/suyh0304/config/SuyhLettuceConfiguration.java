@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
@@ -82,6 +83,10 @@ public class SuyhLettuceConfiguration {
     private static RedisConnectionFactory createLettuceConnectionFactory(
             RedisProperties properties,
             LettuceClientConfiguration clientConfiguration) {
+        RedisSentinelConfiguration sentinelConfig = SuyhRedisConfiguration.getSentinelConfig(properties);
+        if (sentinelConfig != null) {
+            return new LettuceConnectionFactory(sentinelConfig, clientConfiguration);
+        }
         RedisClusterConfiguration clusterConfiguration = SuyhRedisConfiguration.getClusterConfiguration(properties);
         if (clusterConfiguration != null) {
             return new LettuceConnectionFactory(clusterConfiguration, clientConfiguration);

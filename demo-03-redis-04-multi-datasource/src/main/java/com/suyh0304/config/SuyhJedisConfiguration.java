@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 @Configuration(proxyBeanMethods = false)
@@ -49,6 +50,10 @@ public class SuyhJedisConfiguration {
     }
 
     private static RedisConnectionFactory createJedisConnectionFactory(RedisProperties properties) {
+        RedisSentinelConfiguration sentinelConfig = SuyhRedisConfiguration.getSentinelConfig(properties);
+        if (sentinelConfig != null) {
+            return new JedisConnectionFactory(sentinelConfig);
+        }
         RedisClusterConfiguration clusterConfiguration = SuyhRedisConfiguration.getClusterConfiguration(properties);
         if (clusterConfiguration != null) {
             return new JedisConnectionFactory(clusterConfiguration);
