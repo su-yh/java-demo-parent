@@ -1,7 +1,9 @@
 spring:
   autoconfigure:
     # 默认它会去创建RedisProperties 这个bean 对象，会跟我自定义的冲突。
-    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
   data:
     redis:
       repositories:
@@ -26,3 +28,22 @@ suyh:
         shutdown-timeout: 0
         pool:
           enabled: true
+    business:
+      client-type: lettuce
+      database: 3
+      host: 43.139.78.193
+      port: 6789
+      password: Hq5nq95BMFzGncxP
+      jedis:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 500
+          min-idle: 0
+      lettuce:
+        shutdown-timeout: 0
+        pool:
+          enabled: true
+
+
+

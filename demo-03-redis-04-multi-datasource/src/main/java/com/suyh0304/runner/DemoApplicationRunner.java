@@ -12,18 +12,23 @@ import java.time.Duration;
 @Component
 @Slf4j
 public class DemoApplicationRunner implements ApplicationRunner {
-    private final TextCacheRedis textCacheRedis;
+    private final TextCacheRedis otherTextCacheRedis;
+    private final TextCacheRedis businessTextCacheRedis;
 
     // ObjectProvider<RedisStandaloneConfiguration>
-    public DemoApplicationRunner(@Qualifier("otherTextCacheRedis") TextCacheRedis textCacheRedis) {
-        this.textCacheRedis = textCacheRedis;
+    public DemoApplicationRunner(
+            @Qualifier("businessTextCacheRedis") TextCacheRedis businessTextCacheRedis,
+            @Qualifier("otherTextCacheRedis") TextCacheRedis otherTextCacheRedis) {
+        this.otherTextCacheRedis = otherTextCacheRedis;
+        this.businessTextCacheRedis = businessTextCacheRedis;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         String key = TextCacheRedis.buildRedisKey("clusterConfiguration");
-        textCacheRedis.setText(key, "value", Duration.ofMinutes(1));
-        String text = textCacheRedis.getText(key);
+        otherTextCacheRedis.setText(key, "value", Duration.ofMinutes(1));
+        businessTextCacheRedis.setText(key, "value", Duration.ofMinutes(1));
+        String text = otherTextCacheRedis.getText(key);
         log.info("value: {}", text);
     }
 }
