@@ -99,3 +99,7 @@ RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/
 多redis 数据源，参考：JedisConnectionConfiguration
 同时禁用自动配置：spring.autoconfigure.exclude = org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
 还需要禁用：spring.data.redis.repositories.enabled=false
+
+// 允许bean 不存在的情况，可以使用它
+ObjectProvider<RedisStandaloneConfiguration>
+

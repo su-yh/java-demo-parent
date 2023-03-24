@@ -1,5 +1,6 @@
 package com.suyh0304.config;
 
+import com.suyh0304.redis.TextCacheRedis;
 import io.lettuce.core.ClientOptions;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.SocketOptions;
@@ -17,9 +18,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.ClientResourcesBuilderCustomizer;
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
@@ -33,14 +34,8 @@ import java.time.Duration;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisClient.class)
-@ConditionalOnProperty(name = "suyh.redis.client-type", havingValue = "lettuce", matchIfMissing = true)
+@Import(SuyhLettuceConfiguration.BusinessLettuceConfiguration.class)
 public class SuyhLettuceConfiguration {
-
-    @ConfigurationProperties(prefix = "suyh.redis")
-    @Bean(name = "suyhRedisProperties")
-    public RedisProperties suyhRedisProperties() {
-        return new RedisProperties();
-    }
 
     @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingBean(ClientResources.class)
@@ -50,27 +45,57 @@ public class SuyhLettuceConfiguration {
         return builder.build();
     }
 
-    @Bean
-    @ConditionalOnMissingBean(RedisConnectionFactory.class)
-    LettuceConnectionFactory redisConnectionFactory(
-            @Qualifier("suyhRedisProperties") RedisProperties properties,
-            ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
-            ClientResources clientResources) {
-        LettuceClientConfiguration clientConfig = getLettuceClientConfiguration(
-                builderCustomizers, clientResources, properties);
-        return createLettuceConnectionFactory(properties, clientConfig);
+    @ConditionalOnProperty(name = "suyh.redis.business.client-type", havingValue = "lettuce", matchIfMissing = true)
+    public static class BusinessLettuceConfiguration {
+        @Bean
+        @ConditionalOnMissingBean(RedisConnectionFactory.class)
+        LettuceConnectionFactory redisConnectionFactory(
+                @Qualifier("businessRedisProperties") RedisProperties properties,
+                ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
+                ClientResources clientResources) {
+            LettuceClientConfiguration clientConfig = getLettuceClientConfiguration(
+                    builderCustomizers, clientResources, properties);
+            return createLettuceConnectionFactory(properties, clientConfig);
+        }
+
+        @Bean(name = "businessTextCacheRedis")
+        public TextCacheRedis businessTextCacheRedis(
+                LettuceConnectionFactory factory, @Qualifier("businessRedisProperties") RedisProperties properties) {
+            return new TextCacheRedis(factory, properties.getClientType());
+        }
     }
 
-    private LettuceConnectionFactory createLettuceConnectionFactory(
+    @ConditionalOnProperty(name = "suyh.redis.other.client-type", havingValue = "lettuce", matchIfMissing = true)
+    public static class OtherLettuceConfiguration {
+        @Bean
+        @ConditionalOnMissingBean(RedisConnectionFactory.class)
+        LettuceConnectionFactory redisConnectionFactory(
+                @Qualifier("otherRedisProperties") RedisProperties properties,
+                ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
+                ClientResources clientResources) {
+            LettuceClientConfiguration clientConfig = getLettuceClientConfiguration(
+                    builderCustomizers, clientResources, properties);
+            return createLettuceConnectionFactory(properties, clientConfig);
+        }
+
+        @Bean(name = "otherTextCacheRedis")
+        public TextCacheRedis otherTextCacheRedis(
+                LettuceConnectionFactory factory, @Qualifier("otherRedisProperties") RedisProperties properties) {
+            return new TextCacheRedis(factory, properties.getClientType());
+        }
+    }
+
+    private static LettuceConnectionFactory createLettuceConnectionFactory(
             RedisProperties properties,
             LettuceClientConfiguration clientConfiguration) {
-        if (getClusterConfiguration(properties) != null) {
-            return new LettuceConnectionFactory(getClusterConfiguration(properties), clientConfiguration);
+        RedisClusterConfiguration clusterConfiguration = getClusterConfiguration(properties);
+        if (clusterConfiguration != null) {
+            return new LettuceConnectionFactory(clusterConfiguration, clientConfiguration);
         }
         return new LettuceConnectionFactory(getStandaloneConfig(properties), clientConfiguration);
     }
 
-    protected final RedisClusterConfiguration getClusterConfiguration(RedisProperties properties) {
+    protected static RedisClusterConfiguration getClusterConfiguration(RedisProperties properties) {
         if (properties.getCluster() == null) {
             return null;
         }
@@ -86,7 +111,7 @@ public class SuyhLettuceConfiguration {
         return config;
     }
 
-    protected final RedisStandaloneConfiguration getStandaloneConfig(RedisProperties properties) {
+    protected static RedisStandaloneConfiguration getStandaloneConfig(RedisProperties properties) {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
         config.setHostName(properties.getHost());
         config.setPort(properties.getPort());
@@ -96,7 +121,7 @@ public class SuyhLettuceConfiguration {
         return config;
     }
 
-    private LettuceClientConfiguration getLettuceClientConfiguration(
+    private static LettuceClientConfiguration getLettuceClientConfiguration(
             ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
             ClientResources clientResources, RedisProperties properties) {
         RedisProperties.Pool pool = properties.getLettuce().getPool();
@@ -109,19 +134,19 @@ public class SuyhLettuceConfiguration {
     }
 
 
-    private LettuceClientConfiguration.LettuceClientConfigurationBuilder createBuilder(RedisProperties.Pool pool) {
+    private static LettuceClientConfiguration.LettuceClientConfigurationBuilder createBuilder(RedisProperties.Pool pool) {
         if (isPoolEnabled(pool)) {
             return new PoolBuilderFactory().createBuilder(pool);
         }
         return LettuceClientConfiguration.builder();
     }
 
-    protected boolean isPoolEnabled(RedisProperties.Pool pool) {
+    protected static boolean isPoolEnabled(RedisProperties.Pool pool) {
         Boolean enabled = pool.getEnabled();
         return (enabled != null) ? enabled : false;
     }
 
-    private LettuceClientConfiguration.LettuceClientConfigurationBuilder applyProperties(
+    private static void applyProperties(
             RedisProperties properties, LettuceClientConfiguration.LettuceClientConfigurationBuilder builder) {
         if (properties.isSsl()) {
             builder.useSsl();
@@ -138,10 +163,9 @@ public class SuyhLettuceConfiguration {
         if (StringUtils.hasText(properties.getClientName())) {
             builder.clientName(properties.getClientName());
         }
-        return builder;
     }
 
-    private ClientOptions createClientOptions(RedisProperties properties) {
+    private static ClientOptions createClientOptions(RedisProperties properties) {
         ClientOptions.Builder builder = initializeClientOptionsBuilder(properties);
         Duration connectTimeout = properties.getConnectTimeout();
         if (connectTimeout != null) {
@@ -150,7 +174,7 @@ public class SuyhLettuceConfiguration {
         return builder.timeoutOptions(TimeoutOptions.enabled()).build();
     }
 
-    private ClientOptions.Builder initializeClientOptionsBuilder(RedisProperties properties) {
+    private static ClientOptions.Builder initializeClientOptionsBuilder(RedisProperties properties) {
         if (properties.getCluster() != null) {
             ClusterClientOptions.Builder builder = ClusterClientOptions.builder();
             RedisProperties.Lettuce.Cluster.Refresh refreshProperties = properties.getLettuce().getCluster().getRefresh();

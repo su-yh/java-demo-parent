@@ -20,14 +20,16 @@ import java.util.Set;
 public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> {
     private final RedisConnectionFactory factory;
     private final Jackson2JsonRedisSerializer<T> serializer;
-    private final RedisProperties redisProperties;
+    private final RedisProperties.ClientType clientType;
     private final ObjectMapper objectMapper;
 
-    public AbstractRedisTemplate(Class<T> javaType, ObjectMapper objectMapper, RedisConnectionFactory factory, RedisProperties redisProperties) {
+    public AbstractRedisTemplate(
+            Class<T> javaType, ObjectMapper objectMapper, RedisConnectionFactory factory,
+            @Nullable RedisProperties.ClientType clientType) {
         this.factory = factory;
         this.objectMapper = objectMapper;
         serializer = new Jackson2JsonRedisSerializer<>(javaType);
-        this.redisProperties = redisProperties;
+        this.clientType = clientType;
     }
 
     @Override
@@ -49,7 +51,7 @@ public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> 
 
     @Override
     public Set<String> keys(@NonNull String pattern) {
-        if (RedisProperties.ClientType.LETTUCE.equals(redisProperties.getClientType())) {
+        if (RedisProperties.ClientType.LETTUCE.equals(clientType)) {
             Set<String> keys = new HashSet<>();
             RedisConnection connection = factory.getConnection();
             ScanOptions scanOptions = ScanOptions.scanOptions().match(pattern).count(1000L).build();

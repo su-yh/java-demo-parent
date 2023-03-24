@@ -10,19 +10,19 @@ spring:
 
 suyh:
   redis:
-    client-type: lettuce
-    database: 2
-    host: 43.139.78.193
-    port: 6789
-    password: Hq5nq95BMFzGncxP
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 500
-        min-idle: 0
-    lettuce:
-      shutdown-timeout: 0
-      pool:
-        enabled: true
-
+    other:
+      client-type: lettuce
+      database: 2
+      host: 43.139.78.193
+      port: 6789
+      password: Hq5nq95BMFzGncxP
+      jedis:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 500
+          min-idle: 0
+      lettuce:
+        shutdown-timeout: 0
+        pool:
+          enabled: true

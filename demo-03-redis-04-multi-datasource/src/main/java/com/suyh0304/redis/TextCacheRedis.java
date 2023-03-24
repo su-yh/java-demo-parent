@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
+import org.springframework.lang.Nullable;
 
 import java.time.Duration;
 import java.util.HashSet;
@@ -18,39 +18,21 @@ import java.util.Set;
 /**
  * 普通文本redis 缓存
  */
-@Component
 @Slf4j
 public class TextCacheRedis extends RedisTemplate<String, String> {
-    public static final Duration VERIFY_CODE_EXPIRE = Duration.ofMinutes(5L);
-    public static final Duration CAPTCHA_EXPIRE = Duration.ofMinutes(3L);
-
     /**
      * 创建防机器人验证码redis 缓存key
      */
-    public static String buildCaptchaRedisKey(String uuid) {
-        return String.join(":", "suyh", "captcha", "uuid", uuid);
+    public static String buildRedisKey(String key) {
+        return String.join(":", "suyh", key);
     }
 
-    /**
-     * 创建手机校验码redis 缓存key
-     */
-    public static String buildPhoneRedisKey(String phone) {
-        return String.join(":", "suyh", "user", "phone", phone);
-    }
-
-    /**
-     * 创建email 校验码redis 缓存key
-     */
-    public static String buildEmailRedisKey(String email) {
-        return String.join(":", "suyh", "user", "email", email);
-    }
-
-    private final RedisProperties redisProperties;
+    private final RedisProperties.ClientType clientType;
     private final RedisConnectionFactory factory;
 
-    public TextCacheRedis(RedisConnectionFactory factory, RedisProperties redisProperties) {
+    public TextCacheRedis(RedisConnectionFactory factory, @Nullable RedisProperties.ClientType clientType) {
         this.factory = factory;
-        this.redisProperties = redisProperties;
+        this.clientType = clientType;
     }
 
     @Override
@@ -64,7 +46,7 @@ public class TextCacheRedis extends RedisTemplate<String, String> {
 
     @Override
     public Set<String> keys(@NonNull String pattern) {
-        if (RedisProperties.ClientType.LETTUCE.equals(redisProperties.getClientType())) {
+        if (RedisProperties.ClientType.LETTUCE.equals(clientType)) {
             Set<String> keys = new HashSet<>();
             RedisConnection connection = factory.getConnection();
             ScanOptions scanOptions = ScanOptions.scanOptions().match(pattern).count(1000L).build();
