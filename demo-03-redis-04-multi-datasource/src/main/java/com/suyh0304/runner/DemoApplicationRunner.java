@@ -22,7 +22,8 @@ public class DemoApplicationRunner implements ApplicationRunner {
             @Qualifier("businessTextCacheRedis") TextCacheRedis businessTextCacheRedis,
             @Qualifier("otherTextCacheRedis") TextCacheRedis otherTextCacheRedis,
             // ObjectProvider 允许SuyhProperties 这个bean 不存在
-            ObjectProvider<SuyhProperties> providerProperties) {
+            ObjectProvider<SuyhProperties> providerProperties,
+            ObjectProvider<TextCacheRedis> providerTextRedis) {
         this.otherTextCacheRedis = otherTextCacheRedis;
         this.businessTextCacheRedis = businessTextCacheRedis;
         // 获取实际的SuyhProperties bean 对象，如果bean 不存在则为null

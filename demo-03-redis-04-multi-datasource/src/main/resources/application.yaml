@@ -17,6 +17,8 @@ suyh:
       database: 2
       host: localhost
       port: 6379
+      # url这个属性被我忽略了，没有搞，原生是支持的。
+      url: xxx
       jedis:
         pool:
           max-active: 8
@@ -32,6 +34,8 @@ suyh:
       database: 3
       host: localhost
       port: 6379
+      # url这个属性被我忽略了，没有搞，原生是支持的。
+      url: xxx
       jedis:
         pool:
           max-active: 8
