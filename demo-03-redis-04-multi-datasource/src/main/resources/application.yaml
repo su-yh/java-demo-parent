@@ -7,9 +7,11 @@ spring:
       repositories:
         # 需要禁用
         enabled: false
+
+suyh:
   redis:
     client-type: lettuce
-    database: 1
+    database: 2
     host: 43.139.78.193
     port: 6789
     password: Hq5nq95BMFzGncxP
@@ -22,4 +24,5 @@ spring:
     lettuce:
       shutdown-timeout: 0
       pool:
-        enabled: false
+        enabled: true
+
