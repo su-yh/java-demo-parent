@@ -1,7 +1,7 @@
 spring:
   autoconfigure:
-    # 默认它会去创建RedisProperties 这个bean 对象，会跟我自定义的冲突。
     exclude:
+      # 需要排除这两个，否则会有冲突
       - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
       - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
   data:
@@ -15,9 +15,8 @@ suyh:
     other:
       client-type: lettuce
       database: 2
-      host: 43.139.78.193
-      port: 6789
-      password: Hq5nq95BMFzGncxP
+      host: localhost
+      port: 6379
       jedis:
         pool:
           max-active: 8
@@ -31,9 +30,8 @@ suyh:
     business:
       client-type: jedis
       database: 3
-      host: 43.139.78.193
-      port: 6789
-      password: Hq5nq95BMFzGncxP
+      host: localhost
+      port: 6379
       jedis:
         pool:
           max-active: 8

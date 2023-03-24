@@ -17,18 +17,37 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisClient.class)
 public class SuyhJedisConfiguration {
+
     @ConditionalOnProperty(name = "suyh.redis.business.client-type", havingValue = "jedis", matchIfMissing = false)
-    @Bean(name = "businessRedisConnectionFactory")
-    public RedisConnectionFactory businessRedisConnectionFactory(
-            @Qualifier("businessRedisProperties") RedisProperties properties) {
-        return createJedisConnectionFactory(properties);
+    public static class BusinessJedisConfiguration {
+        @Bean(name = "businessRedisConnectionFactory")
+        public RedisConnectionFactory businessRedisConnectionFactory(
+                @Qualifier("businessRedisProperties") RedisProperties properties) {
+            return createJedisConnectionFactory(properties);
+        }
+
+        @Bean(name = "businessTextCacheRedis")
+        public TextCacheRedis businessTextCacheRedis(
+                @Qualifier("businessRedisConnectionFactory") RedisConnectionFactory factory,
+                @Qualifier("businessRedisProperties") RedisProperties properties) {
+            return new TextCacheRedis(factory, properties.getClientType());
+        }
     }
 
-    @Bean(name = "businessTextCacheRedis")
-    public TextCacheRedis businessTextCacheRedis(
-            @Qualifier("businessRedisConnectionFactory") RedisConnectionFactory factory,
-            @Qualifier("businessRedisProperties") RedisProperties properties) {
-        return new TextCacheRedis(factory, properties.getClientType());
+    @ConditionalOnProperty(name = "suyh.redis.other.client-type", havingValue = "jedis", matchIfMissing = false)
+    public static class OtherJedisConfiguration {
+        @Bean(name = "otherRedisConnectionFactory")
+        public RedisConnectionFactory otherRedisConnectionFactory(
+                @Qualifier("otherRedisProperties") RedisProperties properties) {
+            return createJedisConnectionFactory(properties);
+        }
+
+        @Bean(name = "otherTextCacheRedis")
+        public TextCacheRedis otherTextCacheRedis(
+                @Qualifier("otherRedisConnectionFactory") RedisConnectionFactory factory,
+                @Qualifier("otherRedisProperties") RedisProperties properties) {
+            return new TextCacheRedis(factory, properties.getClientType());
+        }
     }
 
     private static RedisConnectionFactory createJedisConnectionFactory(RedisProperties properties) {
