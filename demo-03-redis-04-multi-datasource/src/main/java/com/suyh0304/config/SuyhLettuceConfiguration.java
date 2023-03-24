@@ -21,8 +21,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
@@ -84,37 +82,11 @@ public class SuyhLettuceConfiguration {
     private static RedisConnectionFactory createLettuceConnectionFactory(
             RedisProperties properties,
             LettuceClientConfiguration clientConfiguration) {
-        RedisClusterConfiguration clusterConfiguration = getClusterConfiguration(properties);
+        RedisClusterConfiguration clusterConfiguration = SuyhRedisConfiguration.getClusterConfiguration(properties);
         if (clusterConfiguration != null) {
             return new LettuceConnectionFactory(clusterConfiguration, clientConfiguration);
         }
-        return new LettuceConnectionFactory(getStandaloneConfig(properties), clientConfiguration);
-    }
-
-    protected static RedisClusterConfiguration getClusterConfiguration(RedisProperties properties) {
-        if (properties.getCluster() == null) {
-            return null;
-        }
-        RedisProperties.Cluster clusterProperties = properties.getCluster();
-        RedisClusterConfiguration config = new RedisClusterConfiguration(clusterProperties.getNodes());
-        if (clusterProperties.getMaxRedirects() != null) {
-            config.setMaxRedirects(clusterProperties.getMaxRedirects());
-        }
-        config.setUsername(properties.getUsername());
-        if (properties.getPassword() != null) {
-            config.setPassword(RedisPassword.of(properties.getPassword()));
-        }
-        return config;
-    }
-
-    protected static RedisStandaloneConfiguration getStandaloneConfig(RedisProperties properties) {
-        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-        config.setHostName(properties.getHost());
-        config.setPort(properties.getPort());
-        config.setUsername(properties.getUsername());
-        config.setPassword(RedisPassword.of(properties.getPassword()));
-        config.setDatabase(properties.getDatabase());
-        return config;
+        return new LettuceConnectionFactory(SuyhRedisConfiguration.getStandaloneConfig(properties), clientConfiguration);
     }
 
     private static LettuceClientConfiguration getLettuceClientConfiguration(
@@ -209,7 +181,6 @@ public class SuyhLettuceConfiguration {
             }
             return config;
         }
-
     }
 
 }
