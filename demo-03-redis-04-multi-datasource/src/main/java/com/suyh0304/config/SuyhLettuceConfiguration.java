@@ -13,15 +13,14 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.ClientResourcesBuilderCustomizer;
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
@@ -33,21 +32,19 @@ import java.time.Duration;
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisClient.class)
-@Import(SuyhLettuceConfiguration.BusinessLettuceConfiguration.class)
 public class SuyhLettuceConfiguration {
 
     @Bean(destroyMethod = "shutdown")
-    @ConditionalOnMissingBean(ClientResources.class)
-    DefaultClientResources lettuceClientResources(ObjectProvider<ClientResourcesBuilderCustomizer> customizers) {
+    public DefaultClientResources lettuceClientResources(ObjectProvider<ClientResourcesBuilderCustomizer> customizers) {
         DefaultClientResources.Builder builder = DefaultClientResources.builder();
         customizers.orderedStream().forEach((customizer) -> customizer.customize(builder));
         return builder.build();
     }
 
-    @ConditionalOnProperty(name = "suyh.redis.business.client-type", havingValue = "lettuce", matchIfMissing = true)
+    @ConditionalOnProperty(name = "suyh.redis.business.client-type", havingValue = "lettuce", matchIfMissing = false)
     public static class BusinessLettuceConfiguration {
         @Bean(name = "businessRedisConnectionFactory")
-        LettuceConnectionFactory redisConnectionFactory(
+        public RedisConnectionFactory businessRedisConnectionFactory(
                 @Qualifier("businessRedisProperties") RedisProperties properties,
                 ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
                 ClientResources clientResources) {
@@ -58,16 +55,16 @@ public class SuyhLettuceConfiguration {
 
         @Bean(name = "businessTextCacheRedis")
         public TextCacheRedis businessTextCacheRedis(
-                @Qualifier("businessRedisConnectionFactory") LettuceConnectionFactory factory,
+                @Qualifier("businessRedisConnectionFactory") RedisConnectionFactory factory,
                 @Qualifier("businessRedisProperties") RedisProperties properties) {
             return new TextCacheRedis(factory, properties.getClientType());
         }
     }
 
-    @ConditionalOnProperty(name = "suyh.redis.other.client-type", havingValue = "lettuce", matchIfMissing = true)
+    @ConditionalOnProperty(name = "suyh.redis.other.client-type", havingValue = "lettuce", matchIfMissing = false)
     public static class OtherLettuceConfiguration {
         @Bean("otherRedisConnectionFactory")
-        LettuceConnectionFactory redisConnectionFactory(
+        public RedisConnectionFactory redisConnectionFactory(
                 @Qualifier("otherRedisProperties") RedisProperties properties,
                 ObjectProvider<LettuceClientConfigurationBuilderCustomizer> builderCustomizers,
                 ClientResources clientResources) {
@@ -78,13 +75,13 @@ public class SuyhLettuceConfiguration {
 
         @Bean(name = "otherTextCacheRedis")
         public TextCacheRedis otherTextCacheRedis(
-                @Qualifier("otherRedisConnectionFactory") LettuceConnectionFactory factory,
+                @Qualifier("otherRedisConnectionFactory") RedisConnectionFactory factory,
                 @Qualifier("otherRedisProperties") RedisProperties properties) {
             return new TextCacheRedis(factory, properties.getClientType());
         }
     }
 
-    private static LettuceConnectionFactory createLettuceConnectionFactory(
+    private static RedisConnectionFactory createLettuceConnectionFactory(
             RedisProperties properties,
             LettuceClientConfiguration clientConfiguration) {
         RedisClusterConfiguration clusterConfiguration = getClusterConfiguration(properties);

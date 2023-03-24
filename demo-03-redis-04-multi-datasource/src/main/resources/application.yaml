@@ -29,7 +29,7 @@ suyh:
         pool:
           enabled: true
     business:
-      client-type: lettuce
+      client-type: jedis
       database: 3
       host: 43.139.78.193
       port: 6789

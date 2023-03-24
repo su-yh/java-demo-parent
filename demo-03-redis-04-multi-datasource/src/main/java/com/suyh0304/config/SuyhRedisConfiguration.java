@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class SuyhRedisConfiguration {
     @ConfigurationProperties(prefix = "suyh.redis.business")
     @Bean(name = "businessRedisProperties")
-    public RedisProperties businesshRedisProperties() {
+    public RedisProperties businessRedisProperties() {
         return new RedisProperties();
     }
 
