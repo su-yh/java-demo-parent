@@ -31,7 +31,7 @@
 <!--        <module>demo-02-properties-01</module>-->
 <!--        <module>demo-03-jedis-01</module>-->
 <!--        <module>demo-03-jedis-03-redis_template</module>-->
-        <module>demo-03-redis-04-multi-datasource</module>
+<!--        <module>demo-03-redis-04-multi-datasource</module>-->
 <!--        <module>demo-04-scheduler-01</module>-->
 <!--        <module>demo-04-scheduler-02</module>-->
 <!--        <module>demo-04-scheduler-03-shedlock-custom</module>-->

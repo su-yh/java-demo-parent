@@ -43,6 +43,8 @@ import java.util.List;
  * 可以在注解中指定，如： @ApiOperation(authorizations = {@Authorization(value = "Authorization")})
  * 但是需要做相应的配置
  *
+ * 访问路径：http://localhost:8080/swagger-ui/index.html
+ *
  * 参考配置属性对象：{@link SpringfoxConfigurationProperties} 以及{@link OpenApiAutoConfiguration}
  */
 @ConditionalOnProperty(value = "springfox.documentation.enabled", havingValue = "true", matchIfMissing = true)
@@ -59,10 +61,10 @@ public class Swagger3ConfigurationPlus {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 // 按分组显示的名称
-                .groupName("用户信息分组")
+                .groupName("suyh-分组")
                 .select()
                 // 指定要扫描的基础包，并且类上面有注解 @Api 的才会被扫描到
-                .apis(RequestHandlerSelectors.basePackage("com.suyh.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.suyh1202.controller"))
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
