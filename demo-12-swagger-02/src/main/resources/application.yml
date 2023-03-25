@@ -3,3 +3,7 @@ server:
 spring:
   profiles:
     active: local
+springfox:
+  documentation:
+    # 启用/禁用swagger
+    enabled: true

@@ -13,12 +13,14 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
+import springfox.boot.starter.autoconfigure.OpenApiAutoConfiguration;
+import springfox.boot.starter.autoconfigure.SpringfoxConfigurationProperties;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -40,8 +42,10 @@ import java.util.List;
  * 将需要认证的接口，让添加 Authorization 请求头信息。
  * 可以在注解中指定，如： @ApiOperation(authorizations = {@Authorization(value = "Authorization")})
  * 但是需要做相应的配置
+ *
+ * 参考配置属性对象：{@link SpringfoxConfigurationProperties} 以及{@link OpenApiAutoConfiguration}
  */
-@Profile({"plus"})
+@ConditionalOnProperty(value = "springfox.documentation.enabled", havingValue = "true", matchIfMissing = true)
 @EnableOpenApi
 @Configuration
 public class Swagger3ConfigurationPlus {
