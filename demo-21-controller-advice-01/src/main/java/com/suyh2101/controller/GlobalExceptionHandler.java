@@ -1,4 +1,4 @@
-package com.suyh.controller;
+package com.suyh2101.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -107,6 +108,12 @@ public class GlobalExceptionHandler {
             sb.append(defaultMessage).append(" ");
         }
         return sb.toString();
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public String handlerException(MissingRequestHeaderException exception, HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return exception.getMessage();
     }
 
 //    /**

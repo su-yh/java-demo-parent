@@ -1,4 +1,4 @@
-package com.suyh.exception;
+package com.suyh2101.exception;
 
 /**
  * 自定义异常

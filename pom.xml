@@ -54,10 +54,10 @@
 <!--        <module>demo-18-WebClient-03</module>-->
 <!--        <module>demo-19-servletRequest-01</module>-->
 <!--        <module>demo-20-filter-interceptor-01</module>-->
-<!--        <module>demo-21-controller-advice-01</module>-->
-<!--        <module>demo-21-filter-exception-02</module>-->
-<!--        <module>demo-21-03-simpleMappingExceptionResolver</module>-->
-<!--        <module>demo-21-controller-advice-03</module>-->
+        <module>demo-21-controller-advice-01</module>
+        <module>demo-21-filter-exception-02</module>
+        <module>demo-21-03-simpleMappingExceptionResolver</module>
+        <module>demo-21-controller-advice-03</module>
 <!--        <module>demo-22-validation-01</module>-->
 <!--        <module>demo-22-validation-02</module>-->
 <!--        <module>demo-22-validation-03</module>-->

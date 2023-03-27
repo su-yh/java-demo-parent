@@ -1,4 +1,4 @@
-package com.suyh.config;
+package com.suyh2101.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;

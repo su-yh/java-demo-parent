@@ -1,6 +1,6 @@
-package com.suyh.controller;
+package com.suyh2101.controller;
 
-import com.suyh.exception.SuyhException;
+import com.suyh2101.exception.SuyhException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
