@@ -14,6 +14,7 @@ import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.support.WebExchangeBindException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -110,8 +111,18 @@ public class GlobalExceptionHandler {
         return sb.toString();
     }
 
+    /**
+     * 请求头缺失异常
+     * message: Required request header '请求头' for method parameter type 参数类型(String) is not present
+     */
     @ExceptionHandler(MissingRequestHeaderException.class)
     public String handlerException(MissingRequestHeaderException exception, HttpServletResponse response) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return exception.getMessage();
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public String handlerException(MissingServletRequestPartException exception, HttpServletResponse response) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return exception.getMessage();
     }

@@ -3,6 +3,7 @@ package com.suyh2101.controller;
 import com.suyh2101.exception.SuyhException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,5 +27,10 @@ public class AppController {
     @GetMapping("/req/normal")
     public String getNonException() {
         return "no exception, result is ok.";
+    }
+
+    @GetMapping("/req/header")
+    public String headerMissingException(@RequestHeader("suyhHeader") String suyhHeader) {
+        return suyhHeader;
     }
 }

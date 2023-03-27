@@ -1,5 +1,5 @@
 server:
-  port: 12101
+  port: 8080
 suyh:
   server:
     controller:
