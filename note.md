@@ -103,3 +103,5 @@ RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/
 // 允许bean 不存在的情况，可以使用它
 ObjectProvider<RedisStandaloneConfiguration>
 
+hutool 工具包：https://github.com/dromara/hutool    
+    
