@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-03-jedis-01</artifactId>
+    <artifactId>demo-03-redis-01</artifactId>
 
     <dependencies>
         <dependency>

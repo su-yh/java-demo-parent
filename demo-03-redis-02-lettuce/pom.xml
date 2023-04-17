@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-03-jedis-02-lettuce</artifactId>
+    <artifactId>demo-03-redis-02-lettuce</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
