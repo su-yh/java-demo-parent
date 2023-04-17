@@ -21,7 +21,8 @@ public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> 
     @Override
     public void afterPropertiesSet() {
         ObjectMapper mapper = new ObjectMapper();
-        JsonUtils.mapperConfig(mapper);
+//        JsonUtil.initMapper(mapper);
+
         serializer.setObjectMapper(mapper);
 
         final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();

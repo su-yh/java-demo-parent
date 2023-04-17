@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-<!--        <module>demo-00-00-core</module>-->
+        <module>demo-00-00-core</module>
 <!--        <module>demo-00-01-common</module>-->
 <!--        <module>demo-00-02-jpa</module>-->
 <!--        <module>demo-00-03-constants</module>-->
@@ -29,9 +29,10 @@
 <!--        <module>demo-01-test-03-junit5</module>-->
 <!--        <module>demo-02-config-center-01</module>-->
 <!--        <module>demo-02-properties-01</module>-->
-<!--        <module>demo-03-jedis-01</module>-->
-<!--        <module>demo-03-jedis-03-redis_template</module>-->
-<!--        <module>demo-03-redis-04-multi-datasource</module>-->
+        <module>demo-03-jedis-01</module>
+        <module>demo-03-jedis-02-lettuce</module>
+        <module>demo-03-jedis-03-redis_template</module>
+        <module>demo-03-redis-04-multi-datasource</module>
 <!--        <module>demo-04-scheduler-01</module>-->
 <!--        <module>demo-04-scheduler-02</module>-->
 <!--        <module>demo-04-scheduler-03-shedlock-custom</module>-->
@@ -44,8 +45,8 @@
 <!--        <module>demo-09-shiro-02</module>-->
 <!--        <module>demo-09-shiro-03</module>-->
 <!--        <module>demo-09-shiro-04-ssm</module>-->
-        <module>demo-12-swagger-01</module>
-        <module>demo-12-swagger-02</module>
+<!--        <module>demo-12-swagger-01</module>-->
+<!--        <module>demo-12-swagger-02</module>-->
 <!--        <module>demo-13-autowired-resource-01</module>-->
 <!--        <module>demo-16-caffeine-01</module>-->
 <!--        <module>demo-16-guava-01</module>-->
@@ -54,10 +55,10 @@
 <!--        <module>demo-18-WebClient-03</module>-->
 <!--        <module>demo-19-servletRequest-01</module>-->
 <!--        <module>demo-20-filter-interceptor-01</module>-->
-        <module>demo-21-controller-advice-01</module>
-        <module>demo-21-filter-exception-02</module>
-        <module>demo-21-03-simpleMappingExceptionResolver</module>
-        <module>demo-21-controller-advice-03</module>
+<!--        <module>demo-21-controller-advice-01</module>-->
+<!--        <module>demo-21-filter-exception-02</module>-->
+<!--        <module>demo-21-03-simpleMappingExceptionResolver</module>-->
+<!--        <module>demo-21-controller-advice-03</module>-->
 <!--        <module>demo-22-validation-01</module>-->
 <!--        <module>demo-22-validation-02</module>-->
 <!--        <module>demo-22-validation-03</module>-->

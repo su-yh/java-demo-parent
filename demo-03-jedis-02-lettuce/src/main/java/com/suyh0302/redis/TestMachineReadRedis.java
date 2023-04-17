@@ -1,5 +1,6 @@
 package com.suyh0302.redis;
 
+import com.suyh0302.redis.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
@@ -12,12 +13,12 @@ import java.util.Set;
 @DependsOn("testMachineWriteRedis")
 @Component
 @Slf4j
-public class TestMachineReadRedis extends AbstractRedisTemplate<MachineInfo> {
+public class TestMachineReadRedis extends AbstractRedisTemplate<Student> {
     @Value("${spring.profiles.active}")
     private String curEnv;
 
     public TestMachineReadRedis(RedisConnectionFactory factory) {
-        super(MachineInfo.class, factory);
+        super(Student.class, factory);
     }
 
     @Override
@@ -30,7 +31,6 @@ public class TestMachineReadRedis extends AbstractRedisTemplate<MachineInfo> {
         if (keys == null) {
             return;
         }
-        final List<MachineInfo> machines = super.opsForValue().multiGet(keys);
-        System.out.println("mechines: " + JsonUtils.showJsonValue(machines));
+        final List<Student> machines = super.opsForValue().multiGet(keys);
     }
 }
