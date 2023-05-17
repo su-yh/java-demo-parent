@@ -9,4 +9,7 @@ serevlet 的工具类：ServletRequestPathUtils   如：ServletRequestPathUtils.
 
 AnnotatedElementUtils
 
+数据大小类，在配置文件中使用比较方便：org.springframework.util.unit.DataSize
+
+并且它还提供了，数字类型的转换和字符串类型的转换：`org.springframework.boot.convert.NumberToDataSizeConverter`   `org.springframework.boot.convert.StringToDataSizeConverter`
 
