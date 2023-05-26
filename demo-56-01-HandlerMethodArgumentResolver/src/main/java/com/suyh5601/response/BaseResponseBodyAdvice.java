@@ -4,18 +4,31 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.List;
+
+/**
+ * 该接口的实现原理在{@link AbstractMessageConverterMethodProcessor#writeWithMessageConverters(Object, MethodParameter, ServletServerHttpRequest, ServletServerHttpResponse) writeWithMessageConverters(..)}
+ * 里面有一行调用：getAdvice().beforeBodyWrite(..)
+ * 这些advice 的值是由{@link RequestResponseBodyMethodProcessor#RequestResponseBodyMethodProcessor(List, List) RequestResponseBodyMethodProcessor(..)} 构造方法传入并初始化。
+ * 它的实例化在 {@link RequestMappingHandlerAdapter#getDefaultArgumentResolvers()}
+ */
 @ControllerAdvice
 public class BaseResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        // 不处理直接返回ResponseEntity 的，这种可能处理的就是文件。
         return !ResponseEntity.class.isAssignableFrom(returnType.getParameterType());
     }
 
@@ -50,7 +63,8 @@ public class BaseResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                 ObjectMapper mapper = new ObjectMapper();
                 return mapper.writeValueAsString(BaseResponse.ok(body));
             } catch (JsonProcessingException e) {
-                // TODO: suyh - 这里能抛出异常吗？？？
+                // 这里能抛出异常吗？？？
+                // 这里可以抛异常，异常会被ControllerAdvice 拦截并处理，处理完了，还会再次进入当前位置。
                 throw new RuntimeException(e);
             }
         }
