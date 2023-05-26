@@ -15,7 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class BaseResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return true;
+        // 不处理直接返回ResponseEntity 的，这种可能处理的就是文件。
+        return !ResponseEntity.class.isAssignableFrom(returnType.getParameterType());
     }
 
     @Override
