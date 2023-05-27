@@ -55,10 +55,11 @@
 <!--        <module>demo-18-WebClient-03</module>-->
 <!--        <module>demo-19-servletRequest-01</module>-->
 <!--        <module>demo-20-filter-interceptor-01</module>-->
-<!--        <module>demo-21-controller-advice-01</module>-->
-<!--        <module>demo-21-filter-exception-02</module>-->
-<!--        <module>demo-21-03-simpleMappingExceptionResolver</module>-->
-<!--        <module>demo-21-controller-advice-03</module>-->
+        <module>demo-21-01-controller-advice</module>
+        <module>demo-21-02-filter-exception</module>
+        <module>demo-21-03-controller-advice</module>
+        <module>demo-21-04-simpleMappingExceptionResolver</module>
+        <module>demo-21-05-response-advice</module>
 <!--        <module>demo-22-validation-01</module>-->
 <!--        <module>demo-22-validation-02</module>-->
 <!--        <module>demo-22-validation-03</module>-->
@@ -104,9 +105,9 @@
 <!--        <module>demo-54-01-javassist</module>-->
 <!--        <module>demo-55-01-websocket-echo</module>-->
 <!--        <module>demo-55-04-websocket</module>-->
-<!--        <module>demo-56-01-HandlerMethodArgumentResolver</module>-->
+        <module>demo-56-01-HandlerMethodArgumentResolver</module>
 
-<!--        <module>demo-57-01-uuid-distributed</module>-->
+        <!--        <module>demo-57-01-uuid-distributed</module>-->
     </modules>
 
     <dependencyManagement>

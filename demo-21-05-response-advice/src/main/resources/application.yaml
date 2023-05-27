@@ -1,0 +1,16 @@
+server:
+  port: 2101
+
+
+springfox:
+  documentation:
+    # 启用/禁用swagger
+    enabled: true
+
+spring:
+  mvc:
+    pathmatch:
+      # 解决swagger3 报错问题，如果不使用swagger 的话可以去掉。
+      matching-strategy: ant_path_matcher
+
+

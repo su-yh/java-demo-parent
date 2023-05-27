@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-21-filter-exception-02</artifactId>
+    <artifactId>demo-21-02-filter-exception</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
