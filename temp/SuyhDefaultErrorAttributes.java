@@ -31,6 +31,8 @@ public class SuyhDefaultErrorAttributes extends DefaultErrorAttributes {
 
         final Throwable throwable = getError(webRequest);
         if (throwable instanceof DemoException) {
+            // 将error 重新写到map 中，因为DemoException 的错误码被处理成200 ，对应的error 的值是：OK.
+            errorAttributes.put("error", throwable.getMessage());
             log.info("demoException, timestamp: {}", timestampFormat);
         } else {
             log.error("timestamp: {}", timestampFormat, getError(webRequest));
