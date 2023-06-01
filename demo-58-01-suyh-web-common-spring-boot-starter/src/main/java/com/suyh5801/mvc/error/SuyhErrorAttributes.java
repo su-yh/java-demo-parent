@@ -30,16 +30,17 @@ import java.util.Map;
 public class SuyhErrorAttributes extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-        Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         final String timestampFormat = sdf.format(new Date());
+
+        Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         errorAttributes.put("timestamp", timestampFormat);
         errorAttributes.put("success", false);
 
         Throwable throwable = getError(webRequest);
 
         if (!SuyhBusinessException.class.isAssignableFrom(throwable.getClass())) {
-            log.error("timestamp: {}", timestampFormat, throwable);
+            log.warn("timestamp: {}", timestampFormat, throwable);
         }
 
         return errorAttributes;

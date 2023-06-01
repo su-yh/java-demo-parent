@@ -21,7 +21,7 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
     }
 
     @Override
-    public ModelAndView resolveException(
+    public ModelAndView doResolveException(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             Object handler,
@@ -37,7 +37,7 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             log.warn("Failure while trying to resolve exception [" + ex.getClass().getName() + "]", handlerEx);
         }
 
-        return super.resolveException(request, response, handler, ex);
+        return super.doResolveException(request, response, handler, ex);
     }
 
     protected ModelAndView handleBusinessException(
