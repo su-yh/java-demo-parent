@@ -28,6 +28,11 @@ public class SuyhResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
             @NonNull ServerHttpRequest request,
             @NonNull ServerHttpResponse response) {
+
+        // 遇到feign接口之类的请求, 不应该再次包装,应该直接返回
+        // 上述问题的解决方案: 可以在feign拦截器中,给feign请求头中添加一个标识字段, 表示是feign请求
+        // 在此处拦截到feign标识字段, 则直接放行 返回body.
+
         if (body == null) {
             return SuyhResult.ofSuccess();
         }
@@ -37,9 +42,10 @@ public class SuyhResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         }
 
         // 这里需要对String 类型的做特别处理，因为它由StringHttpMessageConverter 类处理，
-        // 如果返回的是BaseResponse 会发生类型转换异常。
+        // 如果返回的是SuyhResult 会发生类型转换异常。
         if (String.class.isAssignableFrom(body.getClass())) {
-            JsonUtils.serializable(SuyhResult.ofSuccess(body));
+            SuyhResult<Object> result = SuyhResult.ofSuccess(body);
+            return JsonUtils.serializable(result);
         }
 
         return SuyhResult.ofSuccess(body);
