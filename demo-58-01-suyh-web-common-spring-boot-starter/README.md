@@ -2,3 +2,4 @@
 
 拦截返回值处理，增强为`SuyhResult<T>` 泛型，而不需要在controller 方法的返回值上写明该泛型
 
+DefaultHandlerExceptionResolver 里面好像只处理spring mvc 自己抛出的异常，并没有处理其他的异常，那这部分异常是由谁处理了呢？
