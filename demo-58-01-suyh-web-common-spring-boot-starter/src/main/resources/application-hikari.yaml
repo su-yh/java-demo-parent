@@ -1,0 +1,48 @@
+# 连接池的相关配置跟数据库服务器的相关配置需要做对比。
+# show variables like '%timeout%';
+
+# 当连接池的参数 idleTimeout 或maxLifetime 大于数据库的 interactive_timeout 或wait_timeout 时，连接池里的连接没过期，但数据库那边已经过期了，就会出现上面的错误。
+# Possible consider using a shorter maxLifetime value
+
+# hikari 名称解释参考： https://github.com/brettwooldridge/HikariCP
+# 参考博客：https://blog.csdn.net/xgw1010/article/details/113604080
+
+spring:
+  datasource:
+    hikari:
+      # 此属性控制从池返回的连接的默认自动提交行为。它是一个布尔值。默认值：true
+      auto-commit: true
+      # 此属性控制客户端等待来自池的连接的最大毫秒数。
+      # 如果超过此时间而没有可用的连接，则会抛出SqlException。
+      # 可接受的最低连接超时为250ms。默认值：30_000(30 秒)
+      connection-timeout: 30_000
+      # 此属性控制允许连接在池中保持空闲状态的最长时间。
+      # 仅当minimumIdle 定义小于时，此设置才适合maximumPoolSize。
+      # 池达到连接后，空闲连接将不会即出minimumIdle。
+      # 连接是否以空闲状态退役，最大变化为+30秒，平均变化为+15秒。
+      # 在此超时之前，连接永远不会因为闲置而退役。 值必须比maxLifetime小。
+      # 值为0 表示永远不会从池中删除空闲连接。最小允许值为10_000ms(10秒)。默认值：600_000(10 分钟)
+      idle-timeout: 600_000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
