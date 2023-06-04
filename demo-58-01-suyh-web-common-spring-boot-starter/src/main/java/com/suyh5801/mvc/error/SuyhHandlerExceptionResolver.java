@@ -39,9 +39,8 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
                 return handleSystemException((SuyhSystemException) ex, request, response, handler);
             }
 
-            if (ex instanceof RuntimeException) {
-                return handlerRuntimeException((RuntimeException) ex, request, response, handler);
-            }
+            // 剩下的所有异常处理，都由它来解决。
+            return handlerException(ex, request, response, handler);
         } catch (Exception handlerEx) {
             log.warn("Failure while trying to resolve exception [" + ex.getClass().getName() + "]", handlerEx);
         }
@@ -64,8 +63,8 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
         return new ModelAndView();
     }
 
-    protected ModelAndView handlerRuntimeException(
-            @NonNull RuntimeException ex, @NonNull HttpServletRequest request,
+    protected ModelAndView handlerException(
+            @NonNull Exception ex, @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @Nullable Object handler) throws IOException {
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "service error.");
         return new ModelAndView();
