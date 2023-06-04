@@ -14,6 +14,6 @@ server:
       # 用于确定是否将缓冲日志记录的标志。如果为false，则将在每个请求之后写入访问日志。默认值；true
       buffered: true
       # 日志格式
-      pattern: %{Host}i begin=%{begin}t end=%{end}t end=%{msec}t "%U" thread=%I
+#      pattern: %{Host}i begin=%{begin}t end=%{end}t end=%{msec}t "%U" thread=%I
 
 
