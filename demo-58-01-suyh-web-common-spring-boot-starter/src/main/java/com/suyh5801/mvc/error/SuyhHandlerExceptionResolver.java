@@ -26,6 +26,11 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             @NonNull HttpServletResponse response,
             Object handler,
             @NonNull Exception ex) {
+        ModelAndView mav = super.doResolveException(request, response, handler, ex);
+        if (mav != null) {
+            return mav;
+        }
+
         try {
             if (ex instanceof SuyhBusinessException) {
                 return handleBusinessException((SuyhBusinessException) ex, request, response, handler);
@@ -33,11 +38,15 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             if (ex instanceof SuyhSystemException) {
                 return handleSystemException((SuyhSystemException) ex, request, response, handler);
             }
+
+            if (ex instanceof RuntimeException) {
+                return handlerRuntimeException((RuntimeException) ex, request, response, handler);
+            }
         } catch (Exception handlerEx) {
             log.warn("Failure while trying to resolve exception [" + ex.getClass().getName() + "]", handlerEx);
         }
 
-        return super.doResolveException(request, response, handler, ex);
+        return null;
     }
 
     protected ModelAndView handleBusinessException(
@@ -52,6 +61,13 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             @NonNull SuyhSystemException ex, @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @Nullable Object handler) throws IOException {
         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+        return new ModelAndView();
+    }
+
+    protected ModelAndView handlerRuntimeException(
+            @NonNull RuntimeException ex, @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response, @Nullable Object handler) throws IOException {
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "service error.");
         return new ModelAndView();
     }
 }
