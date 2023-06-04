@@ -1,0 +1,19 @@
+
+server:
+  port: 5801
+  error:
+    include-binding-errors: always
+    include-exception: true
+    include-message: always
+  tomcat:
+    # tomcat 的访问日志记录
+    # 参考博客：https://blog.csdn.net/wudiyong22/article/details/103849359
+    accesslog:
+      enabled: true
+      directory: /suyh/tomcat/accesslog
+      # 用于确定是否将缓冲日志记录的标志。如果为false，则将在每个请求之后写入访问日志。默认值；true
+      buffered: true
+      # 日志格式
+      pattern: %{Host}i begin=%{begin}t end=%{end}t end=%{msec}t "%U" thread=%I
+
+
