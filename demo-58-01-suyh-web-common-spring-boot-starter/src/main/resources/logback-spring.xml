@@ -25,36 +25,27 @@
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.%2i.log</FileNamePattern>
             <!--日志文件保留天数 -->
             <MaxHistory>30</MaxHistory>
+            <!--转存文件大小上限-->
+            <maxFileSize>10MB</maxFileSize>
+            <!--总日志大小-->
+            <totalSizeCap>10GB</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger:%L - %msg%n</pattern>
         </encoder>
-        <!--日志文件最大的大小 -->
-        <triggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
     </appender>
 
-    <!-- 对此包下添加日志级别 -->
-    <logger name="com.imooc.activiti.helloworld">
-        <level value="DEBUG"/>
-    </logger>
-
-    <!-- 打印的DEBUG 日志太多了，提高日志等级。 -->
-    <logger name="org.springframework.boot.autoconfigure.logging">
-        <level value="INFO"/>
-    </logger>
-
+    <!--默认情况下，只输出到标准输出，不输出到文件-->
     <root level="DEBUG">
         <!-- 标准输出日志 -->
-        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
     </root>
 
     <!-- 该 <springProfile> 标签允许我们更加灵活配置文件，可选地包含或排除配置部分。
