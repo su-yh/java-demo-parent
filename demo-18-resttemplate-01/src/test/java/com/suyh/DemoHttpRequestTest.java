@@ -120,7 +120,31 @@ public class DemoHttpRequestTest {
 
         final String responseEntityBody = responseEntity.getBody();
     }
-        
+
+    @Test
+    public void test002() throws URISyntaxException {
+        URI uri = new URIBuilder().setScheme("http").setHost("127.0.0.1")
+                .setPort(8080)
+                .setPath("/resource/instance/info")
+                .addParameter("uuid", "uuid-value")
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        // 指定body 的类型为Notice 以及具体的值，并添加请求头的值
+        HttpEntity<Notice> httpEntity = new HttpEntity<>(new Notice(), headers);
+        // 指定返回值类型为DataBean
+        final ResponseEntity<DataBean> rspEntity = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, DataBean.class);
+        if (!rspEntity.getStatusCode().is2xxSuccessful()) {
+            log.warn("failed.");
+            return;
+        }
+        DataBean resultVo = rspEntity.getBody();
+        if (resultVo == null) {
+            log.error("result vo is null");
+            return;
+        }
+    }
+
     /**
      * 随便生成一个请求参数
      *
