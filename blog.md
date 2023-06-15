@@ -134,3 +134,6 @@ sentinel 的规则配置同步功能借助nacos 来实现。
 
 
 ByteBuddy（史上最全）   https://blog.csdn.net/crazymakercircle/article/details/126579528
+
+validator 源码解析博客：https://blog.csdn.net/qq_40334719/article/details/117217045
+
