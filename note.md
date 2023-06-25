@@ -112,3 +112,10 @@ apache access log 访问日志：https://httpd.apache.org/docs/2.4/mod/mod_log_c
     
  chatgpt   https://promptszone.com/chat
 
+# 查看具体的命令
+ps -efwww | grep java
+
+dump 文件生成命令： `jmap -dump:format=b,file=heap.hprof <pid>`
+
+jmap -dump:format,file=heap.hprof $(pgrep java)
+
