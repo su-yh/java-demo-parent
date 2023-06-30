@@ -385,6 +385,7 @@
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
                 <!--使application*.* 中可以使用${xxx} 来引用pom.xml 中配置的变量，但不能直接被spring 加载到。-->
+                <!-- filter 会对二进制文件进行特殊处理，如果不想二进制文件被修改，则需要配置nonFilteredFileExtensions 标签属性，在maven-resources-plugin 插件里面 -->
                 <filtering>true</filtering>
             </resource>
         </resources>
