@@ -410,6 +410,16 @@
         <!--            </resource>-->
         <!--        </resources>-->
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <!-- 排除使用filter 的文件后缀名。 -->
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
             <!-- maven 的打包插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
