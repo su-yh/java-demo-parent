@@ -117,6 +117,7 @@
         <!-- ${sys:log4j2.dir:-demo-log}  <==>  System.setProperty("log4j2.dir", "demo-01"); -->
         <RollingRandomAccessFile name="RollingFile"
                                  fileName="${fileDir}/${rollingFileName}.log"
+                                 filePermissions="rw-r-----"
                                  filePattern="${fileDir}/$${date:yyyy-MM-dd}/${rollingFileName}.%d{HH-mm}.%i.log">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-5p %logger{36} [%pid:%t] %c{20}:%L --- %msg%n%ex"
@@ -155,7 +156,16 @@
                 这两个Strategy都是控制如何进行日志滚动的，至于他们的区别我还是不太明白，大佬解释一下吧。
                 平时大部分用DefaultRolloverStrategy就可以了。
             -->
-            <DefaultRolloverStrategy max="10"/>
+            <DefaultRolloverStrategy max="100">
+                <!-- 指定文件的基本目录，以及文件翻滚后的权限 -->
+                <PosixViewAttribute basePath="${logdir}/${appname}/logs" filePermissions="r--r-----">
+                    <!-- 使用正则表达式来匹配 -->
+                    <IfFileName regex="root[^-].*\.log"/>
+                </PosixViewAttribute>
+                <Delete basePath="${logdir}/{appname}" maxDepth="2">
+                    <IfLastModified age="90d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
         </RollingRandomAccessFile>
 
         <!-- 与上面的 RollingFile 一样的配置，删除所有注释需要看的话往前找 -->
