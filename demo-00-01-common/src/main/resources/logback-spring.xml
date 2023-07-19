@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 博客里面有logback的中文文档：https://blog.csdn.net/xxxcyzyy/article/details/103943522 -->
 <!-- 注意这个文件名，似乎只能是这个，否则springProperty 会有问题配置这个文件名系统会自动加载这个配置 -->
 <configuration>
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
