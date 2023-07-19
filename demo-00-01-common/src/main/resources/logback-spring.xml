@@ -26,6 +26,7 @@
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名 -->
             <!--并按天转存-->
