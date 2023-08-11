@@ -120,3 +120,7 @@ dump 文件生成命令： `jmap -dump:format=b,file=heap.hprof <pid>`
 jmap -dump:format,file=heap.hprof $(pgrep java)
 
 redis 桌面client工具: Another-Redis-Desktop-Manager
+
+restful 博客：https://www.ruanyifeng.com/blog/2014/05/restful_api.html
+
+
