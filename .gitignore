@@ -2,3 +2,5 @@
 **/*.iml
 **/logs/
 **/target/
+
+**/.flattened-pom.xml
