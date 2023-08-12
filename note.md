@@ -125,4 +125,6 @@ restful 博客：https://www.ruanyifeng.com/blog/2014/05/restful_api.html
 
 阿里云   私有企业仓库  云效：https://devops.aliyun.com/workbench?orgId=64d6f8d303d98aabbe1f8eba
 
+说明文档：https://help.aliyun.com/document_detail/51678.html?spm=a2c4g.57551.0.0.3e6931d6hWxFSK
+
 
