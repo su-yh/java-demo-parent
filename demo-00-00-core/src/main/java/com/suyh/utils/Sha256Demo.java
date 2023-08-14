@@ -8,6 +8,7 @@ import java.util.Formatter;
 
 @Slf4j
 public class Sha256Demo {
+
     public static void main(String[] args) {
         log.info("SHA256(1)=" + getSha256Txt("1"));
         log.info("SHA256(2)=" + getSha256Txt("2"));
