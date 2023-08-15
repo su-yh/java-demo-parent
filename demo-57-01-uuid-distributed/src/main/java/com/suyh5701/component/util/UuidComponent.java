@@ -21,6 +21,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * 对于某服务集群的每个实例中都可以生成全局唯一ID，但是跨服务集群就有碰撞的可能性。
+ * 所以需要按业务在对应的服务集群中生成对应的全局唯一ID，不要跨服务集群生成ID
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j
