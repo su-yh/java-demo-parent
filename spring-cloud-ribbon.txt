@@ -1,0 +1,15 @@
+修改的时候，login-cache-id 不能变，因为登录状态是正常的。
+-- 全局公共组件数据库: global-common-component
+
+robbin 关键调用点：
+    org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor#intercept
+    org.springframework.cloud.netflix.ribbon.RibbonLoadBalancerClient#execute(java.lang.String, org.springframework.cloud.client.loadbalancer.LoadBalancerRequest<T>)
+
+    // 96 行
+	@Override
+	public <T> T execute(String serviceId, LoadBalancerRequest<T> request)
+			throws IOException {
+        // 这里的第三个参数就是choose() 方法所需要的key，当值为null 时，就传入一个"default"。
+		return execute(serviceId, request, null);
+	}
+
