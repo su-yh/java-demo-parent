@@ -105,9 +105,6 @@
         <!--        <module>demo-54-01-javassist</module>-->
         <!--        <module>demo-55-01-websocket-echo</module>-->
         <!--        <module>demo-55-04-websocket</module>-->
-        <module>demo-56-01-HandlerMethodArgumentResolver</module>
-        <!--        <module>demo-57-01-uuid-distributed</module>-->
-        <!--        <module>demo-58-01-suyh-web-common-spring-boot-starter</module>-->
 
     </modules>
 
@@ -321,40 +318,11 @@
             </build>
         </profile>
         <profile>
-            <!--springboot 2.4.x 版本之前-->
-            <id>springboot-24-pre</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <!--            <modules>-->
-            <!--                <module>demo-32-es-02</module>-->
-            <!--                <module>demo-34-actuator-02</module>-->
-            <!--                <module>demo-36-01-listener-springboot-24-pre</module>-->
-            <!--            </modules>-->
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-dependencies</artifactId>
-                        <version>2.2.5.RELEASE</version>
-                        <scope>import</scope>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
             <!--springboot 2.4.x 版本之后-->
             <id>springboot-24-post</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <!--            <modules>-->
-            <!--                <module>demo-32-es-01</module>-->
-            <!--                <module>demo-34-actuator-02</module>-->
-            <!--                <module>demo-36-02-listener-springboot-24-post</module>-->
-            <!--                <module>demo-49-01-active-spring-boot-24-post</module>-->
-            <!--            </modules>-->
             <dependencyManagement>
                 <dependencies>
                     <dependency>
@@ -367,8 +335,28 @@
                 </dependencies>
             </dependencyManagement>
         </profile>
+        <profile>
+            <id>demo-56-01</id>
+            <modules>
+                <module>demo-56-01-HandlerMethodArgumentResolver</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>demo-57-01</id>
+            <modules>
+                <module>demo-57-01-uuid-distributed</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>demo-58-01</id>
+            <modules>
+                <module>demo-58-01-suyh-web-common-spring-boot-starter</module>
+            </modules>
+        </profile>
+
     </profiles>
 
+    <!--我在阿里云效上的个人镜像仓库地址-->
     <distributionManagement>
         <repository>
             <id>rdc-releases</id>
