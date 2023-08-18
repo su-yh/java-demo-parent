@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-        <module>demo-00-00-core</module>
+<!--        <module>demo-00-00-core</module>-->
         <!--        <module>demo-00-01-common</module>-->
         <!--        <module>demo-00-02-jpa</module>-->
         <!--        <module>demo-00-03-constants</module>-->
