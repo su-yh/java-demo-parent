@@ -10,9 +10,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+/**
+ * 自定义参数解析器的实现，该实现针对在Controller 的handler 接口方法中的参数做匹配。
+ * 匹配上的参数，则会为该参数绑定上一个值，然后在handler 方法中就可以直接得到该值使用了。
+ */
 public class CurrUserArgumentResolver implements HandlerMethodArgumentResolver {
 
-    // 只有标注有CurrUser注解，并且数据类型是CurrUserVo/Map/Object的才给与处理
+    // 只有标注有CurrUser注解，并且数据类型是CurrUserVo/Map/Object的handler 参数才给与处理
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         CurrLoginUser ann = parameter.getParameterAnnotation(CurrLoginUser.class);

@@ -17,6 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 
+/**
+ * 这也是一个参数解析器的实现，同时它还对该对数进行了validator 校验，如果不通过直接抛异常告诉调用者参数不合法。
+ */
 public class UserArgumentResolverAndValidation implements HandlerMethodArgumentResolver {
 
     @Override

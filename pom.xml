@@ -105,7 +105,7 @@
         <!--        <module>demo-54-01-javassist</module>-->
         <!--        <module>demo-55-01-websocket-echo</module>-->
         <!--        <module>demo-55-04-websocket</module>-->
-        <!--        <module>demo-56-01-HandlerMethodArgumentResolver</module>-->
+        <module>demo-56-01-HandlerMethodArgumentResolver</module>
         <!--        <module>demo-57-01-uuid-distributed</module>-->
         <!--        <module>demo-58-01-suyh-web-common-spring-boot-starter</module>-->
 
