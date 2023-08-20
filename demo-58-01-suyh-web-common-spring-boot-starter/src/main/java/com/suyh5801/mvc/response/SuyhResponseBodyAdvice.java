@@ -12,6 +12,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+/**
+ * 这个是处理统一的返回值的，将所有的返回值都封装到一个公共的模板({@link SuyhResult})中，
+ * 这样在Controller 的接口中可以直接返回实际的返回值对象，在不需要有返回值的情况也可以直接添加void 作为返回值。
+ */
 // TODO: suyh - 这里是必须这个注解还是说随便是一个bean 就可以的？？？
 @ControllerAdvice
 public class SuyhResponseBodyAdvice implements ResponseBodyAdvice<Object> {

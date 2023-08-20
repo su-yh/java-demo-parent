@@ -2,6 +2,7 @@
 server:
   port: 5801
   error:
+    # spring mvc 的默认异常处理，可以添加或者禁用一些返回值属性。
     include-binding-errors: always
     include-exception: true
     include-message: always

@@ -26,11 +26,13 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             @NonNull HttpServletResponse response,
             Object handler,
             @NonNull Exception ex) {
+        // 如果spring mvc 能够识别的异常，就先闪给spring mvc 来处理，识别不了并没有处理的异常，这里将会返回null。
         ModelAndView mav = super.doResolveException(request, response, handler, ex);
         if (mav != null) {
             return mav;
         }
 
+        // spring mvc 不识别且没处理的异常，我们自己处理。
         try {
             if (ex instanceof SuyhBusinessException) {
                 return handleBusinessException((SuyhBusinessException) ex, request, response, handler);
@@ -39,7 +41,7 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
                 return handleSystemException((SuyhSystemException) ex, request, response, handler);
             }
 
-            // 剩下的所有异常处理，都由它来解决。
+            // 剩下的所有异常处理，都由它来解决。这些剩下的异常我们自己也不识别，所以放在这里处理。
             return handlerException(ex, request, response, handler);
         } catch (Exception handlerEx) {
             log.warn("Failure while trying to resolve exception [" + ex.getClass().getName() + "]", handlerEx);
