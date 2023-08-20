@@ -23,10 +23,9 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- flywaydb 还不能缺少这个包呢，或者是这里面的某一个包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
 
         <dependency>

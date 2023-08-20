@@ -336,6 +336,19 @@
             </dependencyManagement>
         </profile>
         <profile>
+            <id>demo-25-01-flywaydb</id>
+            <modules>
+                <module>demo-25-flywaydb-01</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>demo-46-multi-datasource-flywaydb</id>
+            <modules>
+                <module>demo-46-multi-datasource-flywaydb-01</module>
+                <module>demo-46-multi-datasource-flywaydb-02-hikari-cp-single</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-56-01</id>
             <modules>
                 <module>demo-56-01-HandlerMethodArgumentResolver</module>

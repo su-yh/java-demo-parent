@@ -1,0 +1,8 @@
+
+将一些用得还不错的软件名啥的，都记录一下，有些时候再找还真有点难找
+
+
+redis 桌面client工具: Another-Redis-Desktop-Manager
+
+
+
