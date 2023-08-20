@@ -1,6 +1,6 @@
 package com.suyh5801.mvc.exception;
 
-import com.suyh5801.en.SuyhCode;
+import com.suyh5801.constant.SuyhCode;
 
 /**
  * 系统异常

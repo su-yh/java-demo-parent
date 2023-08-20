@@ -1,6 +1,6 @@
 package com.suyh5801.vo;
 
-import com.suyh5801.en.SuyhCode;
+import com.suyh5801.constant.SuyhCode;
 import lombok.Data;
 
 import java.util.Date;

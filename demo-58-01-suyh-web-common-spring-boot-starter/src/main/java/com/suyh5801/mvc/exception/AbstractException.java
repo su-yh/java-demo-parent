@@ -1,6 +1,6 @@
 package com.suyh5801.mvc.exception;
 
-import com.suyh5801.en.SuyhCode;
+import com.suyh5801.constant.SuyhCode;
 
 public abstract class AbstractException extends RuntimeException {
     private static final long serialVersionUID = -4365987799788427525L;

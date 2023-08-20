@@ -1,4 +1,4 @@
-package com.suyh5801.en;
+package com.suyh5801.constant;
 
 public enum SuyhCode {
     OK(0, "操作成功"),
