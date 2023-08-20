@@ -1,7 +1,0 @@
-server:
-  # 开启一些异常信息，在返回值的model 里面
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: true
-#    include-stacktrace: always

@@ -6,6 +6,7 @@ server:
     include-binding-errors: always
     include-exception: true
     include-message: always
+    include-stacktrace: always
   tomcat:
     # tomcat 的访问日志记录
     # 参考博客：https://blog.csdn.net/wudiyong22/article/details/103849359
