@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-<!--        <module>demo-00-00-core</module>-->
+        <!--        <module>demo-00-00-core</module>-->
         <!--        <module>demo-00-01-common</module>-->
         <!--        <module>demo-00-02-jpa</module>-->
         <!--        <module>demo-00-03-constants</module>-->
@@ -109,183 +109,183 @@
     </modules>
 
     <dependencyManagement>
-<!--        <dependencies>-->
-<!--            &lt;!&ndash; MySQL Connector &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>mysql</groupId>-->
-<!--                <artifactId>mysql-connector-java</artifactId>-->
-<!--                <version>8.0.28</version>-->
-<!--            </dependency>-->
+        <!--        <dependencies>-->
+        <!--            &lt;!&ndash; MySQL Connector &ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>mysql</groupId>-->
+        <!--                <artifactId>mysql-connector-java</artifactId>-->
+        <!--                <version>8.0.28</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba</groupId>-->
-<!--                <artifactId>druid-spring-boot-starter</artifactId>-->
-<!--                <version>1.1.9</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.alibaba</groupId>-->
+        <!--                <artifactId>druid-spring-boot-starter</artifactId>-->
+        <!--                <version>1.1.9</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>com.oracle.ojdbc</groupId>-->
-<!--                <artifactId>ojdbc8</artifactId>-->
-<!--                <version>19.3.0.0</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.oracle.ojdbc</groupId>-->
+        <!--                <artifactId>ojdbc8</artifactId>-->
+        <!--                <version>19.3.0.0</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-core</artifactId>-->
-<!--                <version>2.10.2</version>-->
-<!--                <scope>compile</scope>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-databind</artifactId>-->
-<!--                <version>2.13.4.2</version>-->
-<!--                <scope>compile</scope>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--                <artifactId>jackson-core</artifactId>-->
+        <!--                <version>2.10.2</version>-->
+        <!--                <scope>compile</scope>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+        <!--                <artifactId>jackson-databind</artifactId>-->
+        <!--                <version>2.13.4.2</version>-->
+        <!--                <scope>compile</scope>-->
+        <!--            </dependency>-->
 
-<!--            &lt;!&ndash;缺少此jar包，导致@Mapper注解无效&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--                <version>2.0.1</version>-->
-<!--            </dependency>-->
+        <!--            &lt;!&ndash;缺少此jar包，导致@Mapper注解无效&ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.mybatis.spring.boot</groupId>-->
+        <!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--                <version>2.0.1</version>-->
+        <!--            </dependency>-->
 
-<!--            &lt;!&ndash; swagger &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>io.springfox</groupId>-->
-<!--                <artifactId>springfox-swagger2</artifactId>-->
-<!--                <version>2.9.2</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>io.springfox</groupId>-->
-<!--                <artifactId>springfox-swagger-ui</artifactId>-->
-<!--                <version>2.9.2</version>-->
-<!--            </dependency>-->
-<!--            &lt;!&ndash; swagger ui 的doc.html 文档 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>com.github.xiaoymin</groupId>-->
-<!--                <artifactId>swagger-bootstrap-ui</artifactId>-->
-<!--                <version>1.9.3</version>-->
-<!--            </dependency>-->
+        <!--            &lt;!&ndash; swagger &ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>io.springfox</groupId>-->
+        <!--                <artifactId>springfox-swagger2</artifactId>-->
+        <!--                <version>2.9.2</version>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>io.springfox</groupId>-->
+        <!--                <artifactId>springfox-swagger-ui</artifactId>-->
+        <!--                <version>2.9.2</version>-->
+        <!--            </dependency>-->
+        <!--            &lt;!&ndash; swagger ui 的doc.html 文档 &ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.github.xiaoymin</groupId>-->
+        <!--                <artifactId>swagger-bootstrap-ui</artifactId>-->
+        <!--                <version>1.9.3</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>com.baomidou</groupId>-->
-<!--                <artifactId>mybatis-plus-boot-starter</artifactId>-->
-<!--                <version>3.4.0</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.baomidou</groupId>-->
+        <!--                <artifactId>mybatis-plus-boot-starter</artifactId>-->
+        <!--                <version>3.4.0</version>-->
+        <!--            </dependency>-->
 
-<!--            &lt;!&ndash;mapper&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>tk.mybatis</groupId>-->
-<!--                <artifactId>mapper-spring-boot-starter</artifactId>-->
-<!--                <version>2.1.5</version>-->
-<!--            </dependency>-->
-<!--            &lt;!&ndash;pagehelper&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>com.github.pagehelper</groupId>-->
-<!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
-<!--                <version>1.2.5</version>-->
-<!--                <exclusions>-->
-<!--                    <exclusion>-->
-<!--                        <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                        <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--                    </exclusion>-->
-<!--                </exclusions>-->
-<!--            </dependency>-->
+        <!--            &lt;!&ndash;mapper&ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>tk.mybatis</groupId>-->
+        <!--                <artifactId>mapper-spring-boot-starter</artifactId>-->
+        <!--                <version>2.1.5</version>-->
+        <!--            </dependency>-->
+        <!--            &lt;!&ndash;pagehelper&ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.github.pagehelper</groupId>-->
+        <!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+        <!--                <version>1.2.5</version>-->
+        <!--                <exclusions>-->
+        <!--                    <exclusion>-->
+        <!--                        <groupId>org.mybatis.spring.boot</groupId>-->
+        <!--                        <artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--                    </exclusion>-->
+        <!--                </exclusions>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>org.mybatis.generator</groupId>-->
-<!--                <artifactId>mybatis-generator-core</artifactId>-->
-<!--                <version>1.3.7</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.mybatis.generator</groupId>-->
+        <!--                <artifactId>mybatis-generator-core</artifactId>-->
+        <!--                <version>1.3.7</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>org.apache.commons</groupId>-->
-<!--                <artifactId>commons-lang3</artifactId>-->
-<!--                <version>3.9</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.apache.commons</groupId>-->
+        <!--                <artifactId>commons-lang3</artifactId>-->
+        <!--                <version>3.9</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>com.google.guava</groupId>-->
-<!--                <artifactId>guava</artifactId>-->
-<!--                <version>31.0.1-jre</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>com.google.guava</groupId>-->
+        <!--                <artifactId>guava</artifactId>-->
+        <!--                <version>31.0.1-jre</version>-->
+        <!--            </dependency>-->
 
-<!--            &lt;!&ndash;引入Kafka 开始&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.apache.kafka</groupId>-->
-<!--                <artifactId>kafka_2.12</artifactId>-->
-<!--                <version>1.1.1</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.kafka</groupId>-->
-<!--                <artifactId>spring-kafka</artifactId>-->
-<!--                <version>2.4.6.RELEASE</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.apache.kafka</groupId>-->
-<!--                <artifactId>kafka-clients</artifactId>-->
-<!--                <version>2.0.1</version>-->
-<!--            </dependency>-->
-<!--            &lt;!&ndash;引入Kafka 结束&ndash;&gt;-->
+        <!--            &lt;!&ndash;引入Kafka 开始&ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.apache.kafka</groupId>-->
+        <!--                <artifactId>kafka_2.12</artifactId>-->
+        <!--                <version>1.1.1</version>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.springframework.kafka</groupId>-->
+        <!--                <artifactId>spring-kafka</artifactId>-->
+        <!--                <version>2.4.6.RELEASE</version>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.apache.kafka</groupId>-->
+        <!--                <artifactId>kafka-clients</artifactId>-->
+        <!--                <version>2.0.1</version>-->
+        <!--            </dependency>-->
+        <!--            &lt;!&ndash;引入Kafka 结束&ndash;&gt;-->
 
-<!--            <dependency>-->
-<!--                <groupId>io.jsonwebtoken</groupId>-->
-<!--                <artifactId>jjwt</artifactId>-->
-<!--                <version>0.9.0</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>io.jsonwebtoken</groupId>-->
+        <!--                <artifactId>jjwt</artifactId>-->
+        <!--                <version>0.9.0</version>-->
+        <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>org.apache.shiro</groupId>-->
-<!--                <artifactId>shiro-spring</artifactId>-->
-<!--                <version>1.7.1</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.apache.shiro</groupId>-->
-<!--                <artifactId>shiro-spring-boot-web-starter</artifactId>-->
-<!--                <version>1.4.0</version>-->
-<!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.apache.shiro</groupId>-->
+        <!--                <artifactId>shiro-spring</artifactId>-->
+        <!--                <version>1.7.1</version>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>org.apache.shiro</groupId>-->
+        <!--                <artifactId>shiro-spring-boot-web-starter</artifactId>-->
+        <!--                <version>1.4.0</version>-->
+        <!--            </dependency>-->
 
-<!--            &lt;!&ndash; shedlock 分布式定时任务锁 - 使用 jdbc &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>net.javacrumbs.shedlock</groupId>-->
-<!--                <artifactId>shedlock-spring</artifactId>-->
-<!--                <version>4.33.0</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>net.javacrumbs.shedlock</groupId>-->
-<!--                <artifactId>shedlock-provider-jdbc-template</artifactId>-->
-<!--                <version>4.33.0</version>-->
-<!--            </dependency>-->
+        <!--            &lt;!&ndash; shedlock 分布式定时任务锁 - 使用 jdbc &ndash;&gt;-->
+        <!--            <dependency>-->
+        <!--                <groupId>net.javacrumbs.shedlock</groupId>-->
+        <!--                <artifactId>shedlock-spring</artifactId>-->
+        <!--                <version>4.33.0</version>-->
+        <!--            </dependency>-->
+        <!--            <dependency>-->
+        <!--                <groupId>net.javacrumbs.shedlock</groupId>-->
+        <!--                <artifactId>shedlock-provider-jdbc-template</artifactId>-->
+        <!--                <version>4.33.0</version>-->
+        <!--            </dependency>-->
 
-            <!-- shedlock - 使用 redis -->
-            <!--            <dependency>-->
-            <!--                <groupId>net.javacrumbs.shedlock</groupId>-->
-            <!--                <artifactId>shedlock-provider-jedis</artifactId>-->
-            <!--                <version>0.17.0</version>-->
-            <!--            </dependency>-->
+        <!-- shedlock - 使用 redis -->
+        <!--            <dependency>-->
+        <!--                <groupId>net.javacrumbs.shedlock</groupId>-->
+        <!--                <artifactId>shedlock-provider-jedis</artifactId>-->
+        <!--                <version>0.17.0</version>-->
+        <!--            </dependency>-->
 
-<!--        </dependencies>-->
+        <!--        </dependencies>-->
     </dependencyManagement>
 
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            &lt;!&ndash; 链式调用：添加注解【@Accessors(chain = true)】 &ndash;&gt;-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            &lt;!&ndash; lombok 只在编译时有效，不需要在运行时使用。 &ndash;&gt;-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger2</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; swagger ui 的doc.html 文档 &ndash;&gt;-->
-<!--        &lt;!&ndash;http://localhost:12103/doc.html&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>swagger-bootstrap-ui</artifactId>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            &lt;!&ndash; 链式调用：添加注解【@Accessors(chain = true)】 &ndash;&gt;-->
+    <!--            <groupId>org.projectlombok</groupId>-->
+    <!--            <artifactId>lombok</artifactId>-->
+    <!--            &lt;!&ndash; lombok 只在编译时有效，不需要在运行时使用。 &ndash;&gt;-->
+    <!--            <scope>provided</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>io.springfox</groupId>-->
+    <!--            <artifactId>springfox-swagger2</artifactId>-->
+    <!--        </dependency>-->
+    <!--        &lt;!&ndash; swagger ui 的doc.html 文档 &ndash;&gt;-->
+    <!--        &lt;!&ndash;http://localhost:12103/doc.html&ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.github.xiaoymin</groupId>-->
+    <!--            <artifactId>swagger-bootstrap-ui</artifactId>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
 
     <profiles>
         <profile>
@@ -334,6 +334,14 @@
                     </dependency>
                 </dependencies>
             </dependencyManagement>
+        </profile>
+        <profile>
+            <id>demo-18</id>
+            <modules>
+                <module>demo-18-resttemplate-01</module>
+                <module>demo-18-WebClient-02</module>
+                <module>demo-18-WebClient-03</module>
+            </modules>
         </profile>
         <profile>
             <id>demo-25-01-flywaydb</id>

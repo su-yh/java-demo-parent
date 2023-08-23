@@ -54,6 +54,9 @@ public class HttpsUtils {
      */
     public static RestTemplate httpsRestTemplate(HttpComponentsClientHttpRequestFactory factory)
             throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        if (factory == null) {
+            factory = new HttpComponentsClientHttpRequestFactory();
+        }
         HttpsUtils.initRequestFactory(factory);
         return new RestTemplate(factory);
     }
