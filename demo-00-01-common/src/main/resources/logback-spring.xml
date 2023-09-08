@@ -14,6 +14,8 @@
     <!-- defaultValue属性：如果在没有找到 source 指定的key 则使用该值 -->
     <springProperty scope="context" name="LOG_HOME" source="logback.file.dir" defaultValue="/home/logs-default" />
     <springProperty scope="context" name="LOG_FILE_NAME" source="logback.file.prefix" defaultValue="rootDefault" />
+    <!--这个是我在宇道上看到的，有颜色区分，看着挺不错的。先留在这里了。-->
+    <property name="PATTERN_DEFAULT" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread [%tid]) %boldGreen(%-40.120logger:%L{39}) | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
