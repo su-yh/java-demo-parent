@@ -1,4 +1,4 @@
-package com.suyh.common;
+package com.suyh0001.common;
 
 /**
  * 常量类

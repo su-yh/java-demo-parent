@@ -1,4 +1,4 @@
-package com.suyh.init;
+package com.suyh0001.init;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
