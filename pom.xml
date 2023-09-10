@@ -18,6 +18,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <modules>
+        <module>demo-00-01-logback</module>
+    </modules>
+
     <profiles>
         <profile>
             <id>dev</id>
