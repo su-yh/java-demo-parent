@@ -1,7 +1,7 @@
-package com.suyh5801.mvc.error;
+package com.suyh2106.mvc.error;
 
-import com.suyh5801.mvc.exception.SuyhBusinessException;
-import com.suyh5801.mvc.exception.SuyhSystemException;
+import com.suyh2106.mvc.exception.SuyhBusinessException;
+import com.suyh2106.mvc.exception.SuyhSystemException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
@@ -54,7 +54,6 @@ public class SuyhHandlerExceptionResolver extends DefaultHandlerExceptionResolve
             @NonNull SuyhBusinessException ex, @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @Nullable Object handler) throws IOException {
         // 处理自定义的异常类，这里将业务异常认为是200 的OK，对于error 的返回值属性将在ErrorAttributes 中处理
-        // SuyhBusinessException 因为是自定义的异常类，这个异常表示的是请求是正常的，只是业务失败，所以要将状态处理成200。然后报业务错误即可。
         response.sendError(HttpServletResponse.SC_OK, ex.getMessage());
         return new ModelAndView();
     }

@@ -61,7 +61,8 @@ public class FilterExceptionController extends BasicErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
         HttpStatus status = getStatus(request);
         response.setStatus(status.value());
-        final Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+//        final Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        final Map<String, Object> model = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.TEXT_HTML));
         final ModelAndView modelAndView = resolveErrorView(request, response, status, model);
         return (modelAndView == null ? new ModelAndView("error", model) : modelAndView);
     }

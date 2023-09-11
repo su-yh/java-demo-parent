@@ -71,6 +71,17 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-21</id>
+            <modules>
+                <module>demo-21-01-controller-advice</module>
+                <module>demo-21-02-filter-exception</module>
+                <module>demo-21-03-controller-advice</module>
+                <module>demo-21-04-simpleMappingExceptionResolver</module>
+                <module>demo-21-05-response-advice</module>
+                <module>demo-21-06-error-attribute</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-25-01-flywaydb</id>
             <modules>
                 <module>demo-25-flywaydb-01</module>
