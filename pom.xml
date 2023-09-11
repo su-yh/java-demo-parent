@@ -71,7 +71,7 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-21</id>
+            <id>demo-21-mvc-exception</id>
             <modules>
                 <module>demo-21-01-controller-advice</module>
                 <module>demo-21-02-filter-exception</module>
