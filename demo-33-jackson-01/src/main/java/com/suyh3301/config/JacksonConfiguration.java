@@ -1,7 +1,7 @@
 package com.suyh3301.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.utils.JsonUtil;
+import com.suyh3301.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

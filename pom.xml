@@ -19,6 +19,7 @@
     </properties>
 
     <modules>
+        <module>demo-00-00-core</module>
         <module>demo-00-01-logback</module>
     </modules>
 
@@ -53,24 +54,6 @@
             </build>
         </profile>
         <profile>
-            <!--springboot 2.4.x 版本之后-->
-            <id>springboot-24-post</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-dependencies</artifactId>
-                        <version>2.4.6</version>
-                        <scope>import</scope>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
             <id>demo-03</id>
             <modules>
                 <module>demo-03-redis-01</module>
@@ -91,6 +74,15 @@
             <id>demo-25-01-flywaydb</id>
             <modules>
                 <module>demo-25-flywaydb-01</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>demo-33</id>
+            <modules>
+                <module>demo-33-jackson-01</module>
+                <module>demo-33-jackson-02</module>
+                <module>demo-33-jackson-03</module>
+                <module>demo-33-jackson-04</module>
             </modules>
         </profile>
         <profile>
