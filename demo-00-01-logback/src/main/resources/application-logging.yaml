@@ -1,15 +1,4 @@
 
-# 日志文件配置，应用配置文件中的配置比，日志配置文件中的配置优先级更高。
-logging:
-  file:
-    name: /mastermile/logs/mastermile-admin.log # 日志文件名，全路径
-  logback:
-    rollingpolicy:
-      clean-history-on-start: true
-      file-name-pattern: /mastermile/logs/%d{yyyy-MM-dd}/mastermile-admin.%03i.log
-      max-file-size: 10MB
-      max-history: 7
-      total-size-cap: 0B
 
 
 ---
@@ -18,18 +7,27 @@ spring:
     activate:
       on-profile: local
 
-# 日志文件配置
+# 日志文件配置，应用配置文件中的配置比，日志配置文件中的配置优先级更高。
 logging:
   level:
     root: debug
   file:
     # 本地日志直接在项目的目录下面存放就好了。
-    name: logs/mastermile-admin.log # 日志文件名，全路径
+    # 在配置文件中可以通过${LOG_FILE} 取到这里的配置值
+    name: logs/suyh-admin.log # 日志文件名，全路径
+    # logging.file.path 这个似乎很少人用，但我用了之后感觉也的确意义不大
+    # 对应的在配置文件中可以使用${LOG_PATH} 来取到这个值
+#    path: logs-path
   logback:
     rollingpolicy:
       clean-history-on-start: true
       # 本地日志直接在项目的目录下面存放就好了。
-      file-name-pattern: logs/%d{yyyy-MM-dd}/mastermile-admin.%03i.log
+      # 在配置文件中可以通过${LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN} 取到这里配置的值
+      file-name-pattern: logs/%d{yyyy-MM-dd}/suyh-admin.%03i.log
+  pattern:
+    # 这里定义的属性，可以在配置文件中使用，如：%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}
+    # 可以通过 ${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS} 来取到这里的配置，如果这里没配置还可以在配置文件中指定默认值
+    dateformat: HH:mm:ss.SSS
 
 
 
