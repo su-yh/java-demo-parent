@@ -1,0 +1,9 @@
+server:
+  port: 12106
+spring:
+  config:
+    import:
+      - application-mvc.yaml
+
+
+
