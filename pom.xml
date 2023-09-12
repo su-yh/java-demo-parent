@@ -63,6 +63,14 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-06-mybatis</id>
+            <modules>
+                <module>demo-06-mybatis-01</module>
+                <module>demo-06-mybatis-02-common</module>
+                <module>demo-06-mybatis-03-multi-db-01</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-18</id>
             <modules>
                 <module>demo-18-resttemplate-01</module>
@@ -79,6 +87,14 @@
                 <module>demo-21-04-simpleMappingExceptionResolver</module>
                 <module>demo-21-05-response-advice</module>
                 <module>demo-21-06-error-attribute</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>demo-22-validation</id>
+            <modules>
+                <module>demo-22-validation-01</module>
+                <module>demo-22-validation-02</module>
+                <module>demo-22-validation-03</module>
             </modules>
         </profile>
         <profile>
