@@ -1,4 +1,4 @@
-package com.suyh.custom.validation.constraints;
+package com.suyh2201.custom.validation.constraints;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

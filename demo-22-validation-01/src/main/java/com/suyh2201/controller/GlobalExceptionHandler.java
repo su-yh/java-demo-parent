@@ -1,4 +1,4 @@
-package com.suyh.controller;
+package com.suyh2201.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

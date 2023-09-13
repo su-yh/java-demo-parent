@@ -1,7 +1,7 @@
-package com.suyh.controller;
+package com.suyh2201.controller;
 
-import com.suyh.entity.ChildEntity;
-import com.suyh.entity.ParentEntity;
+import com.suyh2201.entity.ChildEntity;
+import com.suyh2201.entity.ParentEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
-package com.suyh.entity;
+package com.suyh2201.entity;
 
-import com.suyh.constants.ValidationConstants;
-import com.suyh.custom.validation.constraints.NumberMatch;
+import com.suyh2201.constants.ValidationConstants;
+import com.suyh2201.custom.validation.constraints.NumberMatch;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 

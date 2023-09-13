@@ -1,6 +1,6 @@
 package com.suyh;
 
-import com.suyh.entity.ChildEntity;
+import com.suyh2201.entity.ChildEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

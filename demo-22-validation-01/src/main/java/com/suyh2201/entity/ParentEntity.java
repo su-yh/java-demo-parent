@@ -1,4 +1,4 @@
-package com.suyh.entity;
+package com.suyh2201.entity;
 
 import lombok.Data;
 
