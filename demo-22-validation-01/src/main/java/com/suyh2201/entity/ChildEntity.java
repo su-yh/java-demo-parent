@@ -1,7 +1,9 @@
 package com.suyh2201.entity;
 
 import com.suyh2201.constants.ValidationConstants;
+import com.suyh2201.custom.validation.constraints.NodeStatusEnumsMatch;
 import com.suyh2201.custom.validation.constraints.NumberMatch;
+import com.suyh2201.enums.NodeStatusEnums;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -9,6 +11,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -34,4 +37,8 @@ public class ChildEntity implements Serializable {
             enabledValue = {ValidationConstants.KINDS_SERVLET, ValidationConstants.KINDS_REACTIVE},
             message = "类别不匹配，可选值：{enabledValue}")
     private Integer kinds;
+
+    @NotNull
+    @NodeStatusEnumsMatch(value = {NodeStatusEnums.APPROVED, NodeStatusEnums.REJECT})
+    private NodeStatusEnums nodeStatus;
 }
