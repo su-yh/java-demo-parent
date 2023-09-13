@@ -29,6 +29,9 @@
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>
+        <!--把这个打开，可以在每次应用启动时开启一个新的日志文件，但是它会影响性能，因为需要加锁-->
+        <!--需要注意的是，使用prudent模式会对性能产生一些影响，因为每次写入日志都会涉及到文件加锁和数据同步操作。因此，只有在确实需要解决多进程或多实例并发写入的问题时，才建议使用prudent模式。-->
+        <prudent>false</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名 -->
             <!--并按天转存-->
