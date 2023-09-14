@@ -15,7 +15,7 @@
     <mirrors>
         <mirror>
             <id>mirror</id>
-            <mirrorOf>central</mirrorOf>
+            <mirrorOf>central,!suyh-mvn-central-release</mirrorOf>
             <name>mirror</name>
             <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </mirror>
@@ -37,17 +37,19 @@
             </properties>
             <repositories>
                 <repository>
-                    <id>central</id>
+                    <id>suyh-mvn-central-release</id>
                     <url>https://maven.aliyun.com/nexus/content/groups/public</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
                     <snapshots>
                         <enabled>false</enabled>
+                        <!--实时更新最新的快照依赖包-->
+                        <updatePolicy>always</updatePolicy>
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>snapshots</id>
+                    <id>suyh-mvn-central-snapshots</id>
                     <url>https://maven.aliyun.com/nexus/content/groups/public</url>
                     <releases>
                         <enabled>false</enabled>
@@ -81,7 +83,9 @@
             </pluginRepositories>
         </profile>
     </profiles>
+
     <activeProfiles>
+        <!--这里似乎可以并列激活多个profile 生效-->
         <activeProfile>suyh-mvn</activeProfile>
     </activeProfiles>
 </settings>
