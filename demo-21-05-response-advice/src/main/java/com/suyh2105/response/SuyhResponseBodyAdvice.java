@@ -2,9 +2,9 @@ package com.suyh2105.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.suyh2105.annotation.DisableControllerResponseAdvice;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -24,8 +24,18 @@ import java.util.List;
 @ControllerAdvice
 public class SuyhResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
-    public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return !ResponseEntity.class.isAssignableFrom(returnType.getParameterType());
+    public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+        // 已经封装了统一的返回值对象，这里就不处理了。
+        if (methodParameter.getParameterType().isAssignableFrom(SuyhResult.class)) {
+            return false;
+        }
+        // 使用注解明确禁止统一封装的，这里也不处理。
+        if (methodParameter.hasMethodAnnotation(DisableControllerResponseAdvice.class)) {
+            return false;
+        }
+
+        // 剩下的则需要处理
+        return true;
     }
 
     @Override
@@ -43,10 +53,6 @@ public class SuyhResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         if (body == null) {
             return SuyhResult.ofSuccess();
-        }
-
-        if (body instanceof SuyhResult) {
-            return body;
         }
 
         // 这里需要对String 类型的做特别处理，因为它由StringHttpMessageConverter 类处理，
