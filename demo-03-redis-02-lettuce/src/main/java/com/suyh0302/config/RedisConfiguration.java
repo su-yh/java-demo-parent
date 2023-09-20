@@ -55,7 +55,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    MessagePublisher redisPublisher(RedisTemplate<String, Student> redisTemplate) {
-        return new RedisMessagePublisher(redisTemplate);
+    MessagePublisher redisPublisher(RedisTemplate<String, Student> redisCacheTemplate) {
+        return new RedisMessagePublisher(redisCacheTemplate);
     }
 }

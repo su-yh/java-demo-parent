@@ -1,6 +1,7 @@
 package com.suyh0302.init;
 
 import com.suyh0302.redis.MessagePublisher;
+import com.suyh0302.redis.TestMachineWriteRedis;
 import com.suyh0302.redis.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -24,9 +26,17 @@ public class SuyhTestInit implements ApplicationRunner {
     private MessageListenerAdapter listener;
     @Resource
     private RedisMessageListenerContainer listenerContainer;
+    @Resource
+    private TestMachineWriteRedis testMachineWriteRedis;
 
     @Override
     public void run(ApplicationArguments args) {
+        Student student = new Student();
+        student.setId("suyh-test-id");
+        student.setGrade(2);
+        student.setName("suyh");
+        testMachineWriteRedis.opsForValue().set("suyh-test-local-host", student, Duration.ofMinutes(3L));
+
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
