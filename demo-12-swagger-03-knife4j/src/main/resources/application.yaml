@@ -1,0 +1,10 @@
+server:
+  port: 11203
+spring:
+  config:
+    import:
+      - application-swagger.yaml
+
+
+
+

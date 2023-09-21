@@ -168,6 +168,14 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-12-swagger</id>
+            <modules>
+                <module>demo-12-swagger-01</module>
+                <module>demo-12-swagger-02</module>
+                <module>demo-12-swagger-03-knife4j</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-18</id>
             <modules>
                 <module>demo-18-resttemplate-01</module>

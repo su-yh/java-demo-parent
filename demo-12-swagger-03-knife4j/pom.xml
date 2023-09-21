@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>demo-12-swagger-03-knife4j</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <knife4j.version>4.1.0</knife4j.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 由原来的swagger-bootstrap-ui 更新并升级而来，它兼容swagger3.0 版本-->
+        <!--同时它还有兼容swagger 2.x 的版本的对应坐标-->
+        <!--访问Knife4j 的文档地址：http://ip:port/${上下文根路径}/doc.html-->
+        <!--对应文档地址：https://doc.xiaominfo.com/docs/quick-start-->
+        <!-- 详细的配置文档参考：https://doc.xiaominfo.com/docs/features/enhance -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+
+        <!--如果是spring boot 3.x 版本，则可以使用如下坐标，但spring boot 3.x 至少要使用jdk 17 -->
+        <!-- <dependency>
+             <groupId>com.github.xiaoymin</groupId>
+             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+             <version>4.3.0</version>
+         </dependency>-->
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring boot 依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
