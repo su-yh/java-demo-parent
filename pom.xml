@@ -242,6 +242,12 @@
                 <module>demo-58-01-suyh-web-common-spring-boot-starter</module>
             </modules>
         </profile>
+        <profile>
+            <id>demo-59-01</id>
+            <modules>
+                <module>demo-59-01-stopwatch</module>
+            </modules>
+        </profile>
 
     </profiles>
 
