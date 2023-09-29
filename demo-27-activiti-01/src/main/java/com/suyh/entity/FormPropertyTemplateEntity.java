@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@TableName("form_property_template")
+@TableName(value = "form_property_template", autoResultMap = true)
 public class FormPropertyTemplateEntity implements Serializable {
     public static final long serialVersionUID = 42L;
 
