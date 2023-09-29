@@ -1,0 +1,21 @@
+在mac 中使用idea 的快捷键
+
+
+command + O 查找类文件
+command + shift + O 查找所有类型文件、打开文件、打开目录，打开目录需要在输入的内容前面加上一个反斜杠
+command + option + O 前往指定的变量/方法
+command + L 在当前文件跳转到指定行位置
+command + E 显示最近打开的文件记录
+option + 方向键 光标跳转到当前语句的首位或末尾
+command + shift + 方向键 退回/前进到上一个操作的地方
+command + shift + delete 跳转到最后一个编辑地方
+command + Y 快速打开光标所在的方法、定义
+control + shift + B 跳转到类型定义处
+command + U 跳转到光标所在的方法所在父类的方法/接口定义
+control + 方向键 上一个方法/下一个方法
+command + F12 在类中找方法
+control + H 显示当前类的结构层次
+command + shift + H 显示方法的结构层次
+control + option + H 显示调用层次结构
+F2 跳转到下一个警告或错误处
+
