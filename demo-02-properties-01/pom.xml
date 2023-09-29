@@ -2,13 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>java-demo-springboot</artifactId>
-        <groupId>com.suyh</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.suyh</groupId>
+    <version>1.0-SNAPSHOT</version>
     <artifactId>demo-02-properties-01</artifactId>
     <name>demo-02-properties-01</name>
 
@@ -16,6 +13,8 @@
 
     <properties>
         <my.filter.value>hello</my.filter.value>
+
+        <spring-boot.version>2.7.4</spring-boot.version>
     </properties>
 
     <dependencies>
@@ -52,6 +51,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <resources>
