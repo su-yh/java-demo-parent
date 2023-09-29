@@ -1,0 +1,8 @@
+
+
+
+#  在chrome 浏览器 中，有时候 会出现跨 域问题，这里暂时提供一个禁用安全检查功能。
+https://zhuanlan.zhihu.com/p/414533145
+chrome://flags/
+Block insecure private network requests
+
