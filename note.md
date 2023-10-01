@@ -104,7 +104,7 @@ RequestMappingHandlerMapping:  https://blog.csdn.net/f641385712/article/details/
 ObjectProvider<RedisStandaloneConfiguration>
 
 hutool 工具包：https://github.com/dromara/hutool    
-   
+
 spring boot 配置apache 访问日志
     
 apache access log 访问日志：https://httpd.apache.org/docs/2.4/mod/mod_log_config.html
@@ -127,4 +127,14 @@ restful 博客：https://www.ruanyifeng.com/blog/2014/05/restful_api.html
 
 说明文档：https://help.aliyun.com/document_detail/51678.html?spm=a2c4g.57551.0.0.3e6931d6hWxFSK
 
+# spring cache 缓存
 
+> 对应的配置类：`CacheAutoConfiguration `
+>
+> 对应 的注解 `@Cacheable` 以及`@CacheEvict`
+>
+> `@Cacheable` 主要用于方法上面，当缓存不存在时，则执行该方法取到对应 的值，并存入缓存
+>
+> `@CacheEvict` 与`@Cacheable` 配置使用，当发生某些情况时，将缓存删除
+>
+> 其他：`RedisCacheManager`

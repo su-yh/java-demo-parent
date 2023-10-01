@@ -25,7 +25,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <!--使用lettuce连接池时好像必须要添加-->
+        <!--lettuce 如果要开启连接池，则必须要引入commons-pool2-->
+        <!--对应的配置为：spring.redis.lettuce.pool.enabled=true-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
