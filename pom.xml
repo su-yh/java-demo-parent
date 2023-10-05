@@ -160,6 +160,14 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-04-scheduler</id>
+            <modules>
+                <module>demo-04-scheduler-01</module>
+                <module>demo-04-scheduler-02</module>
+                <module>demo-04-scheduler-03-shedlock-custom</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-06-mybatis</id>
             <modules>
                 <module>demo-06-mybatis-01</module>
