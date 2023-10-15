@@ -138,3 +138,8 @@ restful 博客：https://www.ruanyifeng.com/blog/2014/05/restful_api.html
 > `@CacheEvict` 与`@Cacheable` 配置使用，当发生某些情况时，将缓存删除
 >
 > 其他：`RedisCacheManager`
+
+
+
+
+
