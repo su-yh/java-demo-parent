@@ -151,6 +151,13 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-02</id>
+            <modules>
+                <module>demo-02-config-center-01</module>
+                <module>demo-02-properties-01</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-03</id>
             <modules>
                 <module>demo-03-redis-01</module>

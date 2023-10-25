@@ -141,5 +141,12 @@ restful 博客：https://www.ruanyifeng.com/blog/2014/05/restful_api.html
 
 
 
+#  在chrome 浏览器 中，有时候 会出现跨 域问题，这里暂时提供一个禁用安全检查功能。
+https://zhuanlan.zhihu.com/p/414533145
+chrome://flags/
+Block insecure private network requests
+
+
+
 
 
