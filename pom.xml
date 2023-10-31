@@ -191,7 +191,7 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-18</id>
+            <id>demo-18-web_client</id>
             <modules>
                 <module>demo-18-resttemplate-01</module>
                 <module>demo-18-WebClient-02</module>
@@ -261,6 +261,13 @@
             <id>demo-59-01</id>
             <modules>
                 <module>demo-59-01-stopwatch</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>demo-60-google-auth</id>
+            <modules>
+                <module>demo-60-01-google-auth</module>
             </modules>
         </profile>
 
