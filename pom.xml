@@ -19,8 +19,8 @@
     </properties>
 
     <modules>
-        <module>demo-00-00-core</module>
-        <module>demo-00-01-logback</module>
+<!--        <module>demo-00-00-core</module>-->
+<!--        <module>demo-00-01-logback</module>-->
     </modules>
 
     <profiles>
@@ -268,6 +268,13 @@
             <id>demo-60-google-auth</id>
             <modules>
                 <module>demo-60-01-google-auth</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>demo-61-security</id>
+            <modules>
+                <module>demo-61-01-security</module>
             </modules>
         </profile>
 

@@ -1,0 +1,11 @@
+
+# 通过配置文件设置用户名和密码
+spring:
+  security:
+    user:
+      name: suyh
+      password: suyh
+
+
+
+
