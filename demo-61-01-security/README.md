@@ -132,3 +132,10 @@ There is no PasswordEncoder mapped for the id "null"
 
 
 
+## 跳过认证配置
+
+```properties
+```
+
+
+
