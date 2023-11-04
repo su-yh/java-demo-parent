@@ -132,10 +132,42 @@ There is no PasswordEncoder mapped for the id "null"
 
 
 
-## 跳过认证配置
+## 认证授权注解使用
 
-```properties
+1. `@Secured`
+
+   ```txt
+   用户具有某个角色，可以访问方法
+   1. 开启注解功能 @EnableGlobalMethodSecurity(securedEnabled = true)
+   2. 在方法上面添加注解 @Secured({"ROLE_sale"})
+   ```
+
+2. `@PreAuthorize`
+
+```txt
+在方法之前校验
+1. 开启注解功能 @EnableGlobalMethodSecurity(prePostEnabled = true)
+2. 在方法上面添加注解 @PreAuthorize("hasAnyAuthority('admins')")
 ```
 
+3. `@PostAuthorize("hasAnyAuthority('admins')")`
 
+   ```txt
+   在方法之后校验，用的地方很少
+   1. 开启注解功能 @EnableGlobalMethodSecurity(prePostEnabled = true)
+   2. 在方法上面添加注解 @PostAuthorize("hasAnyAuthority('admins')")
+   ```
+
+   
+
+4. `@PostFilter` `@PreFilter`
+
+   ```txt
+   @PostFilter  对方法的返回数据进行过滤
+   @PreFilter   对传入方法数据进行过滤
+   ```
+
+   
+
+5. 1
 
