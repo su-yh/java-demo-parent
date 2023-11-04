@@ -275,6 +275,7 @@
             <id>demo-61-security</id>
             <modules>
                 <module>demo-61-01-security</module>
+                <module>demo-61-02-security</module>
             </modules>
         </profile>
 

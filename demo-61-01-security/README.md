@@ -87,7 +87,16 @@ spring security 的默认用户名是：user
 1. 继承类`UsernamePasswordAuthenticationFilter`
 2. 创建 类实现接口`UserDetailsService`，实现查询数据库过程，返回User 对象，这个User对象是安全框架 提供 的对象
 
-## 两个重要接口
+### 步骤
+
+```txt
+第一步：创建配置类，设置使用哪个userDetailsService 实现类
+第二步：编写实现类，返回User对象，User 对象有用户名密码和操作权限
+```
+
+
+
+### 两个重要接口
 
 ### `UserDetailsService`
 
