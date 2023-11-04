@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form action="/user/login" method="post">
+    <!--这里的name 里面的值，必须是username，这是跟 security 的源代码 中的默认值有关-->
+    <!--参考：UsernamePasswordAuthenticationFilter-->
+    用户名：<input type="text" name="username"/>
+    <br/>
+    <!--这里的name 里面的值，必须是password，这是跟 security 的源代码 中的默认值有关-->
+    密码：<input type="text" name="password"/>
+    <br/>
+    <input type="submit" value="login"/>
+  </form>
+</body>
+
+</html>
