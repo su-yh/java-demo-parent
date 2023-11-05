@@ -267,8 +267,8 @@
         <profile>
             <id>demo-60-google-auth</id>
             <modules>
-<!--                <module>demo-60-01-google-auth</module>-->
-<!--                <module>demo-60-02-google-auth</module>-->
+                <module>demo-60-01-google-auth</module>
+                <module>demo-60-02-google-auth</module>
                 <module>demo-60-03-google-auth</module>
             </modules>
         </profile>

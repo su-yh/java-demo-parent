@@ -1,14 +1,25 @@
 package com.suyh6003.controller;
 
+import com.suyh6003.util.HttpsUtils;
 import org.apache.http.client.utils.URIBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author suyh
@@ -25,8 +36,8 @@ public class GoogleAuthTokenController {
      * 然后就可以查询到该登录用户的google 帐 户信息了：
      * <a href="https://www.googleapis.com/oauth2/v2/userinfo?access_token=(access_token_value)">查询用户信息</a>
      */
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public void googleAuthByCode(HttpServletResponse response) throws IOException, URISyntaxException {
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public void googleAuthLogin(HttpServletResponse response) throws IOException, URISyntaxException {
         URIBuilder uriBuilder = new URIBuilder("https://accounts.google.com/o/oauth2/v2/auth");
         uriBuilder.addParameter("scope", "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.email")
                 // 指示当用户不在浏览器时，您的应用能否刷新访问令牌。有效的参数值包括 online（默认值）和 offline。
@@ -44,5 +55,31 @@ public class GoogleAuthTokenController {
 
         URI uri = uriBuilder.build();
         response.sendRedirect(uri.toString());
+    }
+
+    /**
+     * 登出，到google 服务撤消token 的有效性
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public void googleAuthLogout(@RequestParam("token") String token) throws URISyntaxException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        URIBuilder uriBuilder = new URIBuilder("https://oauth2.googleapis.com/revoke");
+        uriBuilder.addParameter("token", token);
+
+        URI uri = uriBuilder.build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<String> reqEntity = new HttpEntity<>("", headers);
+
+        RestTemplate httpsRestTemplate = HttpsUtils.httpsRestTemplate(null);
+
+        ResponseEntity<String> responseEntity = httpsRestTemplate.exchange(uri, HttpMethod.POST, reqEntity, String.class);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            System.out.println("成功");
+        } else {
+            System.out.println("失败");
+        }
+
     }
 }

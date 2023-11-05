@@ -2,6 +2,8 @@
 
 
 
+
+
 ```txt
 http://localhost:8080/suyh/tmp/callback#state=try_sample_request&access_token=ya29.a0AfB_byAeCqspoFQ5cEsxmvFRZAVtUSBx74ZcNUbMcfDymxqjGYIBdxKvz46eTkhRQo4Dgi5-9FYYJSYFySXYVpjHYTdNf7iHmsBKVRz7RxVPaZJJOF8LL4BuqB8bXvpxt0u23OaHaVx3uSHIJjeGNmpltS8I3nGl0gaCgYKAXgSARASFQGOcNnC2dHv69AOJUa0aGv7Yd0p6w0169&token_type=Bearer&expires_in=3599&scope=https://www.googleapis.com/auth/drive.metadata.readonly
 ```
@@ -89,5 +91,34 @@ https://www.googleapis.com/oauth2/v2/userinfo?access_token=ya29.a0AfB_byCRoDOSMz
 
 ```txt
 http://localhost:8080/suyh/suyh.html?state=state_parameter_passthrough_value&code=4%2F0AfJohXkojeVxTsQiwQ-SGxvee2A3aLYopBrGjnidODREiczf5sy3Sn6XBZQqI52XKzmhHw&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata.readonly&authuser=0&prompt=none
+```
+
+
+
+
+
+```txt
+http://localhost:8080/suyh/suyh.html
+state=state_parameter_passthrough_value
+access_token=ya29.a0AfB_byALSCTH_k_G6AAscFv0qOpMrTPeOEzksxftz58a3KVUWk-MsAX8ETFBa4JiExj3MIG6vdAII33NBXMbxqUDAj-lbE4BB2bOrV00Em_o-JjZEIUcs3qckkW6BdIewPTtI4BykMRVJQlbe7i9cvFeQStsOnh3TwaCgYKAVcSARASFQGOcNnCtxYOQ7UgWeBcqGWEWr5VMw0169
+token_type=Bearer
+expires_in=3599
+scope=email%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/drive.metadata.readonly%20openid
+authuser=0
+prompt=none
+```
+
+```txt
+http://localhost:8080/suyh/suyh.html#state=state_parameter_passthrough_value
+access_token=ya29.a0AfB_byA5jXNFzdW1fTKHlX7PZeSN4biC9CTyeZwiEE9zO2Dbb9daAM43qVrhmpSF0BVI_QqsLtfgcmFk8OLcw-ShtUcot2aJtqb4ehFwL8FCwEjpbCjFrPpA3IS7TgATsk4N_4N42zy-xktreASCgbkOX53uPTus0QaCgYKAbQSARASFQGOcNnCAtYMqTzK13h_CQva14sviw0169
+
+
+token_type=Bearer&expires_in=3599&scope=email%20https://www.googleapis.com/auth/userinfo.email%20openid%20https://www.googleapis.com/auth/drive.metadata.readonly&authuser=0&prompt=consent
+```
+
+
+
+```txt
+http://localhost:8080/suyh/suyh.html#state=state_parameter_passthrough_value&access_token=ya29.a0AfB_byBypNUlUUmWDlIRQb_rB4gcu1dLJHIggE9lc3TWsnQyyF_wYQXtbcMyveHVMtu59G46yoiqVNjUSss-uFzg3DQlWiA-Y94czUNm0P-yD6mcyOwaouv7V4D2Yy-12V0zYqq5J5AnBIBSvntml1G0LdkZVhHtQQaCgYKAU8SARASFQGOcNnCpMXRqhDgY58NP7hscpvDUg0169&token_type=Bearer&expires_in=3599&scope=email%20https://www.googleapis.com/auth/drive.metadata.readonly%20openid%20https://www.googleapis.com/auth/userinfo.email&authuser=0&prompt=consent
 ```
 

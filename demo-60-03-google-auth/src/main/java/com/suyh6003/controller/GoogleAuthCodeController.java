@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
  * @since 2023-11-05
  */
 @RestController
-@RequestMapping("/google/auth")
+@RequestMapping("/google/auth/code")
 public class GoogleAuthCodeController {
     @Data
     public static class TempDto {
@@ -53,7 +53,7 @@ public class GoogleAuthCodeController {
     /**
      * 参考一下 <a href="https://developers.google.com/identity/protocols/oauth2/web-server?hl=zh-cn">适用于服务端的web 应用</a>
      */
-    @RequestMapping(value = "/code", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void googleAuthByToken(HttpServletResponse response) throws IOException, URISyntaxException {
         URIBuilder uriBuilder = new URIBuilder("https://accounts.google.com/o/oauth2/v2/auth");
         uriBuilder.addParameter("scope", "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/userinfo.email")
