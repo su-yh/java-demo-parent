@@ -169,5 +169,4 @@ There is no PasswordEncoder mapped for the id "null"
 
    
 
-5. 1
 
