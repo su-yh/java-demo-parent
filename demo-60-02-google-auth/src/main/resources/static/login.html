@@ -59,7 +59,8 @@
         // Parameters to pass to OAuth 2.0 endpoint.
         var params = {'client_id': YOUR_CLIENT_ID,
             'redirect_uri': YOUR_REDIRECT_URI,
-            'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
+            // 需要获取用户的email 信息的权限
+            'scope': 'https://www.googleapis.com/auth/userinfo.email',
             'state': 'try_sample_request',
             'include_granted_scopes': 'true',
             'response_type': 'token'};
@@ -79,5 +80,5 @@
     }
 </script>
 
-<button onclick="trySampleRequest();">Try sample request</button>
+<button onclick="oauth2SignIn();">Try sample request</button>
 </body></html>
