@@ -19,8 +19,8 @@
     </properties>
 
     <modules>
-<!--        <module>demo-00-00-core</module>-->
-<!--        <module>demo-00-01-logback</module>-->
+        <module>demo-00-00-core</module>
+        <module>demo-00-01-logback</module>
     </modules>
 
     <profiles>
@@ -164,6 +164,7 @@
                 <module>demo-03-redis-02-lettuce</module>
                 <module>demo-03-redis-03-redis_template</module>
                 <module>demo-03-redis-04-multi-datasource</module>
+                <module>demo-03-redis-05-timeout</module>
             </modules>
         </profile>
         <profile>
@@ -224,7 +225,7 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-33</id>
+            <id>demo-33-jackson</id>
             <modules>
                 <module>demo-33-jackson-01</module>
                 <module>demo-33-jackson-02</module>
@@ -240,25 +241,25 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-56-01</id>
+            <id>demo-56-mvc-extend</id>
             <modules>
                 <module>demo-56-01-HandlerMethodArgumentResolver</module>
             </modules>
         </profile>
         <profile>
-            <id>demo-57-01</id>
+            <id>demo-57-uuid</id>
             <modules>
                 <module>demo-57-01-uuid-distributed</module>
             </modules>
         </profile>
         <profile>
-            <id>demo-58-01</id>
+            <id>demo-58-common-web</id>
             <modules>
                 <module>demo-58-01-suyh-web-common-spring-boot-starter</module>
             </modules>
         </profile>
         <profile>
-            <id>demo-59-01</id>
+            <id>demo-59-stopwatch</id>
             <modules>
                 <module>demo-59-01-stopwatch</module>
             </modules>
