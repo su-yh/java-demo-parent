@@ -1,6 +1,5 @@
 package com.suyh0305.component;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,6 @@ import java.util.Date;
  * @since 2023-11-09
  */
 @Component
-@Slf4j
 public class TmpComponent {
 
     @Cacheable(cacheNames = "suyh-test-time", key = "#key01")

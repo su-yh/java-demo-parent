@@ -1,7 +1,6 @@
 package com.suyh0305.init;
 
 import com.suyh0305.component.TmpComponent;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 @Component
-@Slf4j
 public class SuyhTestInit implements ApplicationRunner {
     @Resource
     private TmpComponent tmpComponent;
