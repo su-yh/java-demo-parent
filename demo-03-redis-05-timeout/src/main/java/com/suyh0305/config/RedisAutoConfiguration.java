@@ -1,5 +1,6 @@
 package com.suyh0305.config;
 
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,11 @@ public class RedisAutoConfiguration {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        /**
+         * 这里的代码配置({@link RedisCacheConfiguration)，可以对应到 {@link CacheProperties.Redis} 然后在配置文件中添加
+         * 对应的配置类参考 {@link CacheProperties}。
+         * 但是这里却拿不到对应的bean 对象，估计是bean 对象扫描的优先级问题。
+         */
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 // 设置缓存默认的有效时间，全局控制注解 @Cacheable 的默认过期时间。
                 .entryTtl(Duration.ofSeconds(30))
