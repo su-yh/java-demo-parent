@@ -16,10 +16,11 @@ public class SuyhTestInit implements ApplicationRunner {
     public void run(ApplicationArguments args) {
 
         for (int i = 0; i < 10; i++) {
+            String defaultValue = tmpComponent.getDefault("0");
             String value = tmpComponent.getValue("0");
             String valueTest1 = tmpComponent.getTest1("0");
             String valueTest2 = tmpComponent.getTest2("0");
-            System.out.println("value: " + value + ", test1: " + valueTest1 + ", test2: " + valueTest2);
+            System.out.println("value: " + value + ", test1: " + valueTest1 + ", test2: " + valueTest2 + ", defafult: " + defaultValue);
         }
     }
 }
