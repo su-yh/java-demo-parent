@@ -12,10 +12,11 @@ spring:
 
 
   cache:
+    # CacheManager 中如果配置了时间，则优先级会比这里高。
     redis:
       # 参数的类型是 Duration, 参考：Duration.parse(...)
-      # CacheManager 中如果配置了时间，则优先级会比这里高。
       time-to-live: PT60S
+      cache-null-values: false
 
 
 ---
