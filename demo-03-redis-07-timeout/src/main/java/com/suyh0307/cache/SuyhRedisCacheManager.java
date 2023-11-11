@@ -28,7 +28,6 @@ public class SuyhRedisCacheManager extends RedisCacheManager {
         String[] array = StringUtils.delimitedListToStringArray(name, "#");
         name = array[0];
         if (array.length > 1) { // 解析TTL
-            // 例如 12 默认12秒， 12d=12天
             String ttlStr = array[1];
             Duration duration = Duration.parse(ttlStr);
             cacheConfig = cacheConfig.entryTtl(duration);

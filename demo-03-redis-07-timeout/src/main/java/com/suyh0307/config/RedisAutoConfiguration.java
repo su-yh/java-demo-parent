@@ -18,10 +18,13 @@ public class RedisAutoConfiguration {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        // 配置一个全局性的默认值，最好别漏了。这里没生效呀？？？
-        redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
+        // 配置一个全局性的默认值，最好别漏了。
+        // TODO: suyh - 这里没生效呀？？？
+        //  这里是返回了一个新对象，所以必须要接收一下。
+        redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
 
-        return new SuyhRedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
+        return new SuyhRedisCacheManager(
+                RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
                 redisCacheConfiguration);
     }
 }
