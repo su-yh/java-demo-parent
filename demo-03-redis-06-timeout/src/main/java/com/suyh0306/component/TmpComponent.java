@@ -1,4 +1,4 @@
-package com.suyh0305.component;
+package com.suyh0306.component;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -20,6 +20,32 @@ public class TmpComponent {
     @Cacheable(cacheNames = "suyh-test-time", key = "#key01", unless="#result == null")
     public String getValue(String key01) {
         System.out.println("getValue 被调用");
+
+        if (number++ == 0) {
+            return null;
+        }
+
+        Date nowTime = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return sdf.format(nowTime);
+    }
+
+    @Cacheable(cacheNames = "test1", key = "#key01", unless="#result == null")
+    public String getTest1(String key01) {
+        System.out.println("getTest1 被调用");
+
+        if (number++ == 0) {
+            return null;
+        }
+
+        Date nowTime = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        return sdf.format(nowTime);
+    }
+
+    @Cacheable(cacheNames = "test2", key = "#key01", unless="#result == null")
+    public String getTest2(String key01) {
+        System.out.println("getTest2 被调用");
 
         if (number++ == 0) {
             return null;

@@ -165,6 +165,7 @@
                 <module>demo-03-redis-03-redis_template</module>
                 <module>demo-03-redis-04-multi-datasource</module>
                 <module>demo-03-redis-05-timeout</module>
+                <module>demo-03-redis-06-timeout</module>
             </modules>
         </profile>
         <profile>
