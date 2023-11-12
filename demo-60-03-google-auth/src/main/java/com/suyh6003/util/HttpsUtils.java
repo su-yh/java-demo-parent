@@ -53,59 +53,6 @@ public class HttpsUtils {
         HttpsUtils.initRequestFactory(factory);
         return new RestTemplate(factory);
     }
-//
-//    /**
-//     * RestTemplate 是支持同步，异步https 就需要用到CloseableHttpAsyncClient
-//     */
-//    public static CloseableHttpAsyncClient httpsAsyncClient()
-//            throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-//        TrustStrategy acceptingTrustStrategy = (certificate, authType) -> true;
-//        SSLContext sslContext = SSLContexts.custom()
-//                .loadTrustMaterial(null, acceptingTrustStrategy).build();
-//
-//        IOReactorConfig ioConfig = IOReactorConfig.custom().setConnectTimeout(3_000).setSoTimeout(35_000)
-//                .setIoThreadCount(1).build();
-//        return HttpAsyncClients.custom().setRedirectStrategy(new DefaultRedirectStrategy())
-//                .setMaxConnTotal(200).setMaxConnPerRoute(1000).setDefaultIOReactorConfig(ioConfig)
-//                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-//                .setSSLContext(sslContext)
-//                .build();
-//    }
-//
-//    public static void testHttpsAsyncClient()
-//            throws NoSuchAlgorithmException, KeyStoreException,
-//            KeyManagementException, URISyntaxException, IOException {
-//        CloseableHttpAsyncClient asyncClient = httpsAsyncClient();
-//        // 必须要start() 不然使用时会报错，之前遇到找半天没找到问题。
-//        asyncClient.start();
-//
-//        final HttpPost httpPost = initHttpPost();
-//
-//        HttpEntity reqEntity = buildRequestEntity();
-//        httpPost.setEntity(reqEntity);
-//
-//        asyncClient.execute(httpPost, new FutureCallback<HttpResponse>() {
-//
-//            @Override
-//            public void completed(HttpResponse httpResponse) {
-//                // 请求完成
-//            }
-//
-//            @Override
-//            public void failed(Exception e) {
-//                // 请求失败，处理异常
-//            }
-//
-//            @Override
-//            public void cancelled() {
-//                // 请求被取消
-//            }
-//        });
-//
-//        // 结束了就关闭。
-//        // 它是异步执行，在这里关闭显然是不对的。
-//        asyncClient.close();
-//    }
 
     private static HttpEntity buildRequestEntity() {
         final String reqJson = "{}";
