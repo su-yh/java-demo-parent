@@ -1,6 +1,6 @@
 package com.suyh0308.component;
 
-import org.springframework.cache.annotation.Cacheable;
+import com.suyh0308.cache.SuyhCacheable;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -16,49 +16,9 @@ public class TmpComponent {
 
     // 注意：按照官方文档，cacheManager 和 cacheResolver 是互斥参数，同时指定两个可能会导致异常。
     // cacheResolver 参数要指定的是bean 的名称
-    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null", cacheResolver = "suyhCacheResolver")
+    @SuyhCacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null", cacheResolver = "suyhCacheResolver")
     public String getDefault(String key01) {
         System.out.println("getDefault 被调用");
-
-        if (number++ == 0) {
-            return null;
-        }
-
-        Date nowTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return sdf.format(nowTime);
-    }
-
-    // PT30S: 30S 超时时间 ，以# 分隔
-    @Cacheable(cacheNames = "suyh-test-time#PT30S", key = "#key01", unless="#result == null")
-    public String getValue(String key01) {
-        System.out.println("getValue 被调用");
-
-        if (number++ == 0) {
-            return null;
-        }
-
-        Date nowTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return sdf.format(nowTime);
-    }
-
-    @Cacheable(cacheNames = "test1#PT1M", key = "#key01", unless="#result == null")
-    public String getTest1(String key01) {
-        System.out.println("getTest1 被调用");
-
-        if (number++ == 0) {
-            return null;
-        }
-
-        Date nowTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return sdf.format(nowTime);
-    }
-
-    @Cacheable(cacheNames = "test2#PT2M", key = "#key01", unless="#result == null")
-    public String getTest2(String key01) {
-        System.out.println("getTest2 被调用");
 
         if (number++ == 0) {
             return null;

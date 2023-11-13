@@ -25,7 +25,6 @@ public class SuyhRedisCacheManager extends RedisCacheManager implements SuyhCach
      */
     @Override
     public Cache getCache(String name, CacheOperationInvocationContext<?> context) {
-
         SuyhCacheable suyhCacheable = context.getMethod().getAnnotation(SuyhCacheable.class);
         if (suyhCacheable == null) {
             // 不是使用我的自定义注解，那么就是使用spring 原始的Cacheable 注解
@@ -33,7 +32,7 @@ public class SuyhRedisCacheManager extends RedisCacheManager implements SuyhCach
         }
 
         // TODO: suyh - 这里就是处理自己的有效时间，并添加到Cache 中去。
-        return null;
+        return getCache(name);
     }
 }
 
