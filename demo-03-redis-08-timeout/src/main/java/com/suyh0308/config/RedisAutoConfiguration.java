@@ -1,7 +1,7 @@
 package com.suyh0308.config;
 
 import com.suyh0308.cache.SuyhRedisCacheManager;
-import org.springframework.cache.CacheManager;
+import com.suyh0308.cache.SuyhRedisCacheResolver;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import java.time.Duration;
 public class RedisAutoConfiguration {
 
     @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+    public SuyhRedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
         // 配置一个全局性的默认值，最好别漏了。
         // TODO: suyh - 这里没生效呀？？？
@@ -26,5 +26,10 @@ public class RedisAutoConfiguration {
         return new SuyhRedisCacheManager(
                 RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
                 redisCacheConfiguration);
+    }
+
+    @Bean
+    public SuyhRedisCacheResolver suyhCacheResolver(SuyhRedisCacheManager suyhRedisCacheManager) {
+        return new SuyhRedisCacheResolver(suyhRedisCacheManager);
     }
 }

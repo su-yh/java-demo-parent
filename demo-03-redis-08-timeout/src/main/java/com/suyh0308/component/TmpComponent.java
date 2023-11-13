@@ -14,7 +14,9 @@ import java.util.Date;
 public class TmpComponent {
     private static int number = 0;
 
-    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null")
+    // 注意：按照官方文档，cacheManager 和 cacheResolver 是互斥参数，同时指定两个可能会导致异常。
+    // cacheResolver 参数要指定的是bean 的名称
+    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null", cacheResolver = "suyhCacheResolver")
     public String getDefault(String key01) {
         System.out.println("getDefault 被调用");
 
