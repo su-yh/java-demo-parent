@@ -15,6 +15,10 @@ import java.time.Duration;
 @Configuration(proxyBeanMethods = false)
 public class RedisAutoConfiguration {
 
+    // 当CacheManager 存在，则CacheAutoConfiguration 不会创建，对应的 配置CacheProperties 也就不会生效了，这个bean 也无法使用。
+    // 所以还是要想办法直接使用 RedisCacheManager。
+    // 参考一下 RedisCacheConfiguration 中的几个自定义扩展接口，看是否有办法处理。
+    // 特别是：org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers.customize(..)
     @Bean
     public SuyhRedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
