@@ -168,6 +168,7 @@
                 <module>demo-03-redis-06-timeout</module>
                 <module>demo-03-redis-07-timeout</module>
                 <module>demo-03-redis-08-timeout</module>
+                <module>demo-03-redis-09-timeout</module>
             </modules>
         </profile>
         <profile>
