@@ -46,4 +46,6 @@ public @interface SuyhCacheable {
 
     @AliasFor(annotation = Cacheable.class)
     boolean sync() default false;
+
+    String timeToLive() default "";
 }
