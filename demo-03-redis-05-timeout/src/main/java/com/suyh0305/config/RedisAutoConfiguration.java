@@ -32,4 +32,10 @@ public class RedisAutoConfiguration {
                 .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheConfiguration).build();
     }
+
+    // 上面的方式，直接创建一个CacheManager 是可以实现的，也可以用下面这种方式来处理
+//    @Bean
+//    public SuyhRedisCacheManagerBuilderCustomizer suyhRedisCacheManagerBuilderCustomizer() {
+//        return new SuyhRedisCacheManagerBuilderCustomizer();
+//    }
 }
