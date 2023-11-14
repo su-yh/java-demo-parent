@@ -184,6 +184,7 @@
                 <module>demo-06-mybatis-01</module>
                 <module>demo-06-mybatis-02-common</module>
                 <module>demo-06-mybatis-03-multi-db-01</module>
+                <module>demo-06-mybatis-04-convert</module>
             </modules>
         </profile>
         <profile>
