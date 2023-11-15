@@ -1,5 +1,6 @@
 package com.suyh0305.config;
 
+import com.suyh0305.cache.SuyhRedisCacheManagerBuilderCustomizer;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -31,5 +32,11 @@ public class RedisAutoConfiguration {
         return RedisCacheManager
                 .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheConfiguration).build();
+    }
+
+    // 上面的方式，直接创建一个CacheManager 是可以实现的，也可以用下面这种方式来处理
+    @Bean
+    public SuyhRedisCacheManagerBuilderCustomizer suyhRedisCacheManagerBuilderCustomizer() {
+        return new SuyhRedisCacheManagerBuilderCustomizer();
     }
 }

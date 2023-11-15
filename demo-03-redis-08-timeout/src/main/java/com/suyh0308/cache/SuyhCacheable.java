@@ -35,8 +35,12 @@ public @interface SuyhCacheable {
     @AliasFor(annotation = Cacheable.class)
     String cacheManager() default "";
 
+    /**
+     * 这里添加的是自定义的解析器，使用当前这个注解一般都是要指定一个缓存时间，所以这里指定我自定义的解析器。
+     * 不过也没有关系，这个解析器支持原始的解析功能。
+     */
     @AliasFor(annotation = Cacheable.class)
-    String cacheResolver() default "";
+    String cacheResolver() default "suyhCacheResolver";
 
     @AliasFor(annotation = Cacheable.class)
     String condition() default "";
