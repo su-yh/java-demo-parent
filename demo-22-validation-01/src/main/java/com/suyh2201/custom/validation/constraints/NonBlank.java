@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
         ElementType.PARAMETER, ElementType.TYPE_USE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = {com.suyh.custom.validation.constraints.NonBlankValidator.class})
+@Constraint(validatedBy = {NonBlankValidator.class})
 @Repeatable(value = NonBlank.List.class)
 public @interface NonBlank {
 
