@@ -34,7 +34,13 @@ public class GoogleAuthTokenController {
      * 登录成功之后，google 会重定向到下面我们给出的那个重定身地址，最终回到我们自己的应用。
      *
      * 然后就可以查询到该登录用户的google 帐 户信息了：
-     * <a href="https://www.googleapis.com/oauth2/v2/userinfo?access_token=(access_token_value)">查询用户信息</a>
+     * <a href="https://www.googleapis.com/oauth2/v2/userinfo?access_token=(access_token_value)">查询用户信息的接口</a>
+     *
+     * 前端通过访问当前接口，会自动重定向到google 的登录页面。在登录成功之后，会重定向到如下指定的页面，这个页面，必须在google 的客户端ID 那里配置，并且完全匹配，否则会报错误。
+     * 重定向到该页面之后，会将 state 以及access_token 的值返回，前端需要将这两个值解析出来，然后带上这两个参数来访问后端的登录接口。
+     * 剩下的就由服务器端在该接口上面实现相关的逻辑，首先需要校验这个state 是否为自己签发的，是否可信，然后使用这个access_token 去google 获取用户的邮箱相关的信息。
+     * 得到邮箱相关的信息之后，就可以在当前系统做后续的登录签发token 操作了。如果不存在对应的用户，则创建，否则直接找出并返回。
+     * 这里我们使用该token 就做一次获取信息操作，为了完全，我们最好用完了之后就通过revoke 接口进行删除google 的access_token 操作。
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void googleAuthLogin(HttpServletResponse response) throws IOException, URISyntaxException {
