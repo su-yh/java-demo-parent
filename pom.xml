@@ -158,7 +158,7 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-03</id>
+            <id>demo-03-redis</id>
             <modules>
                 <module>demo-03-redis-01</module>
                 <module>demo-03-redis-02-lettuce</module>
@@ -168,6 +168,7 @@
                 <module>demo-03-redis-06-timeout</module>
                 <module>demo-03-redis-07-timeout</module>
                 <module>demo-03-redis-08-timeout</module>
+                <module>demo-03-redis-09-timeout</module>
             </modules>
         </profile>
         <profile>

@@ -1,0 +1,10 @@
+spring:
+  config:
+    import:
+      - application-redis.yml
+  profiles:
+    active: local
+
+
+debug: true
+

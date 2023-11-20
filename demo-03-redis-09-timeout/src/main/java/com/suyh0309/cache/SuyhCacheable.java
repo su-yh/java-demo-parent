@@ -1,4 +1,4 @@
-package com.suyh0308.cache;
+package com.suyh0309.cache;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.AliasFor;
