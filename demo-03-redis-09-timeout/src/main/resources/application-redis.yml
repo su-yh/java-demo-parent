@@ -4,7 +4,8 @@ spring:
     host: www.suyh.com.cn
     port: 6379 # 端口
     password: 123456
-    database: 0 # 数据库索引    lettuce:
+    database: 0 # 数据库索引
+    lettuce:
       pool:
         # lettuce 的连接池，需要额外引入commons-pool2 组件
         enabled: true
