@@ -3,6 +3,7 @@ package com.suyh0310.init;
 import com.suyh0310.component.TmpComponent;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -11,6 +12,8 @@ import javax.annotation.Resource;
 public class SuyhTestInit implements ApplicationRunner {
     @Resource
     private TmpComponent tmpComponent;
+    @Resource
+    private CacheProperties cacheProperties;
 
     @Override
     public void run(ApplicationArguments args) {

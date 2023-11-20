@@ -17,8 +17,7 @@ import java.util.Date;
 public class TmpComponent {
     private static int number = 0;
 
-    //
-    // 源码所需要重点关注的类：CacheInterceptor  CacheAspectSupport
+    // 源码所需要重点关注的类：CacheInterceptor  CacheAspectSupport RedisCacheConfiguration
     /**
      * {@link @CacheEvict} 是用来标注在需要清除缓存元素的方法或类上的。
      * 当标记在一个类上时表示其中所有的方法的执行都会触发缓存的清除操作。

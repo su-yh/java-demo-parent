@@ -42,18 +42,11 @@ public class TmpComponent {
         return sdf.format(nowTime);
     }
 
-    @CacheEvict(cacheNames = "suyh-default", key = "#key01",
-            cacheResolver = "suyhCacheResolver")
+    @CacheEvict(cacheNames = "suyh-default", key = "#key01")
     public String updateDefault(String key01) {
-        log.info("getDefault 被调用");
+        log.info("updateDefault 被调用");
 
-        if (number++ == 0) {
-            return null;
-        }
-
-        Date nowTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return sdf.format(nowTime);
+       return "updateDefault";
     }
 
 }
