@@ -1,6 +1,5 @@
 package com.suyh0309.component;
 
-import com.suyh0309.cache.SuyhCacheable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +17,8 @@ import java.util.Date;
 public class TmpComponent {
     private static int number = 0;
 
+    //
+    // 源码所需要重点关注的类：CacheInterceptor  CacheAspectSupport
     /**
      * {@link @CacheEvict} 是用来标注在需要清除缓存元素的方法或类上的。
      * 当标记在一个类上时表示其中所有的方法的执行都会触发缓存的清除操作。
@@ -27,8 +28,8 @@ public class TmpComponent {
      * condition表示清除操作发生的条件。下面我们来介绍一下新出现的两个属性allEntries和beforeInvocation。
      */
     // unless = "#result == null" ，当方法返回值为null 时将不会缓存，只有当返回值非null 时，才会缓存数据。
-    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless = "#result == null",
-            cacheResolver = "suyhCacheResolver")
+    // 所以这里生成的redis 的缓存名称规则就是 缓存的前缀 + cacheNames + :: + spEL解析出来key 的值
+    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless = "#result == null")
     public String getDefault(String key01) {
         log.info("getDefault 被调用");
 

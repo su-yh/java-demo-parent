@@ -25,7 +25,10 @@ public class RedisAutoConfiguration {
         // 配置一个全局性的默认值，最好别漏了。
         // TODO: suyh - 这里没生效呀？？？
         //  这里是返回了一个新对象，所以必须要接收一下。
-        redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
+        redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofSeconds(30)).prefixCacheNameWith("suyh-prefix:")
+        // 参考：org.springframework.data.redis.cache.CacheKeyPrefix.prefixed()
+        //         .computePrefixWith(name -> "suyh-prefix" + name + SEPARATOR)    // 这里可以处理那个尾巴上的双冒号的问题，但是这样处理似乎并不好，还是就按他默认的方式处理就好了，只是连续两个冒号而以没关系。
+        ;
 
         return new SuyhRedisCacheManager(
                 RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
