@@ -14,7 +14,7 @@ import java.util.Date;
 public class TmpComponent {
     private static int number = 0;
 
-    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null")
+    @Cacheable(cacheNames = "suyh-default", key = "#key01", unless = "#result == null")
     public String getDefault(String key01) {
         System.out.println("getDefault 被调用");
 
@@ -28,7 +28,7 @@ public class TmpComponent {
     }
 
     // PT30S: 30S 超时时间 ，以# 分隔
-    @Cacheable(cacheNames = "suyh-test-time#PT30S", key = "#key01", unless="#result == null")
+    @Cacheable(cacheNames = "suyh-test-time#PT30S", key = "#key01", unless = "#result == null")
     public String getValue(String key01) {
         System.out.println("getValue 被调用");
 
@@ -41,7 +41,7 @@ public class TmpComponent {
         return sdf.format(nowTime);
     }
 
-    @Cacheable(cacheNames = "test1#PT1M", key = "#key01", unless="#result == null")
+    @Cacheable(cacheNames = "test1#PT1M", key = "#key01", unless = "#result == null")
     public String getTest1(String key01) {
         System.out.println("getTest1 被调用");
 
@@ -54,7 +54,7 @@ public class TmpComponent {
         return sdf.format(nowTime);
     }
 
-    @Cacheable(cacheNames = "test2#PT2M", key = "#key01", unless="#result == null")
+    @Cacheable(cacheNames = "test2#PT2M", key = "#key01", unless = "#result == null")
     public String getTest2(String key01) {
         System.out.println("getTest2 被调用");
 

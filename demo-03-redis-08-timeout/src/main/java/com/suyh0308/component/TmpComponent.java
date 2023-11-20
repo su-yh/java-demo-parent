@@ -16,7 +16,7 @@ public class TmpComponent {
 
     // 注意：按照官方文档，cacheManager 和 cacheResolver 是互斥参数，同时指定两个可能会导致异常。
     // cacheResolver 参数要指定的是bean 的名称
-    @SuyhCacheable(cacheNames = "suyh-default", key = "#key01", unless="#result == null",
+    @SuyhCacheable(cacheNames = "suyh-default", key = "#key01", unless = "#result == null",
             cacheResolver = "suyhCacheResolver", timeToLive = "PT65S")
     public String getDefault(String key01) {
         System.out.println("getDefault 被调用");
