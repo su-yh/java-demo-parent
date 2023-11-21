@@ -19,6 +19,7 @@ public class SuyhTestInit implements ApplicationRunner {
     public void run(ApplicationArguments args) {
 
         for (int i = 0; i < 10; i++) {
+            tmpComponent.getStudent();
             String defaultValue = tmpComponent.getDefault("0");
             String value = "value";
             String valueTest1 = "valueTest1";

@@ -1,5 +1,6 @@
 package com.suyh0310.component;
 
+import com.suyh0310.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -47,6 +48,16 @@ public class TmpComponent {
         log.info("updateDefault 被调用");
 
        return "updateDefault";
+    }
+
+    @Cacheable(cacheNames = "suyh-default", unless = "#result == null")
+    public Student getStudent() {
+        log.info("getStudent 被调用");
+
+        Student student = new Student();
+        student.setId(number + "").setName("suy");
+        number++;
+        return student;
     }
 
 }

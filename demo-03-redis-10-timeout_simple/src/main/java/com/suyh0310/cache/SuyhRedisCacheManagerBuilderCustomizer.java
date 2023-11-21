@@ -44,7 +44,7 @@ public class SuyhRedisCacheManagerBuilderCustomizer implements RedisCacheManager
 //        builder.cacheDefaults(redisCacheConfiguration);
 //        Field cacheWriter = RedisCacheManager.RedisCacheManagerBuilder.class.getField("cacheWriter");
 
-        configRedisSerializer(builder);
+//        configRedisSerializer(builder);
     }
 
     /**
