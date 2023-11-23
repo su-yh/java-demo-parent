@@ -147,6 +147,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-37-stop-springboot</id>
+            <modules>
+                <module>demo-37-01-stop-springboot</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-46-multi-datasource-flywaydb</id>
             <modules>
                 <module>demo-46-multi-datasource-flywaydb-01</module>
