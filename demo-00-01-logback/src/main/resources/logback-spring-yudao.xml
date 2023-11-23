@@ -27,6 +27,7 @@
         <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 滚动后的日志文件名 -->
+            <!--如果变量对应的值不存在则取默认值，格式为：':-' -->
             <fileNamePattern>${LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN:-logs/%d{yyyy-MM-dd}/mastermile-admin.%03i.log}</fileNamePattern>
             <!-- 启动服务时，是否清理历史日志，一般不建议清理 -->
             <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-true}</cleanHistoryOnStart>
