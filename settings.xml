@@ -15,7 +15,9 @@
     <mirrors>
         <mirror>
             <id>mirror</id>
-            <mirrorOf>central,!suyh-mvn-central-release</mirrorOf>
+            <!-- 每一个*：表示所有的依赖都从里的仓库拉取-->
+            <!-- 后面的，就是指从* 中排除，即其他的这些仓库可以到指定的仓库去拉取 -->
+            <mirrorOf>*,!central,!suyh-mvn-central-release</mirrorOf>
             <name>mirror</name>
             <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </mirror>

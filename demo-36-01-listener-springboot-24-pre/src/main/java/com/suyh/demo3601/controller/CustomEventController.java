@@ -1,6 +1,6 @@
-package com.suyh.demo3602.controller;
+package com.suyh.demo3601.controller;
 
-import com.suyh.demo3602.service.EventPublishService;
+import com.suyh.demo3601.service.EventPublishService;
 import com.suyh.listeners.custom.CustomEvent;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

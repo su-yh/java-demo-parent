@@ -44,6 +44,9 @@ public class SuyhRedisCacheManagerBuilderCustomizer implements RedisCacheManager
 //        builder.cacheDefaults(redisCacheConfiguration);
 //        Field cacheWriter = RedisCacheManager.RedisCacheManagerBuilder.class.getField("cacheWriter");
 
+        // TODO: suyh - 这里的序列化有问题，还没能解决。
+        //  如何同时满足String 和实体对象的序列化 与反序列化的问题。
+        //  如果是对象的反序列化，我们可以使用一个接口让它们都实现这个接口，但是String 就没办法了呀？
 //        configRedisSerializer(builder);
     }
 
