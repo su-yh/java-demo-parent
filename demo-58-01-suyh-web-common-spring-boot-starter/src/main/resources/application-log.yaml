@@ -1,0 +1,32 @@
+
+logging:
+  file:
+    name: /app/logs/overseas-proxy/suyh-default-log-name.log # 日志文件名，全路径
+  logback:
+    rollingpolicy:
+      clean-history-on-start: true
+      file-name-pattern: /app/logs/overseas-proxy/%d{yyyy-MM-dd}/suyh-default-log-name.%02i.log
+      max-file-size: 20MB
+  level:
+    root: info
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: suyh
+
+
+logging:
+  file:
+    name: /Users/suyunhong/suyh-develop/logs/overseas-proxy/suyh-default-log-name.log # 日志文件名，全路径
+  logback:
+    rollingpolicy:
+      clean-history-on-start: true
+      file-name-pattern: /Users/suyunhong/suyh-develop/logs/overseas-proxy/%d{yyyy-MM-dd}/suyh-default-log-name.%02i.log
+      max-file-size: 20MB
+  level:
+    root: debug
+
+
