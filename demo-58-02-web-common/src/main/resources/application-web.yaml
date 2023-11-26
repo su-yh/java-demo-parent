@@ -21,5 +21,8 @@ server:
 #      # 日志格式
 ##      pattern: %{Host}i begin=%{begin}t end=%{end}t end=%{msec}t "%U" thread=%I
 
-
+#spring:
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ANT_PATH_MATCHER # 解决 SpringFox 与 SpringBoot 2.6.x 不兼容的问题，参见 SpringFoxHandlerProviderBeanPostProcessor 类
 

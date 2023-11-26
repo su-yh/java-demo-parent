@@ -3,6 +3,7 @@ package com.suyh5802.web.base.controller;
 import com.suyh5802.web.base.constant.ErrorCodeConstants;
 import com.suyh5802.web.base.mvc.exception.ExceptionUtil;
 import com.suyh5802.web.base.vo.TempVo;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author suyh
  * @since 2023-11-26
  */
+@Tag(name = "会员广告 - 广告内容管理")
 @RestController
 @RequestMapping(value = "/suyh/test")
 @Slf4j

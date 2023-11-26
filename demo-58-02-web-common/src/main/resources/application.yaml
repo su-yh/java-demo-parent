@@ -2,7 +2,10 @@ spring:
   config:
     import:
       - application-log.yaml
+      - application-swagger.yaml
       - application-web.yaml
+  profiles:
+    active: suyh
 
 
 
