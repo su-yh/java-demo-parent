@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+// TODO: suyh - 这个可以优化一下，怎么拿到spring mvc 里面的ObjectMapper, 同时还可以让在不同的业务场景创建出不同的 JsonUtils
 @Slf4j
 public class JsonUtils {
     private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper();

@@ -4,7 +4,7 @@ import com.suyh5802.web.base.constant.ErrorStatus;
 import lombok.Getter;
 import org.springframework.lang.NonNull;
 
-public class OverseasProxyException extends RuntimeException {
+public class BaseException extends RuntimeException {
     private static final long serialVersionUID = -4365987799788427525L;
 
     @Getter
@@ -16,7 +16,7 @@ public class OverseasProxyException extends RuntimeException {
     @Getter
     private final ExceptionCategory category;
 
-    public OverseasProxyException(@NonNull ExceptionCategory category, @NonNull ErrorStatus errorStatus, Object... params) {
+    public BaseException(@NonNull ExceptionCategory category, @NonNull ErrorStatus errorStatus, Object... params) {
         super(errorStatus.getMsg());
 
         this.category = category;

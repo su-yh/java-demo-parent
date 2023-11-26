@@ -5,11 +5,11 @@ import org.springframework.lang.NonNull;
 
 public class ExceptionUtil {
 
-    public static OverseasProxyException business(@NonNull ErrorStatus errorStatus, Object... params) {
-        return new OverseasProxyException(ExceptionCategory.BUSINESS, errorStatus, params);
+    public static BaseException business(@NonNull ErrorStatus errorStatus, Object... params) {
+        return new BaseException(ExceptionCategory.BUSINESS, errorStatus, params);
     }
 
-    public static OverseasProxyException system(@NonNull ErrorStatus errorStatus, Object... params) {
-        return new OverseasProxyException(ExceptionCategory.SYSTEM, errorStatus, params);
+    public static BaseException system(@NonNull ErrorStatus errorStatus, Object... params) {
+        return new BaseException(ExceptionCategory.SYSTEM, errorStatus, params);
     }
 }

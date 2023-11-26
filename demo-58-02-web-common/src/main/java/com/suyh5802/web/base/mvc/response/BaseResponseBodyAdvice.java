@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 // TODO: suyh - 这里是必须这个注解还是说随便是一个bean 就可以的？？？
 @ControllerAdvice
-public class OverseasProxyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class BaseResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
         return !ResponseEntity.class.isAssignableFrom(returnType.getParameterType());

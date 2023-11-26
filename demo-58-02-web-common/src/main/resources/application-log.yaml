@@ -3,11 +3,11 @@ logging:
   level:
     root: info
   file:
-    name: /app/logs/overseas-proxy/overseas-proxy.log # 日志文件名，全路径
+    name: /app/logs/common-web/common-web.log
   logback:
     rollingpolicy:
       clean-history-on-start: true
-      file-name-pattern: /app/logs/overseas-proxy/%d{yyyy-MM-dd}/overseas-proxy.%03i.log
+      file-name-pattern: /app/logs/common-web/%d{yyyy-MM-dd}/common-web.%02i.log
       max-file-size: 20MB
 
 
@@ -23,11 +23,11 @@ logging:
   level:
     root: debug
   file:
-    name: /Users/suyunhong/suyh-develop/logs/overseas-proxy/overseas-proxy.log # 日志文件名，全路径
+    name: /Users/suyunhong/suyh-develop/logs/common-web/common-web.log
   logback:
     rollingpolicy:
       clean-history-on-start: true
-      file-name-pattern: /Users/suyunhong/suyh-develop/logs/overseas-proxy/%d{yyyy-MM-dd}/overseas-proxy.%03i.log
+      file-name-pattern: /Users/suyunhong/suyh-develop/logs/common-web/%d{yyyy-MM-dd}/common-web.%02i.log
       max-file-size: 20MB
 
 

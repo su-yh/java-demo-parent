@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /mastermile/proxy
+    context-path: /base/web
   port: 8806
 
   error:

@@ -1,7 +1,7 @@
 package com.suyh5802.web.base.mvc.error;
 
 import com.suyh5802.web.base.mvc.exception.ExceptionCategory;
-import com.suyh5802.web.base.mvc.exception.OverseasProxyException;
+import com.suyh5802.web.base.mvc.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-public class OverseasProxyHandlerExceptionResolver extends DefaultHandlerExceptionResolver {
+public class BaseHandlerExceptionResolver extends DefaultHandlerExceptionResolver {
 
     @Override
     public int getOrder() {
@@ -35,8 +35,8 @@ public class OverseasProxyHandlerExceptionResolver extends DefaultHandlerExcepti
 
         try {
             // spring mvc 不识别且没处理的异常，我们自己处理。
-            if (ex instanceof OverseasProxyException) {
-                return handleOverseasProxyException((OverseasProxyException) ex, request, response, handler);
+            if (ex instanceof BaseException) {
+                return handleOverseasProxyException((BaseException) ex, request, response, handler);
             }
 
             // 剩下的所有异常处理，都由它来解决。这些剩下的异常我们自己也不识别，所以放在这里处理。
@@ -49,7 +49,7 @@ public class OverseasProxyHandlerExceptionResolver extends DefaultHandlerExcepti
     }
 
     protected ModelAndView handleOverseasProxyException(
-            @NonNull OverseasProxyException ex, @NonNull HttpServletRequest request,
+            @NonNull BaseException ex, @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response, @Nullable Object handler) throws IOException {
         // 处理自定义的异常类，这里将业务异常认为是200 的OK，对于error 的返回值属性将在ErrorAttributes 中处理
         // OverseasProxyException 因为是自定义的异常类，这个异常表示的是请求是正常的，只是业务失败，所以要将状态处理成200。然后报业务错误即可。

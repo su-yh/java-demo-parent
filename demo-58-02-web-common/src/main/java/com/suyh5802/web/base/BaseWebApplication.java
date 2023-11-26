@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2023-11-26
  */
 @SpringBootApplication
-public class BaseSebApplication {
+public class BaseWebApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BaseSebApplication.class, args);
+        SpringApplication.run(BaseWebApplication.class, args);
     }
 }

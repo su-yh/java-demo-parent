@@ -1,6 +1,6 @@
 package com.suyh5802.web.base.mvc.configurer;
 
-import com.suyh5802.web.base.mvc.error.OverseasProxyHandlerExceptionResolver;
+import com.suyh5802.web.base.mvc.error.BaseHandlerExceptionResolver;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 import java.util.List;
 
 @Component
-public class OverseasProxyWebMvcConfigurer implements WebMvcConfigurer {
+public class BaseWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(@NonNull List<HandlerExceptionResolver> resolvers) {
         // 将spring mvc 创建的DefaultHandlerExceptionResolver 删除掉，使用自定义的DefaultHandlerExceptionResolver 派生类替代
@@ -25,6 +25,6 @@ public class OverseasProxyWebMvcConfigurer implements WebMvcConfigurer {
             }
         }
 
-        resolvers.add(new OverseasProxyHandlerExceptionResolver());
+        resolvers.add(new BaseHandlerExceptionResolver());
     }
 }

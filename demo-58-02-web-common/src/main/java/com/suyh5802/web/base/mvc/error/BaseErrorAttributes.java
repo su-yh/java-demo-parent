@@ -1,7 +1,7 @@
 package com.suyh5802.web.base.mvc.error;
 
 import com.suyh5802.web.base.mvc.exception.ExceptionCategory;
-import com.suyh5802.web.base.mvc.exception.OverseasProxyException;
+import com.suyh5802.web.base.mvc.exception.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class OverseasProxyErrorAttributes extends DefaultErrorAttributes {
+public class BaseErrorAttributes extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -40,8 +40,8 @@ public class OverseasProxyErrorAttributes extends DefaultErrorAttributes {
         Throwable throwable = getError(webRequest);
 
         if (throwable != null) {
-            if (OverseasProxyException.class.isAssignableFrom(throwable.getClass())) {
-                OverseasProxyException exception = (OverseasProxyException) throwable;
+            if (BaseException.class.isAssignableFrom(throwable.getClass())) {
+                BaseException exception = (BaseException) throwable;
 
                 if (ExceptionCategory.SYSTEM.equals(exception.getCategory())) {
                     log.warn("system exception, timestamp: {}", timestampFormat, throwable);
