@@ -175,6 +175,7 @@
             <id>demo-58-common-web</id>
             <modules>
                 <module>demo-58-01-suyh-web-common-spring-boot-starter</module>
+                <module>demo-58-02-web-common</module>
             </modules>
         </profile>
         <profile>
