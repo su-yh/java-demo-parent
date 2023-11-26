@@ -1,4 +1,4 @@
-package com.mastermile.proxy.vo;
+package com.suyh5802.web.base.vo;
 
 import lombok.Data;
 

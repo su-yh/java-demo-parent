@@ -1,4 +1,4 @@
-package com.mastermile.proxy.mvc.vo;
+package com.suyh5802.web.base.mvc.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

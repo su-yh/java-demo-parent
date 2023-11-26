@@ -1,4 +1,4 @@
-package com.mastermile.proxy.util;
+package com.suyh5802.web.base.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;

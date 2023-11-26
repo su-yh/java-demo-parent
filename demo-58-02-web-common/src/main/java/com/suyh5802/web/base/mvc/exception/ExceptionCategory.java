@@ -1,4 +1,4 @@
-package com.mastermile.proxy.mvc.exception;
+package com.suyh5802.web.base.mvc.exception;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

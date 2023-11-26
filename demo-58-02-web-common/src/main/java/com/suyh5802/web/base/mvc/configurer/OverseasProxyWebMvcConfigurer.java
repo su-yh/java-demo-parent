@@ -1,6 +1,6 @@
-package com.mastermile.proxy.mvc.configurer;
+package com.suyh5802.web.base.mvc.configurer;
 
-import com.mastermile.proxy.mvc.error.OverseasProxyHandlerExceptionResolver;
+import com.suyh5802.web.base.mvc.error.OverseasProxyHandlerExceptionResolver;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;

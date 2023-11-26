@@ -1,7 +1,7 @@
-package com.mastermile.proxy.mvc.response;
+package com.suyh5802.web.base.mvc.response;
 
-import com.mastermile.proxy.util.JsonUtils;
-import com.mastermile.proxy.mvc.vo.ResponseResult;
+import com.suyh5802.web.base.util.JsonUtils;
+import com.suyh5802.web.base.mvc.vo.ResponseResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

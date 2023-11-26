@@ -1,4 +1,4 @@
-package com.mastermile.proxy.constant;
+package com.suyh5802.web.base.constant;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

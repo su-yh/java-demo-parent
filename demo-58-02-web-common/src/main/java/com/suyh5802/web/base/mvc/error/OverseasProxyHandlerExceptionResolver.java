@@ -1,7 +1,7 @@
-package com.mastermile.proxy.mvc.error;
+package com.suyh5802.web.base.mvc.error;
 
-import com.mastermile.proxy.mvc.exception.ExceptionCategory;
-import com.mastermile.proxy.mvc.exception.OverseasProxyException;
+import com.suyh5802.web.base.mvc.exception.ExceptionCategory;
+import com.suyh5802.web.base.mvc.exception.OverseasProxyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;

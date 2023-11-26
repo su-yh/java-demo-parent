@@ -1,6 +1,6 @@
-package com.mastermile.proxy.mvc.exception;
+package com.suyh5802.web.base.mvc.exception;
 
-import com.mastermile.proxy.constant.ErrorStatus;
+import com.suyh5802.web.base.constant.ErrorStatus;
 import lombok.Getter;
 import org.springframework.lang.NonNull;
 

@@ -1,6 +1,6 @@
-package com.mastermile.proxy.mvc.vo;
+package com.suyh5802.web.base.mvc.vo;
 
-import com.mastermile.proxy.constant.ErrorStatus;
+import com.suyh5802.web.base.constant.ErrorStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

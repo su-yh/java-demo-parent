@@ -1,8 +1,8 @@
-package com.mastermile.proxy.controller;
+package com.suyh5802.web.base.controller;
 
-import com.mastermile.proxy.constant.ErrorCodeConstants;
-import com.mastermile.proxy.mvc.exception.ExceptionUtil;
-import com.mastermile.proxy.vo.TempVo;
+import com.suyh5802.web.base.constant.ErrorCodeConstants;
+import com.suyh5802.web.base.mvc.exception.ExceptionUtil;
+import com.suyh5802.web.base.vo.TempVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

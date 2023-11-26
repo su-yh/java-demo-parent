@@ -174,7 +174,8 @@
         <profile>
             <id>demo-58-common-web</id>
             <modules>
-                <module>demo-58-01-suyh-web-common-spring-boot-starter</module>
+                <!--58-01可以毕业了，过时了，之前没弄好。-->
+                <!--<module>demo-58-01-suyh-web-common-spring-boot-starter</module>-->
                 <module>demo-58-02-web-common</module>
             </modules>
         </profile>
