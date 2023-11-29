@@ -1,7 +1,7 @@
-package com.suyh07012.component;
+package com.suyh07013.component;
 
-import com.suyh07012.config.VcsConstants;
-import com.suyh07012.vo.WaitingRecallUsersVo;
+import com.suyh07013.config.VcsConstants;
+import com.suyh07013.vo.WaitingRecallUsersVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

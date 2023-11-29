@@ -1,4 +1,4 @@
-package com.suyh07012.vo;
+package com.suyh07013.vo;
 
 import lombok.Data;
 
