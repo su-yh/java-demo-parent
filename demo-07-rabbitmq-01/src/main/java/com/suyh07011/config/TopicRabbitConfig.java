@@ -15,22 +15,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TopicRabbitConfig {
     // 绑定键
-    public final static String man = "topic.man";
-    public final static String women = "topic.women";
+    public final static String TOPIC_MAN = "topic.man";
+    public final static String TOPIC_WOMEN = "topic.women";
+    public final static String EXCHANGE = "topicExchange";
 
     @Bean
     public Queue firstQueue() {
-        return new Queue(TopicRabbitConfig.man);
+        return new Queue(TopicRabbitConfig.TOPIC_MAN);
     }
 
     @Bean
     public Queue secondQueue() {
-        return new Queue(TopicRabbitConfig.women);
+        return new Queue(TopicRabbitConfig.TOPIC_WOMEN);
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange("topicExchange");
+        return new TopicExchange(TopicRabbitConfig.EXCHANGE);
     }
 
     // 将firstQueue和topicExchange 绑定，而且绑定的键值为topic.man
@@ -39,7 +40,7 @@ public class TopicRabbitConfig {
     public Binding bindingExchangeMessage(
             @Qualifier("firstQueue") Queue firstQueue,
             TopicExchange exchange) {
-        return BindingBuilder.bind(firstQueue).to(exchange).with(TopicRabbitConfig.man);
+        return BindingBuilder.bind(firstQueue).to(exchange).with(TopicRabbitConfig.TOPIC_MAN);
     }
 
     // 将secondQueue和topicExchange 绑定，而且绑定的键值为topic.#

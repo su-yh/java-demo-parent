@@ -1,5 +1,6 @@
 package com.suyh07011.component;
 
+import com.suyh07011.config.TopicRabbitConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 @Component
 @RequiredArgsConstructor
-@RabbitListener(queues = "topic.man")
+@RabbitListener(queues = TopicRabbitConfig.TOPIC_MAN)
 @Slf4j
 public class TopicManReceiverComponent {
     @RabbitHandler
