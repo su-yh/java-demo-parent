@@ -1,13 +1,12 @@
 package com.suyh07012.component;
 
-import com.suyh07011.config.TopicRabbitConfig;
+import com.suyh07012.config.TopicRabbitConfig;
+import com.suyh07012.vo.TempVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * @author suyh
@@ -19,7 +18,7 @@ import java.util.Map;
 @Slf4j
 public class TopicManReceiverComponent {
     @RabbitHandler
-    public void process(Map<String, Object> testMessage) {
+    public void process(TempVo testMessage) {
         System.out.println("TopicManReceiver 消费者收到消息：" + testMessage.toString());
     }
 }
