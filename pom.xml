@@ -90,6 +90,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-07</id>
+            <modules>
+                <module>demo-07-kafka-01</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-12-swagger</id>
             <modules>
                 <module>demo-12-swagger-01</module>
