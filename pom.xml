@@ -93,6 +93,8 @@
             <id>demo-07</id>
             <modules>
                 <module>demo-07-kafka-01</module>
+                <module>demo-07-rabbitmq-01</module>
+                <module>demo-07-rabbitmq-02</module>
             </modules>
         </profile>
         <profile>

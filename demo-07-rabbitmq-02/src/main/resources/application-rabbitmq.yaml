@@ -1,0 +1,14 @@
+
+
+# 参考自博客：https://blog.csdn.net/qq_35387940/article/details/100514134
+# 序列化参考：https://codeantenna.com/a/iCfDJCxT2t
+spring:
+  rabbitmq:
+    host: 192.168.8.34
+    port: 5672
+    username: admin
+    password: aiteer
+    virtual-host: /aiteer-vcs
+
+
+
