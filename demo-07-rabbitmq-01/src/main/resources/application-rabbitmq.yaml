@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    host: 192.168.8.34
+    port: 5672
+    username: admin
+    password: aiteer
+    virtual-host: /aiteer-vcs
