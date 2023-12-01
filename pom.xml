@@ -216,6 +216,13 @@
             </modules>
         </profile>
 
+        <profile>
+            <id>demo-62-file-system</id>
+            <modules>
+                <module>demo-62-01-file-system</module>
+            </modules>
+        </profile>
+
     </profiles>
 
     <!--我在阿里云效上的个人镜像仓库地址-->
