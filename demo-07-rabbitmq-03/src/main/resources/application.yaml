@@ -2,5 +2,5 @@ spring:
   config:
     import:
       - application-rabbitmq.yaml
-
-
+server:
+  port: 8801

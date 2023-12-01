@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
+import org.springframework.messaging.handler.annotation.support.MessageHandlerMethodFactory;
 
 /**
  * @author suyh
@@ -62,5 +65,19 @@ public class VcsRabbitmqConfiguration {
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
+    }
+
+    @ConditionalOnMissingBean(MessageHandlerMethodFactory.class)
+    @Bean
+    public MessageHandlerMethodFactory messageHandlerMethodFactory(MappingJackson2MessageConverter converter) {
+        DefaultMessageHandlerMethodFactory messageHandlerMethodFactory = new DefaultMessageHandlerMethodFactory();
+        messageHandlerMethodFactory.setMessageConverter(converter);
+        return messageHandlerMethodFactory;
+    }
+
+    @ConditionalOnMissingBean(MappingJackson2MessageConverter.class)
+    @Bean
+    public MappingJackson2MessageConverter consumerJackson2MessageConverter() {
+        return new MappingJackson2MessageConverter();
     }
 }
