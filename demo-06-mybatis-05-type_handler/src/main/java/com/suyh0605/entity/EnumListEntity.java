@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.suyh0605.enums.StatusEnum;
+import com.suyh0605.typehandler.StatusListEnumTypeHandler;
 import com.suyh0605.typehandler.SuyhBooleanTypeHandler;
-import com.suyh0605.typehandler.ListEnumTypeHandler;
 import lombok.Data;
 import org.apache.ibatis.type.JdbcType;
 
@@ -22,7 +22,7 @@ public class EnumListEntity {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = ListEnumTypeHandler.class)
+    @TableField(jdbcType = JdbcType.VARCHAR, typeHandler = StatusListEnumTypeHandler.class)
     private List<StatusEnum> statusList;
 
     // 要想存到数据库中的字符串是true/false 则jdbcType 必须为VARCHAR。
