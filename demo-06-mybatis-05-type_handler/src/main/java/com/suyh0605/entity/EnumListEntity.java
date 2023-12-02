@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.suyh0605.enums.StatusEnum;
-import com.suyh0605.typehandler.list.ListEnumTypeHandler;
+import com.suyh0605.typehandler.jackson.ListEnumTypeHandler;
 import lombok.Data;
 import org.apache.ibatis.type.JdbcType;
 
