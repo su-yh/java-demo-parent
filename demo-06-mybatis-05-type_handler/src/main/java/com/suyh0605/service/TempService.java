@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,26 +22,28 @@ public class TempService {
 
     @PostConstruct
     public void init() {
-        EnumListEntity entity = new EnumListEntity();
-        List<StatusEnum> statusList = Arrays.asList(StatusEnum.CLOSE, StatusEnum.OPEN, StatusEnum.CLOSE);
-        entity.setStatusList(statusList);
-        int resTemp = enumListMapper.insert(entity);
-        log.info("insert result: {}", resTemp);
+//        EnumListEntity entity = new EnumListEntity();
+//        List<StatusEnum> statusList = Arrays.asList(StatusEnum.CLOSE, StatusEnum.OPEN, StatusEnum.CLOSE);
+//        entity.setStatusList(statusList);
+//        int resTemp = enumListMapper.insert(entity);
+//        log.info("insert result: {}", resTemp);
         List<EnumListEntity> listResult = enumListMapper.selectList();
         if (listResult != null) {
             for (EnumListEntity tempEntity : listResult) {
                 List<StatusEnum> enumList = tempEntity.getStatusList();
-                for (StatusEnum statusEnum : enumList) {
-                    switch (statusEnum) {
-                        case OPEN:
-                            log.info("status enum value is open.");
-                            break;
-                        case CLOSE:
-                            log.info("status enum value is close.");
-                            break;
-                        default:
-                            log.info("status enum value is other value: {}", statusEnum);
-                            break;
+                if (enumList != null) {
+                    for (StatusEnum statusEnum : enumList) {
+                        switch (statusEnum) {
+                            case OPEN:
+                                log.info("status enum value is open.");
+                                break;
+                            case CLOSE:
+                                log.info("status enum value is close.");
+                                break;
+                            default:
+                                log.info("status enum value is other value: {}", statusEnum);
+                                break;
+                        }
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.suyh0605.typehandler;
+package com.suyh0605.typehandler.list;
 
 import com.suyh0605.enums.StatusEnum;
 
