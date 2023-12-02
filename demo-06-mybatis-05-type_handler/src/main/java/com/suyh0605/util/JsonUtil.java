@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -26,8 +27,37 @@ import java.util.TimeZone;
 public class JsonUtil {
     private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper();
 
+    // 数据库中使用jackson 进行序列化与反序列化
+    public static final ObjectMapper DB_OBJECT_MAPPER = new ObjectMapper();
+
     static {
         initMapper(DEFAULT_MAPPER);
+
+        initDbMapper();
+    }
+
+    private static void initDbMapper() {
+        // 设置默认日期的格式化，优先级低于 @JsonFormat
+        // 序列化到数据库中的时间最好是时间戳，而不应该是带有时区的字符串。
+        // mapper.setTimeZone(TimeZone.getDefault());
+        // mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+        // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
+        // ignored non null field
+        DB_OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时
+        // 是否引起结果失败(通过抛JsonMappingException异常).
+        // 此项设置只对那些已经尝试过所有的处理方法之后并且属性还是未处理
+        // (这里未处理的意思是:最终还是没有一个对应的类属性与此属性进行映射)的未知属性才有影响.
+        DB_OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        // 允许出现特殊字符和转义符
+        DB_OBJECT_MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+        // 允许出现单引号
+        DB_OBJECT_MAPPER.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        // 序列化时间时，使用时间戳
+        DB_OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+        // 序列化 Duration DURATIONS转换成时间戳
+        DB_OBJECT_MAPPER.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, true);
     }
 
     // 博客参考：https://www.cnblogs.com/yuluoxingkong/p/7676089.html

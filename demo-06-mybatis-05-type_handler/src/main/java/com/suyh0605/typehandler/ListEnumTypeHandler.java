@@ -1,4 +1,4 @@
-package com.suyh0605.typehandler.jackson;
+package com.suyh0605.typehandler;
 
 import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
 import com.suyh0605.enums.StatusEnum;
@@ -13,11 +13,11 @@ import java.util.List;
 public class ListEnumTypeHandler extends AbstractJsonTypeHandler<List<StatusEnum>> {
     @Override
     protected List<StatusEnum> parse(String json) {
-        return JsonUtil.deserializeToList02(json, StatusEnum.class);
+        return JsonUtil.deserializeToList02(json, StatusEnum.class, JsonUtil.DB_OBJECT_MAPPER);
     }
 
     @Override
     protected String toJson(List<StatusEnum> obj) {
-        return JsonUtil.serializable(obj);
+        return JsonUtil.serializable(obj, JsonUtil.DB_OBJECT_MAPPER);
     }
 }

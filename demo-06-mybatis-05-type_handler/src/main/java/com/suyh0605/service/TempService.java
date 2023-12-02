@@ -25,7 +25,7 @@ public class TempService {
     public void init() {
         EnumListEntity entity = new EnumListEntity();
         List<StatusEnum> statusList = Arrays.asList(StatusEnum.CLOSE, StatusEnum.OPEN, StatusEnum.CLOSE);
-        entity.setStatusList(statusList);
+        entity.setStatusList(statusList).setFlag(true);
         int resTemp = enumListMapper.insert(entity);
         log.info("insert result: {}", resTemp);
         List<EnumListEntity> listResult = enumListMapper.selectList();
