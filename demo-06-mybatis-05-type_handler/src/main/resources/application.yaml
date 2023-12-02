@@ -1,0 +1,9 @@
+# mysql 配置
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://isuyh.com:3306/supply_suyh?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+    username: supply_suyh
+    password: supply_suyh
