@@ -20,6 +20,7 @@
 
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
     </properties>
 
     <dependencies>
@@ -43,6 +44,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId> <!-- 代码生成器，使用它解析表结构 -->
+            <version>${mybatis-plus-generator.version}</version>
         </dependency>
     </dependencies>
 
