@@ -29,6 +29,24 @@ public class TempService {
         int resTemp = enumListMapper.insert(entity);
         log.info("insert result: {}", resTemp);
         List<EnumListEntity> listResult = enumListMapper.selectList();
+        if (listResult != null) {
+            for (EnumListEntity tempEntity : listResult) {
+                List<StatusEnum> enumList = tempEntity.getStatusList();
+                for (StatusEnum statusEnum : enumList) {
+                    switch (statusEnum) {
+                        case OPEN:
+                            log.info("status enum value is open.");
+                            break;
+                        case CLOSE:
+                            log.info("status enum value is close.");
+                            break;
+                        default:
+                            log.info("status enum value is other value: {}", statusEnum);
+                            break;
+                    }
+                }
+            }
+        }
         log.info("listResult: " + listResult);
     }
 }
