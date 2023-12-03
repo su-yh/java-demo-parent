@@ -39,7 +39,7 @@ public class SqlDateTestComponent implements ApplicationRunner {
      */
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (true) {
+        if (false) {
             return;
         }
 
