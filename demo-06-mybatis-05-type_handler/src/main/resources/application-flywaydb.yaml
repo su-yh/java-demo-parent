@@ -1,0 +1,18 @@
+spring:
+  flyway:
+    # 是否开启flywaydb, 默认值：true
+    enabled: true
+    # 配置SQL指定脚本位置
+    locations: classpath:db/migration
+    # 当需要低版本的脚本时，需要置成true，否则只能执行高版本的脚本, 默认为: false
+    outOfOrder: true
+    # 有数据的数据库请保留此值为true，禁用clean命令，执行clean命令会清空数据库
+    cleanDisabled: true
+    # 记录migrate历史记录的表名，默认为 flyway_schema_history
+    table: flyway_schema_history
+    # 当数据库不是空数据库时，需要配置为true，空数据库则可以不配置。默认值：false
+    baselineOnMigrate: true
+    # 配置了该版本后，migrate会从比该版本大的版本进行migrate，不配置时默认值为1
+    baselineVersion: 1
+    # 迁移时是否校验，默认值：true
+    validateOnMigrate: true
