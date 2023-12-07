@@ -81,6 +81,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-05-i18n</id>
+            <modules>
+                <module>demo-05-01-i18n</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-06-mybatis</id>
             <modules>
                 <module>demo-06-mybatis-01</module>
