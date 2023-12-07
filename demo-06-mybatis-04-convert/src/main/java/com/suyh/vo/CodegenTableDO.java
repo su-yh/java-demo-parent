@@ -8,6 +8,8 @@ public class CodegenTableDO {
 
     private Long id;
 
+    private String column;
+
     private Long dataSourceConfigId;
     private Integer scene;
     private String tableName;
