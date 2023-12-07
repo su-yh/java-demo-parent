@@ -22,4 +22,5 @@ public class CodegenTableDO {
     private Integer frontType;
     private Long parentMenuId;
 
+    private String column;
 }
