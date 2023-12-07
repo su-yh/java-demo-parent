@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +21,19 @@ public interface CodegenConvert {
     @Mapping(source = "columnName", target = "column")
     CodegenTableDO convert(CodegenColumnDO bean);
 
-    // TODO: suyh - 这里是有问题的
-    // @Mapping(source = "deleted", target = "deleted")
-    // @Mapping(source = "column", target = "columnName")
-    List<CodegenColumnDO> convertList(List<CodegenTableDO> list);
+    CodegenColumnDO convert(CodegenTableDO bean);
+
+    default List<CodegenColumnDO> convertList(List<CodegenTableDO> list) {
+        if (list == null) {
+            return null;
+        }
+
+        List<CodegenColumnDO> listResult = new ArrayList<>();
+        for (CodegenTableDO codegenTableDO : list) {
+            CodegenColumnDO resultDo = convert(codegenTableDO);
+            listResult.add(resultDo);
+        }
+
+        return listResult;
+    }
 }
