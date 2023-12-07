@@ -2,6 +2,8 @@ package com.suyh.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CodegenColumnDO {
     private Boolean deleted;
@@ -24,4 +26,6 @@ public class CodegenColumnDO {
     private String listOperationCondition;
     private Boolean listOperationResult;
     private String htmlType;
+
+    private List<String> listDesc;
 }

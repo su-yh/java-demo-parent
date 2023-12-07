@@ -2,6 +2,8 @@ package com.suyh.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CodegenTableDO {
     private Boolean deleted;
@@ -23,4 +25,6 @@ public class CodegenTableDO {
     private Long parentMenuId;
 
     private String column;
+
+    private List<String> listDesc;
 }

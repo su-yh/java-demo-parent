@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,17 +22,5 @@ public interface CodegenConvert {
 
     CodegenColumnDO convert(CodegenTableDO bean);
 
-    default List<CodegenColumnDO> convertList(List<CodegenTableDO> list) {
-        if (list == null) {
-            return null;
-        }
-
-        List<CodegenColumnDO> listResult = new ArrayList<>();
-        for (CodegenTableDO codegenTableDO : list) {
-            CodegenColumnDO resultDo = convert(codegenTableDO);
-            listResult.add(resultDo);
-        }
-
-        return listResult;
-    }
+    List<CodegenColumnDO> convertList(List<CodegenTableDO> list);
 }
