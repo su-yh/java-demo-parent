@@ -17,7 +17,7 @@ public class StopWatchApplication5901 {
 
         Thread.sleep(2000);
 
-
+        // 漂亮一点的输出格式
         System.out.println(stopWatch.prettyPrint());
         System.out.println(stopWatch.shortSummary());
     }

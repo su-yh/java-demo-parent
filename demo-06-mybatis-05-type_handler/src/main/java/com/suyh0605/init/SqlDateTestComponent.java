@@ -1,5 +1,6 @@
 package com.suyh0605.init;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.suyh0605.entity.SqlDateTestEntity;
 import com.suyh0605.mapper.SqlDateTestMapper;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -52,13 +54,15 @@ public class SqlDateTestComponent implements ApplicationRunner {
             Date utilDate = sdf.parse("2023-12-03 00:00:00");
 
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            LocalDate todayLocalDate = LocalDate.now();
 
             SqlDateTestEntity entity = new SqlDateTestEntity();
-            entity.setTestSqlDate(sqlDate);
+            entity.setTestSqlDate(sqlDate).setLocalDate(todayLocalDate);
             sqlDateTestMapper.insert(entity);
 
             System.out.println("插入时的时间戳：" + sqlDate.getTime());
             System.out.println("插入时的时间值：" + sqlDate);
+            System.out.println("插入时的localDate值：" + todayLocalDate);
         }
 
         {
@@ -80,6 +84,8 @@ public class SqlDateTestComponent implements ApplicationRunner {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     System.out.println("中国时区: java.util.Date: " + sdf.format(date));
 
+                    LocalDate localDate = entity.getLocalDate();
+                    System.out.println("查询到的LocalDate 值：" + localDate);
                     break;
                 }
             }
@@ -109,6 +115,11 @@ public class SqlDateTestComponent implements ApplicationRunner {
             }
         }
 
-
+        {
+            LambdaQueryWrapper<SqlDateTestEntity> queryWrapper =  new LambdaQueryWrapper<>();
+            queryWrapper.eq(SqlDateTestEntity::getLocalDate, LocalDate.now());
+            List<SqlDateTestEntity> entityList = sqlDateTestMapper.selectList(queryWrapper);
+            System.out.println("entityList");
+        }
     }
 }
