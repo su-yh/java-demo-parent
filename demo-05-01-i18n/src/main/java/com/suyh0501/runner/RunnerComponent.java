@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,9 +20,7 @@ public class RunnerComponent implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        String message = messageSource.getMessage("javax.validation.constraints.NotNull.message", null, Locale.getDefault());
-//        String message = messageSource.getMessage("javax.validation.constraints.NotNull.message", null, LocaleContextHolder.getLocale());
-//        String message = messageSource.getMessage("javax.validation.constraints.NotNull.message", null, Locale.CHINESE);
-//        System.out.println(message);
+        String message = messageSource.getMessage("suyh.key", null, "没有找到，使用默认值", LocaleContextHolder.getLocale());
+        System.out.println("message: " + message);
     }
 }
