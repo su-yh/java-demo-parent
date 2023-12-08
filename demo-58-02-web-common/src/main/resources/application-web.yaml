@@ -7,8 +7,9 @@ server:
     # spring mvc 的默认异常处理，可以添加或者禁用一些返回值属性。
     include-binding-errors: always
     include-exception: true
+    # message 取的是异常里面的描述字符串
     include-message: always
-#    include-stacktrace: always
+    include-stacktrace: on_param
 #  tomcat:
 ##    basedir: /suyh/tomcat
 #    # tomcat 的访问日志记录

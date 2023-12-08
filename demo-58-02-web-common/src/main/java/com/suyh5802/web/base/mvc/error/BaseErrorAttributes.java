@@ -1,10 +1,14 @@
 package com.suyh5802.web.base.mvc.error;
 
+import com.suyh5802.web.base.constant.ErrorCode;
 import com.suyh5802.web.base.mvc.exception.ExceptionCategory;
 import com.suyh5802.web.base.mvc.exception.BaseException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
 
@@ -27,8 +31,14 @@ import java.util.Map;
  * 现在的status 与HttpStatus 一致
  */
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class BaseErrorAttributes extends DefaultErrorAttributes {
+    private static final String ERROR_CODE_PREFIX = "suyh.error-code.";
+
+    // i18n 国际化
+    private final MessageSource messageSource;
+
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -44,10 +54,16 @@ public class BaseErrorAttributes extends DefaultErrorAttributes {
                 BaseException exception = (BaseException) throwable;
 
                 if (ExceptionCategory.SYSTEM.equals(exception.getCategory())) {
+                    // 系统异常，打印堆栈信息。
                     log.warn("system exception, timestamp: {}", timestampFormat, throwable);
                 }
 
-                errorAttributes.put("errorCode", exception.getErrorCode());
+                ErrorCode errorCode = exception.getErrorCode();
+                String errorMessage = messageSource.getMessage(
+                        ERROR_CODE_PREFIX + errorCode.getCode(), exception.getParams(),
+                        errorCode.getMsg(), LocaleContextHolder.getLocale());
+                errorAttributes.put("errorCode", errorCode.getCode());
+                errorAttributes.put("errorMessage", errorMessage);
             }
         }
 

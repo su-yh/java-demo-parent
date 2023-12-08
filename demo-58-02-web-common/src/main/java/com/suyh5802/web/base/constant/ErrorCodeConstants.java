@@ -5,7 +5,9 @@ package com.suyh5802.web.base.constant;
  * @since 2023-11-26
  */
 public interface ErrorCodeConstants {
-    ErrorStatus PARAMETER_ERROR = new ErrorStatus(1_015_000_000, "参数错误");
+    ErrorCode PARAMETER_ERROR = new ErrorCode(1015001, "参数错误");
     // 带参数的错误
-    ErrorStatus PARAMETER_ERROR_PARAM = new ErrorStatus(1_015_000_001, "参数错误: {}");
+    ErrorCode PARAMETER_ERROR_PARAM = new ErrorCode(1015002, "参数错误: {0}");
+
+    ErrorCode USER_NOT_EXISTS = new ErrorCode(1015003, "用户(id: {0})不存在");
 }
