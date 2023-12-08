@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS enum_list;
 
 CREATE TABLE enum_list (
     id bigint NOT NULL AUTO_INCREMENT,
