@@ -1,6 +1,7 @@
 package com.suyh1001;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -30,9 +31,17 @@ public class LocalDateTimeDemoApplication {
     }
 
     private static void func02() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime todayDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
-        System.out.println("今日零晨，精确到天：" + todayDate);
+        {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime todayDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
+            System.out.println("今日零晨，精确到天：" + todayDate);
+        }
+
+        {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDate localDate = now.toLocalDate();
+            System.out.println("今日零晨，精确到天：" + localDate);
+        }
     }
 
     private static void func03() {
@@ -40,9 +49,9 @@ public class LocalDateTimeDemoApplication {
         LocalDateTime todayDate = now.withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime tomorrowDate = todayDate.plusDays(1L);
         LocalDateTime yesterdayDate = todayDate.plusDays(-1L);
+        System.out.println("昨天：" + yesterdayDate);
         System.out.println("今天：" + todayDate);
         System.out.println("明天：" + tomorrowDate);
-        System.out.println("昨天：" + yesterdayDate);
     }
 
     private static void func04() {
