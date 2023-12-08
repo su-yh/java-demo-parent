@@ -2,6 +2,7 @@ spring:
   config:
     import:
       - application-log.yaml
+      - application-messageSource.yaml
       - application-swagger.yaml
       - application-web.yaml
   profiles:

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * @author suyh
  * @since 2023-11-26
@@ -36,7 +38,7 @@ public class SuyhTestController {
     }
 
     @RequestMapping(value = "/response/vo", method = RequestMethod.GET)
-    public TempVo testResponseVo() {
+    public TempVo testResponseVo(@Valid TempVo vo) {
         TempVo result = new TempVo();
         result.setId(1L).setUsername("suyh").setAge(37);
         return result;
