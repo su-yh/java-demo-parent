@@ -6,7 +6,7 @@ multi4601:
       # druid 连接池配置
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
         username: root
         password: root
         initial-size: 10
@@ -15,7 +15,7 @@ multi4601:
         max-wait: 2000
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
         username: root
         password: root
         initial-size: 10
@@ -26,12 +26,12 @@ multi4601:
     hikari:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_master?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
         username: root
         password: root
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=GMT%2B8&characterEncoding=UTF-8
+        jdbc-url: jdbc:mysql://docker:3306/multi_datasource_slave?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
         username: root
         password: root
 
