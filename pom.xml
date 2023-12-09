@@ -112,6 +112,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-11-mybatis-plus</id>
+            <modules>
+                <module>demo-11-01-mybatis-plus</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-12-swagger</id>
             <modules>
                 <module>demo-12-swagger-01</module>

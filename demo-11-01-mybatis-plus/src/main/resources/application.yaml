@@ -1,0 +1,10 @@
+spring:
+  config:
+    import:
+      - application-datasource.yaml
+      - application-flywaydb.yaml
+      - application-mybatis.yaml
+      - application-web.yaml
+
+
+
