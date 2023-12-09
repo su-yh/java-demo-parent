@@ -8,9 +8,9 @@ import lombok.Data;
  * @author suyh
  * @since 2023-12-09
  */
-@TableName(value = "test_table", autoResultMap = true)
+@TableName(value = "test_long_id", autoResultMap = true)
 @Data
-public class TestTableEntity {
+public class TestLongIdEntity {
     @TableId
     private Long id;
 

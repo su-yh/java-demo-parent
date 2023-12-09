@@ -1,7 +1,7 @@
 package com.suyh1101.service;
 
-import com.suyh1101.entity.TestTableEntity;
-import com.suyh1101.mapper.TestTableMapper;
+import com.suyh1101.entity.TestLongIdEntity;
+import com.suyh1101.mapper.TestLongIdMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,18 +16,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TestTableService {
-    private final TestTableMapper testTableMapper;
+public class TestLongIdService {
+    private final TestLongIdMapper testLongIdMapper;
 
     @PostConstruct
     public void init() {
-        TestTableEntity entity = new TestTableEntity();
+        TestLongIdEntity entity = new TestLongIdEntity();
 
         entity.setNickName("suyh").setAge(38);
 
-        testTableMapper.insert(entity);
+        testLongIdMapper.insert(entity);
 
-        List<TestTableEntity> entityList = testTableMapper.selectList(null);
+        List<TestLongIdEntity> entityList = testLongIdMapper.selectList(null);
 
         System.out.println("entityList size: " + entityList.size());
     }
