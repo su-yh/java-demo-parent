@@ -32,6 +32,10 @@ public class SuyhIdGenerator implements IdentifierGenerator {
 
     @Override
     public Number nextId(Object entity) {
+        return nextId();
+    }
+
+    public long nextId() {
         Lock readLock = rwLock.readLock();
         try {
             readLock.lock();
@@ -43,7 +47,9 @@ public class SuyhIdGenerator implements IdentifierGenerator {
 
     @Override
     public String nextUUID(Object entity) {
-        return IdentifierGenerator.super.nextUUID(entity);
+        // TODO: suyh - 这个UUID 怎么生成呢？干脆直接将Number 值转换成16 进程字符串得了
+        long number = nextId();
+        return Long.toHexString(number);
     }
 
     // 每隔一个小时去数据库查一下，来更新一下这个Sequence，然后在程序启动的时候也从数据库查询一个来初始化。
