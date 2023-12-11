@@ -59,21 +59,21 @@ public class Sequence {
     /**
      * 5位的机房id
      */
-    private final long datacenterIdBits = 5L;
+    private static final long datacenterIdBits = 5L;
     /**
      * 5位的机器id
      */
-    private final long workerIdBits = 5L;
+    private static final long workerIdBits = 5L;
     /**
      * 每毫秒内产生的id数: 2的12次方个
      */
-    private final long sequenceBits = 12L;
+    private static final long sequenceBits = 12L;
 
-    protected final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    protected final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    protected static final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
+    protected static final long maxWorkerId = -1L ^ (-1L << workerIdBits);
 
-    private final long workerIdShift = sequenceBits;
-    private final long datacenterIdShift = sequenceBits + workerIdBits;
+    private static final long workerIdShift = sequenceBits;
+    private static final long datacenterIdShift = sequenceBits + workerIdBits;
 
     /**
      * 时间戳左移动位
@@ -123,6 +123,18 @@ public class Sequence {
 
         this.workerId = workerId;
         this.datacenterId = datacenterId;
+    }
+
+    // 把workerId 和datacenterId 合并在一起
+    public Sequence(long instanceId) {
+        long instanceIdBits = workerIdBits + datacenterIdBits;
+        long instanceIdMax = -1L ^ (-1L << instanceIdBits);
+        if (instanceId > instanceIdMax) {
+            throw new IllegalArgumentException(String.format("Instance Id can't be greater than %d or less than 0", instanceIdMax));
+        }
+
+        this.workerId = instanceId >> datacenterIdBits;
+        this.datacenterId = instanceId & maxDatacenterId;
     }
 
     /**
@@ -202,8 +214,8 @@ public class Sequence {
                 timestamp = tilNextMillis(lastTimestamp);
             }
         } else {
-            // 不同毫秒内，序列号置为 1 - 3 随机数
-            sequence = ThreadLocalRandom.current().nextLong(1, 3);
+            // 不同毫秒内，序列号置为 [1, 10) 随机数，作为序列号的起始值
+            sequence = ThreadLocalRandom.current().nextLong(1, 10);
         }
 
         lastTimestamp = timestamp;
