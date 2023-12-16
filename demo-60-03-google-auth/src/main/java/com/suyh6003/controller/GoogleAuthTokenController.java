@@ -29,6 +29,8 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/google/auth/token")
 public class GoogleAuthTokenController {
     /**
+     * 这个在后台是没有多大用处的，直接给到前端，前端界面直接访问直接重定向即可了。
+     *
      * 这个接口，就是前端调用之后，后台直接对接google 服务器，构造出一个由前端去重定向的一个google 登录地址。
      * 前端用户在界面上可以看到这个地址，然后就可以使用google 帐户进行登录了。
      * 登录成功之后，google 会重定向到下面我们给出的那个重定身地址，最终回到我们自己的应用。

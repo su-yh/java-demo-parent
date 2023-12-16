@@ -28,6 +28,8 @@ public class GoogleAuthCodeController {
         private String scope;
     }
 
+    // 所以 说服务器，需要实现该回调接口，给google 调用。
+    // 然后通过得到access_token 以及code 就可以访问对应登录用户在google 的相关数据信息了。
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public String tmpCallback(
             TempDto tempDto,
@@ -52,6 +54,8 @@ public class GoogleAuthCodeController {
 
     /**
      * 参考一下 <a href="https://developers.google.com/identity/protocols/oauth2/web-server?hl=zh-cn">适用于服务端的web 应用</a>
+     * 这下面的其实直接在前端界面调用的，因为最终调用 完了，google 会直接回调下面指定的回调路径api。
+     * 然后就被上面的api(/google/auth/code/callback) 接收到，然后拿着这个token 以及code 就可以 访问 google 获取用户的对应授权范围内的数据信息了。
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public void googleAuthByToken(HttpServletResponse response) throws IOException, URISyntaxException {
@@ -65,7 +69,7 @@ public class GoogleAuthCodeController {
                 .addParameter("include_granted_scopes", "true") // 增量授权，即获得用户以前给予的所有权限
                 .addParameter("state", "state_parameter_passthrough_value") // 用来维护授权请求和授权服务器的响应之间的状态的任何字符串值
                 // 确定用户完成授权流程后api 服务器将用户重定向到的位置
-                .addParameter("redirect_uri", "http://localhost:8080/suyh/google/auth/callback")
+                .addParameter("redirect_uri", "http://localhost:8080/suyh/google/auth/code/callback")
                 .addParameter("client_id", "159535634406-fjk2tggbls08ean0e0rruh51rlbkffr2.apps.googleusercontent.com");
 
         URI uri = uriBuilder.build();
