@@ -16,7 +16,7 @@ public class UserLoginEntity {
     private Long id;
 
     private String uid;
-    private String src;
+    private Integer src;
     private String channel;
     private Long ctime;
     private String gaid;

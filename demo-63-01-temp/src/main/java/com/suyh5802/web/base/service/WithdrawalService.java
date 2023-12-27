@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author suyh
@@ -23,5 +25,15 @@ public class WithdrawalService {
     public void init() {
         List<WithdrawalEntity> entities = withdrawalMapper.selectList(null);
         System.out.println("entities: " + entities);
+
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+
+        WithdrawalEntity entity = new WithdrawalEntity();
+        entity.setUid(uuid).setCtime(1L).setAmount(new BigDecimal("3.14")).setChannel(uuid)
+                .setVungoWithdrawalId(1L).setOriginChannel(uuid).setGaid(uuid)
+                .setDay(1L).setOrder(uuid).setCts(1L).setPn("py").setMtime(1L)
+                .setLoginChannel(uuid).setRegisterChannel(uuid);
+
+        withdrawalMapper.insert(entity);
     }
 }
