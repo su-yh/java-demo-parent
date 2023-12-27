@@ -60,5 +60,5 @@ public class AdjustUserEntity {
 
     private Long cts;
     private Integer dates;
-    private String web_uuid;
+    private String webUuid;
 }
