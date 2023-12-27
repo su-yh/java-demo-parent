@@ -20,10 +20,12 @@ import java.util.UUID;
 public class AdjustUserService {
     private final AdjustUserMapper adjustUserMapper;
 
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         List<AdjustUserEntity> entities = adjustUserMapper.selectList(null);
         System.out.println("entities: " + entities);
+
+        adjustUserMapper.delete(null);
 
         String uuid = UUID.randomUUID().toString().replace("-", "");
         AdjustUserEntity entity = new AdjustUserEntity();

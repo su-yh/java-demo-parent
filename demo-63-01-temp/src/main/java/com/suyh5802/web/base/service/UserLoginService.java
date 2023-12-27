@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +19,12 @@ import java.util.UUID;
 public class UserLoginService {
     private final UserLoginMapper userLoginMapper;
 
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         List<UserLoginEntity> entities = userLoginMapper.selectList(null);
         System.out.println("entities: " + entities);
+
+        userLoginMapper.delete(null);
 
         String uuid = UUID.randomUUID().toString().replace("-", "");
 
