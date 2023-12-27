@@ -40,6 +40,10 @@ public class UserRegistryRunner implements ApplicationRunner {
             return;
         }
 
+        if (true) {
+            return;
+        }
+
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.8.34");
         factory.setUsername("admin");

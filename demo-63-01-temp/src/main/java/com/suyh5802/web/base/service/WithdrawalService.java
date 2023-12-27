@@ -1,14 +1,9 @@
 package com.suyh5802.web.base.service;
 
-import com.suyh5802.web.base.entity.WithdrawalEntity;
 import com.suyh5802.web.base.mapper.WithdrawalMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * @author suyh
@@ -22,19 +17,19 @@ public class WithdrawalService {
 
     // @PostConstruct
     public void init() {
-        List<WithdrawalEntity> entities = withdrawalMapper.selectList(null);
-        System.out.println("entities: " + entities);
-
-        withdrawalMapper.delete(null);
-
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-
-        WithdrawalEntity entity = new WithdrawalEntity();
-        entity.setUid(uuid).setCtime(1L).setAmount(new BigDecimal("3.14")).setChannel(uuid)
-                .setVungoWithdrawalId(1L).setOriginChannel(uuid).setGaid(uuid)
-                .setDay(1L).setOrder(uuid).setCts(1L).setPn("py").setMtime(1L)
-                .setLoginChannel(uuid).setRegisterChannel(uuid);
-
-        withdrawalMapper.insert(entity);
+//        List<WithdrawalEntity> entities = withdrawalMapper.selectList(null);
+//        System.out.println("entities: " + entities);
+//
+//        withdrawalMapper.delete(null);
+//
+//        String uuid = UUID.randomUUID().toString().replace("-", "");
+//
+//        WithdrawalEntity entity = new WithdrawalEntity();
+//        entity.setUid(uuid).setCtime(1L).setAmount(new BigDecimal("3.14")).setChannel(uuid)
+//                .setVungoWithdrawalId(1L).setOriginChannel(uuid).setGaid(uuid)
+//                .setDay(1L).setOrder(uuid).setCts(1L).setPn("py").setMtime(1L)
+//                .setLoginChannel(uuid).setRegisterChannel(uuid);
+//
+//        withdrawalMapper.insert(entity);
     }
 }

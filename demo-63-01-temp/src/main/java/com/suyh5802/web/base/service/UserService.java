@@ -20,6 +20,7 @@ public class UserService {
 
     // @PostConstruct
     public void initData() {
+        // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
 
         long currentTimeMillis = System.currentTimeMillis();
@@ -30,10 +31,11 @@ public class UserService {
 
             for (PN pn : PN.values()) {
                 Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
+                Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                 UserEntity entity = new UserEntity();
                 entity.setUid(uidNumber + "").setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
-                        .setOriginChannel(channelId01).setVungoUserId(1L).setPn(pn.name());
+                        .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                 userMapper.insert(entity);
             }
@@ -45,10 +47,11 @@ public class UserService {
 
             for (PN pn : PN.values()) {
                 Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
+                Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                 UserEntity entity = new UserEntity();
                 entity.setUid(uidNumber + "").setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
-                        .setOriginChannel(channelId01).setVungoUserId(1L).setPn(pn.name());
+                        .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                 userMapper.insert(entity);
             }
