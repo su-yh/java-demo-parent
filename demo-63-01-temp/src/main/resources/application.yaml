@@ -1,0 +1,14 @@
+spring:
+  config:
+    import:
+      - application-datasource.yaml
+      - application-log.yaml
+      - application-messageSource.yaml
+      - application-web.yaml
+  profiles:
+    active: suyh
+
+
+
+
+
