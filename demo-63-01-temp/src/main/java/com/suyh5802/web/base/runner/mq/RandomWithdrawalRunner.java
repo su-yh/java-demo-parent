@@ -7,6 +7,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.suyh5802.web.base.entity.WithdrawalEntity;
 import com.suyh5802.web.base.enums.PN;
+import com.suyh5802.web.base.runner.mq.util.MqCorrelationIdUtils;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,6 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
         factory.setPassword("aiteer");
         factory.setVirtualHost("/flinkhost");
 
-        long currentTimeMillis = System.currentTimeMillis();
-
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
             /*
              * 生成一个队列
@@ -64,7 +63,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
             channel.queueDeclare(POLY_TB_WITHDRAWAL, true, false, false, null);
 
             for (WithdrawalEntity entity : entities) {
-                long correlationId = ++currentTimeMillis;
+                long correlationId = MqCorrelationIdUtils.getCorrelationId();
                 entity.setCorrelationId(correlationId);
                 String message = JsonUtils.serializable(entity);
 
@@ -93,7 +92,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
 
         long currentTimeMillis = System.currentTimeMillis();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             {
                 currentTimeMillis++;
                 String channelId02 = "slg_1300230";
@@ -110,6 +109,8 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                             .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
+                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
+                    entity.setDay(1L);
                     entities.add(entity);
                 }
             }
@@ -130,6 +131,8 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                             .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
+                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
+                    entity.setDay(1L);
                     entities.add(entity);
                 }
             }

@@ -7,6 +7,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.suyh5802.web.base.entity.RechargeEntity;
 import com.suyh5802.web.base.enums.PN;
+import com.suyh5802.web.base.runner.mq.util.MqCorrelationIdUtils;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,8 +53,6 @@ public class RandomRechargeRunner implements ApplicationRunner {
         factory.setPassword("aiteer");
         factory.setVirtualHost("/flinkhost");
 
-        long currentTimeMillis = System.currentTimeMillis();
-
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
             /*
              * 生成一个队列
@@ -66,7 +65,7 @@ public class RandomRechargeRunner implements ApplicationRunner {
             channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
 
             for (RechargeEntity entity : entities) {
-                long correlationId = ++currentTimeMillis;
+                long correlationId = MqCorrelationIdUtils.getCorrelationId();
                 entity.setCorrelationId(correlationId);
                 String message = JsonUtils.serializable(entity);
 
@@ -96,7 +95,7 @@ public class RandomRechargeRunner implements ApplicationRunner {
 
         long currentTimeMillis = System.currentTimeMillis();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
 
             {
                 currentTimeMillis++;
