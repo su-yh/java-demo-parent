@@ -4,8 +4,8 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.suyh5802.web.base.entity.UserLoginEntity;
-import com.suyh5802.web.base.mapper.UserLoginMapper;
+import com.suyh5802.web.base.entity.WithdrawalEntity;
+import com.suyh5802.web.base.mapper.WithdrawalMapper;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,20 +18,16 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 用户登录
- * 就是将表tb_user_login 中的数据写到mq 队长中
- *
  * @author suyh
- * @since 2023-12-27
+ * @since 2023-12-28
  */
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class UserLoginRunner implements ApplicationRunner {
-    // 对应表 tb_user_login
-    private final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
+public class WithdrawalRunner implements ApplicationRunner {
+    private final static String POLY_TB_WITHDRAWAL = "poly_tb_withdrawal_pre";
 
-    private final UserLoginMapper userLoginMapper;
+    private final WithdrawalMapper withdrawalMapper;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -41,9 +37,9 @@ public class UserLoginRunner implements ApplicationRunner {
             return;
         }
 
-        List<UserLoginEntity> entities = userLoginMapper.selectList(null);
+        List<WithdrawalEntity> entities = withdrawalMapper.selectList(null);
         if (entities == null || entities.isEmpty()) {
-            log.info("UserLoginEntity list is empty, tb_user.");
+            log.info("WithdrawalEntity list is empty, tb_user.");
             return;
         }
 
@@ -62,9 +58,9 @@ public class UserLoginRunner implements ApplicationRunner {
              * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
              * 5. 其他参数
              */
-            channel.queueDeclare(POLY_TB_USER_LOGIN, true, false, false, null);
+            channel.queueDeclare(POLY_TB_WITHDRAWAL, true, false, false, null);
 
-            for (UserLoginEntity entity : entities) {
+            for (WithdrawalEntity entity : entities) {
                 String message = JsonUtils.serializable(entity);
 
                 /*
@@ -76,10 +72,9 @@ public class UserLoginRunner implements ApplicationRunner {
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(UUID.randomUUID().toString()).build();
-                channel.basicPublish("", POLY_TB_USER_LOGIN, properties, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("", POLY_TB_WITHDRAWAL, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }
-
         }
     }
 }

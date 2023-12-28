@@ -29,21 +29,21 @@ import java.util.UUID;
 @Slf4j
 public class UserRegistryRunner implements ApplicationRunner {
     // 对应表 tb_user
-    public final static String POLY_TB_USER = "poly_tb_user_pre";
+    private final static String POLY_TB_USER = "poly_tb_user_pre";
 
     private final UserMapper userMapper;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<UserEntity> entities = userMapper.selectList(null);
-        if (entities == null || entities.isEmpty()) {
-            log.info("UserEntity list is empty, tb_user.");
-            return;
-        }
-
         // 是否启用下面的代码功能
         boolean enabled = false;
         if (!enabled) {
+            return;
+        }
+
+        List<UserEntity> entities = userMapper.selectList(null);
+        if (entities == null || entities.isEmpty()) {
+            log.info("UserEntity list is empty, tb_user.");
             return;
         }
 
