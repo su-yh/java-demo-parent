@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 @TableName("tb_withdrawal")
 @Data
-public class WithdrawalEntity {
+public class WithdrawalEntity extends BaseMqVo {
     @TableId(type = IdType.AUTO)
     private Long id;
 

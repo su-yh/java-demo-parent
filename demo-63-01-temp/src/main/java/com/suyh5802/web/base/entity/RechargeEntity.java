@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  */
 @TableName(value = "tb_recharge", autoResultMap = true)
 @Data
-public class RechargeEntity {
+public class RechargeEntity extends BaseMqVo {
     @TableId(type = IdType.AUTO)
     private Long id;
 

@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @TableName("tb_user")
 @Data
-public class UserEntity {
+public class UserEntity extends BaseMqVo {
     @TableId(type = IdType.AUTO)
     private Long id;
 

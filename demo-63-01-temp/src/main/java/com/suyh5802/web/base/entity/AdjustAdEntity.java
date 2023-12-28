@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @TableName(value = "adjust_ad", autoResultMap = true)
 @Data
-public class AdjustAdEntity {
+public class AdjustAdEntity extends BaseMqVo {
     @TableId(type = IdType.AUTO)
     private Long id;
 

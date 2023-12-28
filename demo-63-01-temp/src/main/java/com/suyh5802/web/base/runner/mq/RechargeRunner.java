@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author suyh
@@ -51,6 +50,8 @@ public class RechargeRunner implements ApplicationRunner {
         factory.setPassword("aiteer");
         factory.setVirtualHost("/flinkhost");
 
+        long currentTimeMillis = System.currentTimeMillis();
+
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
             /*
              * 生成一个队列
@@ -63,6 +64,8 @@ public class RechargeRunner implements ApplicationRunner {
             channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
 
             for (RechargeEntity entity : entities) {
+                long correlationId = ++currentTimeMillis;
+                entity.setCorrelationId(correlationId);
                 String message = JsonUtils.serializable(entity);
 
                 /*
@@ -73,7 +76,7 @@ public class RechargeRunner implements ApplicationRunner {
                  * 4. 发送消息的消息体
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
-                properties = properties.builder().correlationId(UUID.randomUUID().toString()).build();
+                properties = properties.builder().correlationId(correlationId + "").build();
                 channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }

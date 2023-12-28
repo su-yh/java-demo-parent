@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 用户注册
@@ -53,6 +52,8 @@ public class UserRegistryRunner implements ApplicationRunner {
         factory.setPassword("aiteer");
         factory.setVirtualHost("/flinkhost");
 
+        long currentTimeMillis = System.currentTimeMillis();
+
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
             /*
              * 生成一个队列
@@ -65,6 +66,9 @@ public class UserRegistryRunner implements ApplicationRunner {
             channel.queueDeclare(POLY_TB_USER, true, false, false, null);
 
             for (UserEntity entity : entities) {
+                long correlationId = ++currentTimeMillis;
+                entity.setCorrelationId(correlationId);
+
                 String message = JsonUtils.serializable(entity);
 
                 /*
@@ -75,7 +79,7 @@ public class UserRegistryRunner implements ApplicationRunner {
                  * 4. 发送消息的消息体
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
-                properties = properties.builder().correlationId(UUID.randomUUID().toString()).build();
+                properties = properties.builder().correlationId(correlationId + "").build();
                 channel.basicPublish("", POLY_TB_USER, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }

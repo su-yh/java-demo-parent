@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @TableName(value = "adjust_user", autoResultMap = true)
 @Data
-public class AdjustUserEntity {
+public class AdjustUserEntity extends BaseMqVo {
     @TableId(type = IdType.AUTO)
     private Long id;
 
