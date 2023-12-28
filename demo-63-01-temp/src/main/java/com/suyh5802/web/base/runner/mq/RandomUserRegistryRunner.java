@@ -81,9 +81,9 @@ public class RandomUserRegistryRunner implements ApplicationRunner {
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(correlationId + "").build();
                 channel.basicPublish("", POLY_TB_USER, properties, message.getBytes(StandardCharsets.UTF_8));
-                System.out.println("消息发送完毕");
             }
 
+            System.out.println("消息发送完毕, UserEntity size: " + entities.size());
         }
     }
 

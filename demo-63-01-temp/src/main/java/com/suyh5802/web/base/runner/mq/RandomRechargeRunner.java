@@ -35,7 +35,7 @@ public class RandomRechargeRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 是否启用下面的代码功能
-        boolean enabled = true;
+        boolean enabled = false;
         if (!enabled) {
             return;
         }
@@ -80,9 +80,9 @@ public class RandomRechargeRunner implements ApplicationRunner {
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(correlationId + "").build();
                 channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
-                System.out.println("消息发送完毕");
             }
 
+            System.out.println("消息发送完毕, RechargeEntity size: " + entities.size());
         }
     }
 
