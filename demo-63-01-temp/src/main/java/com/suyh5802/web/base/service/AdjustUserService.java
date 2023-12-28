@@ -33,6 +33,7 @@ public class AdjustUserService {
         long currentTimeMillis = System.currentTimeMillis();
         long timestampSecond = currentTimeMillis / 1000;
         String[] pkgs = {"com.sn.oos", "com.rruo.goldennludo.ogott"};
+        String[] origanices = {"0", "1"};
 
         Random random = new Random();
 
@@ -41,6 +42,8 @@ public class AdjustUserService {
             String channelid = "slg_" + channelNumber;
             int pkgIndex = channelNumber % 2;
             String pkg = pkgs[pkgIndex];
+            int indexOrg = channelNumber % origanices.length;
+            String origanic = origanices[indexOrg];
             long googleAdsCampaignId = DefaultIdentifierGenerator.getInstance().nextId(null);
             long googleAdsAdgroupId = DefaultIdentifierGenerator.getInstance().nextId(null);
             long googleAdsCreativeId = DefaultIdentifierGenerator.getInstance().nextId(null);
@@ -65,7 +68,7 @@ public class AdjustUserService {
                     .setFbCampaignGroupId(uuid).setFbCampaignGroupName(uuid)
                     .setFbCampaignId(fbCampaignId + "").setFbCampaignName(fbCampaignId + "")
                     .setFbAdgroupName(fbAdgroupId + "").setFbAdgroupId(fbAdgroupId + "").setFbAdObjectiveName(uuid)
-                    .setAdid(uuid).setIsOrganic("0").setIpAddress(uuid)
+                    .setAdid(uuid).setIsOrganic(origanic).setIpAddress(uuid)
                     .setCity("").setIsp("").setLanguage("en")
                     .setKey(uuid).setCts(timestampSecond).setDates(dateInt).setWebUuid(uuid);
 
