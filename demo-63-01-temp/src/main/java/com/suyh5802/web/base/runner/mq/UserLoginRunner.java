@@ -4,8 +4,8 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.suyh5802.web.base.entity.UserEntity;
-import com.suyh5802.web.base.mapper.UserMapper;
+import com.suyh5802.web.base.entity.UserLoginEntity;
+import com.suyh5802.web.base.mapper.UserLoginMapper;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 用户注册
- * 就是将表tb_user 中的数据写到mq 队长中
+ * 用户登录
+ * 就是将表tb_user_login 中的数据写到mq 队长中
  *
  * @author suyh
  * @since 2023-12-27
@@ -27,15 +27,15 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class UserRegistryRunner implements ApplicationRunner {
-    // 对应表 tb_user
-    public final static String POLY_TB_USER = "poly_tb_user_pre";
+public class UserLoginRunner implements ApplicationRunner {
+    // 对应表 tb_user_login
+    public final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
 
-    private final UserMapper userMapper;
+    private final UserLoginMapper userLoginMapper;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<UserEntity> entities = userMapper.selectList(null);
+        List<UserLoginEntity> entities = userLoginMapper.selectList(null);
         if (entities == null || entities.isEmpty()) {
             log.info("UserEntity list is empty, tb_user.");
             return;
@@ -62,9 +62,9 @@ public class UserRegistryRunner implements ApplicationRunner {
              * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
              * 5. 其他参数
              */
-            channel.queueDeclare(POLY_TB_USER, true, false, false, null);
+            channel.queueDeclare(POLY_TB_USER_LOGIN, true, false, false, null);
 
-            for (UserEntity entity : entities) {
+            for (UserLoginEntity entity : entities) {
                 String message = JsonUtils.serializable(entity);
 
                 /*
@@ -76,7 +76,7 @@ public class UserRegistryRunner implements ApplicationRunner {
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(UUID.randomUUID().toString()).build();
-                channel.basicPublish("", POLY_TB_USER, properties, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("", POLY_TB_USER_LOGIN, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }
 
