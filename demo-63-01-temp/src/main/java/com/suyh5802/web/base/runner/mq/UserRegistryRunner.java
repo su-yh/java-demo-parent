@@ -40,7 +40,9 @@ public class UserRegistryRunner implements ApplicationRunner {
             return;
         }
 
-        if (true) {
+        // 是否启用下面的代码功能
+        boolean enabled = false;
+        if (!enabled) {
             return;
         }
 
