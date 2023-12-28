@@ -34,4 +34,12 @@ public class RechargeEntity extends BaseMqVo {
     private Long mtime;
     private String loginChannel;
     private String registerChannel;
+
+    // 业务数据
+    @TableField(exist = false)
+    private Long regDate;
+    @TableField(exist = false)
+    private Long statRegDate;
+    @TableField(exist = false)
+    private Long rechargeDate;
 }

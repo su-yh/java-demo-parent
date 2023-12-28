@@ -116,6 +116,9 @@ public class RandomRechargeRunner implements ApplicationRunner {
                             .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
+                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
+                    // rechargeDate regDate 必须满足格式：yyyyMMdd
+                    entity.setDay(1L).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
                     entities.add(entity);
                 }
             }
@@ -137,6 +140,10 @@ public class RandomRechargeRunner implements ApplicationRunner {
                             .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
                             .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
+
+                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
+                    // rechargeDate regDate 必须满足格式：yyyyMMdd
+                    entity.setDay(1L).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
 
                     entities.add(entity);
                 }
