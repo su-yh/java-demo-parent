@@ -22,6 +22,10 @@ public class UserLoginService {
 
     @PostConstruct
     public void init() {
+        if (true) {
+            return;
+        }
+
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
 

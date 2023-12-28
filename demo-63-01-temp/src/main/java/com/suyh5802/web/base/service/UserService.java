@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author suyh
  * @since 2023-12-27
@@ -18,8 +20,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserMapper userMapper;
 
-    // @PostConstruct
+    @PostConstruct
     public void initData() {
+        if (true) {
+            return;
+        }
+
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
 

@@ -1,9 +1,17 @@
 package com.suyh5802.web.base.service;
 
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
+import com.suyh5802.web.base.entity.RechargeEntity;
+import com.suyh5802.web.base.enums.PN;
 import com.suyh5802.web.base.mapper.RechargeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * @author suyh
@@ -15,22 +23,61 @@ import org.springframework.stereotype.Service;
 public class RechargeService {
     private final RechargeMapper rechargeMapper;
 
-    // @PostConstruct
+    @PostConstruct
     public void init() {
-//        List<RechargeEntity> entities = rechargeMapper.selectList(null);
-//        System.out.println("entities: " + entities);
-//
-//        rechargeMapper.delete(null);
-//
-//        String uuid = UUID.randomUUID().toString().replace("-", "");
-//
-//        RechargeEntity entity = new RechargeEntity();
-//        entity.setUid(uuid).setCtime(1L).setGoodsAmt(new BigDecimal("2.2"))
-//                .setChannel(uuid).setChips(uuid).setVungoRechargeId(1L)
-//                .setGaid(uuid).setOriginChannel(uuid).setDay(1L)
-//                .setOrder(uuid).setCts(1L).setPn("py").setMtime(11L)
-//                .setLoginChannel(uuid).setRegisterChannel(uuid);
-//
-//        rechargeMapper.insert(entity);
+        if (true) {
+            return;
+        }
+
+        Random random = new Random();
+
+        // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
+        String channelId01 = "slm_3000010";
+
+        {
+            long currentTimeMillis = System.currentTimeMillis();
+            String channelId02 = "slg_1300230";
+            String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
+
+            for (PN pn : PN.values()) {
+                Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
+                Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+
+                String uuidString = UUID.randomUUID().toString().replace("-", "");
+
+                RechargeEntity entity = new RechargeEntity();
+                entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                        .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
+                        .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
+                        .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setLoginChannel(null).setRegisterChannel(null);
+
+                rechargeMapper.insert(entity);
+            }
+        }
+
+        {
+            long currentTimeMillis = System.currentTimeMillis();
+            String channelId03 = "slg_1000054";
+            String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
+
+            for (PN pn : PN.values()) {
+                Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
+                Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+
+                String uuidString = UUID.randomUUID().toString().replace("-", "");
+
+                RechargeEntity entity = new RechargeEntity();
+                entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                        .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
+                        .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
+                        .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setLoginChannel(null).setRegisterChannel(null);
+
+                rechargeMapper.insert(entity);
+            }
+        }
+
+
     }
 }
