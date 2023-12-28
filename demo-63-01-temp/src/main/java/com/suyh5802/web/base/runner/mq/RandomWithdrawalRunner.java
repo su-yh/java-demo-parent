@@ -5,7 +5,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.suyh5802.web.base.entity.RechargeEntity;
+import com.suyh5802.web.base.entity.WithdrawalEntity;
 import com.suyh5802.web.base.enums.PN;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * @author suyh
@@ -28,21 +27,20 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RandomRechargeRunner implements ApplicationRunner {
-    // 对应表 tb_recharge
-    private final static String POLY_TB_RECHARGE = "poly_tb_recharge_pre";
+public class RandomWithdrawalRunner implements ApplicationRunner {
+    private final static String POLY_TB_WITHDRAWAL = "poly_tb_withdrawal_pre";
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 是否启用下面的代码功能
-        boolean enabled = true;
+        boolean enabled = false;
         if (!enabled) {
             return;
         }
 
-        List<RechargeEntity> entities = makeEntityList();
+        List<WithdrawalEntity> entities = makeEntityList();
         if (entities == null || entities.isEmpty()) {
-            log.info("RechargeEntity list is empty, tb_user.");
+            log.info("WithdrawalEntity list is empty.");
             return;
         }
 
@@ -63,9 +61,9 @@ public class RandomRechargeRunner implements ApplicationRunner {
              * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
              * 5. 其他参数
              */
-            channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
+            channel.queueDeclare(POLY_TB_WITHDRAWAL, true, false, false, null);
 
-            for (RechargeEntity entity : entities) {
+            for (WithdrawalEntity entity : entities) {
                 long correlationId = ++currentTimeMillis;
                 entity.setCorrelationId(correlationId);
                 String message = JsonUtils.serializable(entity);
@@ -79,16 +77,14 @@ public class RandomRechargeRunner implements ApplicationRunner {
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(correlationId + "").build();
-                channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("", POLY_TB_WITHDRAWAL, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }
-
         }
     }
 
-    private List<RechargeEntity> makeEntityList() {
-        List<RechargeEntity> entities  = new ArrayList<>();
-
+    private List<WithdrawalEntity> makeEntityList() {
+        List<WithdrawalEntity> entities = new ArrayList<>();
         Random random = new Random();
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
@@ -97,7 +93,6 @@ public class RandomRechargeRunner implements ApplicationRunner {
         long currentTimeMillis = System.currentTimeMillis();
 
         for (int i = 0; i < 1000; i++) {
-
             {
                 currentTimeMillis++;
                 String channelId02 = "slg_1300230";
@@ -107,13 +102,11 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
                     Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    String uuidString = UUID.randomUUID().toString().replace("-", "");
-
-                    RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
-                            .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                            .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
-                            .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                    WithdrawalEntity entity = new WithdrawalEntity();
+                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                            .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
+                            .setOriginChannel(channelId01).setGaid(gaid02)
+                            .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     entities.add(entity);
@@ -129,20 +122,17 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
                     Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    String uuidString = UUID.randomUUID().toString().replace("-", "");
-
-                    RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
-                            .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                            .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
-                            .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                    WithdrawalEntity entity = new WithdrawalEntity();
+                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                            .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
+                            .setOriginChannel(channelId01).setGaid(gaid03)
+                            .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     entities.add(entity);
                 }
             }
         }
-
         return entities;
     }
 }
