@@ -5,7 +5,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.suyh5802.web.base.entity.UserLoginEntity;
+import com.suyh5802.web.base.entity.UserEntity;
 import com.suyh5802.web.base.enums.PN;
 import com.suyh5802.web.base.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用户登录
- * 就是将表tb_user_login 中的数据写到mq 队长中
+ * 用户注册
+ * 就是将表tb_user 中的数据写到mq 队长中
  *
  * @author suyh
  * @since 2023-12-27
@@ -28,9 +28,9 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RandomUserLoginRunner implements ApplicationRunner {
-    // 对应表 tb_user_login
-    private final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
+public class RandomUserRegistryRunner implements ApplicationRunner {
+    // 对应表 tb_user
+    private final static String POLY_TB_USER = "poly_tb_user_pre";
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -40,7 +40,11 @@ public class RandomUserLoginRunner implements ApplicationRunner {
             return;
         }
 
-        List<UserLoginEntity> entities = makeEntityList();
+        List<UserEntity> entities = makeEntityList();
+        if (entities == null || entities.isEmpty()) {
+            log.info("UserEntity list is empty, tb_user.");
+            return;
+        }
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.8.34");
@@ -59,11 +63,12 @@ public class RandomUserLoginRunner implements ApplicationRunner {
              * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
              * 5. 其他参数
              */
-            channel.queueDeclare(POLY_TB_USER_LOGIN, true, false, false, null);
+            channel.queueDeclare(POLY_TB_USER, true, false, false, null);
 
-            for (UserLoginEntity entity : entities) {
+            for (UserEntity entity : entities) {
                 long correlationId = ++currentTimeMillis;
                 entity.setCorrelationId(correlationId);
+
                 String message = JsonUtils.serializable(entity);
 
                 /*
@@ -75,24 +80,22 @@ public class RandomUserLoginRunner implements ApplicationRunner {
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(correlationId + "").build();
-                channel.basicPublish("", POLY_TB_USER_LOGIN, properties, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("", POLY_TB_USER, properties, message.getBytes(StandardCharsets.UTF_8));
                 System.out.println("消息发送完毕");
             }
 
         }
     }
 
-    private List<UserLoginEntity> makeEntityList() {
-        List<UserLoginEntity> entities = new ArrayList<>();
+    private List<UserEntity> makeEntityList() {
+        List<UserEntity> entities  = new ArrayList<>();
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
 
         long currentTimeMillis = System.currentTimeMillis();
-        int src = 2;    // 1：用户注册；2：用户登录
 
         for (int i = 0; i < 1000; i++) {
-            currentTimeMillis++;
             {
                 String channelId02 = "slg_1300230";
                 String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
@@ -101,9 +104,9 @@ public class RandomUserLoginRunner implements ApplicationRunner {
                     Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    UserLoginEntity entity = new UserLoginEntity();
-                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
-                            .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                    UserEntity entity = new UserEntity();
+                    entity.setUid(uidNumber + "").setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
+                            .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);
                 }
@@ -117,9 +120,9 @@ public class RandomUserLoginRunner implements ApplicationRunner {
                     Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    UserLoginEntity entity = new UserLoginEntity();
-                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
-                            .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                    UserEntity entity = new UserEntity();
+                    entity.setUid(uidNumber + "").setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
+                            .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);
                 }
