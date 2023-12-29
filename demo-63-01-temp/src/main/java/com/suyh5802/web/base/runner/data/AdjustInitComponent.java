@@ -39,7 +39,7 @@ public class AdjustInitComponent {
         String dateString = localDate.toString().replace("-", "");
         int dateInt = Integer.parseInt(dateString);
 
-        String[] pkgs = {"com.sn.oos", "com.rruo.goldennludo.ogott"};
+        String[] pkgs = {"com.sn.oos", "com.rruo.goldennludo.ogott", "com.jQWQIQU.GWGTGB"};
         String[] sources = {"FB", "GG"};
         String[] origanices = {"0", "1"};
         Random random = new Random();
@@ -75,7 +75,7 @@ public class AdjustInitComponent {
                 adjustAdMapper.insert(entity);
             }
 
-            int pkgIndex = randValue % 2;
+            int pkgIndex = randValue % pkgs.length;
             String pkg = pkgs[pkgIndex];
 
             for (int j = 0; j < 10000; j++) {

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Random;
 import java.util.UUID;
 
@@ -20,15 +21,13 @@ import java.util.UUID;
 public class AdjustAdService {
     private final AdjustAdMapper adjustAdMapper;
 
-    @Deprecated
-    // @PostConstruct
+    @PostConstruct
     public void init() {
         // 是否启用下面的代码功能
         boolean enabled = false;
         if (!enabled) {
             return;
         }
-
 
         String[] sources = {"FB", "GG"};
         String[] origanices = {"0", "1"};
