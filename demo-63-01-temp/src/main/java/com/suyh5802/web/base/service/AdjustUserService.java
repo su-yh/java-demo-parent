@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.UUID;
@@ -22,7 +21,8 @@ import java.util.UUID;
 public class AdjustUserService {
     private final AdjustUserMapper adjustUserMapper;
 
-    @PostConstruct
+    @Deprecated
+    // @PostConstruct
     public void init() {
         // 是否启用下面的代码功能
         boolean enabled = false;
