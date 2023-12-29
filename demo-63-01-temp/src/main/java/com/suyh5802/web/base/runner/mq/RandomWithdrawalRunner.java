@@ -106,7 +106,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                             .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
                             .setOriginChannel(channelId01).setGaid(gaid02)
-                            .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
@@ -128,7 +128,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                             .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
                             .setOriginChannel(channelId01).setGaid(gaid03)
-                            .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL

@@ -51,7 +51,7 @@ public class RechargeService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                         .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                         .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
-                        .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 rechargeMapper.insert(entity);
@@ -73,7 +73,7 @@ public class RechargeService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                         .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                         .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
-                        .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 rechargeMapper.insert(entity);

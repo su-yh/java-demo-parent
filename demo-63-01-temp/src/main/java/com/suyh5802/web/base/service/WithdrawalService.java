@@ -48,7 +48,7 @@ public class WithdrawalService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                         .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
                         .setOriginChannel(channelId01).setGaid(gaid02)
-                        .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 withdrawalMapper.insert(entity);
@@ -68,7 +68,7 @@ public class WithdrawalService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                         .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
                         .setOriginChannel(channelId01).setGaid(gaid03)
-                        .setDay(null).setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 withdrawalMapper.insert(entity);

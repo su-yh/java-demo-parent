@@ -112,7 +112,7 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                             .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
-                            .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
@@ -137,7 +137,7 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                             .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
-                            .setOrder(null).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL

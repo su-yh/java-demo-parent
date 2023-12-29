@@ -1,4 +1,4 @@
-package com.suyh5802.web.base.service;
+package com.suyh5802.web.base.runner.data;
 
 import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.suyh5802.web.base.entity.AdjustAdEntity;
@@ -44,8 +44,9 @@ public class AdjustInitComponent {
         String[] origanices = {"0", "1"};
         Random random = new Random();
 
+        // 1 条adEntity 对应多条 adUserEntity
         for (int i = 0; i < 1000; i++) {
-            String uuid = UUID.randomUUID().toString().replace("-", "");
+            String key = UUID.randomUUID().toString().replace("-", "");
             int randValue = random.nextInt(9000000) + 1000000;
             String channelid = "slg_" + randValue;
 
@@ -62,9 +63,9 @@ public class AdjustInitComponent {
 
             {
                 AdjustAdEntity entity = new AdjustAdEntity();
-                entity.setAppToken("apptoken").setTracker("tracker").setKey(uuid)
+                entity.setAppToken("apptoken").setTracker("tracker").setKey(key)
                         .setSource(source).setPkg("com.jQWQIQU.GWGTGB").setChannelid(channelid).setIsOrganic(origanic)
-                        .setGoogleAdsCampaignId(googleAdsCampaignId +"").setGoogleAdsCampaignName(googleAdsCampaignId + "")
+                        .setGoogleAdsCampaignId(googleAdsCampaignId + "").setGoogleAdsCampaignName(googleAdsCampaignId + "")
                         .setGoogleAdsAdgroupId(googleAdsAdgroupId + "").setGoogleAdsAdgroupName(googleAdsAdgroupId + "")
                         .setGoogleAdsCampaignType("").setGoogleAdsCreativeId(googleAdsCreativeId + "")
                         .setFbCampaignGroupName(fbCampaignGroupId + "").setFbCampaignGroupId(fbCampaignGroupId + "")
@@ -77,23 +78,27 @@ public class AdjustInitComponent {
             int pkgIndex = randValue % 2;
             String pkg = pkgs[pkgIndex];
 
-            {
+            for (int j = 0; j < 10000; j++) {
+                String uuid = UUID.randomUUID().toString().replace("-", "");
+                String campaign = UUID.randomUUID().toString().replace("-", "");
+                String gaid = UUID.randomUUID().toString().replace("-", "");
+
                 AdjustUserEntity entity = new AdjustUserEntity();
-                entity.setGaid(uuid).setPkg(pkg).setChannelid(channelid).setAppid(pkg)
+                entity.setGaid(gaid).setPkg(pkg).setChannelid(channelid).setAppid(pkg)
                         .setAppNameDashboard(pkg).setAppToken("111111").setTracker("tracker")
-                        .setCampaignName(uuid).setAdgroupName(uuid).setCreativeName(uuid)
+                        .setCampaignName(campaign).setAdgroupName(campaign).setCreativeName(campaign)
                         .setClickReferer(uuid).setInstalledAt("" + timestampSecond).setDeviceName("Y53s")
                         .setOsVersion("13").setTimezone("UTC+0530").setEventName("")
                         .setDeeplink("").setCostAmount("")
                         .setGoogleAdsCampaignType("ACI").setGoogleAdsCampaignName(googleAdsCampaignId + "").setGoogleAdsCampaignId(googleAdsCampaignId + "")
                         .setGoogleAdsAdgroupId(googleAdsAdgroupId + "").setGoogleAdsAdgroupName(googleAdsAdgroupId + "")
                         .setGoogleAdsCreativeId(googleAdsCreativeId + "").setGoogleAdsKeyword(uuid).setGoogleAdsPlacement(uuid)
-                        .setFbCampaignGroupId(uuid).setFbCampaignGroupName(uuid)
+                        .setFbCampaignGroupId(campaign).setFbCampaignGroupName(campaign)
                         .setFbCampaignId(fbCampaignId + "").setFbCampaignName(fbCampaignId + "")
                         .setFbAdgroupName(fbAdgroupId + "").setFbAdgroupId(fbAdgroupId + "").setFbAdObjectiveName(uuid)
                         .setAdid(uuid).setIsOrganic(origanic).setIpAddress(uuid)
                         .setCity("").setIsp("").setLanguage("en")
-                        .setKey(uuid).setCts(timestampSecond).setDates(dateInt).setWebUuid(uuid);
+                        .setKey(key).setCts(timestampSecond).setDates(dateInt).setWebUuid(uuid);
 
                 adjustUserMapper.insert(entity);
             }
