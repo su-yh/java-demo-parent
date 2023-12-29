@@ -32,9 +32,6 @@ public class AdjustUserService {
             return;
         }
 
-        StopWatch stopWatch = new StopWatch("AdjustUser_initData");
-
-
         // 查询id大于432937L 的其他数据，这个数据不是随机生成的。
         List<AdjustAdEntity> adEntities = adjustAdService.queryAdjustAdEntities();
 
@@ -46,6 +43,7 @@ public class AdjustUserService {
         int dateInt = Integer.parseInt(dateString);
 
         for (AdjustAdEntity adEntity : adEntities) {
+            StopWatch stopWatch = new StopWatch("AdjustUser_initData");
             stopWatch.start("init-data, ad id: " + adEntity.getId());
             for (int i = 0; i < 1000; i++) {
                 String uuid = UUID.randomUUID().toString().replace("-", "");
