@@ -48,11 +48,13 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
             return;
         }
 
-        List<RechargeEntity> entities = makeEntityList();
+        Page<AdjustUserEntity> page = Page.of(1, 1000);
+        List<RechargeEntity> entities = makeEntityList(page);
         if (entities == null || entities.isEmpty()) {
             log.info("RechargeEntity list is empty, tb_user.");
             return;
         }
+        log.info("make recharge entities, size: {}", entities.size());
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.8.34");
@@ -92,9 +94,10 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
         }
     }
 
-    private List<RechargeEntity> makeEntityList() {
+    private List<RechargeEntity> makeEntityList(Page<AdjustUserEntity> page) {
         AdjustUserEntity sourceAdEntity = adjustUserMapper.selectById(161529474L);   // 源方提供的测试数据
-        List<AdjustUserEntity> adUserEntities = queryAdUserEntities();// 查询大于这个ID 的其他数据
+        List<AdjustUserEntity> adUserEntities = queryAdUserEntities(page);// 查询大于这个ID 的其他数据
+        log.info("query ad user entities, size: {}", adUserEntities.size());
 
         List<RechargeEntity> entities  = new ArrayList<>();
 
@@ -111,42 +114,41 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
         for (AdjustUserEntity adUserEntity : adUserEntities) {
 
             // adEntities 有1000 + 这里的循环次数要注意，10 就很多了。
-            for (int i = 0; i < 10; i++) {
+            int size = 10;
+            for (int i = 0; i < size; i++) {
+                currentTimeMillis++;
+                String channelId = adUserEntity.getChannelid();
+                String gaid = adUserEntity.getGaid();
 
-                {
-                    currentTimeMillis++;
-                    String channelId = adUserEntity.getChannelid();
-                    String gaid = adUserEntity.getGaid();
+                for (PN pn : PN.values()) {
+                    Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    for (PN pn : PN.values()) {
-                        Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
-                        Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    String uuidString = UUID.randomUUID().toString().replace("-", "");
 
-                        String uuidString = UUID.randomUUID().toString().replace("-", "");
+                    RechargeEntity entity = new RechargeEntity();
+                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                            .setChannel(channelId).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
+                            .setGaid(gaid).setOriginChannel(originChannelId).setDay(1L).setRegDate(dateLong)
+                            .setOrder(uuidString).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setLoginChannel(channelId).setRegisterChannel(channelId);
 
-                        RechargeEntity entity = new RechargeEntity();
-                        entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
-                                .setChannel(channelId).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                                .setGaid(gaid).setOriginChannel(originChannelId).setDay(1L).setRegDate(dateLong)
-                                .setOrder(uuidString).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
-                                .setLoginChannel(channelId).setRegisterChannel(channelId);
-
-                        // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
-                        // rechargeDate regDate 必须满足格式：yyyyMMdd
-                        entity.setRegDate(dateLong).setStatRegDate(dateLong).setRechargeDate(dateLong);
-                        entities.add(entity);
-                    }
+                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
+                    // rechargeDate regDate 必须满足格式：yyyyMMdd
+                    entity.setRegDate(dateLong).setStatRegDate(dateLong).setRechargeDate(dateLong);
+                    entities.add(entity);
                 }
             }
+
+            log.info("make recharge entity each size: {}, by ad user entity id: {}", size, adUserEntity.getId());
         }
 
         return entities;
     }
 
-    private List<AdjustUserEntity> queryAdUserEntities() {
+    private List<AdjustUserEntity> queryAdUserEntities(Page<AdjustUserEntity> page) {
         LambdaQueryWrapper<AdjustUserEntity> queryWrapper = new LambdaQueryWrapper<>();
 
-        Page<AdjustUserEntity> page = Page.of(1, 1000);
         Page<AdjustUserEntity> entityPage = adjustUserMapper.selectPage(page, queryWrapper);
         return entityPage.getRecords();
     }
