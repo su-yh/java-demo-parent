@@ -8,7 +8,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.suyh5802.web.base.entity.AdjustUserEntity;
-import com.suyh5802.web.base.entity.RechargeEntity;
+import com.suyh5802.web.base.entity.UserLoginEntity;
 import com.suyh5802.web.base.enums.PN;
 import com.suyh5802.web.base.mapper.AdjustUserMapper;
 import com.suyh5802.web.base.runner.mq.util.MqCorrelationIdUtils;
@@ -19,24 +19,23 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 /**
+ * 用户登录
+ * 就是将表tb_user_login 中的数据写到mq 队长中
+ *
  * @author suyh
- * @since 2023-12-28
+ * @since 2023-12-27
  */
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RandomPlusRechargeRunner implements ApplicationRunner {
-    // 对应表 tb_recharge
-    private final static String POLY_TB_RECHARGE = "poly_tb_recharge_pre";
+public class RandomPlusUserLoginRunner implements ApplicationRunner {
+    // 对应表 tb_user_login
+    private final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
 
     private final AdjustUserMapper adjustUserMapper;
 
@@ -49,12 +48,7 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
         }
 
         Page<AdjustUserEntity> page = Page.of(1, 1000); // AdjustUserEntity 的分页
-        List<RechargeEntity> entities = makeEntityList(page);
-        if (entities == null || entities.isEmpty()) {
-            log.info("RechargeEntity list is empty, tb_user.");
-            return;
-        }
-        log.info("make recharge entities, size: {}", entities.size());
+        List<UserLoginEntity> entities = makeEntityList(page);
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.8.34");
@@ -71,9 +65,9 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
              * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
              * 5. 其他参数
              */
-            channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
+            channel.queueDeclare(POLY_TB_USER_LOGIN, true, false, false, null);
 
-            for (RechargeEntity entity : entities) {
+            for (UserLoginEntity entity : entities) {
                 long correlationId = MqCorrelationIdUtils.getCorrelationId();
                 entity.setCorrelationId(correlationId);
                 String message = JsonUtils.serializable(entity);
@@ -87,60 +81,44 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
                  */
                 AMQP.BasicProperties properties = new AMQP.BasicProperties();
                 properties = properties.builder().correlationId(correlationId + "").build();
-                channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
+                channel.basicPublish("", POLY_TB_USER_LOGIN, properties, message.getBytes(StandardCharsets.UTF_8));
             }
 
-            System.out.println("消息发送完毕, RechargeEntity size: " + entities.size());
+            System.out.println("消息发送完毕, UserLoginEntity size: " + entities.size());
         }
     }
 
-    private List<RechargeEntity> makeEntityList(Page<AdjustUserEntity> page) {
+    private List<UserLoginEntity> makeEntityList(Page<AdjustUserEntity> page) {
         AdjustUserEntity sourceAdEntity = adjustUserMapper.selectById(161529474L);   // 源方提供的测试数据
         List<AdjustUserEntity> adUserEntities = queryAdUserEntities(page);// 查询大于这个ID 的其他数据
         log.info("query ad user entities, size: {}", adUserEntities.size());
 
-        List<RechargeEntity> entities  = new ArrayList<>();
-
-        Random random = new Random();
+        List<UserLoginEntity> entities = new ArrayList<>();
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String originChannelId = sourceAdEntity.getChannelid();
 
         long currentTimeMillis = System.currentTimeMillis();
-        LocalDate localDate = LocalDate.now();
-        String dateString = localDate.toString().replace("-", "");
-        long dateLong = Long.parseLong(dateString);
+        int src = 2;    // 1：用户注册；2：用户登录
 
         for (AdjustUserEntity adUserEntity : adUserEntities) {
-
-            // adEntities 有1000 + 这里的循环次数要注意，10 就很多了。
-            int size = 10;
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < 10; i++) {
                 currentTimeMillis++;
+
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 
                 for (PN pn : PN.values()) {
-                    Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
-                    Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                    String uuidString = UUID.randomUUID().toString().replace("-", "");
+                    UserLoginEntity entity = new UserLoginEntity();
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId).setCtime(currentTimeMillis).setGaid(gaid)
+                            .setOriginChannel(originChannelId).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
 
-                    RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
-                            .setChannel(channelId).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                            .setGaid(gaid).setOriginChannel(originChannelId).setDay(1L).setRegDate(dateLong)
-                            .setOrder(uuidString).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
-                            .setLoginChannel(channelId).setRegisterChannel(channelId);
-
-                    // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
-                    // rechargeDate regDate 必须满足格式：yyyyMMdd
-                    entity.setRegDate(dateLong).setStatRegDate(dateLong).setRechargeDate(dateLong);
                     entities.add(entity);
                 }
             }
-
-            log.info("make recharge entity each size: {}, by ad user entity id: {}", size, adUserEntity.getId());
         }
 
         return entities;
