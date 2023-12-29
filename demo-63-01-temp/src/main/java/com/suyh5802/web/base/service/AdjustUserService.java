@@ -1,13 +1,12 @@
 package com.suyh5802.web.base.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.suyh5802.web.base.entity.AdjustAdEntity;
 import com.suyh5802.web.base.entity.AdjustUserEntity;
-import com.suyh5802.web.base.mapper.AdjustAdMapper;
 import com.suyh5802.web.base.mapper.AdjustUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -22,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AdjustUserService {
-    private final AdjustAdMapper adjustAdMapper;
+    private final AdjustAdService adjustAdService;
     private final AdjustUserMapper adjustUserMapper;
 
     @PostConstruct
@@ -33,8 +32,11 @@ public class AdjustUserService {
             return;
         }
 
+        StopWatch stopWatch = new StopWatch("AdjustUser_initData");
+
+
         // 查询id大于432937L 的其他数据，这个数据不是随机生成的。
-        List<AdjustAdEntity> adEntities = queryAdjustAdEntities();
+        List<AdjustAdEntity> adEntities = adjustAdService.queryAdjustAdEntities();
 
         long currentTimeMillis = System.currentTimeMillis();
         long timestampSecond = currentTimeMillis / 1000;
@@ -44,6 +46,7 @@ public class AdjustUserService {
         int dateInt = Integer.parseInt(dateString);
 
         for (AdjustAdEntity adEntity : adEntities) {
+            stopWatch.start("init-data, ad id: " + adEntity.getId());
             for (int i = 0; i < 1000; i++) {
                 String uuid = UUID.randomUUID().toString().replace("-", "");
                 AdjustUserEntity entity = new AdjustUserEntity();
@@ -67,12 +70,10 @@ public class AdjustUserService {
 
                 adjustUserMapper.insert(entity);
             }
+            stopWatch.stop();
+            log.info("stop watch result: {}", stopWatch.prettyPrint());
         }
-    }
 
-    private List<AdjustAdEntity> queryAdjustAdEntities() {
-        LambdaQueryWrapper<AdjustAdEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.gt(AdjustAdEntity::getId, 432937L);
-        return adjustAdMapper.selectList(queryWrapper);
+        log.info("AdjustUserService init finished.");
     }
 }
