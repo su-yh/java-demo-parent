@@ -226,6 +226,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-09-shiro</id>
+            <modules>
+                <module>demo-09-shiro</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-12-swagger</id>
             <modules>
                 <module>demo-12-swagger-01</module>
