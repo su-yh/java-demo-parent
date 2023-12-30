@@ -220,15 +220,15 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-10-date</id>
+            <id>demo-08-db-flywaydb</id>
             <modules>
-                <module>demo-10-01-localDateTime</module>
+                <module>demo-08-db-flywaydb</module>
             </modules>
         </profile>
         <profile>
-            <id>demo-11-mybatis-plus</id>
+            <id>demo-10-date</id>
             <modules>
-                <module>demo-11-01-mybatis-plus</module>
+                <module>demo-10-01-localDateTime</module>
             </modules>
         </profile>
         <profile>
@@ -267,12 +267,6 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-25-01-flywaydb</id>
-            <modules>
-                <module>demo-25-flywaydb-01</module>
-            </modules>
-        </profile>
-        <profile>
             <id>demo-33-jackson</id>
             <modules>
                 <module>demo-33-jackson-01</module>
@@ -292,13 +286,6 @@
             <id>demo-37-stop-springboot</id>
             <modules>
                 <module>demo-37-01-stop-springboot</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>demo-46-multi-datasource-flywaydb</id>
-            <modules>
-                <module>demo-46-multi-datasource-flywaydb-01</module>
-                <module>demo-46-multi-datasource-flywaydb-02-hikari-cp-single</module>
             </modules>
         </profile>
         <profile>
