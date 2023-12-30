@@ -176,9 +176,9 @@
             </build>
         </profile>
         <profile>
-            <id>demo-00-base</id>
+            <id>demo-01-base</id>
             <modules>
-                <module>demo-00-base</module>
+                <module>demo-01-base</module>
             </modules>
         </profile>
         <profile>

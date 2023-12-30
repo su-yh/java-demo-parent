@@ -2,24 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>demo-00-base</artifactId>
-        <groupId>com.suyh</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <artifactId>demo-05-other</artifactId>
-
+    <groupId>com.suyh</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <artifactId>demo-02-log</artifactId>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
     <modules>
-        <module>demo-02-config-center-01</module>
-        <module>demo-02-properties-01</module>
+        <module>demo-00-01-logback</module>
+        <module>demo-01-log4j2</module>
     </modules>
-
 </project>
