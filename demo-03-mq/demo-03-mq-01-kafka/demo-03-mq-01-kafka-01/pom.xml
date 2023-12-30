@@ -6,7 +6,7 @@
 
     <groupId>com.suyh</groupId>
     <version>1.0-SNAPSHOT</version>
-    <artifactId>demo-07-kafka-01</artifactId>
+    <artifactId>demo-03-mq-01-kafka-01</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -188,6 +188,12 @@
             </modules>
         </profile>
         <profile>
+            <id>demo-03-mq</id>
+            <modules>
+                <module>demo-03-mq</module>
+            </modules>
+        </profile>
+        <profile>
             <id>demo-04-scheduler</id>
             <modules>
                 <module>demo-04-scheduler-01</module>
