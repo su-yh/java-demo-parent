@@ -1,8 +1,8 @@
 package com.suyh2902.controller;
 
-import com.suyh.dto.ResultSingle;
 import com.suyh2902.entity.FormPropertyTemplateEntity;
 import com.suyh2902.repository.FormProperTemplateRepository;
+import com.suyh2902.vo.ResultSingle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

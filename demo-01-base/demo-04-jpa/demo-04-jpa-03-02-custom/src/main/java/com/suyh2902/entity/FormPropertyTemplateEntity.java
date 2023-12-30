@@ -1,7 +1,7 @@
 package com.suyh2902.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.suyh.utils.ClassUtils;
+import com.suyh0002.util.ClassUtils;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;

@@ -16,6 +16,8 @@
 
     <modules>
         <module>demo-00-02-jpa</module>
+        <module>demo-04-jpa-03-01-db</module>
+        <module>demo-04-jpa-03-02-custom</module>
     </modules>
 
 </project>
