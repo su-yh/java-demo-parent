@@ -208,23 +208,15 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-06-mybatis</id>
+            <id>demo-06-db-mybatis</id>
             <modules>
-                <module>demo-06-mybatis-01</module>
-                <module>demo-06-mybatis-02-common</module>
-                <module>demo-06-mybatis-03-multi-db-01</module>
-                <module>demo-06-mybatis-04-convert</module>
-                <module>demo-06-mybatis-05-type_handler</module>
-                <module>demo-06-mybatis-06-convert</module>
+                <module>demo-06-db-mybatis</module>
             </modules>
         </profile>
         <profile>
-            <id>demo-07-mq</id>
+            <id>demo-07-db-mybatis-plus</id>
             <modules>
-                <module>demo-07-kafka-01</module>
-                <module>demo-07-rabbitmq-01</module>
-                <module>demo-07-rabbitmq-02</module>
-                <module>demo-07-rabbitmq-03</module>
+                <module>demo-07-db-mybatis-plus</module>
             </modules>
         </profile>
         <profile>
