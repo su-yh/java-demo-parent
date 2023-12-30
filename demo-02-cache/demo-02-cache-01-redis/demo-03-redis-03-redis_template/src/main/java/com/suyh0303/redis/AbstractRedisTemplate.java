@@ -1,7 +1,7 @@
 package com.suyh0303.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.utils.JsonUtil;
+import com.suyh0303.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnection;

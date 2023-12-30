@@ -1,11 +1,11 @@
 package com.suyh0302.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.utils.JsonUtil;
 import com.suyh0302.redis.MessagePublisher;
 import com.suyh0302.redis.RedisMessagePublisher;
 import com.suyh0302.redis.RedisMessageSubscriber;
 import com.suyh0302.redis.vo.Student;
+import com.suyh0302.util.JsonUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
