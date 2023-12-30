@@ -226,12 +226,6 @@
             </modules>
         </profile>
         <profile>
-            <id>demo-10-date</id>
-            <modules>
-                <module>demo-10-01-localDateTime</module>
-            </modules>
-        </profile>
-        <profile>
             <id>demo-12-swagger</id>
             <modules>
                 <module>demo-12-swagger-01</module>
