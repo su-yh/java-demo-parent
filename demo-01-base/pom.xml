@@ -16,7 +16,7 @@
         <module>demo-02-log</module>
         <module>demo-03-test</module>
         <module>demo-04-jpa</module>
-        <module>demo-05-other</module>
+        <module>demo-99-other</module>
         <module>demo-06-datetime</module>
     </modules>
 
