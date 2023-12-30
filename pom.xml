@@ -19,11 +19,136 @@
     </properties>
 
     <modules>
-<!--        <module>demo-00-00-core</module>-->
-<!--        <module>demo-00-01-logback</module>-->
+
     </modules>
 
     <profiles>
+        <profile>
+            <id>build</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/src/main/resources</directory>
+                        <!--使application*.* 中可以使用${xxx} 来引用pom.xml 中配置的变量，但不能直接被spring 加载到。-->
+                        <!-- filter 会对二进制文件进行特殊处理，如果不想二进制文件被修改，则需要配置nonFilteredFileExtensions 标签属性，在maven-resources-plugin 插件里面 -->
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+                <!--        <resources>-->
+                <!--            <resource>-->
+                <!--                <directory>${project.basedir}/src/main/resources</directory>-->
+                <!--                <filtering>true</filtering>-->
+                <!--                <includes>-->
+                <!--                    &lt;!&ndash; 仅添加指定环境的配置文件 &ndash;&gt;-->
+                <!--                    <include>application-${spring_profiles_active}.properties</include>-->
+                <!--                    &lt;!&ndash;妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。&ndash;&gt;-->
+                <!--                    <include>*</include>-->
+                <!--                </includes>-->
+                <!--            </resource>-->
+                <!--            <resource>-->
+                <!--                <directory>${project.basedir}/src/main/resources/mapper</directory>-->
+                <!--                <includes>-->
+                <!--                    <include>*.xml</include>-->
+                <!--                </includes>-->
+                <!--                &lt;!&ndash; 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 &ndash;&gt;-->
+                <!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
+                <!--            </resource>-->
+                <!--        </resources>-->
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <configuration>
+                            <nonFilteredFileExtensions>
+                                <!-- 排除使用filter 的文件后缀名。 -->
+                                <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                            </nonFilteredFileExtensions>
+                        </configuration>
+                    </plugin>
+                    <!-- maven 的打包插件 -->
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>2.2.5.RELEASE</version>
+                        <configuration>
+                            <excludes>
+                                <!-- lombok 只在编译时有效 -->
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <!--打包源码的插件，还需要包含下面的配置。我没有加的时候是没有打包成功的。-->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 可以使用变量来指定整个项目的版本号，但是整个项目都要使用，不能从某个模块开始 -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>1.2.7</version>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- 用来编译proto 源文件的，生成的java 文件默认在 target/generated-sources、 目录下面的 -->
+                        <!-- 而proto 源文件一般在：src/main/proto/ 目录下面 -->
+                        <groupId>org.xolstice.maven.plugins</groupId>
+                        <artifactId>protobuf-maven-plugin</artifactId>
+                        <version>0.6.1</version>
+                        <configuration>
+                            <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
+                            </protocArtifact>
+                            <pluginId>grpc-java</pluginId>
+                            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                            </pluginArtifact>
+                            <!-- 这里可以指定源文件目录和输出文件目录 -->
+                            <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
+                            <outputDirectory>${project.basedir}/src/main/suyh</outputDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>compile</goal>
+                                    <goal>compile-custom</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>dev</id>
             <activation>
@@ -51,10 +176,9 @@
             </build>
         </profile>
         <profile>
-            <id>demo-02</id>
+            <id>demo-00-base</id>
             <modules>
-                <module>demo-02-config-center-01</module>
-                <module>demo-02-properties-01</module>
+                <module>demo-00-base</module>
             </modules>
         </profile>
         <profile>
@@ -257,128 +381,4 @@
             <url>https://packages.aliyun.com/maven/repository/2407338-snapshot-CclwV1</url>
         </snapshotRepository>
     </distributionManagement>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <!--使application*.* 中可以使用${xxx} 来引用pom.xml 中配置的变量，但不能直接被spring 加载到。-->
-                <!-- filter 会对二进制文件进行特殊处理，如果不想二进制文件被修改，则需要配置nonFilteredFileExtensions 标签属性，在maven-resources-plugin 插件里面 -->
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <!--        <resources>-->
-        <!--            <resource>-->
-        <!--                <directory>${project.basedir}/src/main/resources</directory>-->
-        <!--                <filtering>true</filtering>-->
-        <!--                <includes>-->
-        <!--                    &lt;!&ndash; 仅添加指定环境的配置文件 &ndash;&gt;-->
-        <!--                    <include>application-${spring_profiles_active}.properties</include>-->
-        <!--                    &lt;!&ndash;妈的，我正常配置代码都编译不进去了。不应该放在父MAVEN 中的。&ndash;&gt;-->
-        <!--                    <include>*</include>-->
-        <!--                </includes>-->
-        <!--            </resource>-->
-        <!--            <resource>-->
-        <!--                <directory>${project.basedir}/src/main/resources/mapper</directory>-->
-        <!--                <includes>-->
-        <!--                    <include>*.xml</include>-->
-        <!--                </includes>-->
-        <!--                &lt;!&ndash; 资源文件拷贝的目标位置，如果目录不存在则会创建这个目录 &ndash;&gt;-->
-        <!--                <targetPath>${project.build.outputDirectory}/mapper</targetPath>-->
-        <!--            </resource>-->
-        <!--        </resources>-->
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <!-- 排除使用filter 的文件后缀名。 -->
-                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
-            <!-- maven 的打包插件 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.5.RELEASE</version>
-                <configuration>
-                    <excludes>
-                        <!-- lombok 只在编译时有效 -->
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <!--打包源码的插件，还需要包含下面的配置。我没有加的时候是没有打包成功的。-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- 可以使用变量来指定整个项目的版本号，但是整个项目都要使用，不能从某个模块开始 -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.2.7</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <!-- 用来编译proto 源文件的，生成的java 文件默认在 target/generated-sources、 目录下面的 -->
-                <!-- 而proto 源文件一般在：src/main/proto/ 目录下面 -->
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
-                    </protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
-                    </pluginArtifact>
-                    <!-- 这里可以指定源文件目录和输出文件目录 -->
-                    <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-                    <outputDirectory>${project.basedir}/src/main/suyh</outputDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
