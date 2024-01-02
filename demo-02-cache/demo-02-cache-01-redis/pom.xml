@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.suyh</groupId>
+    <artifactId>demo-02-cache-01-redis</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <modules>
+        <module>demo-03-redis-01</module>
+        <module>demo-03-redis-02-lettuce</module>
+        <module>demo-03-redis-03-redis_template</module>
+        <module>demo-03-redis-04-multi-datasource</module>
+        <module>demo-03-redis-05-timeout</module>
+        <module>demo-03-redis-06-timeout</module>
+        <module>demo-03-redis-07-timeout</module>
+        <module>demo-03-redis-08-timeout</module>
+        <module>demo-03-redis-09-timeout</module>
+        <module>demo-03-redis-10-timeout_simple</module>
+    </modules>
+</project>
