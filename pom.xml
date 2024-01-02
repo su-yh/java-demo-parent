@@ -19,8 +19,6 @@
     </properties>
 
     <modules>
-        <module>demo-00-00-core</module>
-        <!--        <module>demo-00-01-logback</module>-->
         <module>demo-63-01-temp</module>
     </modules>
 
