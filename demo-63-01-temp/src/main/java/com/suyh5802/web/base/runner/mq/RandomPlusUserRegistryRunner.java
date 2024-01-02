@@ -47,7 +47,7 @@ public class RandomPlusUserRegistryRunner implements ApplicationRunner {
             return;
         }
 
-        Page<AdjustUserEntity> page = Page.of(1, 1000); // AdjustUserEntity 的分页
+        Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
         List<UserEntity> entities = makeEntityList(page);
         if (entities == null || entities.isEmpty()) {
             log.info("UserEntity list is empty, tb_user.");

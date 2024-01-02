@@ -45,7 +45,7 @@ public class RandomPlusWithdrawalRunner implements ApplicationRunner {
             return;
         }
 
-        Page<AdjustUserEntity> page = Page.of(1, 1000); // AdjustUserEntity 的分页
+        Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
         List<WithdrawalEntity> entities = makeEntityList(page);
         if (entities == null || entities.isEmpty()) {
             log.info("WithdrawalEntity list is empty.");

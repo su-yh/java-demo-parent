@@ -48,7 +48,7 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
             return;
         }
 
-        Page<AdjustUserEntity> page = Page.of(1, 1000); // AdjustUserEntity 的分页
+        Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
         List<RechargeEntity> entities = makeEntityList(page);
         if (entities == null || entities.isEmpty()) {
             log.info("RechargeEntity list is empty, tb_user.");
@@ -97,7 +97,7 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
     private List<RechargeEntity> makeEntityList(Page<AdjustUserEntity> page) {
         AdjustUserEntity sourceAdEntity = adjustUserMapper.selectById(161529474L);   // 源方提供的测试数据
         List<AdjustUserEntity> adUserEntities = queryAdUserEntities(page);// 查询大于这个ID 的其他数据
-        log.info("query ad user entities, size: {}", adUserEntities.size());
+        log.info("query recharge entities, size: {}", adUserEntities.size());
 
         List<RechargeEntity> entities  = new ArrayList<>();
 
