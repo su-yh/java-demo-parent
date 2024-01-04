@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.suyh</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <artifactId>demo-02-properties-01</artifactId>
+    <name>demo-02-properties-01</name>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <my.filter.value>hello</my.filter.value>
+
+        <spring-boot.version>2.7.4</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- spring boot configuration Annotation processor not configured -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 测试库 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--占位符生效-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- maven 的打包插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.5.RELEASE</version>
+                <configuration>
+                    <excludes>
+                        <!-- lombok 只在编译时有效 -->
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!--
+                    http://maven.apache.org/plugins/maven-resources-plugin/resources-mojo.html#delimiters
+                    注意
+                        如果遇到${project.version}无法生效，是因为
+                        由于 **${}** 方式会被maven处理。
+                        如果你pom继承了spring-boot-starter-parent，Spring Boot
+                        已经将maven-resources-plugins默认的${}方式改为了@@方式，如@name@
+                        如果还想继续使用${}占位符方式，只需要在pom文件中加上下面配置即可：
+                -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+<!--                <configuration>-->
+<!--                    <encoding>utf-8</encoding>-->
+<!--                    &lt;!&ndash; 使用默认的字符读取maven pom.xml 中的变量值 &ndash;&gt;-->
+<!--                    &lt;!&ndash; <useDefaultDelimiters>true</useDefaultDelimiters> &ndash;&gt;-->
+<!--                    <delimiters>-->
+<!--                        <delimiter>${*}</delimiter>-->
+<!--                        <delimiter>@</delimiter>-->
+<!--                    </delimiters>-->
+<!--                </configuration>-->
+            </plugin>
+            <plugin>
+                <!--打包源码的插件，还需要包含下面的配置。我没有加的时候是没有打包成功的。-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
