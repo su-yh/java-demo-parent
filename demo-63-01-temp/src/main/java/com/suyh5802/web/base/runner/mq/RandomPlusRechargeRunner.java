@@ -48,49 +48,52 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
             return;
         }
 
-        Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
-        List<RechargeEntity> entities = makeEntityList(page);
-        if (entities == null || entities.isEmpty()) {
-            log.info("RechargeEntity list is empty, tb_user.");
-            return;
-        }
-        log.info("make recharge entities, size: {}", entities.size());
-
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
-        factory.setUsername("admin");
-        factory.setPassword("aiteer");
-        factory.setVirtualHost("/flinkhost");
-
-        try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            /*
-             * 生成一个队列
-             * 1. 队列名称
-             * 2. 队列里面的消息是否持久化 默认消息存储在内存中
-             * 3. 该队列是否只供一个消费都进行消费 是否进行共享 true 可以多个消费者消费
-             * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
-             * 5. 其他参数
-             */
-            channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
-
-            for (RechargeEntity entity : entities) {
-                long correlationId = MqCorrelationIdUtils.getCorrelationId();
-                entity.setCorrelationId(correlationId);
-                String message = JsonUtils.serializable(entity);
-
-                /*
-                 * 发送一个消息
-                 * 1. 发送到哪个交换机
-                 * 2. 路由的key 是哪个
-                 * 3. 其他的参数信息
-                 * 4. 发送消息的消息体
-                 */
-                AMQP.BasicProperties properties = new AMQP.BasicProperties();
-                properties = properties.builder().correlationId(correlationId + "").build();
-                channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
+        for (int i = 0; i < 10; i++) {
+            Page<AdjustUserEntity> page = Page.of(1, 10000); // AdjustUserEntity 的分页
+            List<RechargeEntity> entities = makeEntityList(page);
+            if (entities == null || entities.isEmpty()) {
+                log.info("RechargeEntity list is empty, tb_user.");
+                return;
             }
+            log.info("make recharge entities, size: {}", entities.size());
 
-            System.out.println("消息发送完毕, RechargeEntity size: " + entities.size());
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("192.168.8.34");
+            factory.setUsername("admin");
+            factory.setPassword("aiteer");
+            factory.setVirtualHost("/flinkhost");
+
+
+            try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
+                /*
+                 * 生成一个队列
+                 * 1. 队列名称
+                 * 2. 队列里面的消息是否持久化 默认消息存储在内存中
+                 * 3. 该队列是否只供一个消费都进行消费 是否进行共享 true 可以多个消费者消费
+                 * 4. 是否自动删除 最后一个消费者端连接以后 该队列 是否自动删除  true 自动删除
+                 * 5. 其他参数
+                 */
+                channel.queueDeclare(POLY_TB_RECHARGE, true, false, false, null);
+
+                for (RechargeEntity entity : entities) {
+                    long correlationId = MqCorrelationIdUtils.getCorrelationId();
+                    entity.setCorrelationId(correlationId);
+                    String message = JsonUtils.serializable(entity);
+
+                    /*
+                     * 发送一个消息
+                     * 1. 发送到哪个交换机
+                     * 2. 路由的key 是哪个
+                     * 3. 其他的参数信息
+                     * 4. 发送消息的消息体
+                     */
+                    AMQP.BasicProperties properties = new AMQP.BasicProperties();
+                    properties = properties.builder().correlationId(correlationId + "").build();
+                    channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
+                }
+
+                System.out.println("消息发送完毕, RechargeEntity size: " + entities.size());
+            }
         }
     }
 
