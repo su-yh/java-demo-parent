@@ -72,11 +72,18 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>2.2.5.RELEASE</version>
                         <configuration>
+                            <!--spring boot maven plugin 对provided scope 是不生效的-->
+                            <!--按groupid 排除，不需要打包的依赖，多个以逗号分隔-->
+                            <excludeGroupIds>org.apache.flink,ch.qos.logback</excludeGroupIds>
                             <excludes>
                                 <!-- lombok 只在编译时有效 -->
                                 <exclude>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
+                                </exclude>
+                                <exclude>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
                                 </exclude>
                             </excludes>
                         </configuration>
