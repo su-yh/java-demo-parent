@@ -7,6 +7,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.suyh5802.web.base.config.properties.RmqProperties;
 import com.suyh5802.web.base.entity.AdjustUserEntity;
 import com.suyh5802.web.base.entity.UserLoginEntity;
 import com.suyh5802.web.base.enums.PN;
@@ -38,6 +39,7 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
     private final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
 
     private final AdjustUserMapper adjustUserMapper;
+    private final RmqProperties rmqProperties;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -52,10 +54,11 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
             List<UserLoginEntity> entities = makeEntityList(page);
 
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost("192.168.8.34");
-            factory.setUsername("admin");
-            factory.setPassword("aiteer");
-            factory.setVirtualHost("/flinkhost");
+            factory.setHost(rmqProperties.getHost());
+            factory.setPort(rmqProperties.getPort());
+            factory.setUsername(rmqProperties.getUsername());
+            factory.setPassword(rmqProperties.getPassword());
+            factory.setVirtualHost(rmqProperties.getVirtualHost());
 
             try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
                 /*

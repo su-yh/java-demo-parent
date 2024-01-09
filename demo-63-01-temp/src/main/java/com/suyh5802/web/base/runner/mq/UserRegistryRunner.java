@@ -4,6 +4,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.suyh5802.web.base.config.properties.RmqProperties;
 import com.suyh5802.web.base.entity.UserEntity;
 import com.suyh5802.web.base.mapper.UserMapper;
 import com.suyh5802.web.base.util.JsonUtils;
@@ -31,6 +32,7 @@ public class UserRegistryRunner implements ApplicationRunner {
     private final static String POLY_TB_USER = "poly_tb_user_pre";
 
     private final UserMapper userMapper;
+    private final RmqProperties rmqProperties;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -47,10 +49,11 @@ public class UserRegistryRunner implements ApplicationRunner {
         }
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
-        factory.setUsername("admin");
-        factory.setPassword("aiteer");
-        factory.setVirtualHost("/flinkhost");
+        factory.setHost(rmqProperties.getHost());
+        factory.setPort(rmqProperties.getPort());
+        factory.setUsername(rmqProperties.getUsername());
+        factory.setPassword(rmqProperties.getPassword());
+        factory.setVirtualHost(rmqProperties.getVirtualHost());
 
         long currentTimeMillis = System.currentTimeMillis();
 

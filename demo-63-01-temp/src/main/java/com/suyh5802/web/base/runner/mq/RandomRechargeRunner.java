@@ -5,6 +5,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.suyh5802.web.base.config.properties.RmqProperties;
 import com.suyh5802.web.base.entity.RechargeEntity;
 import com.suyh5802.web.base.enums.PN;
 import com.suyh5802.web.base.runner.mq.util.MqCorrelationIdUtils;
@@ -32,6 +33,7 @@ import java.util.UUID;
 public class RandomRechargeRunner implements ApplicationRunner {
     // 对应表 tb_recharge
     private final static String POLY_TB_RECHARGE = "poly_tb_recharge_pre";
+    private final RmqProperties rmqProperties;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -48,10 +50,11 @@ public class RandomRechargeRunner implements ApplicationRunner {
         }
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
-        factory.setUsername("admin");
-        factory.setPassword("aiteer");
-        factory.setVirtualHost("/flinkhost");
+        factory.setHost(rmqProperties.getHost());
+        factory.setPort(rmqProperties.getPort());
+        factory.setUsername(rmqProperties.getUsername());
+        factory.setPassword(rmqProperties.getPassword());
+        factory.setVirtualHost(rmqProperties.getVirtualHost());
 
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
             /*

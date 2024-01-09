@@ -4,6 +4,7 @@ spring:
       - application-datasource.yaml
       - application-log.yaml
       - application-messageSource.yaml
+      - application-rmq.yaml
       - application-web.yaml
   profiles:
     active: suyh

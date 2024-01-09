@@ -20,9 +20,9 @@ public class RabbitMqConsumer {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
+        factory.setHost("139.9.50.208");
         factory.setUsername("admin");
-        factory.setPassword("aiteer");
+        factory.setPassword("adminadmin");
         factory.setVirtualHost("/flinkhost");
 
         Connection connection = factory.newConnection();

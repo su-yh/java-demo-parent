@@ -4,6 +4,7 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.suyh5802.web.base.config.properties.RmqProperties;
 import com.suyh5802.web.base.entity.UserLoginEntity;
 import com.suyh5802.web.base.mapper.UserLoginMapper;
 import com.suyh5802.web.base.util.JsonUtils;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * 用户登录
@@ -32,6 +32,7 @@ public class UserLoginRunner implements ApplicationRunner {
     private final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
 
     private final UserLoginMapper userLoginMapper;
+    private final RmqProperties rmqProperties;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -48,10 +49,11 @@ public class UserLoginRunner implements ApplicationRunner {
         }
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
-        factory.setUsername("admin");
-        factory.setPassword("aiteer");
-        factory.setVirtualHost("/flinkhost");
+        factory.setHost(rmqProperties.getHost());
+        factory.setPort(rmqProperties.getPort());
+        factory.setUsername(rmqProperties.getUsername());
+        factory.setPassword(rmqProperties.getPassword());
+        factory.setVirtualHost(rmqProperties.getVirtualHost());
 
         long currentTimeMillis = System.currentTimeMillis();
 
