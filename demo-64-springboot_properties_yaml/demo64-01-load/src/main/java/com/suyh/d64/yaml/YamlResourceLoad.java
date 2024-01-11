@@ -40,17 +40,28 @@ public class YamlResourceLoad {
             printProperties(filesystemProperties);
         }
 
+        // ####################################
+        // 处理成ResourcePropertySource
+
         {
-            // 处理成ResourcePropertySource
+            // 从类路径加载 YAML 文件
+            // 这相当于平时我们配置的：classpath:/suyh_properties.properties
+            Resource resource = new ClassPathResource("/suyh_properties.properties");
+            EncodedResource encodedResource = new EncodedResource(resource);
+            ResourcePropertySource propertySource = new ResourcePropertySource("name", encodedResource);
+            Object propertyValue = propertySource.getProperty("spring.profile.active");
+            System.out.println("从类路径加载 propertyValue: " + propertyValue);
+        }
+
+        {
             // 从文件系统加载 YAML 文件
             String yamlFilePath = "/suyh/github/java-demo-springboot/demo-64-springboot_properties_yaml/demo64-01-load/src/main/resources/suyh_properties.properties";
 
-            YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
             Resource resource = new FileSystemResource(yamlFilePath);
             EncodedResource encodedResource = new EncodedResource(resource);
             ResourcePropertySource propertySource = new ResourcePropertySource("name", encodedResource);
             Object propertyValue = propertySource.getProperty("spring.profile.active");
-            System.out.println("propertyValue: " + propertyValue);
+            System.out.println("从文件系统加载：propertyValue: " + propertyValue);
         }
     }
 
