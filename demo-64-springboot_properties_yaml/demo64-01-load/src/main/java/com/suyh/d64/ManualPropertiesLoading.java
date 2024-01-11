@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ManualPropertiesLoading {
 
     public static void main(String[] args) {
-        String propertiesFilePath = "file:/opt/trend_oper/flink-job-suyh.properties";
+        String propertiesFilePath = "file:/opt/trend_oper/suyh_properties.properties";
         PropertySource<?> propertySource = loadProperties(propertiesFilePath);
 
         // Access properties from the loaded PropertySource

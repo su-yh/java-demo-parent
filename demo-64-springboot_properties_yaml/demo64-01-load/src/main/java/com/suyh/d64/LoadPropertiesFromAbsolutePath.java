@@ -15,7 +15,7 @@ import java.util.Properties;
 public class LoadPropertiesFromAbsolutePath {
 
     public static void main(String[] args) {
-        String absoluteFilePath = "file:/opt/trend_oper/flink-job-suyh.properties";
+        String absoluteFilePath = "file:/opt/trend_oper/suyh_properties.properties";
         Properties properties = loadProperties(absoluteFilePath);
 
         // Access properties
