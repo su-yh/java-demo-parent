@@ -91,7 +91,9 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
                      * 4. 发送消息的消息体
                      */
                     AMQP.BasicProperties properties = new AMQP.BasicProperties();
-                    properties = properties.builder().correlationId(correlationId + "").build();
+                    properties = properties.builder().correlationId(correlationId + "")
+                            // deliveryMode 的值必须为2 才会持久化到磁盘上，否则服务器重启数据就没了。
+                            .deliveryMode(2).build();
                     channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
                 }
 
