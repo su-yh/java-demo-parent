@@ -19,7 +19,6 @@
     </properties>
 
     <modules>
-
     </modules>
 
     <profiles>
@@ -341,6 +340,13 @@
             <id>demo-62-file-system</id>
             <modules>
                 <module>demo-62-01-file-system</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>demo-64-springboot-resources</id>
+            <modules>
+                <module>demo-64-springboot_properties_yaml</module>
             </modules>
         </profile>
 
