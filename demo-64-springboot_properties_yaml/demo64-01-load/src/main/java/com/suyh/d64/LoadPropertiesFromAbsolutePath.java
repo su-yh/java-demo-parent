@@ -15,7 +15,7 @@ import java.util.Properties;
 public class LoadPropertiesFromAbsolutePath {
 
     public static void main(String[] args) {
-        String absoluteFilePath = "/opt/trend_oper/flink-job-suyh.properties";
+        String absoluteFilePath = "file:/opt/trend_oper/flink-job-suyh.properties";
         Properties properties = loadProperties(absoluteFilePath);
 
         // Access properties
@@ -25,7 +25,7 @@ public class LoadPropertiesFromAbsolutePath {
 
     private static Properties loadProperties(String absoluteFilePath) {
         try {
-            Resource resource = new DefaultResourceLoader().getResource("file:" + absoluteFilePath);
+            Resource resource = new DefaultResourceLoader().getResource(absoluteFilePath);
             EncodedResource encodedResource = new EncodedResource(resource);
             return PropertiesLoaderUtils.loadProperties(encodedResource);
         } catch (IOException e) {
