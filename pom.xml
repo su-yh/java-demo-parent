@@ -351,6 +351,13 @@
             </modules>
         </profile>
 
+        <profile>
+            <id>demo-64-springboot-resources</id>
+            <modules>
+                <module>demo-64-springboot_properties_yaml</module>
+            </modules>
+        </profile>
+
     </profiles>
 
     <!--我在阿里云效上的个人镜像仓库地址-->

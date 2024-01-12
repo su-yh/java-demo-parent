@@ -1,7 +1,7 @@
 package com.suyh0201.environment;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.context.config.ConfigFileApplicationListener;
+import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.logging.DeferredLog;
@@ -27,7 +27,8 @@ public class ConfigCenterEnvironmentPostProcessor
     @Override
     public int getOrder() {
         // 配置中心的属性配置优先级需要高于本地属性配置
-        return ConfigFileApplicationListener.DEFAULT_ORDER - 2;
+        // return ConfigFileApplicationListener.DEFAULT_ORDER - 2; // springboot 2.4 版本之前
+        return ConfigDataEnvironmentPostProcessor.ORDER - 2;
     }
 
     @Override
