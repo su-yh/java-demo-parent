@@ -1,0 +1,10 @@
+
+spring:
+  profile:
+    active: prod
+
+server:
+  port: 9981
+
+
+
