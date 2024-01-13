@@ -1,5 +1,6 @@
 package main;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.core.io.UrlResource;
 
 import java.io.BufferedReader;
@@ -17,6 +18,10 @@ import java.util.List;
  */
 public class DemoLoadSpringBootImport {
     // springboot 读 *.imports spi 的调用方法。
+    // 参考：ImportCandidates
+
+    private static final String LOCATION = "META-INF/spring/%s.imports";
+
     public static void main(String[] args) throws IOException {
         {
             /*
@@ -35,8 +40,11 @@ public class DemoLoadSpringBootImport {
              */
             List<String> importCandidates = new ArrayList<>();
 
+            // ImportCandidates importCandidates = ImportCandidates.load(AutoConfiguration.class, DemoLoadSpringBootImport.class.getClassLoader());
             ClassLoader currentClassLoader = DemoLoadSpringBootImport.class.getClassLoader();
-            Enumeration<URL> urls = currentClassLoader.getResources("META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports");
+            // META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+            String location = String.format(LOCATION, AutoConfiguration.class);
+            Enumeration<URL> urls = currentClassLoader.getResources(location);
 
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
