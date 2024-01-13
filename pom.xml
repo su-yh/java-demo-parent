@@ -19,6 +19,7 @@
     </properties>
 
     <modules>
+        <module>demo-65-spring_factories</module>
     </modules>
 
     <profiles>

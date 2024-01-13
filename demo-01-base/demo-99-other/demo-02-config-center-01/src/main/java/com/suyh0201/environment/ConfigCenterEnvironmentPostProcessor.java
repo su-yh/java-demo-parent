@@ -59,5 +59,7 @@ public class ConfigCenterEnvironmentPostProcessor
     private void loadConfigCenter(HashMap<String, Object> configProperties) {
         // 连接配置中心，并加载对应的配置属性值，填充到map 中。
         configProperties.put("suyh-key", "suyh-value");
+        LOGGER.info("load config center property.");
+        System.out.println("load config center property.");
     }
 }
