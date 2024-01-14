@@ -1,3 +1,8 @@
+spring:
+  main:
+    # 对于有些时候我们不想启用web 服务，而只想使用spring-boot 时，可以禁用web 功能。
+    web-application-type: servlet
+
 server:
   servlet:
     context-path: /base/web

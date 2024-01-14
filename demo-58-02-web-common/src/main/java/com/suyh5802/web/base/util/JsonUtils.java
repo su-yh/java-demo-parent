@@ -1,14 +1,9 @@
 package com.suyh5802.web.base.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.ArrayType;
@@ -16,105 +11,16 @@ import com.fasterxml.jackson.databind.type.MapType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
-// TODO: suyh - 这个可以优化一下，怎么拿到spring mvc 里面的ObjectMapper, 同时还可以让在不同的业务场景创建出不同的 JsonUtils
 @Slf4j
 public class JsonUtils {
-    private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper();
+    private static volatile ObjectMapper OBJECT_MAPPER;
 
-    // 数据库中使用jackson 进行序列化与反序列化(TypeHandler)
-    public static final ObjectMapper DB_OBJECT_MAPPER = new ObjectMapper();
-
-    static {
-        initMapper(DEFAULT_MAPPER);
-
-        initDbMapper();
-    }
-
-    private static void initDbMapper() {
-        // 设置默认日期的格式化，优先级低于 @JsonFormat
-        // 序列化到数据库中的时间最好是时间戳，而不应该是带有时区的字符串。
-        // mapper.setTimeZone(TimeZone.getDefault());
-        // mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
-        // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
-        // ignored non null field
-        DB_OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时
-        // 是否引起结果失败(通过抛JsonMappingException异常).
-        // 此项设置只对那些已经尝试过所有的处理方法之后并且属性还是未处理
-        // (这里未处理的意思是:最终还是没有一个对应的类属性与此属性进行映射)的未知属性才有影响.
-        DB_OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        // 允许出现特殊字符和转义符
-        DB_OBJECT_MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        // 允许出现单引号
-        DB_OBJECT_MAPPER.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        // 序列化时间时，使用时间戳
-        DB_OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-        // 序列化 Duration DURATIONS转换成时间戳
-        DB_OBJECT_MAPPER.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, true);
-    }
-
-    // 博客参考：https://www.cnblogs.com/yuluoxingkong/p/7676089.html
     public static void initMapper(ObjectMapper mapper) {
-        // 设置默认日期的格式化，优先级低于 @JsonFormat
-        mapper.setTimeZone(TimeZone.getDefault());
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
-        // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
-        // ignored non null field
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时
-        // 是否引起结果失败(通过抛JsonMappingException异常).
-        // 此项设置只对那些已经尝试过所有的处理方法之后并且属性还是未处理
-        // (这里未处理的意思是:最终还是没有一个对应的类属性与此属性进行映射)的未知属性才有影响.
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        // 允许出现特殊字符和转义符
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        // 允许出现单引号
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-    }
-    public static void initOrdinaryMapper(ObjectMapper mapper) {
-        // 设置默认日期的格式化，优先级低于 @JsonFormat
-        mapper.setTimeZone(TimeZone.getDefault());
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
-        // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
-        // ignored non null field
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时
-        // 是否引起结果失败(通过抛JsonMappingException异常).
-        // 此项设置只对那些已经尝试过所有的处理方法之后并且属性还是未处理
-        // (这里未处理的意思是:最终还是没有一个对应的类属性与此属性进行映射)的未知属性才有影响.
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        // 允许出现特殊字符和转义符
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        // 允许出现单引号
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-    }
-    // 博客参考：https://www.cnblogs.com/yuluoxingkong/p/7676089.html
-    public static void initSnakeMapper(ObjectMapper mapper) {
-        // 设置默认日期的格式化，优先级低于 @JsonFormat
-        mapper.setTimeZone(TimeZone.getDefault());
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
-        // 序列化的时候对null 属性进行忽略，所有的null 属性都不会被序列化到json 中。
-        // ignored non null field
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 反序列化时,遇到未知属性(那些没有对应的属性来映射的属性,并且没有任何setter或handler来处理这样的属性)时
-        // 是否引起结果失败(通过抛JsonMappingException异常).
-        // 此项设置只对那些已经尝试过所有的处理方法之后并且属性还是未处理
-        // (这里未处理的意思是:最终还是没有一个对应的类属性与此属性进行映射)的未知属性才有影响.
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-        // 允许出现特殊字符和转义符
-        mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        // 允许出现单引号
-        mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        OBJECT_MAPPER = mapper;
     }
 
     /**
@@ -124,7 +30,7 @@ public class JsonUtils {
      * @return 返回json 字符串
      */
     public static String serializable(Object object) {
-        return serializable(object, DEFAULT_MAPPER);
+        return serializable(object, OBJECT_MAPPER);
     }
 
     public static String serializable(Object object, ObjectMapper mapper) {
@@ -147,7 +53,7 @@ public class JsonUtils {
      * @return 返回对象实体
      */
     public static <T> T deserialize(String json, Class<T> clazz) {
-        return deserialize(json, clazz, DEFAULT_MAPPER);
+        return deserialize(json, clazz, OBJECT_MAPPER);
     }
 
     public static <T> T deserialize(String json, Class<T> clazz, ObjectMapper mapper) {
@@ -170,7 +76,7 @@ public class JsonUtils {
      * @return 返回List 对象
      */
     public static <T> List<T> deserializeToList(String json, Class<T> clazz) {
-       return deserializeToList(json, clazz, DEFAULT_MAPPER);
+       return deserializeToList(json, clazz, OBJECT_MAPPER);
     }
 
     public static <T> List<T> deserializeToList(String json, Class<T> clazz, ObjectMapper mapper) {
@@ -188,7 +94,7 @@ public class JsonUtils {
         if (!StringUtils.hasText(json)) {
             return Collections.emptyList();
         } else {
-            return deserializeToList02(json, clazz, DEFAULT_MAPPER);
+            return deserializeToList02(json, clazz, OBJECT_MAPPER);
         }
     }
 
@@ -215,7 +121,7 @@ public class JsonUtils {
      * @return 返回map
      */
     public static <K, V> Map<K, V> deserializeToMap(String json, Class<K> kClazz, Class<V> vClass) {
-        return deserializeToMap(json, kClazz, vClass, DEFAULT_MAPPER);
+        return deserializeToMap(json, kClazz, vClass, OBJECT_MAPPER);
     }
 
     public static <K, V> Map<K, V> deserializeToMap(String json, Class<K> kClazz, Class<V> vClass, ObjectMapper mapper) {
@@ -230,11 +136,11 @@ public class JsonUtils {
     }
 
     public static ObjectNode createObjectNode() {
-        return DEFAULT_MAPPER.createObjectNode();
+        return OBJECT_MAPPER.createObjectNode();
     }
 
     public static ArrayNode createArrayNode() {
-        return DEFAULT_MAPPER.createArrayNode();
+        return OBJECT_MAPPER.createArrayNode();
     }
 
     /**
@@ -244,7 +150,7 @@ public class JsonUtils {
      * @return 返回一个JsonNode 对象
      */
     public static JsonNode deserializeToJsonNode(String json) {
-        return deserializeToJsonNode(json, DEFAULT_MAPPER);
+        return deserializeToJsonNode(json, OBJECT_MAPPER);
     }
 
     public static JsonNode deserializeToJsonNode(String json, ObjectMapper mapper) {
@@ -267,7 +173,7 @@ public class JsonUtils {
      * @return 返回一个ArrayNode 对象
      */
     public static ArrayNode deserializeToArrayNode(String json) {
-        return deserializeToArrayNode(json, DEFAULT_MAPPER);
+        return deserializeToArrayNode(json, OBJECT_MAPPER);
     }
 
     public static ArrayNode deserializeToArrayNode(String json, ObjectMapper mapper) {

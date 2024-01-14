@@ -1,6 +1,7 @@
 spring:
   config:
     import:
+      - application-jackson.yaml
       - application-log.yaml
       - application-messageSource.yaml
       - application-swagger.yaml
