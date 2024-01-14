@@ -1,0 +1,38 @@
+
+suyh:
+  rmq:
+    host: 139.9.50.208
+    port: 5672
+    username: admin
+    password: adminadmin
+    virtual-host: /flinkhost
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: aiteer-backup
+
+suyh:
+  rmq:
+    host: 192.168.8.34
+    port: 5672
+    username: admin
+    password: aiteer
+    virtual-host: /flinkhost
+
+---
+spring:
+  config:
+    activate:
+      on-profile: suyh-backup
+
+
+suyh:
+  rmq:
+    host: 139.9.50.208
+    port: 5672
+    username: admin
+    password: adminadmin
+    virtual-host: /flinkhost

@@ -16,12 +16,13 @@ import java.util.concurrent.TimeoutException;
 public class RabbitMqConsumer {
     private final static String QUEUE_NAME = "hello";
     public final static String POLY_TB_USER = "poly_tb_user_pre";
+    public final static String POLY_TB_USER_LOGIN = "poly_tb_user_login_pre";
 
     public static void main(String[] args) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("192.168.8.34");
+        factory.setHost("139.9.50.208");
         factory.setUsername("admin");
-        factory.setPassword("aiteer");
+        factory.setPassword("adminadmin");
         factory.setVirtualHost("/flinkhost");
 
         Connection connection = factory.newConnection();
@@ -30,13 +31,13 @@ public class RabbitMqConsumer {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String correlationId = delivery.getProperties().getCorrelationId();
             String message = new String(delivery.getBody());
-            System.out.println("message: " + message + ", correlationId: " + correlationId);
+            System.out.println("接收的消息(" + POLY_TB_USER_LOGIN + "): " + message + ", correlationId: " + correlationId);
         };
 
         CancelCallback cancelCallback = consumerTag -> {
             System.out.println("消息消费被中断");
         };
 
-        channel.basicConsume(POLY_TB_USER, true, deliverCallback, cancelCallback);
+        channel.basicConsume(POLY_TB_USER_LOGIN, true, deliverCallback, cancelCallback);
     }
 }
