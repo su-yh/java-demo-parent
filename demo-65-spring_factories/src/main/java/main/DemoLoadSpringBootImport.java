@@ -1,6 +1,7 @@
 package main;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.annotation.ImportCandidates;
 import org.springframework.core.io.UrlResource;
 
 import java.io.BufferedReader;
@@ -13,6 +14,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * 参考：{@link ImportCandidates#load(Class, ClassLoader)}
+ *
  * @author suyh
  * @since 2024-01-13
  */
