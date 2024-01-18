@@ -51,7 +51,7 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
         }
 
         for (int i = 0; i < 10; i++) {
-            Page<AdjustUserEntity> page = Page.of(1, 10000); // AdjustUserEntity 的分页
+            Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
             List<RechargeEntity> entities = makeEntityList(page);
             if (entities == null || entities.isEmpty()) {
                 log.info("RechargeEntity list is empty, tb_user.");

@@ -50,7 +50,7 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
         }
 
         for (int i = 0; i < 10; i++) {
-            Page<AdjustUserEntity> page = Page.of(1, 10000); // AdjustUserEntity 的分页
+            Page<AdjustUserEntity> page = Page.of(1, 100); // AdjustUserEntity 的分页
             List<UserLoginEntity> entities = makeEntityList(page);
 
             ConnectionFactory factory = new ConnectionFactory();

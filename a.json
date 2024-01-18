@@ -1,7 +1,11 @@
 {
-  "correlationId": "1",
-  "uid": "1",
-  "channel": "channel-value",
-  "gaid": "1",
-  "ctime": "19800001"
+  "uid": "107834903",
+  "gaid": "3ef61bf6-3c3f-4134-83a9-51a3bb4744be",
+  "channel": "slm_1300004",
+  "ctime": 1704973990,
+  "pn": "aw",
+  "regDate": 20240111,
+  "statRegDate": 20240111,
+  "hashTime": "202401111720",
+  "dynamicDimension": 0
 }

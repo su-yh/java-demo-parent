@@ -30,6 +30,7 @@ public class UserLoginService {
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
+        long day = 20220426L;
 
         long currentTimeMillis = System.currentTimeMillis();
         int src = 2;    // 1：用户注册；2：用户登录
@@ -45,6 +46,7 @@ public class UserLoginService {
                 UserLoginEntity entity = new UserLoginEntity();
                 entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
                         .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                entity.setDay(day);
 
                 userLoginMapper.insert(entity);
             }
@@ -61,6 +63,7 @@ public class UserLoginService {
                 UserLoginEntity entity = new UserLoginEntity();
                 entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
                         .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                entity.setDay(day);
 
                 userLoginMapper.insert(entity);
             }

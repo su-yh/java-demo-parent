@@ -17,7 +17,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class RabbitMqTopicProducer {
     private final static String EXCHANGE_NAME = "flink_output_topic_exchange";
-    private final static String COHORT_KEY_1 = "cohort_key_1";
+    private final static String COHORT_KEY = "cohort_key";
     private final static String RETENTION_KEY = "paid_retention_key";
 
     public static void main(String[] args) throws IOException, TimeoutException {
@@ -40,7 +40,7 @@ public class RabbitMqTopicProducer {
              */
             AMQP.BasicProperties properties = new AMQP.BasicProperties();
             properties = properties.builder().correlationId(UUID.randomUUID().toString()).build();
-            channel.basicPublish(EXCHANGE_NAME, COHORT_KEY_1, properties, message.getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish(EXCHANGE_NAME, COHORT_KEY, properties, message.getBytes(StandardCharsets.UTF_8));
             channel.basicPublish(EXCHANGE_NAME, RETENTION_KEY, properties, message.getBytes(StandardCharsets.UTF_8));
             System.out.println("消息发送完毕");
         }

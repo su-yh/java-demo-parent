@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class RabbitMqTopicConsumer {
     private final static String EXCHANGE_NAME = "flink_output_topic_exchange";
-    private final static String ROUTING_KEY = "cohort_key_1";
+    private final static String ROUTING_KEY = "cohort_key";
     private final static String QUEUE_NAME = "suyhQueueName_2";
 
     public static void main(String[] args) throws IOException, TimeoutException {

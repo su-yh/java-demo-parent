@@ -32,6 +32,7 @@ public class RechargeService {
         }
 
         Random random = new Random();
+        long day = 20220426L;
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
@@ -50,7 +51,7 @@ public class RechargeService {
                 RechargeEntity entity = new RechargeEntity();
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                         .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                        .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
+                        .setGaid(gaid02).setOriginChannel(channelId01).setDay(day)
                         .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
@@ -72,7 +73,7 @@ public class RechargeService {
                 RechargeEntity entity = new RechargeEntity();
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                         .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                        .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
+                        .setGaid(gaid03).setOriginChannel(channelId01).setDay(day)
                         .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 

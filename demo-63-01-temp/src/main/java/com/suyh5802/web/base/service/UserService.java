@@ -28,6 +28,8 @@ public class UserService {
             return;
         }
 
+        long day = 20220426L;
+
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
 
@@ -44,6 +46,7 @@ public class UserService {
                 UserEntity entity = new UserEntity();
                 entity.setUid(uidNumber + "").setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
                         .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
+                entity.setDay(day);
 
                 userMapper.insert(entity);
             }
@@ -60,6 +63,7 @@ public class UserService {
                 UserEntity entity = new UserEntity();
                 entity.setUid(uidNumber + "").setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
                         .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
+                entity.setDay(day);
 
                 userMapper.insert(entity);
             }

@@ -34,6 +34,7 @@ public class WithdrawalService {
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
+        long day = 20220426L;
 
         {
             long currentTimeMillis = System.currentTimeMillis();
@@ -48,7 +49,7 @@ public class WithdrawalService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                         .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
                         .setOriginChannel(channelId01).setGaid(gaid02)
-                        .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 withdrawalMapper.insert(entity);
@@ -68,7 +69,7 @@ public class WithdrawalService {
                 entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
                         .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
                         .setOriginChannel(channelId01).setGaid(gaid03)
-                        .setDay(1L).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                        .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                         .setLoginChannel(null).setRegisterChannel(null);
 
                 withdrawalMapper.insert(entity);
