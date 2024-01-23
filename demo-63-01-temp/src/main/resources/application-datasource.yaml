@@ -5,5 +5,11 @@ spring:
     username: flink-cds-suyh
     password: flink-cds-suyh
 
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://isuyh.com:3306/flink-cds?useSSL=false&serverTimezone=Asia/Tokyo&characterEncoding=UTF-8
+#    username: flink-cds
+#    password: flink-cds
 
 

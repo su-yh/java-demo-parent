@@ -1,11 +1,11 @@
 
 suyh:
   rmq:
-    host: 139.9.50.208
+    host: 192.168.8.34
     port: 5672
     username: admin
-    password: adminadmin
-    virtual-host: /flinkhost
+    password: aiteer
+    virtual-host: /suyh-flinkhost
 
 
 ---
@@ -31,7 +31,7 @@ spring:
 
 suyh:
   rmq:
-    host: 139.9.50.208
+    host: isuyh.com
     port: 5672
     username: admin
     password: adminadmin

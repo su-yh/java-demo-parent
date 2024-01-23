@@ -98,6 +98,8 @@ public class RandomRechargeRunner implements ApplicationRunner {
 
         long currentTimeMillis = System.currentTimeMillis();
 
+        long day = 20220526L;
+
         for (int i = 0; i < 10000; i++) {
 
             {
@@ -114,13 +116,13 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     RechargeEntity entity = new RechargeEntity();
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                            .setGaid(gaid02).setOriginChannel(channelId01).setDay(null)
+                            .setGaid(gaid02).setOriginChannel(channelId01).setDay(day)
                             .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
                     // rechargeDate regDate 必须满足格式：yyyyMMdd
-                    entity.setDay(1L).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
+                    entity.setDay(day).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
                     entities.add(entity);
                 }
             }
@@ -139,13 +141,13 @@ public class RandomRechargeRunner implements ApplicationRunner {
                     RechargeEntity entity = new RechargeEntity();
                     entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
-                            .setGaid(gaid03).setOriginChannel(channelId01).setDay(null)
+                            .setGaid(gaid03).setOriginChannel(channelId01).setDay(day)
                             .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
                     // rechargeDate regDate 必须满足格式：yyyyMMdd
-                    entity.setDay(1L).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
+                    entity.setDay(day).setRegDate(20231011L).setStatRegDate(1L).setRechargeDate(20231011L);
 
                     entities.add(entity);
                 }
