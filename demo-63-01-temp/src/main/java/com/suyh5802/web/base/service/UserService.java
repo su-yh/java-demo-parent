@@ -28,7 +28,7 @@ public class UserService {
             return;
         }
 
-        long day = 20220426L;
+        long day = 20220526L;
 
         // 这些是根据那边提供的测试数据，来生成的有用的测试数据。
         String channelId01 = "slm_3000010";
