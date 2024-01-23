@@ -361,6 +361,75 @@
 
     </profiles>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!--打包拷贝插件-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <executions>
+                        <execution>
+                            <id>copy</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>${groupId}</groupId>
+                                        <artifactId>${artifactId}</artifactId>
+                                        <version>${version}</version>
+                                        <outputDirectory>${basedir}/build-dir/</outputDirectory>
+                                        <destFileName>${artifactId}.jar</destFileName>
+                                    </artifactItem>
+                                </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--将相关的包解压，并取出里面的某些文件并拷贝到指定目录-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <executions>
+                        <execution>
+                            <id>unpack</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>${groupId}</groupId>
+                                        <artifactId>${artifactId}</artifactId>
+                                        <version>${version}</version>
+                                        <!-- <outputDirectory>${project.build.directory}/flink-plus/</outputDirectory>-->
+                                        <outputDirectory>${basedir}/../build-dir/flink-plus/</outputDirectory>
+                                        <includes>BOOT-INF/lib/**</includes>
+                                        <fileMappers>
+                                            <!--将 BOOT-INF/lib/ 替换成 ./ -->
+                                            <!-- 如果不替换，那么输出的目录里面就会存在 BOOT-INF/lib/ 原生的目录，这里主要是想把这个目录下面的所有jar 包拷贝出来到一个指定目录中。-->
+                                            <org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                                <pattern>^\QBOOT-INF/lib/\E</pattern>
+                                                <replacement>./</replacement>
+                                            </org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                        </fileMappers>
+                                    </artifactItem>
+                                </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <!--我在阿里云效上的个人镜像仓库地址-->
     <distributionManagement>
         <repository>
