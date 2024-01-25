@@ -17,5 +17,6 @@
 
     <modules>
         <module>demo-07-mp-01</module>
+        <module>demo-07-mp-02-generator</module>
     </modules>
 </project>
