@@ -8,6 +8,9 @@ spring:
     username: admin
     password: aiteer
     virtual-host: /aiteer-vcs
+    template:
+      # 这里也可以配置exchange
+      exchange: "topicExchange"
 
 
 

@@ -3,6 +3,7 @@ package com.suyh07011.init;
 import com.suyh07011.config.TopicRabbitConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -49,6 +50,15 @@ public class TestApplicationRunner implements ApplicationRunner {
         womenMap.put("messageId", messageId);
         womenMap.put("messageData", messageData);
         womenMap.put("createTime", createTime);
-        rabbitTemplate.convertAndSend(TopicRabbitConfig.EXCHANGE, TopicRabbitConfig.TOPIC_WOMEN, womenMap);
+        rabbitTemplate.convertAndSend(TopicRabbitConfig.EXCHANGE, TopicRabbitConfig.TOPIC_WOMEN, womenMap, message -> {
+            // 发送消息的后置处理回调，在发送到rmq 之前调用， 在这里可以添加相关属性
+            MessageProperties properties = message.getMessageProperties();
+            if (properties == null) {
+                properties = new MessageProperties();
+            }
+            // 在这里可以添加属性
+            // properties.setCorrelationId(UUID.randomUUID().toString());
+            return message;
+        });
     }
 }
