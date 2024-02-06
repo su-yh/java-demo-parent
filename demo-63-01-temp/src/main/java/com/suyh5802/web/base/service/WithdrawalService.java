@@ -36,43 +36,45 @@ public class WithdrawalService {
         String channelId01 = "slm_3000010";
         long day = 20220526L;
 
-        {
-            long currentTimeMillis = System.currentTimeMillis();
-            String channelId02 = "slg_1300230";
-            String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
+        for (int i = 0; i < 10000; i++) {
+            {
+                long currentTimeMillis = System.currentTimeMillis();
+                String channelId02 = "slg_1300230";
+                String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
 
-            for (PN pn : PN.values()) {
-                Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
-                Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                for (PN pn : PN.values()) {
+                    Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                WithdrawalEntity entity = new WithdrawalEntity();
-                entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
-                        .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
-                        .setOriginChannel(channelId01).setGaid(gaid02)
-                        .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
-                        .setLoginChannel(null).setRegisterChannel(null);
+                    WithdrawalEntity entity = new WithdrawalEntity();
+                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                            .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
+                            .setOriginChannel(channelId01).setGaid(gaid02)
+                            .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setLoginChannel(null).setRegisterChannel(null);
 
-                withdrawalMapper.insert(entity);
+                    withdrawalMapper.insert(entity);
+                }
             }
-        }
 
-        {
-            long currentTimeMillis = System.currentTimeMillis();
-            String channelId03 = "slg_1000054";
-            String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
+            {
+                long currentTimeMillis = System.currentTimeMillis();
+                String channelId03 = "slg_1000054";
+                String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
 
-            for (PN pn : PN.values()) {
-                Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
-                Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                for (PN pn : PN.values()) {
+                    Long uid = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                WithdrawalEntity entity = new WithdrawalEntity();
-                entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
-                        .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
-                        .setOriginChannel(channelId01).setGaid(gaid03)
-                        .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
-                        .setLoginChannel(null).setRegisterChannel(null);
+                    WithdrawalEntity entity = new WithdrawalEntity();
+                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                            .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
+                            .setOriginChannel(channelId01).setGaid(gaid03)
+                            .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setLoginChannel(null).setRegisterChannel(null);
 
-                withdrawalMapper.insert(entity);
+                    withdrawalMapper.insert(entity);
+                }
             }
         }
     }

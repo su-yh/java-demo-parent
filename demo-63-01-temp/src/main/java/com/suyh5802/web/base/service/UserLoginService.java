@@ -35,37 +35,39 @@ public class UserLoginService {
         long currentTimeMillis = System.currentTimeMillis();
         int src = 2;    // 1：用户注册；2：用户登录
 
-        {
-            String channelId02 = "slg_1300230";
-            String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
+        for (int i = 0; i < 10000; i++) {
+            {
+                String channelId02 = "slg_1300230";
 
-            for (PN pn : PN.values()) {
-                Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
-                Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                for (PN pn : PN.values()) {
+                    Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    String gaid02 = uidNumber +"";
+                    Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                UserLoginEntity entity = new UserLoginEntity();
-                entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
-                        .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
-                entity.setDay(day);
+                    UserLoginEntity entity = new UserLoginEntity();
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
+                            .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                    entity.setDay(day);
 
-                userLoginMapper.insert(entity);
+                    userLoginMapper.insert(entity);
+                }
             }
-        }
 
-        {
-            String channelId03 = "slg_1000054";
-            String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
+            {
+                String channelId03 = "slg_1000054";
 
-            for (PN pn : PN.values()) {
-                Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
-                Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
+                for (PN pn : PN.values()) {
+                    Long uidNumber = DefaultIdentifierGenerator.getInstance().nextId(null);
+                    String gaid03 = uidNumber +"";
+                    Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
-                UserLoginEntity entity = new UserLoginEntity();
-                entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
-                        .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
-                entity.setDay(day);
+                    UserLoginEntity entity = new UserLoginEntity();
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
+                            .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
+                    entity.setDay(day);
 
-                userLoginMapper.insert(entity);
+                    userLoginMapper.insert(entity);
+                }
             }
         }
     }
