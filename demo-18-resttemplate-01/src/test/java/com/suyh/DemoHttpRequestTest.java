@@ -87,6 +87,7 @@ public class DemoHttpRequestTest {
         // 这里应该是路径参数
         // URI (URL) parameters
         Map<String, String> urlParams = new HashMap<>();
+        // 这样是不行的
         urlParams.put("planet", "Mars");
         urlParams.put("moon", "Phobos");
 
@@ -95,7 +96,9 @@ public class DemoHttpRequestTest {
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
                 // Add query parameter
                 .queryParam("firstName", "Mark")
-                .queryParam("lastName", "Watney");
+                .queryParam("lastName", "Watney")
+                // 按顺序给路径参数
+                .pathSegment("Mars", "Phobos");
 
             // 如果没有路径参数就直接构建就可以了。
         URI uri1 = builder.build().toUri();
