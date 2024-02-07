@@ -84,20 +84,14 @@ public class DemoHttpRequestTest {
     public void tttt() {
         String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
 
-        // 这里应该是路径参数
-        // URI (URL) parameters
-        Map<String, String> urlParams = new HashMap<>();
-        // 这样是不行的
-        urlParams.put("planet", "Mars");
-        urlParams.put("moon", "Phobos");
-
-        // 这里应该就是查询参数
         // Query parameters
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
                 // Add query parameter
                 .queryParam("firstName", "Mark")
                 .queryParam("lastName", "Watney")
                 // 按顺序给路径参数
+                // 这是直接往uri 上添加路径，比如uri是: http://test.com/solarSystem，添加如下代码，则uri会补充为：http://test.com/solarSystem/Mars/Phobos
+                // 所以在url 上面就不用写完整路径了，只需要写到域名即可。
                 .pathSegment("Mars", "Phobos");
 
             // 如果没有路径参数就直接构建就可以了。
@@ -112,7 +106,11 @@ public class DemoHttpRequestTest {
         headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<Notice> reqEntity = new HttpEntity<>(new Notice(), headers);
 
-        URI uri = builder.buildAndExpand(urlParams).toUri();
+        // 路径参数
+        Map<String, String> pathParams = new HashMap<>();
+        pathParams.put("planet", "Mars");
+        pathParams.put("moon", "Phobos");
+        URI uri = builder.buildAndExpand(pathParams).toUri();
         // 返回值类型可以指定一个class 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(
                 uri, HttpMethod.PUT, reqEntity, String.class);
