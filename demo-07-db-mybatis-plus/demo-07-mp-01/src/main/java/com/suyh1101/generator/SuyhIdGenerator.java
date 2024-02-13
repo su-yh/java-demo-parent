@@ -27,6 +27,7 @@ public class SuyhIdGenerator implements IdentifierGenerator {
 
     public SuyhIdGenerator() {
         // 程序启动的时候就先来一个随机值吧，这个影响不大，不要秋考虑得太极端了。
+        // TODO: suyh - 初始化也应该使用数据库的数据。
         this.sequence = new Sequence();
     }
 
@@ -52,6 +53,7 @@ public class SuyhIdGenerator implements IdentifierGenerator {
         return Long.toHexString(number);
     }
 
+    // TODO: suyh -
     // 每隔一个小时去数据库查一下，来更新一下这个Sequence，然后在程序启动的时候也从数据库查询一个来初始化。
     // 这个就放到一个runner 里面去处理实现就好了。
     @EventListener(UpdateSequenceEvent.class)

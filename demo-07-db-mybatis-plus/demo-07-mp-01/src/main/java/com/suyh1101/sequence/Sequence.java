@@ -58,39 +58,45 @@ public class Sequence {
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      * suyh - 该值需要项目首次运行时就必须固定，后续就不可变更，它的作用是提供时间戳的初始值，使得基于时间戳的部分不会长度溢出。
      */
-    private static final long twepoch;
+    private static final long TW_EPOCH;
 
     static {
         LocalDate localDate = LocalDate.of(2020, 1, 1);
         LocalDateTime localDateTime = localDate.atStartOfDay();
         ZoneId zoneId = ZoneId.of("Asia/Shanghai");
-        twepoch = localDateTime.atZone(zoneId).toInstant().toEpochMilli();
+        TW_EPOCH = localDateTime.atZone(zoneId).toInstant().toEpochMilli();
     }
 
     /**
      * 5位的机房id
      */
-    private static final long datacenterIdBits = 5L;
+    private static final long DATACENTER_ID_BITS = 5L;
     /**
      * 5位的机器id
      */
-    private static final long workerIdBits = 5L;
+    private static final long WORKER_ID_BITS = 5L;
     /**
      * 每毫秒内产生的id数: 2的12次方个
      */
-    private static final long sequenceBits = 12L;
+    private static final long SEQUENCE_BITS = 12L;
 
-    protected static final long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    protected static final long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    // suyh - 最大的dataCenterId 的值，即：低5 位全为1， 0001 1111  ==>   0X1F
+    protected static final long MAX_DATACENTER_ID = ~(-1L << DATACENTER_ID_BITS);
+    // suyh - 最大的workerId 的值，低5 位全为1， 0001 1111 ==> 0X1F
+    protected static final long MAX_WORKER_ID = ~(-1L << WORKER_ID_BITS);
+    // suyh - 最大的序列号的值。
+    private static final long SEQUENCE_MASK = ~(-1L << SEQUENCE_BITS);
 
-    private static final long workerIdShift = sequenceBits;
-    private static final long datacenterIdShift = sequenceBits + workerIdBits;
+    // suyh - workerId 所在二进制位的位置，左移位数。
+    private static final long WORKER_ID_SHIFT = SEQUENCE_BITS;
+    // suyh - datacenterId 所在二进制位的位置，左移位数。
+    private static final long DATACENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
 
     /**
      * 时间戳左移动位
+     * suyh - 时间戳的二进制位置
      */
-    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+    private static final long TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATACENTER_ID_BITS;
 
     /**
      * 所属机房id
@@ -125,11 +131,11 @@ public class Sequence {
      * @param datacenterId 序列号
      */
     public Sequence(long workerId, long datacenterId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("Worker Id can't be greater than %d or less than 0", maxWorkerId));
+        if (workerId > MAX_WORKER_ID || workerId < 0) {
+            throw new IllegalArgumentException(String.format("Worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }
-        if (datacenterId > maxDatacenterId || datacenterId < 0) {
-            throw new IllegalArgumentException(String.format("Datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
+        if (datacenterId > MAX_DATACENTER_ID || datacenterId < 0) {
+            throw new IllegalArgumentException(String.format("Datacenter Id can't be greater than %d or less than 0", MAX_DATACENTER_ID));
         }
 
         this.workerId = workerId;
@@ -138,14 +144,14 @@ public class Sequence {
 
     // 把workerId 和datacenterId 合并在一起
     public Sequence(long instanceId) {
-        long instanceIdBits = workerIdBits + datacenterIdBits;
-        long instanceIdMax = -1L ^ (-1L << instanceIdBits);
+        long instanceIdBits = WORKER_ID_BITS + DATACENTER_ID_BITS;
+        long instanceIdMax = ~(-1L << instanceIdBits);
         if (instanceId > instanceIdMax) {
             throw new IllegalArgumentException(String.format("Instance Id can't be greater than %d or less than 0", instanceIdMax));
         }
 
-        this.workerId = instanceId >> datacenterIdBits;
-        this.datacenterId = instanceId & maxDatacenterId;
+        this.workerId = instanceId >> DATACENTER_ID_BITS;
+        this.datacenterId = instanceId & MAX_DATACENTER_ID;
     }
 
     /**
@@ -163,7 +169,7 @@ public class Sequence {
                 byte[] mac = network.getHardwareAddress();
                 if (null != mac) {
                     id = ((0x000000FF & (long) mac[mac.length - 2]) | (0x0000FF00 & (((long) mac[mac.length - 1]) << 8))) >> 6;
-                    id = id % (maxDatacenterId + 1);
+                    id = id % (MAX_DATACENTER_ID + 1);
                 }
             }
         } catch (Exception e) {
@@ -188,7 +194,7 @@ public class Sequence {
         }
 
         // MAC + PID 的 hashcode 获取16个低位
-        return (mpId.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+        return (mpId.toString().hashCode() & 0xffff) % (MAX_WORKER_ID + 1);
     }
 
     /**
@@ -219,7 +225,7 @@ public class Sequence {
 
         if (lastTimestamp == timestamp) {
             // 相同毫秒内，序列号自增
-            sequence = (sequence + 1) & sequenceMask;
+            sequence = (sequence + 1) & SEQUENCE_MASK;
             if (sequence == 0) {
                 // 同一毫秒的序列数已经达到最大
                 timestamp = tilNextMillis(lastTimestamp);
@@ -232,9 +238,9 @@ public class Sequence {
         lastTimestamp = timestamp;
 
         // 时间戳部分 | 数据中心部分 | 机器标识部分 | 序列号部分
-        return ((timestamp - twepoch) << timestampLeftShift)
-                | (datacenterId << datacenterIdShift)
-                | (workerId << workerIdShift)
+        return ((timestamp - TW_EPOCH) << TIMESTAMP_LEFT_SHIFT)  // 时间戳 所在位置
+                | (datacenterId << DATACENTER_ID_SHIFT)  // datacenter id 所在位置
+                | (workerId << WORKER_ID_SHIFT)   // worker id 所在位置
                 | sequence;
     }
 
