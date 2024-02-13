@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Enumeration;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
@@ -53,8 +56,16 @@ public class Sequence {
 
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
+     * suyh - 该值需要项目首次运行时就必须固定，后续就不可变更，它的作用是提供时间戳的初始值，使得基于时间戳的部分不会长度溢出。
      */
-    private final long twepoch = 1519740777809L;
+    private static final long twepoch;
+
+    static {
+        LocalDate localDate = LocalDate.of(2020, 1, 1);
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+        ZoneId zoneId = ZoneId.of("Asia/Shanghai");
+        twepoch = localDateTime.atZone(zoneId).toInstant().toEpochMilli();
+    }
 
     /**
      * 5位的机房id
