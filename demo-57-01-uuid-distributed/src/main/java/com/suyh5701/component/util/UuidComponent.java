@@ -24,10 +24,12 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 对于某服务集群的每个实例中都可以生成全局唯一ID，但是跨服务集群就有碰撞的可能性。
  * 所以需要按业务在对应的服务集群中生成对应的全局唯一ID，不要跨服务集群生成ID
+ * @deprecated 参考：SuyhIdGenerator
  */
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@Deprecated
 public class UuidComponent implements InitializingBean {
     // 1 秒内最多允许产生的UUID 数量，超过则会重复。
     private static final int MAX_LOCAL_SEQUENCE = 0XFFFFFF;

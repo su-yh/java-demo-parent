@@ -247,6 +247,7 @@ public class Sequence {
     protected long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
+            Thread.yield();
             timestamp = timeGen();
         }
 
