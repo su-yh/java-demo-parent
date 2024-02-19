@@ -1,5 +1,6 @@
 package com.suyh5802.web.base.runner.mq;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -38,7 +39,10 @@ public class WithdrawalRunner implements ApplicationRunner {
             return;
         }
 
-        List<WithdrawalEntity> entities = withdrawalMapper.selectList(null);
+        LambdaQueryWrapper<WithdrawalEntity> queryWrapper =  new LambdaQueryWrapper<>();
+        queryWrapper.ge(WithdrawalEntity::getId, 20002);
+        queryWrapper.le(WithdrawalEntity::getId, 20105);
+        List<WithdrawalEntity> entities = withdrawalMapper.selectList(queryWrapper);
         if (entities == null || entities.isEmpty()) {
             log.info("WithdrawalEntity list is empty, tb_user.");
             return;

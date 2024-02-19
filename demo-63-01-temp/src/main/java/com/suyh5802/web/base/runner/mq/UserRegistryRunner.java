@@ -1,5 +1,6 @@
 package com.suyh5802.web.base.runner.mq;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -42,7 +43,10 @@ public class UserRegistryRunner implements ApplicationRunner {
             return;
         }
 
-        List<UserEntity> entities = userMapper.selectList(null);
+        LambdaQueryWrapper<UserEntity> queryWrapper =  new LambdaQueryWrapper<>();
+        queryWrapper.ge(UserEntity::getId, 20002);
+        queryWrapper.le(UserEntity::getId, 20105);
+        List<UserEntity> entities = userMapper.selectList(queryWrapper);
         if (entities == null || entities.isEmpty()) {
             log.info("UserEntity list is empty, tb_user.");
             return;
