@@ -19,7 +19,7 @@ public class WithdrawalEntity extends BaseMqVo {
     private Long id;
 
     private String uid;
-    private Long ctime;
+    private Long ctime; // 原来这个值的单位是s
     private BigDecimal amount;
     private String channel;
     private Long vungoWithdrawalId;

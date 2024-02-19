@@ -18,7 +18,7 @@ public class UserLoginEntity extends BaseMqVo {
     private String uid;
     private Integer src;
     private String channel;
-    private Long ctime;
+    private Long ctime; // 原来这个值的单位是s
     private String gaid;
     private String originChannel;
     private Long vungoUserLoginId;

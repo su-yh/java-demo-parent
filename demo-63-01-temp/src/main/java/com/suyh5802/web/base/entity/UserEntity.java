@@ -17,7 +17,7 @@ public class UserEntity extends BaseMqVo {
 
     private String uid;
     private String channel;
-    private Long ctime;
+    private Long ctime; // 原来这个值的单位是s
     private String gaid;
     private String originChannel;
     private Long vungoUserId;
