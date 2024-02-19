@@ -8,6 +8,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -24,7 +26,7 @@ public class RabbitMqTopicConsumer {
         factory.setHost("192.168.8.34");
         factory.setUsername("admin");
         factory.setPassword("aiteer");
-        factory.setVirtualHost("/flinkhost");
+        factory.setVirtualHost("/suyh-flinkhost");
 
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
@@ -34,9 +36,11 @@ public class RabbitMqTopicConsumer {
 
         System.out.println("等待接收消息...");
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            String currentTime = sdf.format(new Date());
             String correlationId = delivery.getProperties().getCorrelationId();
             String message = new String(delivery.getBody());
-            System.out.println("接收的消息(" + EXCHANGE_NAME + "), routing key: " + ROUTING_KEY + ": " + message + ", correlationId: " + correlationId);
+            System.out.println(currentTime + ", 接收的消息(" + EXCHANGE_NAME + "), routing key: " + ROUTING_KEY + ": " + message + ", correlationId: " + correlationId);
         };
 
         CancelCallback cancelCallback = consumerTag -> {
