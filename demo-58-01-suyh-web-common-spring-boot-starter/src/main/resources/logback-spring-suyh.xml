@@ -2,6 +2,8 @@
 
 <!-- 注意这个文件名，似乎只能是这个，否则springProperty 会有问题配置这个文件名系统会自动加载这个配置 -->
 <configuration>
+    <!-- 引用 Spring Boot 的 logback 基础配置 -->
+<!--    <include resource="org/springframework/boot/logging/logback/defaults.xml" />-->
     <!-- 如果这个文件的文件名不是logback-spring.xml 的话这个属性应该是不被支持的 -->
     <!-- 从springboot 的application.yaml 配置文件中获取配置值 -->
     <!-- springProperty 标签，这里替代logback 的默认 property 标签 -->
@@ -10,8 +12,9 @@
     <!-- defaultValue属性：如果在没有找到 source 指定的key 则使用该值 -->
     <!--<springProperty scope="context" name="LOG_HOME" source="logback.file.dir" defaultValue="/home/logs-default" />-->
     <!-- 格式化输出：%d 表示日期，%X{tid} SkWalking 链路追踪编号，%thread 表示线程名，%-5level：级别从左显示 5 个字符宽度，%msg：日志消息，%n是换行符 -->
-    <property name="PATTERN_STDOUT" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.120logger:%L{39}) | %m%n"/>
-    <property name="PATTERN_FILE" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.120logger:%L{39} | %m%n"/>
+    <!-- %-20.20logger:%4L 左对齐最少20 个字符(不够补空格)，最大20 个字符。再显示行号时右对齐，最少4 个字符(不够补空格) -->
+    <property name="PATTERN_STDOUT" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%-20.20thread) %boldGreen(%-40.40logger:%4L) | %m%n"/>
+    <property name="PATTERN_FILE" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } | %thread %-40.40logger:%4L | %m%n"/>
 
 
     <!-- 控制台输出 -->

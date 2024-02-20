@@ -1,11 +1,14 @@
 {
-  "uid": "107834903",
-  "gaid": "3ef61bf6-3c3f-4134-83a9-51a3bb4744be",
-  "channel": "slm_1300004",
-  "ctime": 1704973990,
-  "pn": "aw",
-  "regDate": 20240111,
-  "statRegDate": 20240111,
-  "hashTime": "202401111720",
-  "dynamicDimension": 0
+  "adCampaignKey": "pkg-com.rruo.goldennludo.ogott-channelid-slg_1300230-source-GG-campaign-20829671889",
+  "channel": "slg_1300230",
+  "correlationId": "1708329813984",
+  "ctime": 1707113095757,
+  "day": "20220101",
+  "dynamicDimension": 0,
+  "gaid": "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768",
+  "hashTime": "5606604052330",
+  "pn": "HY",
+  "regDate": 560660405,
+  "statRegDate": 560660405,
+  "uid": "1754385596422660099"
 }
