@@ -99,7 +99,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
 
         for (int i = 0; i < 10000; i++) {
             {
-                currentTimeMillis++;
+                long curTimeSeconds = currentTimeMillis++ / 1000;
                 String channelId02 = "slg_1300230";
                 String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
 
@@ -108,10 +108,10 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                     Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     WithdrawalEntity entity = new WithdrawalEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                    entity.setUid(uid + "").setCtime(curTimeSeconds).setAmount(new BigDecimal(random.nextInt(500)))
                             .setChannel(channelId02).setVungoWithdrawalId(vungoRechargeId)
                             .setOriginChannel(channelId01).setGaid(gaid02)
-                            .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setDay(day).setOrder(uid + "").setCts(curTimeSeconds).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL
@@ -121,7 +121,7 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
             }
 
             {
-                currentTimeMillis++;
+                long curTimeSeconds = currentTimeMillis++ / 1000;
                 String channelId03 = "slg_1000054";
                 String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
 
@@ -130,10 +130,10 @@ public class RandomWithdrawalRunner implements ApplicationRunner {
                     Long vungoRechargeId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     WithdrawalEntity entity = new WithdrawalEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setAmount(new BigDecimal(random.nextInt(500)))
+                    entity.setUid(uid + "").setCtime(curTimeSeconds).setAmount(new BigDecimal(random.nextInt(500)))
                             .setChannel(channelId03).setVungoWithdrawalId(vungoRechargeId)
                             .setOriginChannel(channelId01).setGaid(gaid03)
-                            .setDay(day).setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setDay(day).setOrder(uid + "").setCts(curTimeSeconds).setPn(pn.name()).setMtime(null)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL

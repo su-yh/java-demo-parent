@@ -94,7 +94,7 @@ public class RandomUserLoginRunner implements ApplicationRunner {
         int src = 2;    // 1：用户注册；2：用户登录
 
         for (int i = 0; i < 10000; i++) {
-            currentTimeMillis++;
+            long curTimeSeconds = currentTimeMillis++ / 1000;
             {
                 String channelId02 = "slg_1300230";
                 String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
@@ -104,7 +104,7 @@ public class RandomUserLoginRunner implements ApplicationRunner {
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     UserLoginEntity entity = new UserLoginEntity();
-                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId02).setCtime(curTimeSeconds).setGaid(gaid02)
                             .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);
@@ -120,7 +120,7 @@ public class RandomUserLoginRunner implements ApplicationRunner {
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     UserLoginEntity entity = new UserLoginEntity();
-                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId03).setCtime(curTimeSeconds).setGaid(gaid03)
                             .setOriginChannel(channelId01).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);

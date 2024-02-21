@@ -124,7 +124,7 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
             // adEntities 有1000 + 这里的循环次数要注意，10 就很多了。
             int size = 10;
             for (int i = 0; i < size; i++) {
-                currentTimeMillis++;
+                long curTimeSeconds = currentTimeMillis++ / 1000;
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 
@@ -135,10 +135,10 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
                     String uuidString = UUID.randomUUID().toString().replace("-", "");
 
                     RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                    entity.setUid(uid + "").setCtime(curTimeSeconds).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                             .setGaid(gaid).setOriginChannel(originChannelId).setDay(1L).setRegDate(dateLong)
-                            .setOrder(uuidString).setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setOrder(uuidString).setCts(curTimeSeconds).setPn(pn.name()).setMtime(curTimeSeconds)
                             .setLoginChannel(channelId).setRegisterChannel(channelId);
 
                     // suyh - 在flink 中跑null 指针异常了，不知道这几个数据是不是应该非NULL

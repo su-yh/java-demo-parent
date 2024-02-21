@@ -40,6 +40,7 @@ public class RechargeService {
         for (int i = 0; i < 10000; i++) {
             {
                 long currentTimeMillis = System.currentTimeMillis();
+                long curTimeSeconds = currentTimeMillis / 1000;
                 String channelId02 = "slg_1300230";
                 String gaid02 = "ce52ee0f-6f2f-44c5-ae17-c0e8848aa768";
 
@@ -50,10 +51,10 @@ public class RechargeService {
                     String uuidString = UUID.randomUUID().toString().replace("-", "");
 
                     RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                    entity.setUid(uid + "").setCtime(curTimeSeconds).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId02).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                             .setGaid(gaid02).setOriginChannel(channelId01).setDay(day)
-                            .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setOrder(uid + "").setCts(curTimeSeconds).setPn(pn.name()).setMtime(curTimeSeconds)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     rechargeMapper.insert(entity);
@@ -62,6 +63,7 @@ public class RechargeService {
 
             {
                 long currentTimeMillis = System.currentTimeMillis();
+                long curTimeSeconds = currentTimeMillis / 1000;
                 String channelId03 = "slg_1000054";
                 String gaid03 = "f0dd4fae-77aa-4922-8988-099847ca2d68";
 
@@ -72,10 +74,10 @@ public class RechargeService {
                     String uuidString = UUID.randomUUID().toString().replace("-", "");
 
                     RechargeEntity entity = new RechargeEntity();
-                    entity.setUid(uid + "").setCtime(currentTimeMillis).setGoodsAmt(new BigDecimal(random.nextInt(300)))
+                    entity.setUid(uid + "").setCtime(curTimeSeconds).setGoodsAmt(new BigDecimal(random.nextInt(300)))
                             .setChannel(channelId03).setChips(uuidString).setVungoRechargeId(vungoRechargeId)
                             .setGaid(gaid03).setOriginChannel(channelId01).setDay(day)
-                            .setOrder(uid + "").setCts(currentTimeMillis).setPn(pn.name()).setMtime(null)
+                            .setOrder(uid + "").setCts(curTimeSeconds).setPn(pn.name()).setMtime(curTimeSeconds)
                             .setLoginChannel(null).setRegisterChannel(null);
 
                     rechargeMapper.insert(entity);

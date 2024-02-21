@@ -96,6 +96,7 @@ public class RandomUserRegistryRunner implements ApplicationRunner {
         String channelId01 = "slm_3000010";
 
         long currentTimeMillis = System.currentTimeMillis();
+        long curTimeSeconds = currentTimeMillis / 1000;
 
         for (int i = 0; i < 10000; i++) {
             {
@@ -107,7 +108,7 @@ public class RandomUserRegistryRunner implements ApplicationRunner {
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     UserEntity entity = new UserEntity();
-                    entity.setUid(uidNumber + "").setChannel(channelId02).setCtime(currentTimeMillis).setGaid(gaid02)
+                    entity.setUid(uidNumber + "").setChannel(channelId02).setCtime(curTimeSeconds).setGaid(gaid02)
                             .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);
@@ -123,7 +124,7 @@ public class RandomUserRegistryRunner implements ApplicationRunner {
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     UserEntity entity = new UserEntity();
-                    entity.setUid(uidNumber + "").setChannel(channelId03).setCtime(currentTimeMillis).setGaid(gaid03)
+                    entity.setUid(uidNumber + "").setChannel(channelId03).setCtime(curTimeSeconds).setGaid(gaid03)
                             .setOriginChannel(channelId01).setVungoUserId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);

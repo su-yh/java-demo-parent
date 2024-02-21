@@ -108,8 +108,7 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
 
         for (AdjustUserEntity adUserEntity : adUserEntities) {
             for (int i = 0; i < 10; i++) {
-                currentTimeMillis++;
-
+                long curTimeSeconds = currentTimeMillis++ / 1000;
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 
@@ -118,7 +117,7 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
                     Long vungoUserLoginId = DefaultIdentifierGenerator.getInstance().nextId(null);
 
                     UserLoginEntity entity = new UserLoginEntity();
-                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId).setCtime(currentTimeMillis).setGaid(gaid)
+                    entity.setUid(uidNumber + "").setSrc(src).setChannel(channelId).setCtime(curTimeSeconds).setGaid(gaid)
                             .setOriginChannel(originChannelId).setVungoUserLoginId(vungoUserLoginId).setPn(pn.name());
 
                     entities.add(entity);
