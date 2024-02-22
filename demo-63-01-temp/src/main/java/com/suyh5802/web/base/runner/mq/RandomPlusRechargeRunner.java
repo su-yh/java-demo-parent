@@ -95,6 +95,11 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
                             // deliveryMode 的值必须为2 才会持久化到磁盘上，否则服务器重启数据就没了。
                             .deliveryMode(2).build();
                     channel.basicPublish("", POLY_TB_RECHARGE, properties, message.getBytes(StandardCharsets.UTF_8));
+                    if (false) {
+                        // suyh - 仅写一条，需要打断点时好用。
+                        System.out.println("消息发送完毕, size: 1");
+                        return;
+                    }
                 }
 
                 System.out.println("消息发送完毕, RechargeEntity size: " + entities.size());
@@ -118,13 +123,14 @@ public class RandomPlusRechargeRunner implements ApplicationRunner {
         LocalDate localDate = LocalDate.now();
         String dateString = localDate.toString().replace("-", "");
         long dateLong = Long.parseLong(dateString);
+        long curTimeSeconds = currentTimeMillis++ / 1000;
 
         for (AdjustUserEntity adUserEntity : adUserEntities) {
 
             // adEntities 有1000 + 这里的循环次数要注意，10 就很多了。
             int size = 10;
             for (int i = 0; i < size; i++) {
-                long curTimeSeconds = currentTimeMillis++ / 1000;
+                curTimeSeconds++;
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 

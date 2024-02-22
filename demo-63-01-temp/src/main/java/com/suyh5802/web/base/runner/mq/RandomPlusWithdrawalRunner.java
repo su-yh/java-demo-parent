@@ -88,6 +88,11 @@ public class RandomPlusWithdrawalRunner implements ApplicationRunner {
                     AMQP.BasicProperties properties = new AMQP.BasicProperties();
                     properties = properties.builder().correlationId(correlationId + "").build();
                     channel.basicPublish("", POLY_TB_WITHDRAWAL, properties, message.getBytes(StandardCharsets.UTF_8));
+                    if (false) {
+                        // suyh - 仅写一条，需要打断点时好用。
+                        System.out.println("消息发送完毕, size: 1");
+                        return;
+                    }
                 }
 
                 System.out.println("消息发送完毕, WithdrawalEntity size: " + entities.size());
@@ -107,11 +112,11 @@ public class RandomPlusWithdrawalRunner implements ApplicationRunner {
         String originChannelId = sourceAdEntity.getChannelid();
 
         long currentTimeMillis = System.currentTimeMillis();
+        long timestampSecond = currentTimeMillis / 1000;
 
         for (AdjustUserEntity adUserEntity : adUserEntities) {
             for (int i = 0; i < 10; i++) {
-                currentTimeMillis++;
-                long timestampSecond = currentTimeMillis / 1000;
+                timestampSecond++;
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 
@@ -123,7 +128,7 @@ public class RandomPlusWithdrawalRunner implements ApplicationRunner {
                     entity.setUid(uid + "").setCtime(timestampSecond).setAmount(new BigDecimal(random.nextInt(500)))
                             .setChannel(channelId).setVungoWithdrawalId(vungoRechargeId)
                             .setOriginChannel(originChannelId).setGaid(gaid)
-                            .setDay(1L).setOrder(uid + "").setCts(timestampSecond).setPn(pn.name()).setMtime(null)
+                            .setDay(1L).setOrder(uid + "").setCts(timestampSecond).setPn(pn.name()).setMtime(timestampSecond)
                             .setLoginChannel(channelId).setRegisterChannel(channelId);
 
                     entities.add(entity);

@@ -91,6 +91,11 @@ public class RandomPlusUserRegistryRunner implements ApplicationRunner {
                     AMQP.BasicProperties properties = new AMQP.BasicProperties();
                     properties = properties.builder().correlationId(correlationId + "").build();
                     channel.basicPublish("", POLY_TB_USER, properties, message.getBytes(StandardCharsets.UTF_8));
+                    if (false) {
+                        // suyh - 仅写一条，需要打断点时好用。
+                        System.out.println("消息发送完毕, size: 1");
+                        return;
+                    }
                 }
 
                 System.out.println("消息发送完毕, UserEntity size: " + entities.size());
@@ -113,6 +118,7 @@ public class RandomPlusUserRegistryRunner implements ApplicationRunner {
 
         for (AdjustUserEntity adUserEntity : adUserEntities) {
             for (int i = 0; i < 10; i++) {
+                ++curTimeSeconds; // 事件时间
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 

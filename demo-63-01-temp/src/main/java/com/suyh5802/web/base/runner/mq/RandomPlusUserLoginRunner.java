@@ -86,6 +86,11 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
                     AMQP.BasicProperties properties = new AMQP.BasicProperties();
                     properties = properties.builder().correlationId(correlationId + "").build();
                     channel.basicPublish("", POLY_TB_USER_LOGIN, properties, message.getBytes(StandardCharsets.UTF_8));
+                    if (false) {
+                        // suyh - 仅写一条，需要打断点时好用。
+                        System.out.println("消息发送完毕, size: 1");
+                        return;
+                    }
                 }
 
                 System.out.println("消息发送完毕, UserLoginEntity size: " + entities.size());
@@ -105,10 +110,10 @@ public class RandomPlusUserLoginRunner implements ApplicationRunner {
 
         long currentTimeMillis = System.currentTimeMillis();
         int src = 2;    // 1：用户注册；2：用户登录
-
+        long curTimeSeconds = currentTimeMillis / 1000;
         for (AdjustUserEntity adUserEntity : adUserEntities) {
             for (int i = 0; i < 10; i++) {
-                long curTimeSeconds = currentTimeMillis++ / 1000;
+                curTimeSeconds++;   // 事件时间
                 String channelId = adUserEntity.getChannelid();
                 String gaid = adUserEntity.getGaid();
 

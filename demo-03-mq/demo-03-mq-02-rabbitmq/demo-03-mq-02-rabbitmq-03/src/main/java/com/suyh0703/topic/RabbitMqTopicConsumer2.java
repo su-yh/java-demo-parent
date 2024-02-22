@@ -40,7 +40,7 @@ public class RabbitMqTopicConsumer2 {
             String currentTime = sdf.format(new Date());
             String correlationId = delivery.getProperties().getCorrelationId();
             String message = new String(delivery.getBody());
-            System.out.println(currentTime + ", 接收的消息(" + EXCHANGE_NAME + "), routing key: " + RETENTION_KEY + ": " + message + ", correlationId: " + correlationId);
+            System.out.println(currentTime + ", 接收的消息(" + EXCHANGE_NAME + "), routing key: " + RETENTION_KEY + ", message: " + message + ", correlationId: " + correlationId);
         };
 
         CancelCallback cancelCallback = consumerTag -> {
