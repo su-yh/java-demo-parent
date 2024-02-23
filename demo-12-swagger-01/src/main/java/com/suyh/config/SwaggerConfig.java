@@ -41,6 +41,7 @@ public class SwaggerConfig {
                 .paths(Predicates.or(PathSelectors.ant("/services/suyh/dev/**"), PathSelectors.ant("/services/suyh/local/**")))
                 .paths(PathSelectors.any())
                 .build()
+                .pathMapping("/dev-api")    // 将所有从swagger 映射的路径都添加一个 dev-api 而正常访问却是不需要的
                 .ignoredParameterTypes(ApiIgnore.class);
     }
 
