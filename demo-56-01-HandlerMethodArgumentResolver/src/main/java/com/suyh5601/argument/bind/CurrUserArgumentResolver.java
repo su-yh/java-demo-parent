@@ -34,7 +34,16 @@ public class CurrUserArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         // 获取到拦截器放到属性中的user 对象
         assert request != null;
-        return request.getAttribute("currLoginUser");
+        Object currLoginUser = request.getAttribute("currLoginUser");
+        if (currLoginUser == null) {    // 用户未登录
+            CurrLoginUser ann = parameter.getParameterAnnotation(CurrLoginUser.class);
+            assert ann != null;
+            if (ann.required()) {    // 用户必须登录
+                throw new RuntimeException("用户未登录");
+            }
+        }
+
+        return currLoginUser;
     }
 }
 
