@@ -24,7 +24,7 @@ public class FlywayDbConfiguration {
                 // mysql 没有schemas 一定不能设置，设置了之后就不会建表了。
                 // .schemas("master")
                 .locations("db/migrate/master")
-                .validateOnMigrate(false)
+                .validateOnMigrate(true)
                 .ignoreFutureMigrations(false);
         Flyway masterFlyway = masterFlywayConfig.load();
         return new FlywayMigrationInitializer(masterFlyway, null);
@@ -37,7 +37,7 @@ public class FlywayDbConfiguration {
                 .dataSource(dataSourceSlave)
                 // .schemas("slave")
                 .locations("db/migrate/slave")
-                .validateOnMigrate(false)
+                .validateOnMigrate(true)
                 .ignoreFutureMigrations(false);
 
         Flyway slaveFlyway = slaveFlywayConfig.load();
