@@ -21,6 +21,7 @@
     <modules>
         <module>demo-65-spring_factories</module>
         <module>demo-63-01-temp</module>
+        <module>demo-66-bean-self-invoke</module>
     </modules>
 
     <profiles>
