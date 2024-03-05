@@ -1,6 +1,7 @@
 package com.suyh66;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -30,4 +31,11 @@ public class TestAspect {
         System.out.println("我是前置通知, method name: " + name);
     }
 
+    @AfterReturning(value = "pointcut()")
+    public void after(JoinPoint joinPoint) {
+        MethodSignature ms = (MethodSignature) joinPoint.getSignature();
+        Method method = ms.getMethod();
+        String name = method.getName();
+        System.out.println("我是后置通知, method name: " + name);
+    }
 }
