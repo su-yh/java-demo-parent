@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestBean {
 
+    private TestBean self() {
+        return SpringUtils.getBean(getClass());
+    }
 
     public void hello() {
         System.out.println("hello");
-        hi();
+        self().hi();
     }
 
     public void hi() {
