@@ -14,14 +14,6 @@ public final class SpringUtils implements ApplicationContextAware
 {
     private static ApplicationContext applicationContext;
 
-    /**
-     * 获取类型为requiredType的对象
-     *
-     * @param clz
-     * @return
-     * @throws org.springframework.beans.BeansException
-     *
-     */
     public static <T> T getBean(Class<T> clz) throws BeansException
     {
         return applicationContext.getBean(clz);
