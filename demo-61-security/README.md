@@ -104,6 +104,10 @@ spring security 的默认用户名是：user
 ```txt
 该接口的主要功能就是加载对应的登录用户明细信息，在这里并不作身份验证。
 如果您需要自定义身份验证过程，直接实现AuthenticationProvider会更有意义。
+
+在登录时，会进入到UsernamePasswordAuthenticationFilter 取到用户名和密码，在最后调用this.getAuthenticationManager().authenticate(authRequest) 
+
+该调用最终就会去 loadUserByUsername(..)   但是要注意，这个方法返回的密码是通过  PasswordEncoder 接口加密过的。
 ```
 
 ### `PasswordEncoder`
@@ -177,4 +181,6 @@ There is no PasswordEncoder mapped for the id "null"
 
    
 
+## 相关的类
 
+### WebSecurityConfigurerAdapter
