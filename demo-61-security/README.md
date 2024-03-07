@@ -31,6 +31,7 @@ spring security 的默认用户名是：user
 
    ```txt
    对/login 的post 请求做拦截，校验表单中用户名，密码。
+   方法：`attemptAuthentication(..)`
    ```
 
 4. `其他`
@@ -45,19 +46,19 @@ spring security 的默认用户名是：user
 
 ```txt
 在  doFilter() 中调用 了 initDelegate() 方法
-在initDelegate() 方法中会获取到 FilterChainProxy (内置)
+在initDelegate() 方法中会获取到 FilterChainProxy (内置bean 对象)
 ```
 
 ```java
-  protected Filter initDelegate(WebApplicationContext wac) throws ServletException {
-		String targetBeanName = getTargetBeanName();
-		Assert.state(targetBeanName != null, "No target bean name set");
-		Filter delegate = wac.getBean(targetBeanName, Filter.class);
-		if (isTargetFilterLifecycle()) {
-			delegate.init(getFilterConfig());
-		}
-		return delegate;
-	}
+    protected Filter initDelegate(WebApplicationContext wac) throws ServletException {
+        String targetBeanName = getTargetBeanName();
+        Assert.state(targetBeanName != null, "No target bean name set");
+        Filter delegate = wac.getBean(targetBeanName, Filter.class);
+        if (isTargetFilterLifecycle()) {
+            delegate.init(getFilterConfig());
+        }
+        return delegate;
+    }
 ```
 
 
@@ -101,7 +102,8 @@ spring security 的默认用户名是：user
 ### `UserDetailsService`
 
 ```txt
-如果是自己查数据库来得到用户名和密码，则需要实现当前接口
+该接口的主要功能就是加载对应的登录用户明细信息，在这里并不作身份验证。
+如果您需要自定义身份验证过程，直接实现AuthenticationProvider会更有意义。
 ```
 
 ### `PasswordEncoder`
@@ -121,6 +123,12 @@ spring security 的默认用户名是：user
         boolean result = b.matches("suyunhong", ciphertext);
         System.out.println(result);
 ```
+
+
+
+### LogoutSuccessHandler
+
+> 用户登出成功时会调用，可以做相关缓存的清理工作。
 
 
 
