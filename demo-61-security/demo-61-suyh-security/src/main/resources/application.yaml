@@ -1,5 +1,9 @@
 server:
   port: 8111
+  servlet:
+    context-path: /suyh
+
+
 
 
 

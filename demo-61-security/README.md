@@ -214,3 +214,11 @@ There is no PasswordEncoder mapped for the id "null"
 ### SecurityContextImpl
 
 ### ThreadLocalSecurityContextHolderStrategy
+
+### LoginUrlAuthenticationEntryPoint
+
+> 默认的认证失败的后置处理器
+
+### SavedRequestAwareAuthenticationSuccessHandler
+
+> 默认的认证成功的后置处理器

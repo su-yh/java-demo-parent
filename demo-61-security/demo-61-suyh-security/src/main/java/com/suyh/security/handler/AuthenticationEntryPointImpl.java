@@ -8,13 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 认证失败的后置处理
+ *
  * @author suyh
  * @since 2024-03-08
  */
 @Slf4j
-public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
+public class AuthenticationEntryPointImpl
+        implements AuthenticationEntryPoint {
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         log.debug("[commence][访问 URL({}) 时，没有登录]", request.getRequestURI());
+        // response.sendError(HttpStatus.UNAUTHORIZED.value());
+        throw new RuntimeException("未认证");
     }
 }
