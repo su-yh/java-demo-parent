@@ -1,4 +1,4 @@
-package com.suyh.service;
+package com.suyh.security.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

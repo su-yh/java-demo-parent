@@ -183,7 +183,21 @@ There is no PasswordEncoder mapped for the id "null"
 
 ## 相关的类
 
+### SecurityContextHolder
+
+> SecurityContextHolder.getContext().setAuthentication(..);
+>
+> SecurityContextHolder.getContext().getAuthentication();
+>
+> 获取当前登录用户，如果没有获取到，则spring security 则会认为用户未登录。
+
 ### WebSecurityConfigurerAdapter
+
+### UsernamePasswordAuthenticationFilter
+
+> 只有登录接口API 才会走该过滤器，否则将直接跳过。
+>
+> 在进行配置(`WebSecurityConfigurerAdapter`)的时候，该过滤器被创建出来。`HttpSecurity#formLogin()`
 
 ### AuthenticationManager
 
@@ -196,5 +210,7 @@ There is no PasswordEncoder mapped for the id "null"
 > 上下文对象，用来存储当前登录的用户信息，当对象存在则判断为已认证用户，否则为未认证用户。
 >
 > 同时会在请求结束时清理。
->
-> 
+
+### SecurityContextImpl
+
+### ThreadLocalSecurityContextHolderStrategy
