@@ -184,3 +184,17 @@ There is no PasswordEncoder mapped for the id "null"
 ## 相关的类
 
 ### WebSecurityConfigurerAdapter
+
+### AuthenticationManager
+
+### SecurityContextPersistenceFilter
+
+> SecurityContextHolder.getContext().getAuthentication();
+>
+> SecurityContextHolder.getContext().setAuthentication(..);
+>
+> 上下文对象，用来存储当前登录的用户信息，当对象存在则判断为已认证用户，否则为未认证用户。
+>
+> 同时会在请求结束时清理。
+>
+> 
