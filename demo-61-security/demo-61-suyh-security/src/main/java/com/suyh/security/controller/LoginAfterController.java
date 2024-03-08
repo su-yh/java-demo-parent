@@ -1,9 +1,16 @@
 package com.suyh.security.controller;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 认证后置处理器
@@ -21,23 +28,51 @@ public class LoginAfterController {
     @RequestMapping(value = "/successful", method = {RequestMethod.GET})
     @Deprecated
     public Object loginSuccessful(Authentication authentication) {
-        return authentication.getPrincipal();
+        // 走到这里就表示用户名密码验证通过了，接下来就可以做后续处理了。
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", userDetails.getUsername());
+
+        return createToken(map, userDetails.getUsername());
     }
 
     // TODO: suyh - 这里的问题主要是没有Authentication，有空的时候看下 SavedRequestAwareAuthenticationSuccessHandler  是怎么把这些参数补充上的
     // 不过这里保留了登录时的原始参数。
     @RequestMapping(value = "/successful", method = RequestMethod.POST)
     public Object loginSuccessfulP(String username, String password, Integer code) {
+        // 走到这里就表示用户名密码验证通过了，接下来就可以做后续处理了。
+        // 这里就可以处理验证码什么的。
         System.out.println("username: " + username);
         System.out.println("password: " + password);
         System.out.println("code: " + code);
-        return "SUCCESSFUL";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", username);
+        return createToken(map, username);
+    }
+
+    private static final String secret = "abcdefghijklmnopqrstuvwxyz";
+
+    private static String createToken(Map<String, Object> claims, String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
+    }
+
+    public static Claims parseToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     // 如果登录失败，一般是用户名或者密码错误。
     // 在这里实现，可以返回给前端自定义的一些数据信息，或者提示。
     @RequestMapping(value = "/failure", method = RequestMethod.POST)
     public Object loginFailure() {
-        return "FAILED";
+        // 因为我们就使用了spring security 的用户名密码校验的操作，如果调用到这里就一定是用户名或者密码错误。
+        return "用户名或密码错误。";
     }
 }

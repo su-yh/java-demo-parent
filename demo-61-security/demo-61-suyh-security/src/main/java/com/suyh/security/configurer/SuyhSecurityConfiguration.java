@@ -1,5 +1,6 @@
 package com.suyh.security.configurer;
 
+import com.suyh.security.filter.JwtAuthenticationTokenFilter;
 import com.suyh.security.handler.AuthenticationFailureHandlerImpl;
 import com.suyh.security.handler.AuthenticationSuccessHandlerImpl;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author suyh
@@ -36,10 +38,13 @@ public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 使用登录成功/失败的后置处理URL 则这里就可以不用处理了，这些都是spring security 内置的功能，我们不需要用到这些了，
+        // 直接在成功/失败的后置处理的URL 里面抛出认证失败的业务异常就可以了。
         // 401 认证失败的处理
         // TODO: suyh - 像ruoyi 和芋道的实现都是直接响应结果并指定401 ，但是我觉得可以在统一的异常处理，那里再解决。
         // 不行，这个异常已经处理处理，不会走到统一的异常处理那里去了，所以这里必须要处理。
         // http.exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointImpl());
+
         // 403 权限不足的异常处理
         // TODO: suyh - 像ruoyi 和芋道的实现都是直接响应结果并指定403 ，但是我觉得可以在统一的异常处理，那里再解决。
         // http.exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl());
@@ -64,9 +69,11 @@ public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/", "/test/hello").permitAll() // 设置哪些路径可以直接访问，不需要认证
                 // .antMatchers("/test/index").hasAuthority("admins")  // 指定路径 /test/index 需要 admins 权限才可以访问，该admins 对应SuyhUserDetailsService  中的权限
                 // .antMatchers("/test/index").hasAnyAuthority("admins,manager")  // 指定路径 /test/index 需要 admins或者manager 权限才可以访问，该admins 对应SuyhUserDetailsService  中的权限
-                .antMatchers("/test/index").hasRole("sale") // 这里只写了sale, 但是它实际上被处理成了: ROLE_sale
+                // .antMatchers("/test/index").hasRole("sale") // 这里只写了sale, 但是它实际上被处理成了: ROLE_sale
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and().csrf().disable();   // 关闭csrf 防护
+
+        http.addFilterBefore(new JwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
