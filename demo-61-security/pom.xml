@@ -12,12 +12,13 @@
 
 
     <modules>
-        <module>demo-61-01-security</module>
-        <module>demo-61-02-security</module>
-        <module>demo-61-03-security</module>
-        <module>demo-61-04-security</module>
-        <module>demo-61-05-security</module>
-        <module>demo-61-06-security</module>
-        <module>demo-61-suyh-01-security</module>
+<!--        <module>demo-61-01-security</module>-->
+<!--        <module>demo-61-02-security</module>-->
+<!--        <module>demo-61-03-security</module>-->
+<!--        <module>demo-61-04-security</module>-->
+<!--        <module>demo-61-05-security</module>-->
+<!--        <module>demo-61-06-security</module>-->
+<!--        <module>demo-61-suyh-01-security</module>-->
+        <module>demo-61-suyh-02-security</module>
     </modules>
 </project>

@@ -237,4 +237,26 @@ public void doSomething(@P("c") Contact contact);
 
 ### **AuthenticationProvider** 
 
-> 认证提供器，实现认证逻辑。
+> 认处理供器，实现认证逻辑。
+>
+> 首先判断进入到该流的 authentication 对象是不是当前provider 所支持的认证处理器。
+>
+> supports(Class<?>..)
+>
+> 认证处理器的默认处理类是 DaoAuthenticationProvider，因为它支持UsernamePasswordAuthenticationToken 类的处理。
+>
+> 并且在ProviderManager 中初始化了  DaoAuthenticationProvider  的一个对象在处理器列表中。
+
+### DaoAuthenticationProvider  
+
+### ProviderManager
+
+> 认证提供器管理类
+>
+> 它管理着所有的认证提供器，并且按存在的提供器列表按照顺序依次调用，直到有某一个提供器能够支持处理该token(authentication) 时就交由它处理。
+>
+> 同时在处理结束后的返回对象不为null，则结束认证。
+
+### AuthenticationManagerBuilder
+
+> 构建ProviderManager
