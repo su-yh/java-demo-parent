@@ -17,6 +17,7 @@ public class SmsFormLoginConfigurer<H extends HttpSecurityBuilder<H>>
         super(filter, null);
         // 通过该方法就可以直接拿到filter 实例对象，然后可以给他做一些初始化操作。
         SmsCodeAuthenticationProcessingFilter authenticationFilter = getAuthenticationFilter();
+        System.out.println(authenticationFilter.getClass().getName());
     }
 
     @Override

@@ -57,7 +57,7 @@ public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // 基于用户名/密码的登录校验处理器
         AuthenticationAfterForwardHandler usernamePasswordForwardHandler = new AuthenticationAfterForwardHandler(
-                "/login/after/successful", "/login/after/failure");
+                "/login/after/successful/username/password", "/login/after/failure/username/password");
         http.formLogin()    // 登录页面，这里会引入 UsernamePasswordAuthenticationFilter
                 .loginProcessingUrl("/user/login") // 登录访问路径，这个路径并不需要我们自己实现，security 它会自动处理。
                 // 当登录成功之后的自定义处理器，默认实现是：SavedRequestAwareAuthenticationSuccessHandler
@@ -67,7 +67,7 @@ public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // 基于短信的登录校验处理器
         // 可以添加多组登录处理器与相对应的过滤器
         AuthenticationAfterForwardHandler smsCodeForwardHandler = new AuthenticationAfterForwardHandler(
-                "/login/after/successful", "/login/after/failure");
+                "/login/after/successful/sms/code", "/login/after/failure/sms/code");
         // 这里的主要作用就是将spring security 中的一些公共配置也作用于下面的认证器与过滤器
         // 其中最重要的一个配置就是 ProviderManager 对象，如果没有这个apply() 方法的调用，则 filter 中将不会有值。
         SmsCodeAuthenticationProcessingFilter filter = new SmsCodeAuthenticationProcessingFilter("/sms/login");
