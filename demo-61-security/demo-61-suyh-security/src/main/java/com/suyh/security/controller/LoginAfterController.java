@@ -1,9 +1,10 @@
 package com.suyh.security.controller;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.suyh.security.service.SuyhUserDetailsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/login/after")
+@RequiredArgsConstructor
 public class LoginAfterController {
+    private final ApplicationContext applicationContext;
 
     // 该接口由spring security 自动调用，在用户通过了帐号密码校验之后，会来访问该接口。
     // 不过需要自行配置，在WebSecurityConfigurerAdapter 中。
@@ -31,10 +34,12 @@ public class LoginAfterController {
         // 走到这里就表示用户名密码验证通过了，接下来就可以做后续处理了。
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("username", userDetails.getUsername());
+        User user = (User) userDetails;
 
-        return createToken(map, userDetails.getUsername());
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", user.getUsername());
+
+        return SuyhUserDetailsService.createToken(map, user.getUsername());
     }
 
     // TODO: suyh - 这里的问题主要是没有Authentication，有空的时候看下 SavedRequestAwareAuthenticationSuccessHandler  是怎么把这些参数补充上的
@@ -49,24 +54,10 @@ public class LoginAfterController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("username", username);
-        return createToken(map, username);
+        return SuyhUserDetailsService.createToken(map, username);
     }
 
-    private static final String secret = "abcdefghijklmnopqrstuvwxyz";
 
-    private static String createToken(Map<String, Object> claims, String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
-    }
-
-    public static Claims parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-    }
 
     // 如果登录失败，一般是用户名或者密码错误。
     // 在这里实现，可以返回给前端自定义的一些数据信息，或者提示。

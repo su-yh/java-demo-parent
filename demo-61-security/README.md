@@ -162,6 +162,18 @@ There is no PasswordEncoder mapped for the id "null"
 2. 在方法上面添加注解 @PreAuthorize("hasAnyAuthority('admins')")
 ```
 
+```java
+// 取到参数上面的对象，使用@P 注解
+// authentication 允许直接访问从 SecurityContext获取的当前身份验证对象
+@PreAuthorize("#c.name == authentication.name")
+public void doSomething(@P("c") Contact contact);
+
+// 在EL 表达式中使用常量
+@PreAuthorize("@ss.hasDataPermissionRole(T(com.ads.common.enums.PermissionRoleEnums).ADMIN)")
+```
+
+
+
 3. `@PostAuthorize("hasAnyAuthority('admins')")`
 
    ```txt
@@ -222,3 +234,7 @@ There is no PasswordEncoder mapped for the id "null"
 ### SavedRequestAwareAuthenticationSuccessHandler
 
 > 默认的认证成功的后置处理器
+
+### **AuthenticationProvider** 
+
+> 认证提供器，实现认证逻辑。

@@ -3,6 +3,7 @@ package com.suyh.security.configurer;
 import com.suyh.security.filter.JwtAuthenticationTokenFilter;
 import com.suyh.security.handler.AuthenticationFailureHandlerImpl;
 import com.suyh.security.handler.AuthenticationSuccessHandlerImpl;
+import com.suyh.security.service.SuyhUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @RequiredArgsConstructor
 public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
+    private final SuyhUserDetailsService userDetailsService;
 
     // 如果没有当前这个bean 对象，则会报如下错误：
     // There is no PasswordEncoder mapped for the id "null"
@@ -74,6 +74,8 @@ public class SuyhSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable();   // 关闭csrf 防护
 
-        http.addFilterBefore(new JwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthenticationTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
+
+        http.logout().logoutUrl("/logout").logoutSuccessHandler(userDetailsService);
     }
 }
