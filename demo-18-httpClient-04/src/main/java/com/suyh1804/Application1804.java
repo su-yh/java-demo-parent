@@ -1,11 +1,11 @@
-package com.suyh5001;
+package com.suyh1804;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application5001 {
+public class Application1804 {
     public static void main(String[] args) {
-        SpringApplication.run(Application5001.class, args);
+        SpringApplication.run(Application1804.class, args);
     }
 }

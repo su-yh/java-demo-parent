@@ -80,8 +80,10 @@ public class DemoHttpRequestTest {
         }
     }
 
+    // 这种方式比较好，可读性好，它是由spring提供的，
     @Test
     public void tttt() {
+        // 以{name} 进行占位，后面按顺序补充路径参数
         String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
 
         // Query parameters
@@ -92,7 +94,7 @@ public class DemoHttpRequestTest {
                 // 按顺序给路径参数
                 // 这是直接往uri 上添加路径，比如uri是: http://test.com/solarSystem，添加如下代码，则uri会补充为：http://test.com/solarSystem/Mars/Phobos
                 // 所以在url 上面就不用写完整路径了，只需要写到域名即可。
-                .pathSegment("Mars", "Phobos");
+                .pathSegment("Mars", "Phobos"); // 还有另外一种方式 ：URIBuilder
 
             // 如果没有路径参数就直接构建就可以了。
         URI uri1 = builder.build().toUri();
@@ -119,6 +121,27 @@ public class DemoHttpRequestTest {
         }
 
         final String responseEntityBody = responseEntity.getBody();
+    }
+
+    // 这种方式不好，可读性差，它是由apache 提供的，
+    @Test
+    @Deprecated
+    public void tttt22() throws URISyntaxException {
+//        String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
+        String url = "http://test.com";
+
+        // Query parameters
+        URIBuilder uriBuilder = new URIBuilder(url);
+        // 这里就是不太好，可读性比较差。还是使用spring 的UriComponentsBuilder 比较好读一些。
+        // 这些就是会按这些参数的顺序依次补充到url 路径上面，并添加 "/"
+        uriBuilder.setPathSegments("solarSystem", "planets", "Mars", "moons", "Phobos")
+                // Add query parameter
+                .addParameter("firstName", "Mark")
+                .addParameter("lastName", "Watney");
+
+        URI uri = uriBuilder.build();
+
+        System.out.println("uri: " + uri);
     }
 
     @Test

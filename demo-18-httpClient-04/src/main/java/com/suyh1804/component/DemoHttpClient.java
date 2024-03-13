@@ -1,5 +1,5 @@
 
-package com.suyh5001.component;
+package com.suyh1804.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
