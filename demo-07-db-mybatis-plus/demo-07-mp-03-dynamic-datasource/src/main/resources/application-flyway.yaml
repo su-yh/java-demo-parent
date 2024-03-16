@@ -1,0 +1,11 @@
+
+
+# 参考博客：https://www.cnblogs.com/itfeng813/p/14657415.html
+# 若同一个项目中有多个数据源需要进行版本管理，则需要放弃application.properties中的配置，
+# 并且配置flyway.enabled=false,禁止springboot自动的调用flyway.migrate()方法。然后增加配置类，手动调用migrate()方法即可。
+spring:
+  flyway:
+    enabled: false
+
+
+

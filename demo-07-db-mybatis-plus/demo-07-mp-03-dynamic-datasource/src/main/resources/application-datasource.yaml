@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    dynamic:
+      enabled: true
+      primary: dynamic-001
+      # 严格匹配数据源，默认false, true 未匹配到数据源时抛异常，false 使用默认数据源
+      strict: true
+      datasource:
+        dynamic-001:
+          url: jdbc:mysql://isuyh.com:3306/suyh-dynamic-001?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+          username: suyh-dynamic-001
+          password: suyh-dynamic-001
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        dynamic-002:
+          url: jdbc:mysql://isuyh.com:3306/suyh-dynamic-002?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+          username: suyh-dynamic-002
+          password: suyh-dynamic-002
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
+
