@@ -26,7 +26,7 @@ public class FlywayDbConfiguration {
         // 参考：DynamicDataSourceAutoConfiguration
         DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) dataSource;
 
-        // 这里的参数 ds "dynamic-002" 来自配置文件中的: spring.datasource.dynamic.datasource.dynamic-001
+        // 这里的参数 ds "dynamic-001" 来自配置文件中的: spring.datasource.dynamic.datasource.dynamic-001
         DataSource dataSource001 = dynamicRoutingDataSource.getDataSource("dynamic-001");
         FluentConfiguration masterFlywayConfig = new FluentConfiguration();
         masterFlywayConfig.baselineOnMigrate(true)
