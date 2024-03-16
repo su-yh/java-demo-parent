@@ -33,6 +33,11 @@ public class StarterRunner implements ApplicationRunner {
         }
 
         {
+            List<UserInfoEntity> entities = userInfoMapper.selectList();
+            log.info("user info entities size: {}", entities.size());
+        }
+
+        {
             LambdaQueryWrapper<PersonalUniversalEntity> queryWrapperUser = new LambdaQueryWrapper<>();
             List<PersonalUniversalEntity> entities = personalUniversalMapper.selectList(queryWrapperUser);
             log.info("personal universal entities size: {}", entities.size());
