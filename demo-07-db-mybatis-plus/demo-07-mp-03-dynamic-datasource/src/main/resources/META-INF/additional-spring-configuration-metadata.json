@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.dynamic.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration",
+      "defaultValue": true,
+      "description": "配置类的条件判断(DynamicDataSourceAutoConfiguration)."
+    }
+  ]
+}

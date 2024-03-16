@@ -16,8 +16,8 @@ import java.util.List;
 @DS("dynamic-001")
 public interface UserInfoMapper extends BaseMapper<UserInfoEntity> {
 
-    // 报错，因为这个数据源中没有这张表，为了测试用的。
-    @DS("dynamic-002")
+    // 报错，因为这个数据源中没有这张表，为了测试用的。@DS 注解有就近原则。
+    // @DS("dynamic-002")
     default List<UserInfoEntity> selectList() {
         LambdaQueryWrapper<UserInfoEntity> queryWrapper = new LambdaQueryWrapper<>();
         return selectList(queryWrapper);
