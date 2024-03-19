@@ -6,6 +6,7 @@ package com.suyh.mp.dynamic.config;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration;
+import com.suyh.mp.dynamic.constant.DynamicConstants;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -21,13 +22,12 @@ public class FlywayDbConfiguration {
 
     // DynamicRoutingDataSource
 
-    @Bean("masterFlyway")
-    public FlywayMigrationInitializer masterFlyway(DataSource dataSource) {
+    @Bean("flyway001")
+    public FlywayMigrationInitializer flyway001(DataSource dataSource) {
         // 参考：DynamicDataSourceAutoConfiguration
         DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) dataSource;
 
-        // 这里的参数 ds "dynamic-001" 来自配置文件中的: spring.datasource.dynamic.datasource.dynamic-001
-        DataSource dataSource001 = dynamicRoutingDataSource.getDataSource("dynamic-001");
+        DataSource dataSource001 = dynamicRoutingDataSource.getDataSource(DynamicConstants.DS001);
         FluentConfiguration masterFlywayConfig = new FluentConfiguration();
         masterFlywayConfig.baselineOnMigrate(true)
                 .dataSource(dataSource001)
@@ -41,13 +41,12 @@ public class FlywayDbConfiguration {
     }
 
 
-    @Bean("slaveFlyway")
-    public FlywayMigrationInitializer slaveFlyway(DataSource dataSource) {
+    @Bean("flyway002")
+    public FlywayMigrationInitializer flyway002(DataSource dataSource) {
         // 参考：DynamicDataSourceAutoConfiguration
         DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) dataSource;
 
-        // 这里的参数 ds "dynamic-002" 来自配置文件中的: spring.datasource.dynamic.datasource.dynamic-002
-        DataSource dataSource002 = dynamicRoutingDataSource.getDataSource("dynamic-002");
+        DataSource dataSource002 = dynamicRoutingDataSource.getDataSource(DynamicConstants.DS002);
         FluentConfiguration slaveFlywayConfig = new FluentConfiguration();
         slaveFlywayConfig.baselineOnMigrate(true)
                 .dataSource(dataSource002)

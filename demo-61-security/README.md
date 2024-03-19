@@ -260,3 +260,5 @@ public void doSomething(@P("c") Contact contact);
 ### AuthenticationManagerBuilder
 
 > 构建ProviderManager
+
+### BasicAuthenticationFilter
