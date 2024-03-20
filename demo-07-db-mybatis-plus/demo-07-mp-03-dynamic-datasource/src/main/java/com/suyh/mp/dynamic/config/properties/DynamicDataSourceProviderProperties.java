@@ -5,6 +5,7 @@ import com.suyh.mp.dynamic.constant.DynamicConstants;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -20,7 +21,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "suyh.datasource.hikari")
 @Data
 public class DynamicDataSourceProviderProperties implements DynamicDataSourceProvider {
+    @NestedConfigurationProperty
     private HikariDataSource ds001;
+    @NestedConfigurationProperty
     private HikariDataSource ds002;
     private Map<String, DataSource> map;
 
