@@ -32,9 +32,8 @@ public class RedisConfiguration {
     public RedisTemplate<String, Student> redisCacheTemplate(
             LettuceConnectionFactory factory, Jackson2JsonRedisSerializer<Student> jackson2JsonSerializer) {
         RedisTemplate<String, Student> template = new RedisTemplate<>();
-        final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        template.setKeySerializer(stringRedisSerializer);
-        template.setHashKeySerializer(stringRedisSerializer);
+        template.setKeySerializer(StringRedisSerializer.UTF_8);
+        template.setHashKeySerializer(StringRedisSerializer.UTF_8);
         template.setValueSerializer(jackson2JsonSerializer);
         template.setHashValueSerializer(jackson2JsonSerializer);
         template.setConnectionFactory(factory);

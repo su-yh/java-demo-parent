@@ -8,7 +8,7 @@
 //public class SuyhJackson2JsonRedisSerializer implements RedisSerializer<Object> {
 //    static final byte[] EMPTY_ARRAY = new byte[0];
 //
-//    private final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+//    private final StringRedisSerializer stringRedisSerializer = StringRedisSerializer.UTF_8;
 //    private final Jackson2JsonRedisSerializer<SuyhRedisSerialize> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(SuyhRedisSerialize.class);
 //
 //    @Override

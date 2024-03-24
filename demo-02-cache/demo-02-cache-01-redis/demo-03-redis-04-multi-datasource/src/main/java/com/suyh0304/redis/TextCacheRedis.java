@@ -37,9 +37,8 @@ public class TextCacheRedis extends RedisTemplate<String, String> {
 
     @Override
     public void afterPropertiesSet() {
-        final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        super.setKeySerializer(stringRedisSerializer);
-        super.setHashKeySerializer(stringRedisSerializer);
+        super.setKeySerializer(StringRedisSerializer.UTF_8);
+        super.setHashKeySerializer(StringRedisSerializer.UTF_8);
         super.setConnectionFactory(factory);
         super.afterPropertiesSet();
     }

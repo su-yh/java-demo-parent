@@ -1,9 +1,7 @@
 package com.suyh0310.config;
 
-import com.suyh0310.cache.SuyhRedisCacheManagerBuilderCustomizer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -12,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration(proxyBeanMethods = false)
 @Slf4j
 public class RedisAutoConfiguration {
-    @Bean
-    public SuyhRedisCacheManagerBuilderCustomizer suyhRedisCacheManagerBuilderCustomizer() {
-        return new SuyhRedisCacheManagerBuilderCustomizer();
-    }
+//    @Bean
+//    public SuyhRedisCacheManagerBuilderCustomizer suyhRedisCacheManagerBuilderCustomizer() {
+//        return new SuyhRedisCacheManagerBuilderCustomizer();
+//    }
 }

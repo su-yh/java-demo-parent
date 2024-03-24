@@ -25,9 +25,8 @@ public abstract class AbstractRedisTemplate<T> extends RedisTemplate<String, T> 
 
         serializer.setObjectMapper(mapper);
 
-        final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        super.setKeySerializer(stringRedisSerializer);
-        super.setHashKeySerializer(stringRedisSerializer);
+        super.setKeySerializer(StringRedisSerializer.UTF_8);
+        super.setHashKeySerializer(StringRedisSerializer.UTF_8);
         super.setValueSerializer(serializer);
         super.setHashValueSerializer(serializer);
         super.setConnectionFactory(factory);
