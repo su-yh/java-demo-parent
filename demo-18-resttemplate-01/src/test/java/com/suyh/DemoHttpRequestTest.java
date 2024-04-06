@@ -83,44 +83,52 @@ public class DemoHttpRequestTest {
     // 这种方式比较好，可读性好，它是由spring提供的，
     @Test
     public void tttt() {
-        // 以{name} 进行占位，后面按顺序补充路径参数
-        String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
+        {
+            // 以{name} 进行占位，后面按顺序补充路径参数
+            String url = "http://test.com/solarSystem";
 
-        // Query parameters
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
-                // Add query parameter
-                .queryParam("firstName", "Mark")
-                .queryParam("lastName", "Watney")
-                // 按顺序给路径参数
-                // 这是直接往uri 上添加路径，比如uri是: http://test.com/solarSystem，添加如下代码，则uri会补充为：http://test.com/solarSystem/Mars/Phobos
-                // 所以在url 上面就不用写完整路径了，只需要写到域名即可。
-                .pathSegment("Mars", "Phobos"); // 还有另外一种方式 ：URIBuilder
+            // Query parameters
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
+                    // Add query parameter
+                    .queryParam("firstName", "Mark")
+                    .queryParam("lastName", "Watney")
+                    // 按顺序给路径参数
+                    // 这是直接往uri 上添加路径，比如uri是: http://test.com/solarSystem，添加如下代码，则uri会补充为：http://test.com/solarSystem/Mars/Phobos
+                    // 所以在url 上面就不用写完整路径了，只需要写到域名即可。
+                    .pathSegment("Mars", "Phobos"); // 还有另外一种方式 ：URIBuilder
 
             // 如果没有路径参数就直接构建就可以了。
-        URI uri1 = builder.build().toUri();
+            URI uri1 = builder.build().toUri();
 
-        /*
-         * Console output:
-         * http://test.com/solarSystem/planets/Mars/moons/Phobos?firstName=Mark&lastName=Watney
-         */
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<Notice> reqEntity = new HttpEntity<>(new Notice(), headers);
-
-        // 路径参数
-        Map<String, String> pathParams = new HashMap<>();
-        pathParams.put("planet", "Mars");
-        pathParams.put("moon", "Phobos");
-        URI uri = builder.buildAndExpand(pathParams).toUri();
-        // 返回值类型可以指定一个class 
-        final ResponseEntity<String> responseEntity = restTemplate.exchange(
-                uri, HttpMethod.PUT, reqEntity, String.class);
-        if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            return;
         }
 
-        final String responseEntityBody = responseEntity.getBody();
+        {
+            /*
+             * Console output:
+             * http://test.com/solarSystem/planets/Mars/moons/Phobos?firstName=Mark&lastName=Watney
+             */
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+            headers.add(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+            HttpEntity<Notice> reqEntity = new HttpEntity<>(new Notice(), headers);
+
+            // 路径参数
+            String url = "http://test.com/solarSystem/planets/{planet}/moons/{moon}";
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
+
+            Map<String, String> pathParams = new HashMap<>();
+            pathParams.put("planet", "Mars");
+            pathParams.put("moon", "Phobos");
+            URI uri = builder.buildAndExpand(pathParams).toUri();
+            // 返回值类型可以指定一个class
+            final ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    uri, HttpMethod.PUT, reqEntity, String.class);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                return;
+            }
+
+            final String responseEntityBody = responseEntity.getBody();
+        }
     }
 
     // 这种方式不好，可读性差，它是由apache 提供的，
