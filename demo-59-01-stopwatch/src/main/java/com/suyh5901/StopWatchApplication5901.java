@@ -6,7 +6,7 @@ import org.springframework.util.StopWatch;
 @SpringBootApplication
 public class StopWatchApplication5901 {
     public static void main(String[] args) throws InterruptedException {
-        StopWatch stopWatch = new StopWatch("测试");
+        StopWatch stopWatch = new SuyhStopWatch("测试");
         stopWatch.start("任務一");
         Thread.sleep(3000);
         stopWatch.stop();
