@@ -19,6 +19,10 @@ public class SuyhStopWatch extends StopWatch {
         super(id);
     }
 
+    public String shortSummary() {
+        return "StopWatch '" + getId() + "': running time = " + getTotalTimeSeconds() + " s";
+    }
+
     @Override
     public String prettyPrint() {
         boolean keepTaskList = true;
