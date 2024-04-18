@@ -1,5 +1,6 @@
 package com.suyh.registry;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suyh.mapper.TestLongIdMapper;
 import com.suyh.mapper.TestUuidMapper;
 import com.suyh.service.TestLongIdService;
@@ -23,24 +24,34 @@ import java.beans.Introspector;
 public class ConditionalOnMapperConfiguration implements BeanDefinitionRegistryPostProcessor {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        registryBeanConditionalOnMapper(registry, TestUuidMapper.class, TestUuidService.class);
-        registryBeanConditionalOnMapper(registry, TestLongIdMapper.class, TestLongIdService.class);
+        registryBeanConditionalOnMapper(registry, TestUuidService.class, TestUuidMapper.class);
+        registryBeanConditionalOnMapper(registry, TestLongIdService.class, TestLongIdMapper.class);
     }
 
-    private <MAPPER, BEAN> void registryBeanConditionalOnMapper(
-            BeanDefinitionRegistry registry, Class<MAPPER> mapperClass, Class<BEAN> beanClass) {
+    // 这样的话，就需要mapper 参数是每一个，其他的按顺序给出
+    // 另一个要求就是，beanName 必须是类名首字母小写其他完全一致。
+    // 否则这里就没法构造了。
+    private <ENTITY, MAPPER extends BaseMapper<ENTITY>, BEAN> void registryBeanConditionalOnMapper(
+            BeanDefinitionRegistry registry, Class<BEAN> beanClass, Class<MAPPER> mapperClass, Class<?>... constructorArgs) {
         // 判断ChannelMapper 对应的BeanDefinition 是否存在，若不存在则跳过，否则将ChannelService 注册成一个BeanDefinition
         String mapperBeanName = Introspector.decapitalize(mapperClass.getSimpleName());
         if (!registry.containsBeanDefinition(mapperBeanName)) {
-            System.out.println("channelMapper is not exists.");
             log.warn("cannot found BeanDefinition by mapper({}).", mapperClass.getSimpleName());
             return;
         }
 
-        System.out.println("channelMapper is exists.");
-
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(beanClass);
         builder.addConstructorArgReference(mapperBeanName);
+        if (constructorArgs != null && constructorArgs.length > 0) {
+            for (Class<?> constructorArg : constructorArgs) {
+                String argBeanName = Introspector.decapitalize(constructorArg.getSimpleName());
+                builder.addConstructorArgReference(argBeanName);
+            }
+        }
+
+        if (TestUuidService.class.isAssignableFrom(beanClass)) {
+            builder.addPropertyValue("enabled", false);
+        }
 
         String candidateBeanName = Introspector.decapitalize(beanClass.getSimpleName());
         registry.registerBeanDefinition(candidateBeanName, builder.getBeanDefinition());
