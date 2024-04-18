@@ -44,8 +44,7 @@
 
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flyway.version}</version>
+            <artifactId>flyway-mysql</artifactId>
         </dependency>
     </dependencies>
 
