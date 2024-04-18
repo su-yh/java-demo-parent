@@ -11,6 +11,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.lang.NonNull;
 
 import java.beans.Introspector;
 
@@ -23,7 +24,7 @@ import java.beans.Introspector;
 @Slf4j
 public class ConditionalOnMapperConfiguration implements BeanDefinitionRegistryPostProcessor {
     @Override
-    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+    public void postProcessBeanDefinitionRegistry(@NonNull BeanDefinitionRegistry registry) throws BeansException {
         registryBeanConditionalOnMapper(registry, TestUuidService.class, TestUuidMapper.class);
         registryBeanConditionalOnMapper(registry, TestLongIdService.class, TestLongIdMapper.class);
     }
@@ -58,7 +59,7 @@ public class ConditionalOnMapperConfiguration implements BeanDefinitionRegistryP
     }
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        // donothing
+    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // do nothing
     }
 }

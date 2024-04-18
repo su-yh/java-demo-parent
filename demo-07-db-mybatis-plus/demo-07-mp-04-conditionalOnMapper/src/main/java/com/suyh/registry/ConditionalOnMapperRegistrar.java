@@ -4,6 +4,7 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.lang.NonNull;
 
 import java.beans.Introspector;
 
@@ -15,7 +16,9 @@ import java.beans.Introspector;
  */
 public class ConditionalOnMapperRegistrar implements ImportBeanDefinitionRegistrar {
     @Override
-    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    public void registerBeanDefinitions(
+            @NonNull AnnotationMetadata importingClassMetadata,
+            BeanDefinitionRegistry registry) {
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(ConditionalOnMapperConfiguration.class);
 
         String beanName = Introspector.decapitalize(ConditionalOnMapperConfiguration.class.getSimpleName());
