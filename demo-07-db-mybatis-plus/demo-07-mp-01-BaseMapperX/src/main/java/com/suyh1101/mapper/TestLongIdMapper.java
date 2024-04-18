@@ -1,7 +1,7 @@
 package com.suyh1101.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suyh1101.entity.TestLongIdEntity;
+import com.suyh1101.mybatis.BaseMapperX;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-12-09
  */
 @Mapper
-public interface TestLongIdMapper extends BaseMapper<TestLongIdEntity> {
+public interface TestLongIdMapper extends BaseMapperX<TestLongIdEntity> {
 }
