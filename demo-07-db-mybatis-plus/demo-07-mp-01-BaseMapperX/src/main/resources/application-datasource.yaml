@@ -1,0 +1,12 @@
+
+
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://isuyh.com:3306/suyh_test_id?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+    username: suyh_test_id
+    password: suyh_test_id
+
+

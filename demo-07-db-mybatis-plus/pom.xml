@@ -17,6 +17,7 @@
 
     <modules>
         <module>demo-07-mp-01</module>
+        <module>demo-07-mp-01-BaseMapperX</module>
         <module>demo-07-mp-02-generator</module>
         <module>demo-07-mp-03-dynamic-datasource</module>
         <module>demo-07-mp-04-conditionalOnMapper</module>
