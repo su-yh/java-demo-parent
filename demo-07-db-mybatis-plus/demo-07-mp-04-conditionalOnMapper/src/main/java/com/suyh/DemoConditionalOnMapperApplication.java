@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2024-04-17
  */
 @SpringBootApplication
-public class DemoApplication {
+public class DemoConditionalOnMapperApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(DemoConditionalOnMapperApplication.class, args);
     }
 }

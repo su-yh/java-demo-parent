@@ -1,7 +1,9 @@
 package com.suyh.registry;
 
-import com.suyh.mapper.ChannelMapper;
-import com.suyh.service.ChannelService;
+import com.suyh.mapper.TestLongIdMapper;
+import com.suyh.mapper.TestUuidMapper;
+import com.suyh.service.TestLongIdService;
+import com.suyh.service.TestUuidService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -21,7 +23,8 @@ import java.beans.Introspector;
 public class ConditionalOnMapperConfiguration implements BeanDefinitionRegistryPostProcessor {
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        registryBeanConditionalOnMapper(registry, ChannelMapper.class, ChannelService.class);
+        registryBeanConditionalOnMapper(registry, TestUuidMapper.class, TestUuidService.class);
+        registryBeanConditionalOnMapper(registry, TestLongIdMapper.class, TestLongIdService.class);
     }
 
     private <MAPPER, BEAN> void registryBeanConditionalOnMapper(

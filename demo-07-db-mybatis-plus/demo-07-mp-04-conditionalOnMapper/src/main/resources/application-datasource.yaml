@@ -5,7 +5,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.8.34:3306/suyh-mock-cds?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&rewriteBatchedStatements=true
-    username: suyh-mock-cds
-    password: suyh-mock-cds
+    url: jdbc:mysql://isuyh.com:3306/suyh-conditionalOnMapper?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+    username: suyh-conditionalOnMapper
+    password: suyh-conditionalOnMapper
 
