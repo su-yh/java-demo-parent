@@ -1,0 +1,6 @@
+spring:
+  config:
+    import:
+      - application-datasource.yaml
+      - application-log.yaml
+debug: true
