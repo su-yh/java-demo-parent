@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -76,19 +77,19 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
         return selectList(new LambdaQueryWrapper<T>().eq(field, value));
     }
 
-//    default List<T> selectList(String field, Collection<?> values) {
-//        if (CollUtil.isEmpty(values)) {
-//            return CollUtil.newArrayList();
-//        }
-//        return selectList(new QueryWrapper<T>().in(field, values));
-//    }
-//
-//    default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
-//        if (CollUtil.isEmpty(values)) {
-//            return CollUtil.newArrayList();
-//        }
-//        return selectList(new LambdaQueryWrapper<T>().in(field, values));
-//    }
+    default List<T> selectList(String field, Collection<?> values) {
+        if (values == null || values.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return selectList(new QueryWrapper<T>().in(field, values));
+    }
+
+    default List<T> selectList(SFunction<T, ?> field, Collection<?> values) {
+        if (values == null || values.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return selectList(new LambdaQueryWrapper<T>().in(field, values));
+    }
 
     default List<T> selectList(SFunction<T, ?> leField, SFunction<T, ?> geField, Object value) {
         return selectList(new LambdaQueryWrapper<T>().le(leField, value).ge(geField, value));
