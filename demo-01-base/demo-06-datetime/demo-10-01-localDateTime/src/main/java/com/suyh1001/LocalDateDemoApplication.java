@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author suyh
@@ -17,6 +18,7 @@ public class LocalDateDemoApplication {
         fun01();
         fun02();
         fun03();
+        test04();
     }
 
     private static void fun01() {
@@ -116,5 +118,16 @@ public class LocalDateDemoApplication {
 
         System.out.println("LocalDateTime = " + localDateTime);
         System.out.println("Date = " + date);
+    }
+
+    /**
+     * 通过时区得到当前时区的偏移量
+     */
+    public static void test04() {
+        // 比如当前系统的默认时区是北京，那么北京时区的偏移量就是8 小时。
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+        int defaultOffset = defaultTimeZone.getRawOffset() / (60 * 60 * 1000);
+        assert defaultOffset == 8;
+        System.out.println("defaultOffset: " + defaultOffset);
     }
 }
