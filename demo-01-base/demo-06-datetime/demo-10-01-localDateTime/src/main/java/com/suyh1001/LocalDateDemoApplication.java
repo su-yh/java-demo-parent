@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -19,6 +20,8 @@ public class LocalDateDemoApplication {
         fun02();
         fun03();
         test04();
+
+        fun05();
     }
 
     private static void fun01() {
@@ -129,5 +132,36 @@ public class LocalDateDemoApplication {
         int defaultOffset = defaultTimeZone.getRawOffset() / (60 * 60 * 1000);
         assert defaultOffset == 8;
         System.out.println("defaultOffset: " + defaultOffset);
+    }
+
+    // 通过时区得到时区的偏移量时间。
+    // 不过一般也用不到，尽量找找其他方式。
+    private static void fun05() {
+        // 方法一：
+        {
+            ZonedDateTime zoneOffset = ZonedDateTime.now(
+                    ZoneId.of("America/Montreal")
+            );
+
+            // 输出 ZoneOffset
+            System.out.println("方法一，ZoneOffset: " + zoneOffset);
+        }
+
+        // 方法二：
+        {
+            // 创建一个 ZoneId 对象
+//        ZoneId zoneId = ZoneId.of("America/New_York");
+            ZoneId zoneId = ZoneId.of("Asia/Shanghai");
+
+            // 获取当前时间的瞬时时间
+            Instant instant = Instant.now();
+
+            // 获取 ZoneId 对应的 ZoneOffset
+            ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
+
+            // 输出 ZoneOffset
+            System.out.println("方法二：ZoneOffset: " + zoneOffset);
+        }
+
     }
 }
