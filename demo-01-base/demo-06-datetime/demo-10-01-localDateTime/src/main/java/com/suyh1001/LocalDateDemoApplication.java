@@ -19,7 +19,6 @@ public class LocalDateDemoApplication {
         fun01();
         fun02();
         fun03();
-        test04();
 
         fun05();
     }
@@ -123,21 +122,10 @@ public class LocalDateDemoApplication {
         System.out.println("Date = " + date);
     }
 
-    /**
-     * 通过时区得到当前时区的偏移量
-     */
-    public static void test04() {
-        // 比如当前系统的默认时区是北京，那么北京时区的偏移量就是8 小时。
-        TimeZone defaultTimeZone = TimeZone.getDefault();
-        int defaultOffset = defaultTimeZone.getRawOffset() / (60 * 60 * 1000);
-        assert defaultOffset == 8;
-        System.out.println("defaultOffset: " + defaultOffset);
-    }
-
     // 通过时区得到时区的偏移量时间。
     // 不过一般也用不到，尽量找找其他方式。
     private static void fun05() {
-        // 方法一：
+        // 方法一：见下面的方法二
         {
             ZonedDateTime zoneOffset = ZonedDateTime.now(
                     ZoneId.of("America/Montreal")
@@ -147,7 +135,7 @@ public class LocalDateDemoApplication {
             System.out.println("方法一，ZoneOffset: " + zoneOffset);
         }
 
-        // 方法二：
+        // 方法二：这个方法应该是挺好的
         {
             // 创建一个 ZoneId 对象
 //        ZoneId zoneId = ZoneId.of("America/New_York");
@@ -159,8 +147,18 @@ public class LocalDateDemoApplication {
             // 获取 ZoneId 对应的 ZoneOffset
             ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
 
+            int totalSeconds = zoneOffset.getTotalSeconds();
             // 输出 ZoneOffset
             System.out.println("方法二：ZoneOffset: " + zoneOffset);
+        }
+
+        // 方法三：不如方法二好
+        {
+            // 比如当前系统的默认时区是北京，那么北京时区的偏移量就是8 小时。
+            TimeZone defaultTimeZone = TimeZone.getDefault();
+            int defaultOffset = defaultTimeZone.getRawOffset() / (60 * 60 * 1000);
+            assert defaultOffset == 8;
+            System.out.println("defaultOffset: " + defaultOffset);
         }
 
     }
