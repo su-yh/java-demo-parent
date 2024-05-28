@@ -82,7 +82,8 @@ public class LocalDateDemoApplication {
     }
 
     /**
-     * 1.从日期获取ZonedDateTime并使用其方法toLocalDateTime（）获取LocalDateTime
+     * 1.从日期获取ZonedDateTime并使用其方法toLocalDateTime（）获取LocalDateTimeInstant instant = date.toInstant();
+     *             LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
      * 2.使用LocalDateTime的Instant（）工厂方法
      */
     public void test02() {
