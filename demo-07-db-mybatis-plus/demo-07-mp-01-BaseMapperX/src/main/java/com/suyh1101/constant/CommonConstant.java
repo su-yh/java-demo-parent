@@ -1,4 +1,4 @@
-package org.jeecg.common.constant;
+package com.suyh1101.constant;
 
 public interface CommonConstant {
 

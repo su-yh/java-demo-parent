@@ -1,8 +1,7 @@
-package org.jeecg.mp;
+package com.suyh1101.mybatis;
 
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import org.jeecg.common.constant.CommonConstant;
-import org.jeecg.entity.AbstractDeletedFlagEntity;
+import com.suyh1101.entity.AbstractDeletedFlagEntity;
 
 /**
  * @author suyh

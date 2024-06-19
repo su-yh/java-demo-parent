@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.suyh1101.entity.TestLongIdEntity;
 import com.suyh1101.mybatis.BaseMapperX;
 import org.apache.ibatis.annotations.Mapper;
+import com.suyh1101.mybatis.BaseMapperDeleteFlagX;
 
 /**
  * @author suyh

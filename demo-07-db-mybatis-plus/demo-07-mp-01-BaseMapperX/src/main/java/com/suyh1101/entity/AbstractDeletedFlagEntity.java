@@ -1,8 +1,8 @@
-package org.jeecg.entity;
+package com.suyh1101.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.jeecg.common.constant.CommonConstant;
+import com.suyh1101.constant.CommonConstant;
 
 
 /**
