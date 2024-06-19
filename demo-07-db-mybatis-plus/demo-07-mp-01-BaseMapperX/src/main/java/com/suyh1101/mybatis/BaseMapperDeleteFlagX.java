@@ -2,6 +2,7 @@ package com.suyh1101.mybatis;
 
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.suyh1101.entity.AbstractDeletedFlagEntity;
+import com.suyh1101.constant.CommonConstant;
 
 /**
  * @author suyh
