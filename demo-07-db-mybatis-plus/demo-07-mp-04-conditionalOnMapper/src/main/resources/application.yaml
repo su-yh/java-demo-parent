@@ -1,6 +1,0 @@
-spring:
-  config:
-    import:
-      - application-datasource.yaml
-      - application-flywaydb.yaml
-      - application-log.yaml
