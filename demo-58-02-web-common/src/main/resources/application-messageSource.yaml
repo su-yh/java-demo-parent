@@ -1,4 +1,0 @@
-spring:
-  messages:
-    # 要使用MessageSource 我们应该要提供 一个对应 的配置文件 。
-    basename: i18n/messages

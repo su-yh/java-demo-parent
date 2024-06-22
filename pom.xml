@@ -32,5 +32,6 @@
         <module>demo-61-security</module>
         <module>demo-15-web</module>
         <module>demo-53-zookeeper</module>
+        <module>demo-34-actuator</module>
     </modules>
 </project>

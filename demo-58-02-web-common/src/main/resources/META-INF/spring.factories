@@ -1,6 +1,0 @@
-#org.springframework.boot.env.EnvironmentPostProcessor=\
-#  com.suyh.d02.property.environment.FlinkSpringbootEnvironmentPostProcessor
-
-
-# springboot 3.0 版本将会移除，在spring.factories 中对 EnableAutoConfiguration 配置的支持
-# org.springframework.boot.autoconfigure.EnableAutoConfiguration=xxx
