@@ -6,7 +6,7 @@
 
     <groupId>com.suyh</groupId>
     <version>1.0-SNAPSHOT</version>
-    <artifactId>demo-65-spring_factories</artifactId>
+    <artifactId>demo-38-spring_factories</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
