@@ -1,7 +1,0 @@
-server:
-  port: 13001
-some:
-  service:
-    enable: true
-    prefix: $$$
-    suffix: "000111"

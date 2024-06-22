@@ -21,6 +21,7 @@
     <modules>
         <module>demo-06-db-mybatis</module>
         <module>demo-07-db-mybatis-plus</module>
-        <modele>demo-08-db-flywaydb</modele>
+        <module>demo-08-db-flywaydb</module>
+        <module>demo-60-google</module>
     </modules>
 </project>
