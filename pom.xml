@@ -24,5 +24,6 @@
         <module>demo-08-db-flywaydb</module>
         <module>demo-60-google</module>
         <module>demo-33-jackson</module>
+        <module>demo-04-scheduler</module>
     </modules>
 </project>
