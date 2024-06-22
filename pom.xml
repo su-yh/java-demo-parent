@@ -23,5 +23,6 @@
         <module>demo-07-db-mybatis-plus</module>
         <module>demo-08-db-flywaydb</module>
         <module>demo-60-google</module>
+        <module>demo-33-jackson</module>
     </modules>
 </project>

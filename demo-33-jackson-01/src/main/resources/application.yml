@@ -1,5 +1,0 @@
-com:
-  suyh:
-    core:
-      objectMapper:
-        enable: false
