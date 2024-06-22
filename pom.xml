@@ -19,12 +19,13 @@
     </properties>
 
     <modules>
+        <module>demo-04-scheduler</module>
         <module>demo-06-db-mybatis</module>
         <module>demo-07-db-mybatis-plus</module>
         <module>demo-08-db-flywaydb</module>
-        <module>demo-60-google</module>
-        <module>demo-33-jackson</module>
-        <module>demo-04-scheduler</module>
         <module>demo-12-swagger</module>
+        <module>demo-33-jackson</module>
+        <module>demo-60-google</module>
+        <module>demo-61-security</module>
     </modules>
 </project>
