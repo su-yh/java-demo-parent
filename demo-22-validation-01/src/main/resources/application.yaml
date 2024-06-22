@@ -1,5 +1,0 @@
-suyh:
-  server:
-    controller:
-      exception:
-        global: true
