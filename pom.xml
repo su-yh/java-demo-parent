@@ -31,5 +31,6 @@
         <module>demo-60-google</module>
         <module>demo-61-security</module>
         <module>demo-15-web</module>
+        <module>demo-53-zookeeper</module>
     </modules>
 </project>
