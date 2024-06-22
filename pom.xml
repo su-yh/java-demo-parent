@@ -19,6 +19,8 @@
     </properties>
 
     <modules>
+        <module>demo-06-db-mybatis</module>
         <module>demo-07-db-mybatis-plus</module>
+        <modele>demo-08-db-flywaydb</modele>
     </modules>
 </project>
