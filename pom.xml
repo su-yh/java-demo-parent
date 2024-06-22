@@ -19,6 +19,7 @@
     </properties>
 
     <modules>
+        <module>demo-02-cache</module>
         <module>demo-04-scheduler</module>
         <module>demo-06-db-mybatis</module>
         <module>demo-07-db-mybatis-plus</module>
