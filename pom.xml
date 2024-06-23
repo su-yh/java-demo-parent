@@ -19,20 +19,32 @@
     </properties>
 
     <modules>
-        <module>demo-02-cache</module>
-        <module>demo-03-mq</module>
-        <module>demo-04-scheduler</module>
-        <module>demo-06-db-mybatis</module>
-        <module>demo-07-db-mybatis-plus</module>
-        <module>demo-08-db-flywaydb</module>
-        <module>demo-09-shiro</module>
-        <module>demo-12-swagger</module>
-        <module>demo-15-web</module>
-        <module>demo-33-jackson</module>
-        <module>demo-34-actuator</module>
-        <module>demo-38-properties_yaml</module>
-        <module>demo-53-zookeeper</module>
-        <module>demo-60-google</module>
-        <module>demo-61-security</module>
+<!--        <module>demo-02-cache</module>-->
+<!--        <module>demo-03-mq</module>-->
+<!--        <module>demo-04-scheduler</module>-->
+<!--        <module>demo-06-db-mybatis</module>-->
+<!--        <module>demo-07-db-mybatis-plus</module>-->
+<!--        <module>demo-08-db-flywaydb</module>-->
+<!--        <module>demo-09-shiro</module>-->
+<!--        <module>demo-12-swagger</module>-->
+<!--        <module>demo-15-web</module>-->
+<!--        <module>demo-33-jackson</module>-->
+<!--        <module>demo-34-actuator</module>-->
+<!--        <module>demo-38-properties_yaml</module>-->
+<!--        <module>demo-53-zookeeper</module>-->
+<!--        <module>demo-60-google</module>-->
+<!--        <module>demo-61-security</module>-->
+        <module>demo-01-base</module>
+        <module>demo-13-autowired-resource-01</module>
+        <module>demo-23-aop-01</module>
+        <module>demo-24-profile-01</module>
+        <module>demo-26-resource-01</module>
+        <module>demo-27-activiti-01</module>
+        <module>demo-27-activiti-02</module>
+        <module>demo-28-devtools-01</module>
+        <module>demo-31-async-01</module>
+        <modele>demo-32-es-01</modele>
+        <modele>demo-32-es-02</modele>
+        <module>demo-35-aware-01</module>
     </modules>
 </project>

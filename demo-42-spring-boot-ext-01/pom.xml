@@ -2,13 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>java-demo-springboot</artifactId>
-        <groupId>com.suyh</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.suyh</groupId>
+    <version>1.0-SNAPSHOT</version>
     <artifactId>demo-42-spring-boot-ext-01</artifactId>
     <description>
         排除一些spring bean 的注册，当存在两个相同的bean 的时候，期望不改动代码的情况下，使其中一个失效。
