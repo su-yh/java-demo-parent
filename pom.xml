@@ -20,27 +20,10 @@
 
     <modules>
         <module>demo-01-base</module>
-<!--        <module>demo-02-cache</module>-->
-<!--        <module>demo-03-mq</module>-->
-<!--        <module>demo-04-scheduler</module>-->
-<!--        <module>demo-06-db-mybatis</module>-->
-<!--        <module>demo-07-db-mybatis-plus</module>-->
-<!--        <module>demo-08-db-flywaydb</module>-->
-<!--        <module>demo-09-shiro</module>-->
-<!--        <module>demo-10-niche</module>-->
-<!--        <module>demo-12-swagger</module>-->
-<!--        <module>demo-15-web</module>-->
-<!--        <module>demo-31-async-01</module>-->
-<!--        <module>demo-33-jackson</module>-->
-<!--        <module>demo-34-actuator</module>-->
-<!--        <module>demo-38-properties_yaml</module>-->
         <module>demo-42-spring-boot-ext-01</module>
         <module>demo-47-01-springboot-metadata</module>
-<!--        <module>demo-53-zookeeper</module>-->
         <module>demo-57-01-uuid-distributed</module>
         <module>demo-59-01-stopwatch</module>
-<!--        <module>demo-60-google</module>-->
-<!--        <module>demo-61-security</module>-->
         <module>demo-66-bean-self-invoke</module>
 
     </modules>
