@@ -13,10 +13,10 @@ import org.springframework.context.annotation.FilterType;
  */
 @SpringBootApplication
 @ComponentScan(
-        basePackages = "com.suyh",
-        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {
-        CommonInit.class,
-}))
+        basePackages = "com.suyh4101",
+        // 使得一个bean 不再生效，将其排除在spring 容器中。
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                classes = {CommonInit.class,}))
 @Slf4j
 public class Application4101 {
     public static void main(String[] args) {

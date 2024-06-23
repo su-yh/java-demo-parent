@@ -1,0 +1,11 @@
+
+spring:
+  autoconfigure:
+    # 该配置项在 AutoConfigurationImportSelector 中定义并使用  参考变量： PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE
+    exclude:
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ReactiveElasticsearchRepositoriesAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ReactiveRestClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.elasticsearch.jest.JestAutoConfiguration
+
+
