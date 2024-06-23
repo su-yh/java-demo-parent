@@ -37,14 +37,37 @@
         <module>demo-27-activiti-02</module>
         <module>demo-28-devtools-01</module>
         <module>demo-31-async-01</module>
-        <modele>demo-32-es-01</modele>
-        <modele>demo-32-es-02</modele>
+        <module>demo-32-es-01</module>
+        <module>demo-32-es-02</module>
         <module>demo-33-jackson</module>
         <module>demo-34-actuator</module>
         <module>demo-35-aware-01</module>
+        <module>demo-36-01-listener-springboot-24-pre</module>
+        <module>demo-36-02-listener-springboot-24-post</module>
+        <module>demo-37-01-stop-springboot</module>
         <module>demo-38-properties_yaml</module>
+        <module>demo-39-nacos-01-discovery</module>
+        <module>demo-39-nacos-02-registry</module>
+        <module>demo-39-nacos-03-listener</module>
+        <module>demo-40-sentinel-01-nacos-datasource</module>
+        <module>demo-40-sentinel-02-spring-boot-web</module>
+        <module>demo-41-bean-exclude-01</module>
+        <module>demo-42-spring-boot-ext-01</module>
+        <module>demo-43-web-redirect-01</module>
+        <module>demo-44-spring-mvc-01</module>
+        <module>demo-45-cxf-sentinel-01</module>
+        <module>demo-47-01-springboot-metadata</module>
+        <module>demo-49-01-active-spring-boot-24-post</module>
+        <module>demo-51-01-bean-dynamic</module>
+        <module>demo-52-01-prometheus</module>
         <module>demo-53-zookeeper</module>
+        <module>demo-54-01-javassist</module>
+        <module>demo-55-01-websocket-echo</module>
+        <module>demo-55-04-websocket</module>
+        <module>demo-57-01-uuid-distributed</module>
+        <module>demo-59-01-stopwatch</module>
         <module>demo-60-google</module>
         <module>demo-61-security</module>
+        <module>demo-66-bean-self-invoke</module>
     </modules>
 </project>
