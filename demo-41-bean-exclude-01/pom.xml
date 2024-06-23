@@ -44,7 +44,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.5.RELEASE</version>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <excludes>
                         <!-- lombok 只在编译时有效 -->
