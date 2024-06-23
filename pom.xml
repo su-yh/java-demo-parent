@@ -27,11 +27,12 @@
         <module>demo-08-db-flywaydb</module>
         <module>demo-09-shiro</module>
         <module>demo-12-swagger</module>
+        <module>demo-15-web</module>
         <module>demo-33-jackson</module>
+        <module>demo-34-actuator</module>
+        <module>demo-38-properties_yaml</module>
+        <module>demo-53-zookeeper</module>
         <module>demo-60-google</module>
         <module>demo-61-security</module>
-        <module>demo-15-web</module>
-        <module>demo-53-zookeeper</module>
-        <module>demo-34-actuator</module>
     </modules>
 </project>
