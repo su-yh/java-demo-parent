@@ -1,6 +1,5 @@
 package com.suyh4101;
 
-import com.suyh.init.CommonInit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
