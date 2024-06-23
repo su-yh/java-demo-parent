@@ -1,1 +1,0 @@
-参考博客，动态注册bean： https://www.cnblogs.com/leihuazhe/p/8137564.html

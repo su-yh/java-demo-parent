@@ -30,6 +30,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!--这个依赖主要是在编译阶段使用，所以scope 的值是provided-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
