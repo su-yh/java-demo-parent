@@ -13,6 +13,8 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <spring-boot.version>2.7.4</spring-boot.version>
+
+        <druid.version>1.2.19</druid.version>
     </properties>
 
     <dependencies>
@@ -35,7 +37,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.19</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <!-- MySQL Connector -->
