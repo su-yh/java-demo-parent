@@ -38,9 +38,7 @@
         <module>demo-34-actuator</module>
         <module>demo-35-aware-01</module>
         <module>demo-38-properties_yaml</module>
-        <module>demo-41-bean-exclude-01</module>
         <module>demo-42-spring-boot-ext-01</module>
-        <module>demo-43-web-redirect-01</module>
         <module>demo-47-01-springboot-metadata</module>
         <module>demo-53-zookeeper</module>
         <module>demo-57-01-uuid-distributed</module>
