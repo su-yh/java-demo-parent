@@ -81,47 +81,6 @@ public class LocalDateDemoApplication {
         // log.info("localDateNowFormat: {}, localDateTimeNowFormat: {}", localDateNowFormat, localDateTimeNowFormat);
     }
 
-    /**
-     * 1.从日期获取ZonedDateTime并使用其方法toLocalDateTime（）获取LocalDateTimeInstant instant = date.toInstant();
-     *             LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
-     * 2.使用LocalDateTime的Instant（）工厂方法
-     */
-    public void test02() {
-        // 转换: Date  ==>  LocalDateTime
-        Date date = new Date();
-        ZoneId zoneId = ZoneId.systemDefault();
-
-        {
-            // 方式一
-            Instant instant = date.toInstant();
-            LocalDateTime localDateTime = instant.atZone(zoneId).toLocalDateTime();
-            System.out.println("Date = " + date);
-            System.out.println("LocalDateTime = " + localDateTime);
-        }
-        {
-            // 方式二
-            LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), zoneId);
-            System.out.println("Date = " + date);
-            System.out.println("LocalDateTime = " + localDateTime);
-        }
-    }
-
-    /**
-     * 转换: LocalDateTime  ==>  Date
-     * 1.使用atZone（）方法将LocalDateTime转换为ZonedDateTime
-     * 2.将ZonedDateTime转换为Instant，并从中获取Date
-     */
-    public void test03() {
-        // 系统默认时区ID
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        ZonedDateTime zdt = localDateTime.atZone(zoneId);
-
-        Date date = Date.from(zdt.toInstant());
-
-        System.out.println("LocalDateTime = " + localDateTime);
-        System.out.println("Date = " + date);
-    }
 
     // 通过时区得到时区的偏移量时间。
     // 不过一般也用不到，尽量找找其他方式。
