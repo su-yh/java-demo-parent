@@ -1,7 +1,7 @@
 package com.suyh.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.utils.JsonUtil;
+import com.suyh.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,7 +28,7 @@ public class SuyhJacksonAutoConfiguration {
         // 它主要的类是在 com.fasterxml.jackson.databind.util.StdDateFormat 类中定义的
         log.info("ObjectMapper configuration: use SuyhJacksonAutoConfiguration");
         ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-        JsonUtil.initMapper(objectMapper);
+        JsonUtils.initMapper(objectMapper);
         return objectMapper;
     }
 

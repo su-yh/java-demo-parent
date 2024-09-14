@@ -2,7 +2,7 @@ package com.suyh;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.suyh.entity.Person;
-import com.suyh.utils.JsonUtil;
+import com.suyh.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class TestTemp {
         System.out.println("test01");
 
         Person person = new Person("id", "name", "sex");
-        String serializableJson = JsonUtil.serializable(person);
+        String serializableJson = JsonUtils.serializable(person);
         System.out.println("serializableJson: " + serializableJson);
-        Person personRes = JsonUtil.deserialize(serializableJson, Person.class);
+        Person personRes = JsonUtils.deserialize(serializableJson, Person.class);
         System.out.println("personRes: " + personRes);
     }
 
@@ -31,18 +31,18 @@ public class TestTemp {
         Person person02 = new Person("id02", "name02", "sex02");
         person02.setUpdateDate(new Date());
         list.add(person02);
-        String serializable = JsonUtil.serializable(list);
+        String serializable = JsonUtils.serializable(list);
         System.out.println("serializable: " + serializable);
-        ArrayNode jsonNodes = JsonUtil.deserializeToArrayNode(serializable);
+        ArrayNode jsonNodes = JsonUtils.deserializeToArrayNode(serializable);
         System.out.println("deserialize: " + jsonNodes);
     }
 
     @Test
     public void test03() {
         Person person = new Person("id", "name", "sex");
-        String serializableJson = JsonUtil.serializable(person);
+        String serializableJson = JsonUtils.serializable(person);
         System.out.println("serializableJson: " + serializableJson);
-        Person personRes = JsonUtil.deserialize(serializableJson, Person.class);
+        Person personRes = JsonUtils.deserialize(serializableJson, Person.class);
         System.out.println("personRes: " + personRes);
     }
 }

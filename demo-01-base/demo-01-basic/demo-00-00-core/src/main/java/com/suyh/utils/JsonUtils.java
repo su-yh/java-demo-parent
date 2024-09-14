@@ -1,33 +1,32 @@
 package com.suyh.utils;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.MapType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
 @Slf4j
-public class JsonUtil {
-    private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper();
+public class JsonUtils {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
-        initMapper(DEFAULT_MAPPER);
+        initMapper(OBJECT_MAPPER);
     }
 
     // 博客参考：https://www.cnblogs.com/yuluoxingkong/p/7676089.html
@@ -50,19 +49,6 @@ public class JsonUtil {
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
     }
 
-    public static void custom(ObjectMapper mapper) {
-        // 字段保留，将null值转为""
-        mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
-            @Override
-            public void serialize(Object o, JsonGenerator jsonGenerator,
-                                  SerializerProvider serializerProvider)
-                    throws IOException {
-                jsonGenerator.writeString("");
-            }
-        });
-    }
-
-
     /**
      * 序列化对象
      *
@@ -70,7 +56,7 @@ public class JsonUtil {
      * @return 返回json 字符串
      */
     public static String serializable(Object object) {
-        return serializable(object, DEFAULT_MAPPER);
+        return serializable(object, OBJECT_MAPPER);
     }
 
     public static String serializable(Object object, ObjectMapper mapper) {
@@ -93,7 +79,7 @@ public class JsonUtil {
      * @return 返回对象实体
      */
     public static <T> T deserialize(String json, Class<T> clazz) {
-        return deserialize(json, clazz, DEFAULT_MAPPER);
+        return deserialize(json, clazz, OBJECT_MAPPER);
     }
 
     public static <T> T deserialize(String json, Class<T> clazz, ObjectMapper mapper) {
@@ -115,11 +101,11 @@ public class JsonUtil {
      * @param <T>   泛型
      * @return 返回List 对象
      */
-    public static <T> List<T> deserializeToList(String json, Class<T> clazz) {
-       return deserializeToList(json, clazz, DEFAULT_MAPPER);
+    public static <T> T[] deserializeToArray(String json, Class<T> clazz) {
+        return deserializeToArray(json, clazz, OBJECT_MAPPER);
     }
 
-    public static <T> List<T> deserializeToList(String json, Class<T> clazz, ObjectMapper mapper) {
+    public static <T> T[] deserializeToArray(String json, Class<T> clazz, ObjectMapper mapper) {
         try {
             ArrayType arrayType = mapper.getTypeFactory().constructArrayType(clazz);
             return mapper.readValue(json, arrayType);
@@ -130,16 +116,19 @@ public class JsonUtil {
         return null;
     }
 
-    public static <T> List<T> deserializeToList02(String json, Class<T> clazz) {
-        return deserializeToList02(json, clazz, DEFAULT_MAPPER);
+    public static <T> List<T> deserializeToList(String json, Class<T> clazz) {
+        if (!StringUtils.hasText(json)) {
+            return Collections.emptyList();
+        } else {
+            return deserializeToList(json, clazz, OBJECT_MAPPER);
+        }
     }
 
-    public static <T> List<T> deserializeToList02(String json, Class<T> clazz, ObjectMapper mapper) {
+    public static <T> List<T> deserializeToList(String json, Class<T> clazz, ObjectMapper mapper) {
         try {
             JavaType javaType = mapper.getTypeFactory()
                     .constructParametricType(List.class, clazz);
-            List<T> list = mapper.readValue(json, javaType);
-            return list;
+            return mapper.readValue(json, javaType);
         } catch (JsonProcessingException e) {
             log.error("deserializeToList02 failed. json string: {}", json, e);
         }
@@ -158,7 +147,7 @@ public class JsonUtil {
      * @return 返回map
      */
     public static <K, V> Map<K, V> deserializeToMap(String json, Class<K> kClazz, Class<V> vClass) {
-        return deserializeToMap(json, kClazz, vClass, DEFAULT_MAPPER);
+        return deserializeToMap(json, kClazz, vClass, OBJECT_MAPPER);
     }
 
     public static <K, V> Map<K, V> deserializeToMap(String json, Class<K> kClazz, Class<V> vClass, ObjectMapper mapper) {
@@ -173,11 +162,11 @@ public class JsonUtil {
     }
 
     public static ObjectNode createObjectNode() {
-        return DEFAULT_MAPPER.createObjectNode();
+        return OBJECT_MAPPER.createObjectNode();
     }
 
     public static ArrayNode createArrayNode() {
-        return DEFAULT_MAPPER.createArrayNode();
+        return OBJECT_MAPPER.createArrayNode();
     }
 
     /**
@@ -187,7 +176,7 @@ public class JsonUtil {
      * @return 返回一个JsonNode 对象
      */
     public static JsonNode deserializeToJsonNode(String json) {
-        return deserializeToJsonNode(json, DEFAULT_MAPPER);
+        return deserializeToJsonNode(json, OBJECT_MAPPER);
     }
 
     public static JsonNode deserializeToJsonNode(String json, ObjectMapper mapper) {
@@ -210,7 +199,7 @@ public class JsonUtil {
      * @return 返回一个ArrayNode 对象
      */
     public static ArrayNode deserializeToArrayNode(String json) {
-        return deserializeToArrayNode(json, DEFAULT_MAPPER);
+        return deserializeToArrayNode(json, OBJECT_MAPPER);
     }
 
     public static ArrayNode deserializeToArrayNode(String json, ObjectMapper mapper) {
