@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -32,6 +33,24 @@ public final class DateUtils {
         return LocalDate.of(year, month, day);
     }
 
+    // 日期格式：yyyyMMdd
+    public static long convertToTimestamp(int dateValue) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDate localDate = convertToLocalDate(dateValue);
+        LocalDateTime localDateTime = localDate.atStartOfDay();
+        return localDateTime.atZone(zoneId).toInstant().toEpochMilli();
+    }
+
+    // 时间戳按对应的时区转换成对应的日期，格式为：yyyyMMdd
+    public static Integer timestampToDate(long timestampMillis) {
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        Date date = new Date(timestampMillis);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), zoneId);
+        LocalDate localDate = localDateTime.toLocalDate();
+        return convertToInteger(localDate);
+    }
+
     public static Integer convertToInteger(LocalDate localDate) {
         int year = localDate.getYear();
         int monthValue = localDate.getMonthValue();
@@ -50,5 +69,26 @@ public final class DateUtils {
         ZoneId zoneId = ZoneId.systemDefault();
         Instant instant = date.toInstant();
         return instant.atZone(zoneId).toLocalDateTime();
+    }
+
+    /**
+     * 日期差 = dateLarger - dateSmall
+     */
+    public static long diffDays01(int dateSmall, int dateLarger) {
+        LocalDate localDateSmall = convertToLocalDate(dateSmall);
+        LocalDate localDateBigger = convertToLocalDate(dateLarger);
+
+        return localDateBigger.toEpochDay() - localDateSmall.toEpochDay();
+    }
+
+    /**
+     * 日期差 = dateLarger - dateSmall
+     */
+    public static long betweenDays(int dateSmall, int dateLarger) {
+
+        LocalDate localDateSmall = convertToLocalDate(dateSmall);
+        LocalDate localDateBigger = convertToLocalDate(dateLarger);
+
+        return ChronoUnit.DAYS.between(localDateSmall, localDateBigger);
     }
 }
