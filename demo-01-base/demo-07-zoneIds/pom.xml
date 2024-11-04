@@ -6,17 +6,7 @@
 
     <groupId>com.suyh</groupId>
     <version>1.0-SNAPSHOT</version>
-    <artifactId>demo-01-base</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>demo-01-basic</module>
-        <module>demo-02-log</module>
-        <module>demo-03-test</module>
-        <module>demo-04-jpa</module>
-        <module>demo-06-datetime</module>
-        <module>demo-07-zoneIds</module>
-        <module>demo-99-other</module>
-    </modules>
+    <artifactId>demo-07-zoneIds</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
