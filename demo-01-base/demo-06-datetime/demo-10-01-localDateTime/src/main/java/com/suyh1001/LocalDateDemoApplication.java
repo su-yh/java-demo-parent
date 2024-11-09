@@ -7,7 +7,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -106,6 +105,8 @@ public class LocalDateDemoApplication {
 
             // 获取 ZoneId 对应的 ZoneOffset
             ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
+            // 标准偏移是一个固定值，要有当前时间的话最好是使用 getOffset
+            // ZoneOffset zoneOffset = zoneId.getRules().getStandardOffset(instant);
 
             int totalSeconds = zoneOffset.getTotalSeconds();
             // 输出 ZoneOffset

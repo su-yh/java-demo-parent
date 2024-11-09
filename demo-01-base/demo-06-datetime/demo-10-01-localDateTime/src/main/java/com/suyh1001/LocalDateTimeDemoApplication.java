@@ -108,7 +108,9 @@ public class LocalDateTimeDemoApplication {
         LocalDateTime localDateTime = LocalDateTime.now();
         ZonedDateTime zdt = localDateTime.atZone(zoneId);
 
-        Date date = Date.from(zdt.toInstant());
+        // 得到毫秒单位的时间戳
+        long epochMilli = zdt.toInstant().toEpochMilli();
+        Date date = new Date(epochMilli);
 
         System.out.println("LocalDateTime = " + localDateTime);
         System.out.println("Date = " + date);
