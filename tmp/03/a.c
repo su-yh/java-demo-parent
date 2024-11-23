@@ -13,6 +13,12 @@ struct msgbuf {
     char mdata[4098];
 };
 
+#define MSG_TYPE 1
+#define OTHER_OPERATION 'o'
+#define READ_OPERATION 'r'
+#define WRITE_OPERATION 'w'
+
+// 打印使用帮助信息
 void usage() {
     printf("Usage:./ipc_msg_queue [-r|-w] [--dates <date>] [--pns <pns>] [--channelList <channels>]\n");
     printf("Options:\n");
@@ -71,7 +77,7 @@ void parseReceivedMessage(const char *buffer, char *date, char *pns, char *chann
 
 int main(int argc, char *argv[]) {
     int opt;
-    int operation = 0;  // 0表示未指定操作，1表示读，2表示写
+    int operation = OTHER_OPERATION;
     char date[9] = "";
     char pns[800] = "";
     char channelList[2048] = "";
@@ -87,10 +93,10 @@ int main(int argc, char *argv[]) {
     while ((opt = getopt_long(argc, argv, "rw", long_options, NULL))!= -1) {
         switch (opt) {
             case 'r':
-                operation = 1;
+                operation = READ_OPERATION;
                 break;
             case 'w':
-                operation = 2;
+                operation = WRITE_OPERATION;
                 break;
             case 'd':
                 strcpy(date, optarg);
@@ -106,7 +112,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if (operation == 0) {
+    if (operation == OTHER_OPERATION) {
         usage();
     }
 
@@ -124,7 +130,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    if (operation == 1) {
+    if (operation == READ_OPERATION) {
         struct msgbuf buffer;
         if (msgrcv(msgid, &buffer, sizeof(buffer.mdata), 0, IPC_NOWAIT) == -1) {
             perror("msgrcv");
@@ -141,13 +147,13 @@ int main(int argc, char *argv[]) {
         printf("dates: %s\n", date);
         printf("pns: %s\n", pns);
         printf("channelList: %s\n", channelList);
-    } else if (operation == 2) {
+    } else if (operation == WRITE_OPERATION) {
         if (strlen(date) == 0 || strlen(pns) == 0) {
             fprintf(stderr, "Dates and PNs cannot be empty when writing to the message queue.\n");
             exit(EXIT_FAILURE);
         }
         struct msgbuf buffer;
-        buffer.mtype = 1;
+        buffer.mtype = MSG_TYPE;
         int msgLength = formatMessage(buffer.mdata, date, pns, channelList);
         if (msgsnd(msgid, &buffer, msgLength, 0) == -1) {
             perror("msgsnd");
