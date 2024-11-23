@@ -75,6 +75,7 @@ void parseReceivedMessage(const char *buffer, char *date, char *pns, char *chann
     channelList[channelListLen] = '\0';
 }
 
+// ./ipcmqs -w --pns hy --date 20241102
 int main(int argc, char *argv[]) {
     int opt;
     int operation = OTHER_OPERATION;
