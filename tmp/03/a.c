@@ -8,42 +8,41 @@
 #include <string.h>
 #include <errno.h>
 
-// 定义消息结构体
 struct msgbuf {
     long mtype;
-    char mtext[100];
+    char mdata[100];
 };
 
 void usage() {
     printf("Usage:./ipc_msg_queue [-r|-w] [--dates <date>] [--pns <pns>] [--channelList <channels>]\n");
     printf("Options:\n");
-    printf("  -r, --read    Read from the message queue\n");
-    printf("  -w, --write   Write to the message queue\n");
-    printf("  --dates       Specify date\n");
-    printf("  --pns         Specify pns\n");
-    printf("  --channelList Specify channel list\n");
+    printf("  -r, --read        Read from the message queue\n");
+    printf("  -w, --write       Write to the message queue\n");
+    printf("  -d, --dates       Specify date\n");
+    printf("  -p, --pns         Specify pns\n");
+    printf("  -c, --channelList Specify channel list\n");
     exit(EXIT_FAILURE);
 }
 
 // 格式化消息并返回消息长度
-int formatMessage(char *message, const char *date, const char *pns, const char *channelList) {
+int formatMessage(char *buffer, const char *date, const char *pns, const char *channelList) {
     int offset = 0;
     int dateLen = strlen(date);
-    *((int*)(message + offset)) = dateLen;
+    *((int*)(buffer + offset)) = dateLen;
     offset += sizeof(int);
-    strcpy(message + offset, date);
+    strcpy(buffer + offset, date);
     offset += dateLen;
 
     int pnsLen = strlen(pns);
-    *((int*)(message + offset)) = pnsLen;
+    *((int*)(buffer + offset)) = pnsLen;
     offset += sizeof(int);
-    strcpy(message + offset, pns);
+    strcpy(buffer + offset, pns);
     offset += pnsLen;
 
     int channelListLen = strlen(channelList);
-    *((int*)(message + offset)) = channelListLen;
+    *((int*)(buffer + offset)) = channelListLen;
     offset += sizeof(int);
-    strcpy(message + offset, channelList);
+    strcpy(buffer + offset, channelList);
     offset += channelListLen;
 
     return offset;
@@ -81,7 +80,7 @@ int main(int argc, char *argv[]) {
         {"write", no_argument, 0, 'w'},
         {"dates", required_argument, 0, 'd'},
         {"pns", required_argument, 0, 'p'},
-        {"channelList", required_argument, 0, 'c'},
+        {"channelList", no_argument, 0, 'c'},
         {0, 0, 0, 0}
     };
 
@@ -125,9 +124,9 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    if (operation == 1) {  // 读操作
+    if (operation == 1) {
         struct msgbuf buffer;
-        if (msgrcv(msgid, &buffer, sizeof(buffer.mtext), 0, IPC_NOWAIT) == -1) {
+        if (msgrcv(msgid, &buffer, sizeof(buffer.mdata), 0, IPC_NOWAIT) == -1) {
             perror("msgrcv");
             if (errno!= ENOMSG) {
                 // 如果errno不是ENOMSG，表示是其他错误，以失败状态退出
@@ -138,12 +137,19 @@ int main(int argc, char *argv[]) {
             exit(EXIT_SUCCESS);
         }
 
-        parseReceivedMessage(buffer.mtext, date, pns, channelList);
+        parseReceivedMessage(buffer.mdata, date, pns, channelList);
         printf("Received message:\nDate: %s\nPNs: %s\nChannels: %s\n", date, pns, channelList);
-    } else if (operation == 2) {  // 写操作
+        printf("dates: %s\n", date);
+        printf("pns: %s\n", pns);
+        printf("channelList: %s\n", channelList);
+    } else if (operation == 2) {
+        if (strlen(date) == 0 || strlen(pns) == 0) {
+            fprintf(stderr, "Dates and PNs cannot be empty when writing to the message queue.\n");
+            exit(EXIT_FAILURE);
+        }
         struct msgbuf buffer;
         buffer.mtype = 1;
-        int msgLength = formatMessage(buffer.mtext, date, pns, channelList);
+        int msgLength = formatMessage(buffer.mdata, date, pns, channelList);
         if (msgsnd(msgid, &buffer, msgLength, 0) == -1) {
             perror("msgsnd");
             exit(EXIT_FAILURE);
