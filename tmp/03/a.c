@@ -10,7 +10,7 @@
 
 struct msgbuf {
     long mtype;
-    char mdata[100];
+    char mdata[4098];
 };
 
 void usage() {
@@ -72,9 +72,9 @@ void parseReceivedMessage(const char *buffer, char *date, char *pns, char *chann
 int main(int argc, char *argv[]) {
     int opt;
     int operation = 0;  // 0表示未指定操作，1表示读，2表示写
-    char date[20] = "";
-    char pns[100] = "";
-    char channelList[200] = "";
+    char date[9] = "";
+    char pns[800] = "";
+    char channelList[2048] = "";
     struct option long_options[] = {
         {"read", no_argument, 0, 'r'},
         {"write", no_argument, 0, 'w'},
@@ -138,7 +138,6 @@ int main(int argc, char *argv[]) {
         }
 
         parseReceivedMessage(buffer.mdata, date, pns, channelList);
-        printf("Received message:\nDate: %s\nPNs: %s\nChannels: %s\n", date, pns, channelList);
         printf("dates: %s\n", date);
         printf("pns: %s\n", pns);
         printf("channelList: %s\n", channelList);
