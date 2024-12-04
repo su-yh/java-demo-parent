@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# 从消息队列中取出 flink 作业启动的参数，并提交作业
-
-
 #./ipcmqs -w --pns hy --date 20241102
 
 # 1. 查询flink 集群是否空闲
@@ -20,6 +17,7 @@ if [[ ! "${FLINK_CLUSTER_IDLE}x" = "true"x ]]; then
 fi
 
 # flink 集群空闲中
+# 从消息队列中取出 flink 作业启动的参数，并提交作业
 DATES=""
 PNS=""
 CHANNEL_LIST=""
@@ -30,18 +28,16 @@ while read line; do
     PNS=$(echo ${BASH_REMATCH[1]})
   elif [[ $line =~ ^channelList:\ (.*)$ ]]; then
     CHANNEL_LIST=$(echo ${BASH_REMATCH[1]})
-  else
-    echo "不匹配预期格式的行: $line"
   fi
 done < <(./ipcmqs -r)
 
-echo "DATES: ${DATES}, PNS: ${PNS}, CHANNEL_LIST: ${CHANNEL_LIST}"
-
 # 消息队列中没有数据
-if [[ "${DATES}"x = ""x || "${PNS}x" == ""x ]]; then
-  echo "ipcs mq is empty"
+if [[ "${DATES}"x = ""x ]]; then
+  echo "ipcs mq is empty or dates is null"
   exit 0
 fi
+
+echo "DATES: ${DATES}, PNS: ${PNS}, CHANNEL_LIST: ${CHANNEL_LIST}"
 
 cd /home/suyunhong/flink/flink-repetition/flink-1.18.0
 ./bin/flink run -p  8 -d job-jar/cdap-repetition-job-1.8.0.jar
