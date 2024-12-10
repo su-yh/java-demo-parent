@@ -1,6 +1,7 @@
 import requests
 
-base_url = "http://192.168.8.56:8102"
+# base_url = "http://192.168.8.56:8102"
+base_url = "http://localhost:8991"
 
 def get_jobs_overview():
     try:
