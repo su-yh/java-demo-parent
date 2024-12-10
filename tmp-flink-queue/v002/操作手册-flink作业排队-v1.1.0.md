@@ -2,7 +2,17 @@
 
 ## 版本升级与变化
 
-### v1.0.0
+### v1.0.0 --> v1.1.0
+
+1. 所有的批算作业共用相同的服务器资源
+
+   同期群、实时曲线、重复率作业，可以在同一个flink 集群服务器中运行。
+
+   使用消息队列和命令脚本配合依次排队执行
+
+   ==这个需要v3.0.0 版本以上才可以。以前的版本没法在同一个集群下运行不同的作业，相互之间的影响。==
+
+2. 脚本命令添加jobName 参数
 
 
 
@@ -23,12 +33,36 @@
 
    ```shell
    # 修改为对应目录，以及命令行参数
-   cd /home/suyunhong/flink/flink-repetition/flink-1.18.0
-   ./bin/flink run -d job-jar/cdap-repetition-job-1.8.0.jar --cdap.batch.runtime.form-date=${DATES} --cdap.batch.runtime.pns=${PNS} --cdap.batch.runtime.channel-list=${CHANNEL_LIST}
+   cd /home/suyunhong/flink/flink-merge/flink-1.18.0
+   case $JOB_NAME in
+        "cohort_batch")
+            ./bin/flink run -d job-jar/flink-cohort-job-3.0.0.jar --cds.flink.common.batch.date=${DATES} --cds.flink.common.batch.pns=${PNS} --cds.flink.common.batch.channel-list=${CHANNEL_LIST}
+            ;;
+        "realtime_batch")
+            ./bin/flink run -d job-jar/realtime-trend-job-3.0.0.jar --realtime.trend.batch.runtime.dates=${DATES} --realtime.trend.batch.runtime.pns=${PNS} --realtime.trend.batch.runtime.channel-list=${CHANNEL_LIST}
+            ;;
+        "repetition_batch")
+            ./bin/flink run -d job-jar/cdap-repetition-job-3.0.0.jar --cdap.batch.runtime.form-date=${DATES} --cdap.batch.runtime.pns=${PNS} --cdap.batch.runtime.channel-list=${CHANNEL_LIST}
+            ;;
+        *)
+            echo "UNKNOWN jobName: ${JOB_NAME}."
+            ;;
+   esac
    cd -
    ```
 
-4. 配置定时任务
+4. 修改`cron_push_job.sh` 中的flink job 参数
+
+   ```shell
+   # jobName参数可选值: cohort_batch | realtime_batch | repetition_batch
+   ./ipcmqs -w --pns inr --date ${DATES} --jobName cohort_batch
+   ./ipcmqs -w --pns inr --date ${DATES} --jobName realtime_batch
+   ./ipcmqs -w --pns inr --date ${DATES} --jobName repetition_batch
+   ```
+
+   
+   
+5. 配置定时任务
 
    ```shell
    # 每分钟都会尝试从消息队列中取参数提交作业
@@ -48,13 +82,14 @@
   > 读写消息队列的命令
 
   ```shell
-  Usage:./ipc_msg_queue [-r|-w] [--dates <date>] [--pns <pns>] [--channelList <channels>]
+  Usage:./ipc_msg_queue [-r|-w] [--dates <date>] [--pns <pns>] [--channelList <channels>] [--jobName <jobName>]
   Options:
     -r, --read        Read from the message queue
     -w, --write       Write to the message queue
     -d, --dates       Specify date
     -p, --pns         Specify pns
     -c, --channelList Specify channel list
+    -j, --jobName     Specify job name
   
   ```
 

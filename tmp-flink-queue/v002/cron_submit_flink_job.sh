@@ -41,31 +41,29 @@ done < <(./ipcmqs -r)
 echo "DATES: ${DATES}, PNS: ${PNS}, CHANNEL_LIST: ${CHANNEL_LIST}, JOB_NAME: ${JOB_NAME}"
 
 # 消息队列中没有数据
-if [[ "${DATES}"x = ""x || "${PNS}x" == ""x || "${JOB_NAME}"x == ""x]]; then
+if [[ "${DATES}"x = ""x || "${PNS}x" == ""x || "${JOB_NAME}"x == ""x ]]; then
   echo "ipcs mq is empty."
   exit 0
 fi
 
 
 # 修改为对应目录，以及命令行参数
-cd /home/suyunhong/flink/flink-repetition/flink-1.18.0
-./bin/flink run -p  8 -d job-jar/cdap-repetition-job-1.8.0.jar --cdap.batch.runtime.form-date=${DATES} --cdap.batch.runtime.pns=${PNS} --cdap.batch.runtime.channel-list=${CHANNEL_LIST}
-cd -
-
+cd /home/suyunhong/flink/flink-merge/flink-1.18.0
 case $JOB_NAME in
      "cohort_batch")
-         echo "It's cohort_batch."
+         ./bin/flink run -d job-jar/flink-cohort-job-3.0.0.jar --cds.flink.common.batch.date=${DATES} --cds.flink.common.batch.pns=${PNS} --cds.flink.common.batch.channel-list=${CHANNEL_LIST}
          ;;
      "realtime_batch")
-         echo "It's a realtime_batch."
+         ./bin/flink run -d job-jar/realtime-trend-job-3.0.0.jar --realtime.trend.batch.runtime.dates=${DATES} --realtime.trend.batch.runtime.pns=${PNS} --realtime.trend.batch.runtime.channel-list=${CHANNEL_LIST}
          ;;
      "repetition_batch")
-         echo "It's a repetition_batch."
+         ./bin/flink run -d job-jar/cdap-repetition-job-3.0.0.jar --cdap.batch.runtime.form-date=${DATES} --cdap.batch.runtime.pns=${PNS} --cdap.batch.runtime.channel-list=${CHANNEL_LIST}
          ;;
      *)
          echo "UNKNOWN jobName: ${JOB_NAME}."
          ;;
- esac
+esac
+cd -
 
 #TZ='Asia/Shanghai' date +%Y%m%d
 #TZ='Asia/Tokyo' date +%Y%m%d
