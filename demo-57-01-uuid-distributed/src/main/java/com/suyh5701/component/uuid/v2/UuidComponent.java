@@ -1,4 +1,4 @@
-package com.suyh5701.component.util;
+package com.suyh5701.component.uuid.v2;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;

@@ -1,4 +1,4 @@
-package com.suyh5701.uuid.v1;
+package com.suyh5701.component.uuid.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,12 +9,16 @@ import java.time.ZoneId;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * 单机版本简单使用
+ *
  * @author suyh
  * @since 2024-06-24
  */
 @Component
 @Slf4j
 public class UuidComponent {
+    // 字符串长度至少为12 个宽度
+    private final static int UUID_HEX_LEN = 12;
     private final AtomicLong uuidBase = new AtomicLong(0L);
 
     @PostConstruct
@@ -32,9 +36,6 @@ public class UuidComponent {
     public long uuidLong() {
         return uuidBase.incrementAndGet();
     }
-
-    // 字符串长度至少为12 个宽度
-    private final static int UUID_HEX_LEN = 12;
 
     // 12 个字符长度
     public String uuidStr() {

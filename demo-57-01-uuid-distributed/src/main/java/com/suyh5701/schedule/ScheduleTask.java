@@ -1,6 +1,6 @@
 package com.suyh5701.schedule;
 
-import com.suyh5701.component.util.UuidComponent;
+import com.suyh5701.component.uuid.v2.UuidComponent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

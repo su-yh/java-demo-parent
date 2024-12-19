@@ -1,6 +1,6 @@
 package com.suyh5701.util;
 
-import com.suyh5701.component.util.UuidComponent;
+import com.suyh5701.component.uuid.v2.UuidComponent;
 import lombok.Setter;
 
 public final class UuidUtils {
