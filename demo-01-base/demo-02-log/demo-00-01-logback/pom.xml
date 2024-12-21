@@ -86,7 +86,8 @@
                 -->
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>3.0.0</version>
+                <!--<version>3.0.0</version>-->
+                <version>4.0.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -95,6 +96,15 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <excludeProperties>
+                        <!--
+                            [ERROR] Failed to perform fetch
+                            org.eclipse.jgit.api.errors.TransportException: git@192.168.8.134:aiteer/flink-biz.git: Auth fail
+                            这个错误是因为要获取属性：git.local.branch.ahead / git.local.branch.behind
+                            所以这里直接将这两个属性忽略掉即可。
+                        -->
+                        <excludeProperty>^git.local.branch.*$</excludeProperty>
+                    </excludeProperties>
                     <verbose>true</verbose>
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <injectAllReactorProjects>true</injectAllReactorProjects>
