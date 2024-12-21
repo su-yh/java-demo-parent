@@ -20,10 +20,11 @@ struct msgbuf {
 
 // 打印使用帮助信息
 void usage() {
-    printf("Usage:./ipc_msg_queue [-r|-w] [--dates <date>] [--pns <pns>] [--channelList <channels>] [--jobName <jobName>]\n");
+    printf("Usage:./ipc_msg_queue [-r|-w] [--msgflg <option>] [--dates <date>] [--pns <pns>] [--channelList <channels>] [--jobName <jobName>]\n");
     printf("Options:\n");
     printf("  -r, --read        Read from the message queue\n");
     printf("  -w, --write       Write to the message queue\n");
+    printf("  --msgflg <option> Option can be 0 (blocking), IPC_NOWAIT (non-blocking), MSG_NOERROR (truncate if too long)\n");
     printf("  -d, --dates       Specify date\n");
     printf("  -p, --pns         Specify pns\n");
     printf("  -c, --channelList Specify channel list\n");
@@ -89,7 +90,13 @@ void parseReceivedMessage(const char *buffer, char *date, char *pns, char *chann
     offset += channelListLen;
 }
 
+// 使用示例
+// 写一条消息到消息队列中
 // ./ipcmqs -w --pns hy --date 20241102 --jobName cohort
+// 从消息队列读消息，并且当没有数据时，阻塞等待
+// ./ipcmqs -r --msgflg 0
+// 从消息队列读消息，当没有数据时，直接结束退出
+// ./ipcmqs -r --msgflg IPC_NOWAIT 或者(默认就是不阻塞) ./ipcmqs -r
 int main(int argc, char *argv[]) {
     int opt;
     int operation = OTHER_OPERATION;
@@ -97,9 +104,12 @@ int main(int argc, char *argv[]) {
     char pns[1024] = "";
     char channelList[2048] = "";
     char jobName[1024] = "";
+    // 新增一个变量用于存储wait选项对应的参数值
+    int msgflg = IPC_NOWAIT;
     struct option long_options[] = {
         {"read", no_argument, 0, 'r'},
         {"write", no_argument, 0, 'w'},
+        {"msgflg", required_argument, 0, 0},  // msgflg长选项，有对应参数，val设为0
         {"dates", required_argument, 0, 'd'},
         {"pns", required_argument, 0, 'p'},
         {"channelList", no_argument, 0, 'c'},
@@ -114,6 +124,24 @@ int main(int argc, char *argv[]) {
                 break;
             case 'w':
                 operation = WRITE_OPERATION;
+                break;
+            case 0:
+                if (strcmp(optarg, "msgflg") == 0) {
+                    // 根据传入的参数值设置wait_option变量
+                    if (strcmp(optarg, "0") == 0) {
+                        msgflg = 0;
+                    } else if (strcmp(optarg, "IPC_NOWAIT") == 0) {
+                        msgflg = IPC_NOWAIT;
+                    // MSG_EXCEPT 选项编译通不过，就算了吧，不用此选项就好。
+                    // } else if (strcmp(optarg, "MSG_EXCEPT") == 0) {
+                    //     msgflg = MSG_EXCEPT;
+                    } else if (strcmp(optarg, "MSG_NOERROR") == 0) {
+                        msgflg = MSG_NOERROR;
+                    } else {
+                        fprintf(stderr, "Invalid argument for --msgflg option. value: %s\n", optarg);
+                        usage();
+                    }
+                }
                 break;
             case 'd':
                 strcpy(date, optarg);
@@ -152,15 +180,21 @@ int main(int argc, char *argv[]) {
 
     if (operation == READ_OPERATION) {
         struct msgbuf buffer;
-        if (msgrcv(msgid, &buffer, sizeof(buffer.mdata), 0, IPC_NOWAIT) == -1) {
+        // 根据wait_option的值来调用msgrcv函数
+        int result = msgrcv(msgid, &buffer, sizeof(buffer.mdata), 0, msgflg);
+        if (result == -1) {
             perror("msgrcv");
-            if (errno!= ENOMSG) {
-                // 如果errno不是ENOMSG，表示是其他错误，以失败状态退出
-                exit(EXIT_FAILURE);
+            if (msgflg == IPC_NOWAIT) {
+                if (errno!= ENOMSG) {
+                    // 如果errno不是ENOMSG，表示是其他错误，以失败状态退出
+                    exit(EXIT_FAILURE);
+                }
+                // 如果errno是ENOMSG，表示消息队列为空，输出提示信息并以成功状态退出
+                printf("There is no message in the queue, exiting...\n");
+                exit(EXIT_SUCCESS);
             }
-            // 如果errno是ENOMSG，表示消息队列为空，输出提示信息并以成功状态退出
-            printf("There is no message in the queue, exiting...\n");
-            exit(EXIT_SUCCESS);
+            // 其他错误情况（比如阻塞等待时出错等），以失败状态退出
+            exit(EXIT_FAILURE);
         }
 
         parseReceivedMessage(buffer.mdata, date, pns, channelList, jobName);
