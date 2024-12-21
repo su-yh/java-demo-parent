@@ -183,7 +183,6 @@ int main(int argc, char *argv[]) {
         // 根据wait_option的值来调用msgrcv函数
         int result = msgrcv(msgid, &buffer, sizeof(buffer.mdata), 0, msgflg);
         if (result == -1) {
-            perror("msgrcv");
             if (msgflg == IPC_NOWAIT) {
                 if (errno!= ENOMSG) {
                     // 如果errno不是ENOMSG，表示是其他错误，以失败状态退出
