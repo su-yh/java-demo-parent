@@ -111,8 +111,8 @@ int main(int argc, char *argv[]) {
         {"write", no_argument, 0, 'w'},
         {"msgflg", required_argument, 0, 0},  // msgflg长选项，有对应参数，val设为0
         {"dates", required_argument, 0, 'd'},
-        {"pns", optional_argument, 0, 'p'},
-        {"channelList", optional_argument, 0, 'c'},
+        {"pns", required_argument, 0, 'p'}, // optional_argument 参数有点问题
+        {"channelList", required_argument, 0, 'c'},
         {"jobName", required_argument, 0, 'j'},
         {0, 0, 0, 0}
     };
@@ -147,14 +147,10 @@ int main(int argc, char *argv[]) {
                 strcpy(date, optarg);
                 break;
             case 'p':
-                if (optarg != NULL) {
-                    strcpy(pns, optarg);
-                }
+                strcpy(pns, optarg);
                 break;
             case 'c':
-                if (optarg != null) {
-                    strcpy(channelList, optarg);
-                }
+                strcpy(channelList, optarg);
                 break;
             case 'j':
                 strcpy(jobName, optarg);
