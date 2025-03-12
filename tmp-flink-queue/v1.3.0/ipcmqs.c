@@ -147,10 +147,14 @@ int main(int argc, char *argv[]) {
                 strcpy(date, optarg);
                 break;
             case 'p':
-                strcpy(pns, optarg);
+                if (optarg != NULL) {
+                    strcpy(pns, optarg);
+                }
                 break;
             case 'c':
-                strcpy(channelList, optarg);
+                if (optarg != null) {
+                    strcpy(channelList, optarg);
+                }
                 break;
             case 'j':
                 strcpy(jobName, optarg);
