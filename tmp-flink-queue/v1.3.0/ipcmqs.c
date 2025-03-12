@@ -111,8 +111,8 @@ int main(int argc, char *argv[]) {
         {"write", no_argument, 0, 'w'},
         {"msgflg", required_argument, 0, 0},  // msgflg长选项，有对应参数，val设为0
         {"dates", required_argument, 0, 'd'},
-        {"pns", required_argument, 0, 'p'},
-        {"channelList", no_argument, 0, 'c'},
+        {"pns", optional_argument, 0, 'p'},
+        {"channelList", optional_argument, 0, 'c'},
         {"jobName", required_argument, 0, 'j'},
         {0, 0, 0, 0}
     };
