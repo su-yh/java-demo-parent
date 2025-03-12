@@ -20,7 +20,7 @@ struct msgbuf {
 
 // 打印使用帮助信息
 void usage() {
-    printf("Usage:./ipc_msg_queue [-r|-w] [--msgflg <option>] [--dates <date>] [--pns [pns]] [--channelList <channels>] [--jobName <jobName>]\n");
+    printf("Usage:./ipc_msg_queue [-r|-w] [--msgflg <option>] [--dates <date>] [--pns <pns>] [--channelList <channels>] [--jobName <jobName>]\n");
     printf("Options:\n");
     printf("  -r, --read        Read from the message queue\n");
     printf("  -w, --write       Write to the message queue\n");
