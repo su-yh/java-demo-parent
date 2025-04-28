@@ -42,7 +42,7 @@ health_check() {
 
             if [ $exptime -gt ${APP_START_TIMEOUT} ]; then
                 echo 'app start failed'
-               exit 1
+                exit 1
             fi
         done
     echo "check ${HEALTH_CHECK_URL} success"
