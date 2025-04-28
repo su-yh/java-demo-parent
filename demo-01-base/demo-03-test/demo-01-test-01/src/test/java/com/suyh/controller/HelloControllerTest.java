@@ -11,10 +11,12 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+@ActiveProfiles("suyh") // 有时需要激活对应的环境，则使用此注解
 @RunWith(value = SpringRunner.class)
 @SpringBootTest(
         // 这里是启动类吧
