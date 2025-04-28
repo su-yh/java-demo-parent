@@ -5,7 +5,7 @@ APP_HOME=/home/suyunhong/lilishop/api # 应用所在路径
 LIB_DIR=${APP_HOME}/lib            # 依赖的第三方jar 包所在的目录
 APP_VERSION=4.3.0      # 版本号
 ACTIVE_ENV=prod        # 激活对应环境：与配置文件 application-${ACTIVE_ENV}.yaml 关联
-TIME_ZONE=Asia/Kolkata # 系统运行时区
+TIME_ZONE=Asia/Shanghai # 系统运行时区
 
 
 
