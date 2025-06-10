@@ -17,7 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 @ActiveProfiles("suyh") // 有时需要激活对应的环境，则使用此注解
-@RunWith(value = SpringRunner.class)
+@RunWith(value = SpringRunner.class)    // 这个是junit4 的方式，如果是junit5 使用 @ExtendWith(SpringExtension.class) 直接替代
 @SpringBootTest(
         // 这里是启动类吧
         classes = Application.class,

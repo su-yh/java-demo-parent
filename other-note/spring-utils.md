@@ -17,3 +17,8 @@ AnnotatedElementUtils
 
 
 DataSize 可以用来解析表示文件大小的类，比如配置字节大小的字符串使用：KB、MB、GB等。
+
+
+org.springframework.core.io.support.SpringFactoriesLoader.loadFactoryNames
+SpringFactoriesLoader.loadFactoryNames(getSpringFactoriesLoaderFactoryClass(), getBeanClassLoader())
+
