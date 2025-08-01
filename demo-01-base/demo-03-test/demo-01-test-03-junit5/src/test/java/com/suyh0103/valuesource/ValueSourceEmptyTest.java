@@ -13,7 +13,7 @@ public class ValueSourceEmptyTest {
         return (input == null || input.length() == 0);
     }
 
-    // run 3 times, 1 for empty, 1 for null, 1 for ""
+    // run 3 times, 1 for empty(注解 @EmptySource 生效), 1 for null(注解 @NullSource 生效), 1 for ""(注解 @ValueSource 生效)
     // 运行3次，1次为empty，1次为null，1次为""
     @ParameterizedTest(name = "#{index} - isEmpty()? {0}")
     @EmptySource
