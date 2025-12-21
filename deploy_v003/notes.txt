@@ -1,0 +1,10 @@
+# 这里是以 cem-scheduling-job 为例 
+
+# 同步lib 目录
+scp -r builder@192.168.8.114:/home/builder/cem/cem-jobs/jars/lib .
+
+
+# 启动
+nohup java -jar ./cem-scheduling-job-*.jar --server.port=8919 --spring.profiles.active=suyh > /dev/null 2>&1 &
+
+
