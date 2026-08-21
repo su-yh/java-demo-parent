@@ -38,3 +38,17 @@
 	}
 ```
 
+```text
+spring boot web 做序列化和反序化时的判断点
+
+# 167  行
+canWrite
+org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor#writeWithMessageConverters(T, org.springframework.core.MethodParameter, org.springframework.http.server.ServletServerHttpRequest, org.springframework.http.server.ServletServerHttpResponse)
+
+
+# 146 行
+canRead
+org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver#readWithMessageConverters(org.springframework.http.HttpInputMessage, org.springframework.core.MethodParameter, java.lang.reflect.Type)
+
+```
+
